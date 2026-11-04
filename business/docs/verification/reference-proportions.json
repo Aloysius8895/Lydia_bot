@@ -1,0 +1,104 @@
+{
+  "timestamp": "2026-11-03T15:42:03.236Z",
+  "status": "TEST_PASSED",
+  "source": "../../frontend/src/research.css",
+  "reference": "User provided desktop/mobile visual proportions",
+  "desktopTarget": {
+    "leftPercent": 27,
+    "chatPercent": 42,
+    "rightPercent": 31,
+    "breakpointMinPx": 1181
+  },
+  "measurements": [
+    {
+      "viewport": 1388,
+      "leftPx": 374.75,
+      "chatPx": 582.984375,
+      "rightPx": 430.265625,
+      "leftPercent": 27,
+      "chatPercent": 42,
+      "rightPercent": 31,
+      "listFont": "18.738px",
+      "messageFont": "18.044px"
+    },
+    {
+      "viewport": 1440,
+      "leftPx": 388.796875,
+      "chatPx": 604.8125,
+      "rightPx": 446.390625,
+      "leftPercent": 27,
+      "chatPercent": 42,
+      "rightPercent": 31,
+      "listFont": "19.44px",
+      "messageFont": "18.72px"
+    },
+    {
+      "viewport": 1920,
+      "leftPx": 518.390625,
+      "chatPx": 806.421875,
+      "rightPx": 595.1875,
+      "leftPercent": 27,
+      "chatPercent": 42,
+      "rightPercent": 31,
+      "listFont": "20px",
+      "messageFont": "20px"
+    }
+  ],
+  "tablet": {
+    "viewport": 1024,
+    "maxDrawerWidth": 430,
+    "status": "TEST_PASSED"
+  },
+  "mobile": {
+    "viewport": 390,
+    "singleColumn": true,
+    "drawerFitsViewport": "TEST_PASSED",
+    "horizontalOverflow": "NONE"
+  },
+  "computedSettingsTypography": {
+    ".research-panel__header": "20px",
+    ".research-tabs button": "15px",
+    ".panel__heading": "15px",
+    ".panel__empty": "16px",
+    ".research-settings": "16px",
+    ".research-skill": "16px",
+    ".theme-switch": "17.28px",
+    ".btn-outline": "17.28px"
+  },
+  "behavior": "Closing the workspace lets chat fill the remaining space; smaller screens use a drawer",
+  "browser": {
+    "checks": 19,
+    "pageErrors": [],
+    "consoleErrors": [],
+    "realModelCalls": 0,
+    "report": "../../test-results/browser-reference-proportions.txt"
+  },
+  "liveAssets": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "hashMatches": true
+    },
+    {
+      "file": "assets/index-pgQVwFGc.js",
+      "status": 200,
+      "hashMatches": true
+    },
+    {
+      "file": "assets/index-C0Zknxh2.css",
+      "status": 200,
+      "hashMatches": true
+    }
+  ],
+  "typescript": "TEST_PASSED",
+  "screenshots": [
+    "../../test-results/lydia-proportions-1388.png",
+    "../../test-results/lydia-proportions-1920.png",
+    "../../test-results/lydia-proportions-dark.png",
+    "../../test-results/lydia-proportions-mobile-home.png",
+    "../../test-results/lydia-proportions-mobile-settings.png"
+  ],
+  "visualReview": "1388/1920 desktop and mobile home/settings screenshots viewed; expert bio enlarged after review",
+  "researchBehaviorChanges": false,
+  "actualPhoneInstallation": "NOT_RUN"
+}

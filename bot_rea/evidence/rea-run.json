@@ -1,0 +1,21 @@
+{
+  "created_at": "2026-11-04T15:47:17.834820+00:00",
+  "command": [
+    "C:\\frontend\\nodejs\\npx.cmd",
+    "--yes",
+    "--package=rea-agents@6.4.0",
+    "rea",
+    "analyze-javascript-application",
+    "C:\\Users\\User\\AppData\\Local\\Programs\\Grok Bot\\resources\\app.asar",
+    "--integrity-policy",
+    "record-and-continue",
+    "--max-heap-mb",
+    "2048",
+    "--analysis-timeout-ms",
+    "60000",
+    "--format",
+    "json"
+  ],
+  "exit_code": 0,
+  "launched_target": false
+}

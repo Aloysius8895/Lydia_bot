@@ -1,0 +1,57 @@
+digraph G {
+graph [fontname="Microsoft YaHei", fontsize=22, bgcolor="#F8FAFC", pad=0.45, nodesep=0.35, ranksep=0.65, compound=true, labelloc=t, labeljust=l];
+node [fontname="Microsoft YaHei", fontsize=12, shape=box, style="rounded,filled", fillcolor="white", color="#CBD5E1", fontcolor="#0F172A", margin="0.18,0.12"];
+edge [fontname="Microsoft YaHei", fontsize=10, color="#64748B", fontcolor="#475569", arrowsize=0.7];
+
+label="技术栈图 / Technical Stack Diagram\nLydia · Current implementation / 当前实现";
+
+rankdir=TB;
+subgraph cluster_client {label="01 · 界面 / Presentation"; color="#93C5FD"; style=rounded;
+ react [label="React 18 · JSX
+聊天 / 项目 / 资料 / 设置", fillcolor="#DBEAFE"];
+ vite [label="Vite 5 · CSS
+构建 frontend/dist", fillcolor="#DBEAFE"];
+ pwa [label="Web App Manifest + Service Worker
+PWA shell / 公共静态缓存", fillcolor="#DBEAFE"];
+}
+subgraph cluster_app {label="02 · 应用与业务 / Application"; color="#86EFAC"; style=rounded;
+ nodejs [label="Node.js ≥24 · TypeScript
+原生 node:http / node:https", fillcolor="#DCFCE7"];
+ validation [label="Zod 4
+输入与模型输出 schema 校验", fillcolor="#DCFCE7"];
+ auth [label="node:crypto · scrypt
+Cookie session / CSRF / 同源校验", fillcolor="#DCFCE7"];
+ worker [label="持久化 Worker + 专家编排
+串行 CLI / 检查点 / 取消恢复", fillcolor="#DCFCE7"];
+}
+subgraph cluster_ai {label="03 · AI 与检索 / AI and Retrieval"; color="#C4B5FD"; style=rounded;
+ cli [label="Claude CLI → 云端 Claude
+现有订阅 / 结构化推理
+查询扩展 / 重排 / 引用复核", fillcolor="#EDE9FE"];
+ embed [label="Ollama · nomic-embed-text
+本地 embedding / HTTP", fillcolor="#EDE9FE"];
+ skills [label="Markdown 技能与方法
+5 位专家 + 主控 / 显式上下文注入", fillcolor="#EDE9FE"];
+ hybrid [label="RAG
+分块 / 词法 + 向量融合 / 案件隔离", fillcolor="#EDE9FE"];
+}
+subgraph cluster_data {label="04 · 存储 / Persistence"; color="#FCD34D"; style=rounded;
+ db [label="PGlite 0.3.16 + pgvector
+嵌入式 PostgreSQL WASM / SQL / JSONB", fillcolor="#FEF3C7"];
+ disk [label="本地文件系统
+.runtime/data · skills · cases", fillcolor="#FEF3C7"];
+}
+quality [label="开发与验证 / Tooling
+TypeScript tsc · node:test · Playwright Core / Chrome", fillcolor="#F1F5F9"];
+optional [label="可选集成 / Optional
+Tavily API（真实搜索待验收）
+局域网 HTTPS / 手机安装待验收", fillcolor="#FFFBEB", style="rounded,dashed,filled"];
+react -> nodejs [label="同源 HTTP(S) / JSON"];
+vite -> react [style=dotted, label="构建"];
+pwa -> react [style=dotted];
+nodejs -> {validation auth worker}; worker -> {cli skills hybrid};
+hybrid -> {embed db}; nodejs -> db; db -> disk;
+quality -> nodejs [style=dotted, label="验证"];
+nodejs -> optional [style=dashed];
+
+}

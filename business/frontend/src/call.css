@@ -1,0 +1,102 @@
+/* Expert call: toolbar entry + dark floating card (reference: dark rounded card, avatar, three round buttons).
+   The card is intentionally dark in both themes; everything else keeps the existing app tokens. */
+:root {
+  --call-bg: #17191d; --call-bg-2: #22252b; --call-line: #30343b; --call-text: #f4f5f7; --call-muted: #a9afb9;
+  --call-btn: #2b2f36; --call-btn-hover: #363b43; --call-red: #e5484d; --call-red-hover: #d13a3f; --call-green: #2fa56a; --call-green-hover: #278c5a;
+  --call-live: #3b82f6; --call-warn: #f5b74f; --call-focus: #8ab4ff;
+}
+:root[data-theme="dark"] { --call-bg: #1c1f24; --call-bg-2: #262a31; --call-line: #363b43; }
+
+.grok-conversation { position: relative; }
+
+.call-entry {
+  margin-left: auto; flex: none; display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--border); background: var(--main-bg); color: var(--text); cursor: pointer;
+}
+.call-entry:hover:not(:disabled) { background: var(--chip-bg); }
+.call-entry[aria-pressed="true"] { background: var(--call-green); border-color: var(--call-green); color: #fff; }
+.call-entry:disabled { opacity: .45; cursor: not-allowed; }
+.call-entry:focus-visible { outline: 2px solid var(--call-focus); outline-offset: 2px; }
+
+.call-card {
+  position: absolute; top: 140px; right: 20px; z-index: 30; width: 340px; max-height: calc(100% - 160px);
+  display: flex; flex-direction: column; gap: 10px; padding: 14px 16px 16px; overflow: auto;
+  background: var(--call-bg); color: var(--call-text); border-radius: 24px; box-shadow: 0 18px 48px rgba(0, 0, 0, .28);
+  font-size: 14px; line-height: 1.5;
+}
+/* Below the mobile chat header so its back button stays reachable. */
+.call-card--mobile { top: 74px; left: 8px; right: 8px; width: auto; max-width: calc(100vw - 16px); max-height: calc(100% - 82px); border-radius: 20px; }
+.call-card :focus-visible { outline: 2px solid var(--call-focus); outline-offset: 2px; }
+.call-card__top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.call-card__top > div { display: flex; gap: 4px; }
+.call-icon-btn { width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 10px; background: transparent; color: var(--call-muted); cursor: pointer; }
+.call-icon-btn:hover { background: var(--call-btn); color: var(--call-text); }
+.call-card__badge { font-size: 11px; color: var(--call-warn); border: 1px solid rgba(245, 183, 79, .4); border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+
+.call-card__identity { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; }
+.call-card__identity > div { display: flex; flex-direction: column; align-items: center; min-width: 0; max-width: 100%; }
+.call-card__name { font-size: 20px; font-weight: 600; }
+.call-card__project { color: var(--call-muted); font-size: 13px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.call-card__timer { font-variant-numeric: tabular-nums; font-size: 15px; margin-top: 2px; }
+.call-card__status { margin: 0; text-align: center; color: var(--call-muted); font-size: 13px; min-height: 20px; }
+.call-card--collapsed .call-card__identity { flex-direction: row; text-align: left; }
+.call-card--collapsed .call-card__identity > div { align-items: flex-start; }
+.call-card--collapsed .call-card__name { font-size: 16px; }
+
+.call-setup { display: flex; flex-direction: column; gap: 10px; background: var(--call-bg-2); border-radius: 16px; padding: 12px; }
+.call-setup dl { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.call-setup dt { font-size: 12px; color: var(--call-muted); }
+.call-setup dd { margin: 0; font-size: 13px; overflow-wrap: anywhere; }
+.call-setup label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--call-muted); }
+.call-setup select, .call-draft textarea { background: var(--call-bg); color: var(--call-text); border: 1px solid var(--call-line); border-radius: 10px; padding: 8px 10px; font: inherit; font-size: 14px; }
+
+.call-turns { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; max-height: 300px; overflow: auto; }
+.call-turn { display: flex; flex-direction: column; gap: 6px; }
+.call-turn p { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+.call-turn__me { align-self: flex-end; max-width: 92%; background: var(--call-btn); border-radius: 14px 14px 4px 14px; padding: 8px 10px; }
+.call-turn__expert { align-self: flex-start; max-width: 96%; background: var(--call-bg-2); border: 1px solid var(--call-line); border-radius: 14px 14px 14px 4px; padding: 8px 10px; display: flex; flex-direction: column; gap: 4px; }
+.call-turn__tag { font-size: 11px; color: var(--call-muted); display: block; }
+.call-turn__meta, .call-turn__correction small { font-size: 12px; color: var(--call-muted); }
+.call-turn__correction { font-size: 13px; color: var(--call-warn); }
+.call-turn__actions { font-size: 12px; color: var(--call-warn); }
+.call-turn__actions ul { margin: 2px 0 0; padding-left: 18px; color: var(--call-text); }
+.call-turn__pending, .call-turn__interim { color: var(--call-muted); font-size: 13px; }
+.call-turn__interim { font-style: italic; }
+.call-turn__error { color: #ff9a9d; font-size: 13px; }
+.call-label { font-weight: 600; }
+.call-label--SOURCE_SUPPORTED { color: #6fd39b; } .call-label--RESEARCH_INFERENCE { color: #8ab4ff; } .call-label--TO_VALIDATE { color: var(--call-warn); }
+
+.call-draft { display: flex; flex-direction: column; gap: 6px; }
+.call-draft__label { font-size: 12px; color: var(--call-muted); }
+.call-draft textarea { resize: vertical; min-height: 56px; }
+.call-draft__row { display: flex; align-items: center; gap: 10px; }
+.call-send { margin-left: auto; border: 0; border-radius: 10px; padding: 7px 14px; background: var(--call-text); color: var(--call-bg); font: inherit; font-weight: 600; cursor: pointer; }
+.call-send:disabled { opacity: .4; cursor: not-allowed; }
+.call-link { border: 0; background: none; padding: 0; color: var(--call-focus); font: inherit; font-size: 12px; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+.call-link--danger { color: #ff9a9d; }
+
+.call-records { display: flex; flex-direction: column; gap: 8px; }
+.call-records ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; max-height: 320px; overflow: auto; }
+.call-records li { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: var(--call-bg-2); border-radius: 12px; padding: 8px 10px; }
+.call-records li > span:first-child { display: flex; flex-direction: column; min-width: 0; }
+.call-records li small { color: var(--call-muted); font-size: 11px; }
+.call-records li > span:last-child { display: flex; gap: 10px; flex: none; }
+.call-card__note, .call-card__hint { margin: 0; font-size: 11px; color: var(--call-muted); text-align: center; }
+
+.call-card__msg { margin: 0; display: flex; gap: 8px; align-items: flex-start; background: rgba(229, 72, 77, .14); color: #ffd1d2; border-radius: 12px; padding: 8px 10px; font-size: 13px; }
+.call-card__msg button { margin-left: auto; border: 0; background: none; color: inherit; font-size: 16px; cursor: pointer; }
+
+.call-card__controls { display: flex; justify-content: space-around; align-items: flex-start; padding-top: 4px; }
+.call-ctl { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; color: var(--call-muted); }
+.call-btn { width: 56px; height: 56px; border-radius: 50%; border: 0; display: inline-flex; align-items: center; justify-content: center; background: var(--call-btn); color: var(--call-text); cursor: pointer; transition: background .15s; }
+.call-btn:hover:not(:disabled) { background: var(--call-btn-hover); }
+.call-btn:disabled { opacity: .4; cursor: not-allowed; }
+.call-btn--off { color: var(--call-muted); }
+.call-btn--hangup { width: 64px; height: 64px; background: var(--call-red); color: #fff; }
+.call-btn--hangup:hover:not(:disabled) { background: var(--call-red-hover); }
+.call-btn--answer { width: 64px; height: 64px; background: var(--call-green); color: #fff; }
+.call-btn--answer:hover:not(:disabled) { background: var(--call-green-hover); }
+.call-btn--live { background: var(--call-live); color: #fff; }
+.call-btn--live:hover:not(:disabled) { background: var(--call-live); }
+
+@media (prefers-reduced-motion: reduce) { .call-btn { transition: none; } }

@@ -1,0 +1,84 @@
+[
+  {
+    "source": "reference/dist/renderer/assets/index.eager-app-D25OYGQG.js",
+    "anchor": "sand-agents-sidebar",
+    "occurrences": 20,
+    "offsets": [
+      1053361,
+      1055808,
+      1164937,
+      1166900,
+      1169857,
+      1197912
+    ],
+    "authority": "static-source-reference; not logged-in runtime validation"
+  },
+  {
+    "source": "reference/dist/renderer/assets/index.eager-app-D25OYGQG.js",
+    "anchor": "data-sidebar-footer",
+    "occurrences": 3,
+    "offsets": [
+      1160530,
+      1166508,
+      1167132
+    ],
+    "authority": "static-source-reference; not logged-in runtime validation"
+  },
+  {
+    "source": "reference/dist/renderer/assets/index.eager-app-D25OYGQG.js",
+    "anchor": "pinnedAgentIds",
+    "occurrences": 11,
+    "offsets": [
+      575537,
+      912328,
+      912571,
+      915318,
+      915341,
+      917063
+    ],
+    "authority": "static-source-reference; not logged-in runtime validation"
+  },
+  {
+    "source": "reference/dist/renderer/assets/index.eager-app-D25OYGQG.js",
+    "anchor": "sand-info-pane",
+    "occurrences": 18,
+    "offsets": [
+      969268,
+      1431164,
+      1431812,
+      1432152,
+      1432363,
+      1432628
+    ],
+    "authority": "static-source-reference; not logged-in runtime validation"
+  },
+  {
+    "source": "reference/dist/renderer/assets/index.eager-app-D25OYGQG.js",
+    "anchor": "chunk-team-bot-details-pane",
+    "occurrences": 1,
+    "offsets": [
+      1465
+    ],
+    "authority": "static-source-reference; not logged-in runtime validation"
+  },
+  {
+    "source": "reference/dist/renderer/assets/index.eager-app-D25OYGQG.js",
+    "anchor": "chunk-agent-avatar-editor",
+    "occurrences": 2,
+    "offsets": [
+      885,
+      1413421
+    ],
+    "authority": "static-source-reference; not logged-in runtime validation"
+  },
+  {
+    "source": "reference/dist/renderer/assets/index.eager-app-D25OYGQG.js",
+    "anchor": "chunk-automation-detail-panel",
+    "occurrences": 2,
+    "offsets": [
+      1089,
+      1580112
+    ],
+    "authority": "static-source-reference; not logged-in runtime validation"
+  }
+]

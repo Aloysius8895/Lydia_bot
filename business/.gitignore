@@ -1,0 +1,7 @@
+node_modules/
+.env
+deployment/.env
+.runtime/
+test-results/
+deployment/certs/
+cases/

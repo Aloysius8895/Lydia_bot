@@ -1,0 +1,157 @@
+{
+  "date": "2026-11-03",
+  "timezone": "Asia/Kuala_Lumpur",
+  "overall": "PARTIAL_MVP_RUNNING",
+  "entry": "http://127.0.0.1:4318",
+  "app": "business/backend/server.ts",
+  "generated": [
+    "TypeScript backend",
+    "PostgreSQL/pgvector migrations",
+    "Claude CLI provider",
+    "local embedding/retrieval",
+    "expert workflow and citation review",
+    "persistent tasks and exports",
+    "owner auth and mobile PWA",
+    "operating and HTTPS guide"
+  ],
+  "actualConnections": {
+    "claudeCLI": "TEST_PASSED: real minimal JSON response, claude.ai / Pro, no Anthropic API key",
+    "database": "TEST_PASSED: PGlite PostgreSQL + vector 0.8.0, transactions and persistence",
+    "embedding": "CONNECTED: existing local nomic-embed-text model",
+    "publicSource": "CONNECTED: Example Domain, 171 characters, not market validation",
+    "browser": "TEST_PASSED: installed Chrome headless, desktop and 390px mobile viewport",
+    "localServer": "CONNECTED: Lydia original-design React build served from frontend/dist, public asset hashes verified",
+    "https": "TEST_PASSED: local TLS validates explicit own CA, HTTPS login and Secure cookie; phone trust not verified",
+    "skills": "LOADED: six canonical skills, 12 loaded file hashes unchanged after directory separation; not full expert behavior pass"
+  },
+  "tests": {
+    "typescript": "TEST_PASSED",
+    "functional": {
+      "passed": 33,
+      "failed": 0,
+      "fixture": "TEST_ONLY"
+    },
+    "browser": {
+      "checks": 19,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "realModelCalls": 0,
+      "phoneInstallation": false
+    },
+    "multilingualRetrieval": {
+      "originalStatus": "PARTIAL",
+      "originalSampleSize": 6,
+      "originalRecallAt3": 0.5555555555555555,
+      "latestStatus": "TEST_PASSED",
+      "latestSyntheticQueries": 15,
+      "latestFinalHoldoutSize": 3,
+      "baselineRecallAt3": 0.33333333333333326,
+      "expandedRecallAt3": 0.6000000000000001,
+      "rerankedRecallAt3": 1,
+      "rerankedMRR": 1,
+      "limitation": "Small synthetic corpus only; not production guarantee"
+    },
+    "semanticReview": "Offline control-flow tests passed; real expert semantic quality not evaluated"
+  },
+  "blocked": [],
+  "notRun": [
+    "Real five-expert runtime behavior and single-advisor comparison: path blocker resolved, still pending",
+    "Tavily real free search: no confirmed credentials/credits",
+    "Phone CA trust, LAN reachability and actual home-screen installation",
+    "Real market/customer/payment validation"
+  ],
+  "references": {
+    "cli": "cli-connectivity.json",
+    "history": "test-history.json",
+    "status": "../IMPLEMENTATION_STATUS.md",
+    "environment": "../../test-results/environment-audit.json",
+    "functional": "../../test-results/unit-tests-original-frontend.txt",
+    "browser": "../../test-results/browser-evaluation.json",
+    "retrieval": "../../test-results/retrieval-evaluation.json",
+    "source": "../../test-results/source-connectivity.json",
+    "reranking": "../../test-results/rerank-evaluation.json",
+    "https": "../../test-results/https-transport.json",
+    "httpsPreparation": "../../test-results/https-preparation.json",
+    "skills": "skills-loaded-current.json",
+    "relocation": "project-relocation.json",
+    "layout": "responsibility-layout.json",
+    "finalLayoutCheck": "layout-final-check.json",
+    "frontend": "frontend-design-integration.json",
+    "originalDesign": "original-frontend-reference.json",
+    "avatars": "character-avatars.json",
+    "rename": "lydia-name.json",
+    "readability": "readable-type.json",
+    "currentLayout": "reference-proportions.json"
+  },
+  "billing": "Existing Claude subscription usage authorized by user; user confirmed extra usage disabled; no extra paid service enabled; token counts are not bill/remaining-quota evidence",
+  "deployment": "Local loopback only; no public hosting, firewall/trust-store changes, global service installation, or model downloads",
+  "projectRoot": "C:/maven/business_agent/business",
+  "relocation": {
+    "status": "TEST_PASSED",
+    "filesVerified": 3107,
+    "mismatches": 0,
+    "source": "C:/maven/Hackathon_map/business",
+    "preserved": [
+      "skills",
+      "expert-team",
+      "frontend",
+      "RAG"
+    ],
+    "report": "project-relocation.json"
+  },
+  "layout": {
+    "status": "TEST_PASSED",
+    "filesVerified": 3106,
+    "mismatches": 0,
+    "report": "responsibility-layout.json",
+    "rag": "../../RAG",
+    "agents": "../../agents",
+    "backend": "../../backend",
+    "database": "../../database",
+    "frontend": "../../frontend/dist",
+    "runtime": "../../.runtime",
+    "finalCheck": {
+      "status": "TEST_PASSED",
+      "timestamp": "2026-11-03T14:29:23.815Z",
+      "brokenLinks": 0,
+      "assets": 4,
+      "serverPID": 24336,
+      "ownerConfigured": false
+    },
+    "source": "../../frontend/src"
+  },
+  "frontend": {
+    "source": "../../frontend/src",
+    "servedBuild": "../../frontend/dist",
+    "design": "User original Crew React design",
+    "theme": "Settings: sun/light, moon/dark, persisted device preference",
+    "status": "TEST_PASSED",
+    "report": "frontend-design-integration.json",
+    "avatars": {
+      "status": "TEST_PASSED",
+      "report": "character-avatars.json",
+      "design": "Reference-inspired vector shape characters in all avatar contexts"
+    },
+    "brand": "Lydia",
+    "rename": {
+      "status": "TEST_PASSED",
+      "report": "lydia-name.json"
+    },
+    "readability": {
+      "status": "TEST_PASSED",
+      "report": "reference-proportions.json",
+      "list": "18-20px",
+      "messages": "18-20px",
+      "panelBody": "17-19px",
+      "panelNotes": "16-18px"
+    },
+    "layout": {
+      "status": "TEST_PASSED",
+      "report": "reference-proportions.json",
+      "desktop": "27% / 42% / 31%",
+      "tablet": "drawer",
+      "mobile": "single column with drawer"
+    }
+  },
+  "productName": "Lydia"
+}

@@ -1,0 +1,23 @@
+{
+  "os": "win32",
+  "checks": [
+    "legacy URL redirects to native Settings Crawl, original App login",
+    "ten sources in native form",
+    "authenticated create/pause/resume through existing API",
+    "project body, evidence relationships and honest coverage state",
+    "persistent PROJECT import into selected case",
+    "real authenticated JSON export download contains project and official outcome",
+    "export download remains available after leaving and reopening Crawl",
+    "native official result review revokes award",
+    "source capabilities, quality and RAG projection controls",
+    "cancel persists",
+    "desktop native Settings layout",
+    "Crawl inherits original dark theme and text colors",
+    "390px native mobile navigation and project detail without horizontal overflow",
+    "deep link survives refresh; logout removes private crawler UI"
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "synthetic": true,
+  "production_database_touched": false
+}

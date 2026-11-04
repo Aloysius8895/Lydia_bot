@@ -1,0 +1,12 @@
+{
+  "sources": ["ethglobal", "hackquest"],
+  "years": [2025, 2026],
+  "maxPages": 5,
+  "maxBytes": 209715200,
+  "maxMinutes": 20,
+  "delayMs": 2000,
+  "maxAttempts": 3,
+  "finalistLimitPerEvent": 20,
+  "finalistLimitTotal": 200,
+  "selectionSeed": "lydia-v1"
+}

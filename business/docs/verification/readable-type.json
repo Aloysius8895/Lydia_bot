@@ -1,0 +1,52 @@
+{
+  "timestamp": "2026-11-03T15:32:59.302Z",
+  "status": "TEST_PASSED",
+  "scope": "Larger Lydia UI type, especially research/settings text from user screenshots",
+  "source": "../../frontend/src/research.css",
+  "computedFontSizes": {
+    ".research-panel__header": "18px",
+    ".research-tabs button": "14px",
+    ".panel__heading": "14px",
+    ".panel__empty": "15px",
+    ".research-settings": "15px",
+    ".research-skill": "15px",
+    ".theme-switch": "16px",
+    ".btn-outline": "16px"
+  },
+  "chatAndInput": "17px",
+  "desktopPanelWidth": "380px",
+  "mobilePanelWidth": "min(380px, 100%)",
+  "horizontalOverflowChecks": "Desktop and mobile settings panel body assertions passed",
+  "browser": {
+    "checks": 18,
+    "pageErrors": [],
+    "consoleErrors": [],
+    "realModelCalls": 0,
+    "report": "../../test-results/browser-readable-type.txt"
+  },
+  "liveAssets": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "hashMatches": true
+    },
+    {
+      "file": "assets/index-DDrZGz3g.js",
+      "status": 200,
+      "hashMatches": true
+    },
+    {
+      "file": "assets/index-BDNFtvmT.css",
+      "status": 200,
+      "hashMatches": true
+    }
+  ],
+  "screenshots": [
+    "../../test-results/lydia-readable-dark.png",
+    "../../test-results/lydia-readable-light.png",
+    "../../test-results/lydia-readable-mobile.png"
+  ],
+  "visualReview": "Desktop dark theme and 390px mobile settings screenshots viewed",
+  "typescript": "TEST_PASSED",
+  "changesToResearchBehavior": false
+}

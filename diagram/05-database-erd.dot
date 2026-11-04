@@ -1,0 +1,45 @@
+digraph G {
+graph [fontname="Microsoft YaHei", fontsize=22, bgcolor="#F8FAFC", pad=0.45, nodesep=0.35, ranksep=0.65, compound=true, labelloc=t, labeljust=l];
+node [fontname="Microsoft YaHei", fontsize=12, shape=box, style="rounded,filled", fillcolor="white", color="#CBD5E1", fontcolor="#0F172A", margin="0.18,0.12"];
+edge [fontname="Microsoft YaHei", fontsize=10, color="#64748B", fontcolor="#475569", arrowsize=0.7];
+
+label="数据库关系图 / Database ER Diagram\nLydia · Current implementation / 当前实现";
+rankdir=LR; node [shape=plain, fontsize=11];
+cases [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#CBD5E1" BGCOLOR="#EFF6FF"><TR><TD BGCOLOR="#DBEAFE"><B>cases</B></TD></TR><TR><TD ALIGN="LEFT">PK id</TD></TR><TR><TD ALIGN="LEFT">title, brief, phase</TD></TR><TR><TD ALIGN="LEFT">selected_gap_id (logical)</TD></TR><TR><TD ALIGN="LEFT">selection_version, meta</TD></TR></TABLE>>];
+documents [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#CBD5E1" BGCOLOR="#EFF6FF"><TR><TD BGCOLOR="#DBEAFE"><B>documents</B></TD></TR><TR><TD ALIGN="LEFT">PK id</TD></TR><TR><TD ALIGN="LEFT">FK case_id (nullable)</TD></TR><TR><TD ALIGN="LEFT">collection, source_id, version</TD></TR><TR><TD ALIGN="LEFT">content, content_hash, meta</TD></TR></TABLE>>];
+chunks [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#CBD5E1" BGCOLOR="#EFF6FF"><TR><TD BGCOLOR="#DBEAFE"><B>chunks</B></TD></TR><TR><TD ALIGN="LEFT">PK id</TD></TR><TR><TD ALIGN="LEFT">FK document_id</TD></TR><TR><TD ALIGN="LEFT">FK case_id (nullable)</TD></TR><TR><TD ALIGN="LEFT">content, position, search_text</TD></TR><TR><TD ALIGN="LEFT">embedding vector, model, dimension</TD></TR></TABLE>>];
+tasks [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#CBD5E1" BGCOLOR="#EFF6FF"><TR><TD BGCOLOR="#DBEAFE"><B>tasks</B></TD></TR><TR><TD ALIGN="LEFT">PK id</TD></TR><TR><TD ALIGN="LEFT">FK case_id</TD></TR><TR><TD ALIGN="LEFT">kind, status, input, checkpoint</TD></TR><TR><TD ALIGN="LEFT">request_key, selection_version</TD></TR><TR><TD ALIGN="LEFT">UQ (case_id, request_key)</TD></TR></TABLE>>];
+expert_runs [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#CBD5E1" BGCOLOR="#EFF6FF"><TR><TD BGCOLOR="#DBEAFE"><B>expert_runs</B></TD></TR><TR><TD ALIGN="LEFT">PK/FK task_id + PK step</TD></TR><TR><TD ALIGN="LEFT">role, output, provenance</TD></TR></TABLE>>];
+gaps [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#CBD5E1" BGCOLOR="#EFF6FF"><TR><TD BGCOLOR="#DBEAFE"><B>gaps</B></TD></TR><TR><TD ALIGN="LEFT">PK/FK case_id + PK id</TD></TR><TR><TD ALIGN="LEFT">data JSONB</TD></TR></TABLE>>];
+claims [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#CBD5E1" BGCOLOR="#EFF6FF"><TR><TD BGCOLOR="#DBEAFE"><B>claims</B></TD></TR><TR><TD ALIGN="LEFT">PK/FK case_id + PK id</TD></TR><TR><TD ALIGN="LEFT">data JSONB</TD></TR></TABLE>>];
+requirements [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#CBD5E1" BGCOLOR="#EFF6FF"><TR><TD BGCOLOR="#DBEAFE"><B>requirements</B></TD></TR><TR><TD ALIGN="LEFT">PK/FK case_id + PK id</TD></TR><TR><TD ALIGN="LEFT">FK (case_id, gap_id) nullable</TD></TR><TR><TD ALIGN="LEFT">data JSONB</TD></TR></TABLE>>];
+decisions [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#CBD5E1" BGCOLOR="#EFF6FF"><TR><TD BGCOLOR="#DBEAFE"><B>decisions</B></TD></TR><TR><TD ALIGN="LEFT">PK id, FK case_id</TD></TR><TR><TD ALIGN="LEFT">FK (case_id, gap_id)</TD></TR><TR><TD ALIGN="LEFT">version, user_message</TD></TR></TABLE>>];
+artifacts [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#CBD5E1" BGCOLOR="#EFF6FF"><TR><TD BGCOLOR="#DBEAFE"><B>artifacts</B></TD></TR><TR><TD ALIGN="LEFT">PK id, FK case_id</TD></TR><TR><TD ALIGN="LEFT">FK task_id (nullable)</TD></TR><TR><TD ALIGN="LEFT">kind, selection_version, content</TD></TR></TABLE>>];
+fetch_attempts [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#CBD5E1" BGCOLOR="#EFF6FF"><TR><TD BGCOLOR="#DBEAFE"><B>fetch_attempts</B></TD></TR><TR><TD ALIGN="LEFT">PK id, FK case_id</TD></TR><TR><TD ALIGN="LEFT">url, status, details</TD></TR></TABLE>>];
+search_requests [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#CBD5E1" BGCOLOR="#EFF6FF"><TR><TD BGCOLOR="#DBEAFE"><B>search_requests</B></TD></TR><TR><TD ALIGN="LEFT">PK id, FK case_id</TD></TR><TR><TD ALIGN="LEFT">FK task_id (nullable)</TD></TR><TR><TD ALIGN="LEFT">account_id, period, credits, status</TD></TR></TABLE>>];
+search_budgets [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#CBD5E1" BGCOLOR="#EFF6FF"><TR><TD BGCOLOR="#DBEAFE"><B>search_budgets</B></TD></TR><TR><TD ALIGN="LEFT">PK (account_id, period)</TD></TR><TR><TD ALIGN="LEFT">remaining, checked_at</TD></TR></TABLE>>];
+settings [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#CBD5E1" BGCOLOR="#EFF6FF"><TR><TD BGCOLOR="#DBEAFE"><B>settings</B></TD></TR><TR><TD ALIGN="LEFT">PK key</TD></TR><TR><TD ALIGN="LEFT">data JSONB</TD></TR></TABLE>>];
+sessions [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#CBD5E1" BGCOLOR="#EFF6FF"><TR><TD BGCOLOR="#DBEAFE"><B>sessions</B></TD></TR><TR><TD ALIGN="LEFT">PK token_hash</TD></TR><TR><TD ALIGN="LEFT">csrf, expires_at</TD></TR></TABLE>>];
+counters [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#CBD5E1" BGCOLOR="#EFF6FF"><TR><TD BGCOLOR="#DBEAFE"><B>counters</B></TD></TR><TR><TD ALIGN="LEFT">PK scope</TD></TR><TR><TD ALIGN="LEFT">value</TD></TR></TABLE>>];
+cases -> documents [label="1 : 0..*", arrowhead=crow];
+cases -> chunks [label="1 : 0..*", arrowhead=crow];
+cases -> tasks [label="1 : 0..*", arrowhead=crow];
+cases -> gaps [label="1 : 0..*", arrowhead=crow];
+cases -> claims [label="1 : 0..*", arrowhead=crow];
+cases -> requirements [label="1 : 0..*", arrowhead=crow];
+cases -> decisions [label="1 : 0..*", arrowhead=crow];
+cases -> artifacts [label="1 : 0..*", arrowhead=crow];
+cases -> fetch_attempts [label="1 : 0..*", arrowhead=crow];
+cases -> search_requests [label="1 : 0..*", arrowhead=crow];
+documents -> chunks [label="1 : 0..*", arrowhead=crow];
+tasks -> expert_runs [label="1 : 0..*", arrowhead=crow];
+tasks -> artifacts [label="1 : 0..*", arrowhead=crow];
+tasks -> search_requests [label="1 : 0..*", arrowhead=crow];
+gaps -> requirements [label="1 : 0..*", arrowhead=crow];
+gaps -> decisions [label="1 : 0..*", arrowhead=crow];
+cases -> gaps [style=dashed, color="#D97706", label="selected_gap_id 逻辑引用", constraint=false, arrowhead=vee];
+search_requests -> search_budgets [style=dashed, color="#D97706", label="account_id + period
+应用层关联，无 FK", constraint=false];
+note [shape=note, label="实线：schema.sql 中的外键（FK）\l虚线：应用层逻辑关联，无数据库外键\l字段列表为核心字段摘要，非完整 DDL\lMETHOD 资料可为全局，case_id 允许为空\lclaims 等 data 内引用为 JSON，不是 SQL FK\l", fillcolor="#FFFBEB"];
+
+}

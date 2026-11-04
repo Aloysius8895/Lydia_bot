@@ -1,0 +1,37 @@
+# Dependencies and builds
+**/node_modules/
+business/frontend/dist/
+**/__pycache__/
+*.pyc
+
+# Local runtime data: databases, sessions, CLI workspace, temporary files
+**/.runtime/
+
+# Secrets and certificates
+**/.env
+**/.env.*
+!**/.env.example
+business/deployment/certs/
+*.pem
+*.key
+*.crt
+*.pfx
+
+# Generated outputs and private exports
+business/cases/*
+!business/cases/README.md
+business/test-results/
+crawl/rea/
+crawl/scrap/
+crawl/reports/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Third-party material extracted from the locally installed Grok Bot app.
+# Redistribution rights are unverified, so it stays local and out of this public repo.
+bot_rea/reference/
+bot_rea/evidence/rea-analysis.json
+business/frontend/src/assets/grok/

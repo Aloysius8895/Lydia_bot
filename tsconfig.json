@@ -1,0 +1,6 @@
+{
+  "extends": "./business/tsconfig.json",
+  "compilerOptions": {
+    "typeRoots": ["./business/node_modules/@types"]
+  }
+}

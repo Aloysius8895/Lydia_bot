@@ -1,0 +1,24 @@
+/* Native Settings content: inherit the app's light/dark theme tokens. */
+.crawl-settings{display:flex;flex-direction:column;gap:24px;min-width:0;color:var(--text)}
+.crawl-settings h4{font-size:15px;font-weight:600;margin:12px 0}
+.crawl-settings p{line-height:1.6}
+.crawl-settings a{color:var(--text);text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+.crawl-settings .set-btn{text-decoration:none}
+.crawl-tabs,.crawl-actions{display:flex;flex-wrap:wrap;align-items:end;gap:8px}
+.crawl-tabs{align-items:center;gap:6px}
+.crawl-form{display:flex;flex-direction:column;gap:14px;min-width:0}
+.crawl-form>.set-btn{align-self:flex-start}
+.crawl-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.crawl-field{display:flex;flex-direction:column;gap:6px;font-size:14px;min-width:0;flex:1}
+.crawl-field input,.crawl-field select{width:100%;min-width:0;box-sizing:border-box;border:1px solid var(--border-strong);border-radius:8px;background:var(--field-bg);color:var(--text);font:inherit;padding:9px 10px}
+.crawl-field input:focus,.crawl-field select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.crawl-item{display:flex;flex-direction:column;gap:10px;padding:18px 0;border-bottom:1px solid var(--border);min-width:0;overflow-wrap:anywhere}
+.crawl-item p{margin:0}.crawl-item__head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-size:14px}
+.crawl-item__head>span{color:var(--muted)}
+.crawl-record{min-width:0;margin:8px 0;font-size:13px}.crawl-record summary,.crawl-settings details>summary{cursor:pointer;color:var(--muted);line-height:1.6}
+.crawl-record pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:320px;overflow:auto;background:var(--field-bg);border:1px solid var(--border);border-radius:8px;padding:12px;font:12px/1.6 monospace}
+.crawl-content{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;line-height:1.7;max-height:400px;overflow:auto;padding:14px;background:var(--field-bg);border:1px solid var(--border);border-radius:8px}
+.crawl-project{gap:12px}.crawl-project h4{margin-bottom:0}
+.crawl-feedback,.crawl-operation{padding:14px;border:1px solid var(--border);border-radius:10px;background:var(--field-bg);overflow-wrap:anywhere;font-size:14px;margin:0}
+.crawl-downloads{display:flex;flex-wrap:wrap;gap:8px}.crawl-downloads p{flex-basis:100%}
+@media(max-width:600px){.crawl-grid{grid-template-columns:minmax(0,1fr)}.crawl-actions>.crawl-field{flex-basis:100%}.crawl-tabs .set-chip{font-size:13px;padding:6px 10px}.crawl-settings .set-btn{white-space:normal;overflow-wrap:anywhere}.crawl-downloads .set-btn{max-width:100%}}

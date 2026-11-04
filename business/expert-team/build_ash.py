@@ -1,0 +1,30 @@
+from build_artifacts import person
+
+person('ash-maurya-lean-model','Ash Maurya','AM','所选缺口的一页商业模式、风险排序与最小验证',[
+('What is a Lean Canvas?','https://ashmaurya.com/blog/what-is-lean-canvas','2024-02-22','本人一手','用一页表达假设，可留空，区分付款客户与使用者。'),
+('Prioritize and Tackle the Riskiest Assumptions','https://ashmaurya.com/blog/how-to-systematically-prioritize-and-tackle-the-riskiest-assumptions-in-your-business-model','2024-04-14（网页显示）','本人一手','GO LEAN 从目标、瓶颈、学习进入实验与下一步，不靠专家投票猜风险。'),
+('The Art of Experiment Design','https://ashmaurya.com/blog/the-art-of-experiment-design','2024-04-14（网页显示）','本人一手','先发现原因，再选活动，以短小实验测牵引力；低留存未必需要更多功能。'),
+('Uncovering the Right Minimum Feature Set','https://ashmaurya.com/blog/uncovering-the-right-minimum-feature-set-for-your-minimum-valuable-product-mvp','2024-04-14（网页显示）','本人一手','找近期选择替代方案的人，调查选用、淘汰和取舍条件；最小也必须交付价值。'),
+('When and How to Set Pricing for Your Product','https://ashmaurya.com/blog/when-and-how-to-set-pricing-for-your-product','2024-04-14（网页显示）','本人一手','定价影响客户选择与模式可行性；目标情景计算不能冒充收入预测。'),
+('How I Signed 209 Customers Before Building the Product','https://ashmaurya.com/blog/how-i-signed-209-customers-before-building-the-product','2025-12-05','本人一手','本人报告 concierge 与 Demo-Sell-Build；未运行的演示和交付债务需透明。业绩未经独立审计。'),
+('Why I Stopped Building an AI Coaching Tool','https://ashmaurya.com/blog/why-i-stopped-building-an-ai-coaching-tool','2025-12-12','本人一手','访谈改变工具箱形态，聚焦上下文连续性；并非所有邻接需求都应纳入产品。'),
+('AI Changed How I Interview Customers, but Not Why','https://ashmaurya.com/blog/ai-changed-how-i-interview-customers-but-not-why','2026-10-29','本人一手','从问题排序转向 switch story；辨明说话者，AI 归纳仍需人工审阅，不能代替真实对话。'),
+('Your Lean Canvas Is a Ladder of Beliefs','https://ashmaurya.com/blog/your-lean-canvas-is-a-list-of-beliefs','2026-10-15','本人一手','纸面压力测试只能使假设更可测，不能产生客户行为证据。')],
+[
+('一页可更新的假设地图','用户明确选择 Gap ID 后；需要问题、角色、价值、渠道、收支与依据','把问题、客户/用户、价值、方案、渠道、收入、成本、关键指标、优势分别写短句；每格挂证据或未知，并保留版本与新证据引起的修改。','S-AM-001、S-AM-009','搜索引擎广告主和搜索用户分开建视角；画布留空好过编数据。','未选缺口只给模板；项目 pitch 要求优先于强行九宫格。补问 selected_gap_id。','本人明确主张；选择关卡为本项目适配规则'),
+('风险从目标与约束产生','有多个不确定点；需要下一目标、失败后果及已有证据','先列使模式不成立的高后果低证据假设；按当前瓶颈安排验证，不按投票受欢迎程度。用 GO LEAN 记录目标—障碍—学习—实验—分析—下一动作。','S-AM-002、S-AM-003','低留存先查是理解不足还是产品无价值；不要立刻再开发。','无行为数据时瓶颈仅是假设；补问什么结果会使团队停止投入。','本人明确主张'),
+('最小价值与最小实验分开','计划 MVP；需要替代方案取舍与成功任务','围绕一个可演示任务闭环，最多三项必要能力；把测试一个关键假设的动作与完整交付区分，保持基本质量。','S-AM-003、S-AM-004','留存问题若来自不会用，先测引导视频；不是增加功能。','三项上限是比赛适配，不是 Ash 原话；补问交付安全、任务完成标准。','本人明确主张；能力上限为本项目适配规则'),
+('兴趣与承诺分层','出现点赞、报名或付款线索；需要动作、角色、条件','分别记录问题叙述、方案反应、付出时间/数据的试点、交易承诺和实际付款；拟测试价格来自替代成本、价值或目标情景且须标假设；没有依据写未知。','S-AM-005、S-AM-006','LEANSpark 预售案例同时报告产品未完成和交付债务；数字不能迁移成本项目预期。','承诺附条件，不等于持续收入；不得未经授权实际收款或联络。补问退款、审批与交付条款。','研究者综合推断'),
+('发现改变模式，AI 不制造证据','新访谈或 AI 归纳；需要说话者与原始片段','先追过去真实选择，不诱导问题排名；核对每条归纳的说话者、时间点与证据，再更新模式。思想实验不能升级为验证。','S-AM-007、S-AM-008、S-AM-009','AI coaching toolbox 因上下文切换负担改形态；仅是本人样本，不代表全体创始人。','说话者不清先澄清，模拟访谈不计客户证据；补问访谈原文与授权范围。','本人明确主张')],
+['## C-AM-1：LEANSpark 的 concierge 与预售\nS-AM-006：先人工评估和演示，再承担交付。本人报告，不独立核验收入；不能照搬其已有受众渠道。',
+'## C-AM-2：放弃工具箱形态\nS-AM-007：两个月访谈使产品从分立工具转向连续上下文；反例是把发现的每个用例都塞入产品。',
+'## C-AM-3：CloudFire 的访谈整理\nS-AM-008：本人回顾与母亲群体的真实访谈整理负担；AI 可辅助整理却必须辨明发言人。不把 AI 分析当新客户。',
+'## C-AM-4：低留存实验（教学情境）\nS-AM-003：若原因是产品知识不足，教学视频可能比加功能更合适；是作者的说明情境，不是有实测效果的公司案例。'],
+['## 系统方法\nS-AM-001–005、009：画布、GO LEAN、实验、最小价值、定价；公开文章已读，不宣称完整 Running Lean 已读。',
+'## 对话维度\nS-AM-006–008 是本人反思访谈过程的文章，不是本次读过客户原始转录。完整长访谈来源缺口保留。',
+'## 表达观察\n偏好假设、牵引力、约束和动作链；用具体瓶颈解释，而不复刻人格。无随机段落量化统计。',
+'## 外部视角\n本人案例易受幸存者与营销选择偏差影响，暂无独立批评全文样本；这属于研究局限，不伪造第三方批评。起始 leanfoundry.com 实际重定向 leanspark.ai，leanstack.com 实际仍有机构入口；入口不凑方法来源数。',
+'## 决策记录\n预售/人工交付、放弃工具箱、CloudFire 整理见 cases；不把其效果数字迁移到新比赛。',
+'## 方法演化\n2024 网页方法汇编 → 2025 LEANSpark 实做复盘 → 2026 画布信念阶梯与访谈战术更新。S-AM-008 回顾 2017/2022 访谈变化，不能把旧问题排名当当前推荐。'],
+['尽早测试付费与保持开放学习存在顺序张力；发现访谈不要变成销售。','一页结构带来清晰，但复杂购买链不能为排版而删去；快速学习不等于 AI 产生新客户事实。'],
+['画布中不知道成本与竞争优势，是否应先估一个精确值填满？','团队低留存，开发者建议立刻加十个功能。如何选择下一步实验？','演示尚未实现的产品并得到预订时，哪些事实可以说、哪些仍未知？','本地小型协会想用 AI 整理会议，只有一个公开抱怨。请说明应用框架的边界。','写约100字：画布已做完，AI 说商业模式可行，下一步怎么做？'])

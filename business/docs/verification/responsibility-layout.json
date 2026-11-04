@@ -1,0 +1,57 @@
+{
+  "timestamp": "2026-11-03T12:04:34.5944298Z",
+  "projectRoot": "C:\\maven\\business_agent\\business",
+  "status": "TEST_PASSED",
+  "filesVerified": 3106,
+  "mismatches": 0,
+  "scope": "Immediately after native moves, before intentional import/config/document edits",
+  "originalSkillsAndExpertTeam": "Untouched",
+  "originalFrontend": "Untouched; new PWA added only in frontend/research-pwa",
+  "behaviorTests": {
+    "typescript": "TEST_PASSED",
+    "functional": {
+      "passed": 32,
+      "failed": 0,
+      "report": "../../test-results/unit-tests-responsibility-layout.txt"
+    },
+    "browser": {
+      "status": "TEST_PASSED",
+      "checks": 9,
+      "pageErrors": 0
+    },
+    "https": "TEST_PASSED",
+    "skills": {
+      "loaded": 6,
+      "unchangedLoadedFiles": 12,
+      "fullExpertBehavior": "NOT_RUN"
+    },
+    "liveService": "TEST_PASSED"
+  },
+  "manifest": "responsibility-layout-manifest.json",
+  "completedAt": "2026-11-03T12:12:46.951Z",
+  "paths": {
+    "businessRoot": "C:\\maven\\business_agent\\business",
+    "frontendRoot": "C:\\maven\\business_agent\\business\\frontend\\research-pwa",
+    "certsRoot": "C:\\maven\\business_agent\\business\\deployment\\certs",
+    "dataDir": "C:\\maven\\business_agent\\business\\.runtime\\data",
+    "cliWorkspace": "C:\\maven\\business_agent\\business\\.runtime\\claude"
+  },
+  "serviceLaunch": "Existing npm start / backend/server.ts process already owned port 4318; retained and verified instead of duplicate launch",
+  "startupAttempts": {
+    "hiddenLaunch": "AUTOMATIC_REVIEW_REJECTED",
+    "duplicateForegroundLaunch": "EADDRINUSE; existing process retained"
+  },
+  "notRun": [
+    "Real five-expert behavior and single-advisor comparison",
+    "Real market/customer validation",
+    "Phone installation and LAN reachability"
+  ],
+  "latestResumeCheck": {
+    "timestamp": "2026-11-03T14:29:23.815Z",
+    "status": "TEST_PASSED",
+    "serviceLaunch": "Previous server was stopped; npm start now running from business root",
+    "report": "layout-final-check.json",
+    "metadata": "../../.runtime/data/server-process.json",
+    "ownerConfigured": false
+  }
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "R2-01",
+    "user_request": "使用Teresa方法解释机会与解决方案的区别，并说明开始第一棵机会图前需要什么。不讨论具体市场，没有比赛brief。只回答方法，不联网。"
+  },
+  {
+    "id": "R2-02",
+    "test_only": true,
+    "user_request": "TEST_ONLY：仅审阅本段，不联网。合成组织公告说正在招聘一位数据助理，其余未知，未提供URL。我还没选择缺口。请作为主控给下一步，说明本次实际做了什么以及哪些事实无法核实。"
+  },
+  {
+    "id": "R2-03",
+    "test_only": true,
+    "user_request": "请用tests/inputs.json中TEST_ONLY-T11的全部原始输入执行主控，把一个可恢复案件实际保存到cases/TEST_ONLY-smoke/，包含brief.md、state.json、evidence-ledger.json、gaps.md、handoffs.md、model.md、validation.md。保留原始合成标记和用户选择事件，不引入其他题的证据。不联网、不联系或上传。不读取原测试输出或评分。保存本轮执行记录；下一会话会从这些文件继续。"
+  }
+]

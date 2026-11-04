@@ -1,0 +1,12 @@
+{
+  "sources": ["ethglobal", "devfolio", "taikai", "dorahacks", "hackquest", "hackster", "nasa", "imaginecup", "junction", "google"],
+  "years": [2025, 2026],
+  "maxPages": 500,
+  "maxBytes": 1073741824,
+  "maxMinutes": 120,
+  "delayMs": 3000,
+  "maxAttempts": 3,
+  "finalistLimitPerEvent": 20,
+  "finalistLimitTotal": 200,
+  "selectionSeed": "lydia-v1"
+}

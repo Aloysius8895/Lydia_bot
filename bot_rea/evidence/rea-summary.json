@@ -1,0 +1,237 @@
+{
+  "evidence_id": "ev_a4973b55a569a1e2173646c5aabcfc4b424bb9832aefc692e8b16f5a2c64d011",
+  "provider": {
+    "id": "rea-javascript-application",
+    "name": "REA JavaScript application analyzer",
+    "version": "1"
+  },
+  "statistics": {
+    "relevant_files": 721,
+    "nested_asar_containers": 0,
+    "text_bytes_read": 50370994,
+    "invalid_utf8_files": 0,
+    "parsed_javascript_files": 694,
+    "visited_ast_nodes": 8107507,
+    "findings": 6438,
+    "modules": 0,
+    "parse_failures": 0
+  },
+  "graph_coverage": {
+    "status": "partial",
+    "truncated": false,
+    "omitted_count": null,
+    "limits": [
+      {
+        "name": "javascript_analysis_parent_result_budget_bytes",
+        "value": 2025207432,
+        "unit": "bytes"
+      },
+      {
+        "name": "javascript_analysis_semantic_result_budget_bytes",
+        "value": 0,
+        "unit": "bytes"
+      },
+      {
+        "name": "javascript_analysis_semantic_result_budget_bytes",
+        "value": 3287,
+        "unit": "bytes"
+      },
+      {
+        "name": "javascript_analysis_worker_heap_limit_bytes",
+        "value": 2172649472,
+        "unit": "bytes"
+      },
+      {
+        "name": "javascript_analysis_worker_timeout_ms",
+        "value": 60000,
+        "unit": "milliseconds"
+      }
+    ]
+  },
+  "electron_summary": {
+    "browser_windows": 6,
+    "explicit_web_preferences": 17,
+    "preload_entrypoints": 0,
+    "context_bridge_apis": 9,
+    "exposed_api_members": 0,
+    "ipc": {
+      "operations": 15,
+      "literal_channels": 2,
+      "dynamic_channel_operations": 13,
+      "renderer_transmissions": 5,
+      "renderer_listeners": 4,
+      "main_handlers": 6,
+      "paired_renderer_transmissions": 0,
+      "ambiguous_renderer_transmissions": 0,
+      "unpaired_literal_renderer_transmissions": 1
+    },
+    "sender_validation_observations": 2,
+    "utility_processes": 2,
+    "resolved_utility_entrypoints": 0,
+    "native_addon_bindings": 6,
+    "resolved_native_addon_bindings": 6
+  },
+  "integrity_contradictions": [
+    {
+      "contradiction_id": "ic_66f6ad181d60f538292e3cfb7aef9f2416a01950c6854b5879b24d4cf24d1566",
+      "occurrence_id": "occ_18e37370a1c745febfdec5f9630cb1369afaf22577c3f71fb87dd6de589bfdda",
+      "parent_artifact_id": "art_c573a59ef4b962ed50a5d4cc822e67dab49920893ef7673dedcd040304a7a454",
+      "logical_path": "dist/deps/@anysphere/jpeg-napi/jpeg-napi.win32-x64-msvc.node",
+      "declared_sha256": "6f29aec81537e55da4cf595f59f0c503b4adf3a8e0bf7f0d8a8075087e128489",
+      "observed_sha256": "111ca3a489a950b3d7f703f5c98bfa631d21977472d29e6b655b94d9df23483e",
+      "entry_kind": "file",
+      "unpacked": true,
+      "trust": "observed-untrusted",
+      "provenance": "container-integrity-metadata-versus-observed-bytes",
+      "limitations": [
+        "Observed bytes contradict declared integrity metadata and cannot support equivalence."
+      ]
+    },
+    {
+      "contradiction_id": "ic_6cf5009cb6285fa883072abb64e150e4df69add5033987f8b98a628733fcb939",
+      "occurrence_id": "occ_1bed511d43625671e5ec95a4cbc4d688ded29d74afe6e4758a26a0870022ed77",
+      "parent_artifact_id": "art_fd28d74c70d072e23694668ee491810f58a67ca37636a9cd065796938982e288",
+      "logical_path": "dist/deps/cursor-proclist/build/Release/cursor_proclist.node",
+      "declared_sha256": "8caebccc203626fcfb877c749ff486d2e584047294f648529278a2b1d1fe02c7",
+      "observed_sha256": "9407831f3331c0c31ff544e9dc57010c09da3a971b481bf0751208b260b7072b",
+      "entry_kind": "file",
+      "unpacked": true,
+      "trust": "observed-untrusted",
+      "provenance": "container-integrity-metadata-versus-observed-bytes",
+      "limitations": [
+        "Observed bytes contradict declared integrity metadata and cannot support equivalence."
+      ]
+    },
+    {
+      "contradiction_id": "ic_0188228fab908629a6b1e9f7d0e9e3f6bfa6b02b679e9c1aefda890ae7374e8a",
+      "occurrence_id": "occ_25f246cd5ec1db9b4d5082f36c9281733fa50b3d00ed606b73349b0e437d9061",
+      "parent_artifact_id": "art_38132b6af33b5b708f2f91829b4b6ba686c30215ee0f3b95e59081570fee89af",
+      "logical_path": "dist/deps/sand-address-lookup/build/Release/sand_address_lookup.node",
+      "declared_sha256": "be88cec4b1fa9f05ede32fe01355a362251c279ea9cae9b9c5a0cd46e833a5b6",
+      "observed_sha256": "c0c00e27a5aaf481f90023092eaea5728386c2b887436bde32fd23df9a0401c9",
+      "entry_kind": "file",
+      "unpacked": true,
+      "trust": "observed-untrusted",
+      "provenance": "container-integrity-metadata-versus-observed-bytes",
+      "limitations": [
+        "Observed bytes contradict declared integrity metadata and cannot support equivalence."
+      ]
+    },
+    {
+      "contradiction_id": "ic_42128ad50f3f7408c2a791edcb9c1977ff212d4511b8199372c6c2d0dc700eac",
+      "occurrence_id": "occ_4c47936924447d689a154a3c9c37b96e6e69e24a887ec0bf9f9b1888fb73e273",
+      "parent_artifact_id": "art_ab1ec789b0135554a4304d350efa92319a9ec0443299754fb98c2b7a43990b41",
+      "logical_path": "dist/deps/sand-card-text-recognition/build/Release/sand_card_text_recognition.node",
+      "declared_sha256": "ff0330c08c7bed4c9c543a377f0f0f37e3535ca2cf9b800606c7847ce968a0f2",
+      "observed_sha256": "70119bd62ea2bb7bde6010ac67974514acaafe3f1a637198f7aab9b4f04f2c74",
+      "entry_kind": "file",
+      "unpacked": true,
+      "trust": "observed-untrusted",
+      "provenance": "container-integrity-metadata-versus-observed-bytes",
+      "limitations": [
+        "Observed bytes contradict declared integrity metadata and cannot support equivalence."
+      ]
+    },
+    {
+      "contradiction_id": "ic_4ddca478c4f6725cfa07db798cfa66bf3cbbf7164f6f917618b431dac20d1843",
+      "occurrence_id": "occ_8c1a63d1a50791884ab2b777284a7c11e7b5fe5ee0efdbd9ae6e993faaad215e",
+      "parent_artifact_id": "art_014ef52f432a4bfbd6c48b975591355bfc010f8192616ef0ce96e0d621909b90",
+      "logical_path": "dist/deps/sand-devicecheck/build/Release/sand_devicecheck.node",
+      "declared_sha256": "5afcf82d9e458c7d17a95c34c5a7816899a5a0e970f52705d8bbaa85ea9d20d6",
+      "observed_sha256": "56bf806795c7bc5d84b3b529e8ea69456b3ee75ef126fd4de2b2229c7238b11a",
+      "entry_kind": "file",
+      "unpacked": true,
+      "trust": "observed-untrusted",
+      "provenance": "container-integrity-metadata-versus-observed-bytes",
+      "limitations": [
+        "Observed bytes contradict declared integrity metadata and cannot support equivalence."
+      ]
+    },
+    {
+      "contradiction_id": "ic_1ae195e760fab27576e423ed1d7e19caefd33b82cf7ed0f374573a0d1d942ab1",
+      "occurrence_id": "occ_24ff64fc7fd101c4a1ebaf020a9431a4fed33e66e4eb07af402b7afbc43a8086",
+      "parent_artifact_id": "art_e0ada93c52b9787bd8d3c66c9b6caa840a760787cd5ec42d32b5ae1ec6855e75",
+      "logical_path": "dist/deps/sand-notification-settings/build/Release/sand_notification_settings.node",
+      "declared_sha256": "eac889b5bc949a282d880bf6752d6233bd8b003da3fdf9c0d5d03ad49361b92d",
+      "observed_sha256": "e728c0ce2c2cf97d6268db10bdbefc07aeef90c2878d10e4ab0f87fda5e725d3",
+      "entry_kind": "file",
+      "unpacked": true,
+      "trust": "observed-untrusted",
+      "provenance": "container-integrity-metadata-versus-observed-bytes",
+      "limitations": [
+        "Observed bytes contradict declared integrity metadata and cannot support equivalence."
+      ]
+    },
+    {
+      "contradiction_id": "ic_f3d231c2d2132d7840b329ceab1e2895f8e2691c55e1fb5b98cd34084be21ef6",
+      "occurrence_id": "occ_e75c99c81c2bc12a027a391486f66c54eca4775c20315e77f4178f4a7c2da8bc",
+      "parent_artifact_id": "art_a4c363d8ba9c128b9bc0a757b4b54d8443f8fbdc9ac21e7bffde9df56ea41e41",
+      "logical_path": "dist/deps/sand-window-capture/build/Release/sand_window_capture.node",
+      "declared_sha256": "5efc762049425573d15b7243744017c47ca6e45165e3b7de630cf34ff6c2d967",
+      "observed_sha256": "09cda6745b4c55a23d728623920ba0b003470f3a7217bbb4aa569e201729f1a3",
+      "entry_kind": "file",
+      "unpacked": true,
+      "trust": "observed-untrusted",
+      "provenance": "container-integrity-metadata-versus-observed-bytes",
+      "limitations": [
+        "Observed bytes contradict declared integrity metadata and cannot support equivalence."
+      ]
+    },
+    {
+      "contradiction_id": "ic_848ee9432e4c16de5f9b983b84244cf577f79d38abce4ca811e1c693cef33016",
+      "occurrence_id": "occ_d284041ea521047e20bbe651948822d6044613f8aa2ca8f77c39bff5a3a0ad60",
+      "parent_artifact_id": "art_1fecef70ee90187d7b00a77ed98745a7bdf5295ab36e5ee85ca2b4a4077b03d1",
+      "logical_path": "dist/deps/tree-sitter-bash/prebuilds/win32-x64/tree-sitter-bash.node",
+      "declared_sha256": "759818839d14f9e03fc7c58632160569e40a73093e6e77573f9cbbe36ea7010e",
+      "observed_sha256": "af1ebdd9a48315cec0dfc724191663eb9dfb1ca734e9d6aa7dacbdef48bd22b1",
+      "entry_kind": "file",
+      "unpacked": true,
+      "trust": "observed-untrusted",
+      "provenance": "container-integrity-metadata-versus-observed-bytes",
+      "limitations": [
+        "Observed bytes contradict declared integrity metadata and cannot support equivalence."
+      ]
+    },
+    {
+      "contradiction_id": "ic_9fad63b119a342e51bcf27c841cc07578625d2fbf076ec64df3a3faff59b3293",
+      "occurrence_id": "occ_7a1e22553384dd7d93cfb68022c897c1667a2b9e9562a8ad7824ff35dd52295f",
+      "parent_artifact_id": "art_c251fcca5dab9e1b93ba0dc37901b57fd6fd5647b75583ee15e9b47e9732458b",
+      "logical_path": "dist/deps/tree-sitter/build/Release/tree_sitter_runtime_binding.node",
+      "declared_sha256": "87cb6c1ebb6a0b2c81c6e56214196fd2d0f753d1ac8f996600be634b6c21c9da",
+      "observed_sha256": "75d9ebc9be3687b79df436a966f05a6f635b4951f5a88e82faa7d6ab70dd4867",
+      "entry_kind": "file",
+      "unpacked": true,
+      "trust": "observed-untrusted",
+      "provenance": "container-integrity-metadata-versus-observed-bytes",
+      "limitations": [
+        "Observed bytes contradict declared integrity metadata and cannot support equivalence."
+      ]
+    },
+    {
+      "contradiction_id": "ic_ab725d0e27d6267e49ecca57c248c89ab272a34f5421357833382403d16dee2b",
+      "occurrence_id": "occ_51521edc16552645e25f71541b65471a75ba84bcefd1699ae10e55b9ff429b15",
+      "parent_artifact_id": "art_a4cb93dcee4117f0342ff45fd3b1dec1a0be111a3fc8f924b0b1efdb8332a322",
+      "logical_path": "dist/native/sand-webauthn-signer.exe",
+      "declared_sha256": "0cc83a7df6e9f54dde8df7b5ef0a174ae96d0bc3fb0834d3c5efa2272e655021",
+      "observed_sha256": "6b8ebd4517fdb74f740be735b261396f16cb1fe5179b7c1195d9f74e2ad8ce8a",
+      "entry_kind": "file",
+      "unpacked": true,
+      "trust": "observed-untrusted",
+      "provenance": "container-integrity-metadata-versus-observed-bytes",
+      "limitations": [
+        "Observed bytes contradict declared integrity metadata and cannot support equivalence."
+      ]
+    }
+  ],
+  "limitations_count": 1295,
+  "limitations_sample": [
+    "Artifact integrity metadata contradicts observed bytes at dist/deps/@anysphere/jpeg-napi/jpeg-napi.win32-x64-msvc.node; the observed bytes are untrusted.",
+    "Artifact integrity metadata contradicts observed bytes at dist/deps/cursor-proclist/build/Release/cursor_proclist.node; the observed bytes are untrusted.",
+    "Artifact integrity metadata contradicts observed bytes at dist/deps/sand-address-lookup/build/Release/sand_address_lookup.node; the observed bytes are untrusted.",
+    "Artifact integrity metadata contradicts observed bytes at dist/deps/sand-card-text-recognition/build/Release/sand_card_text_recognition.node; the observed bytes are untrusted.",
+    "Artifact integrity metadata contradicts observed bytes at dist/deps/sand-devicecheck/build/Release/sand_devicecheck.node; the observed bytes are untrusted.",
+    "Artifact integrity metadata contradicts observed bytes at dist/deps/sand-notification-settings/build/Release/sand_notification_settings.node; the observed bytes are untrusted.",
+    "Artifact integrity metadata contradicts observed bytes at dist/deps/sand-window-capture/build/Release/sand_window_capture.node; the observed bytes are untrusted.",
+    "Artifact integrity metadata contradicts observed bytes at dist/deps/tree-sitter-bash/prebuilds/win32-x64/tree-sitter-bash.node; the observed bytes are untrusted."
+  ]
+}

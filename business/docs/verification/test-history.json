@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-03",
+  "initialUnitRun": {
+    "observedFrom": "actual node:test tool output",
+    "tests": 21,
+    "passed": 20,
+    "failed": 1,
+    "failure": "SSRF public-IP test expected 1.1.1.1 allowed, actual false",
+    "cause": "Node BlockList with IPv6 mapped-address subnet also classified ordinary IPv4 as blocked",
+    "fix": "Separate IPv4 and IPv6 BlockList instances; private/mapped address denial remains tested"
+  },
+  "secondUnitRun": {
+    "tests": 21,
+    "passed": 21,
+    "failed": 0,
+    "observedFrom": "actual node:test tool output before adding concurrency/workflow tests"
+  },
+  "initialRetrievalRun": {
+    "timestamp": "2026-11-03T10:42:33.314Z",
+    "fixture": "TEST_ONLY six multilingual queries",
+    "model": "nomic-embed-text:latest",
+    "recallAt3": 0.5555555555555555,
+    "mrr": 1,
+    "predeclaredThresholds": {
+      "recallAt3": 0.8,
+      "mrr": 0.8
+    },
+    "status": "PARTIAL",
+    "observedFrom": "actual scripts/retrieval-evaluation.ts output, retained before lexical OR refinement"
+  },
+  "browserReview": {
+    "firstRun": "9 browser checks passed, no page JavaScript errors",
+    "visualIssue": "Mobile screenshot taken during sidebar resize transition showed drawer mid-animation",
+    "fix": "Wait for drawer bounding rectangle offscreen before mobile screenshot; no real-phone claim"
+  },
+  "latestReports": "See business/test-results; layout validation at responsibility-layout.json; functional pass does not override expert/phone/market limitations"
+}

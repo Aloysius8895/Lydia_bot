@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-03",
+  "timezone": "Asia/Kuala_Lumpur",
+  "status": "TEST_PASSED",
+  "fixture": "TEST_ONLY connectivity, no market or expert claim",
+  "cli_version": "2.1.143",
+  "auth": {"loggedIn":true,"authMethod":"claude.ai","apiProvider":"firstParty","subscriptionType":"pro"},
+  "request": "Return structured JSON ok=true and message=CLI_SUBSCRIPTION_CONNECTED; no tools",
+  "result": {"ok":true,"message":"CLI_SUBSCRIPTION_CONNECTED"},
+  "usage": {"input_tokens":4,"cache_creation_input_tokens":7034,"cache_read_input_tokens":6764,"output_tokens":253},
+  "billing": "Existing subscription authorized by user; extra usage confirmed disabled by user; no API key injected. Usage token counts do not prove dollar charges or remaining quota.",
+  "skills": "NOT_RUN: canonical expert skills missing",
+  "secrets": "No credential file or token read/exported"
+}

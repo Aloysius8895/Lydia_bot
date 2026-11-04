@@ -1,0 +1,8 @@
+{
+  "name": "lydia-crawl",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=24"},
+  "scripts": {"cli": "node --experimental-strip-types cli.ts", "pilot": "node --experimental-strip-types scripts/pilot.ts"}
+}

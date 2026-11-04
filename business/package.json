@@ -1,0 +1,28 @@
+{
+  "name": "lydia-business-research",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build:frontend": "npm --prefix frontend run build",
+    "prestart": "npm run build:frontend",
+    "start": "node --env-file-if-exists=deployment/.env --experimental-strip-types backend/server.ts",
+    "start:lan": "npm run build:frontend && node --env-file=deployment/.env.lan --experimental-strip-types backend/server.ts",
+    "check": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test --test-concurrency=1 tests/*.test.ts",
+    "test:browser": "node --experimental-strip-types scripts/browser-test.ts && node --experimental-strip-types scripts/call-browser-test.ts",
+    "audit": "node --experimental-strip-types scripts/audit.ts"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "0.3.16",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "playwright-core": "1.64.1",
+    "typescript": "7.0.2"
+  }
+}

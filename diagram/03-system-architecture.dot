@@ -1,0 +1,57 @@
+digraph G {
+graph [fontname="Microsoft YaHei", fontsize=22, bgcolor="#F8FAFC", pad=0.45, nodesep=0.35, ranksep=0.65, compound=true, labelloc=t, labeljust=l];
+node [fontname="Microsoft YaHei", fontsize=12, shape=box, style="rounded,filled", fillcolor="white", color="#CBD5E1", fontcolor="#0F172A", margin="0.18,0.12"];
+edge [fontname="Microsoft YaHei", fontsize=10, color="#64748B", fontcolor="#475569", arrowsize=0.7];
+
+label="系统架构图 / System Architecture Diagram\nLydia · Current implementation / 当前实现";
+
+rankdir=LR;
+browser [label="用户浏览器 / Browser
+React UI + PWA", fillcolor="#DBEAFE"];
+subgraph cluster_local {label="用户电脑 / Local computer · 单进程应用 + 本地服务"; color="#94A3B8"; style=rounded;
+ api [label="business/backend/server.ts
+静态资源 + HTTP(S) JSON API
+身份 / CSRF / Zod 校验", fillcolor="#DCFCE7"];
+ worker [label="business/agents/worker.ts
+任务调度 / 检查点 / 取消 / 恢复", fillcolor="#DCFCE7"];
+ research [label="business/agents/research.ts + prompts.ts
+角色路由 / 上下文 / 结构化结果
+citations.ts 引用语义复核", fillcolor="#EDE9FE"];
+ rag [label="data/RAG/
+导入 / 版本 / 分块 / 混合检索
+查询扩展 + 候选重排", fillcolor="#EDE9FE"];
+ skills [label="business/agents/skills.ts → business/skills/
+只读加载入口、方法与主控协议", shape=folder];
+ cli [label="business/agents/providers/claude.ts
+受控 CLI 子进程 / 串行请求", fillcolor="#EDE9FE"];
+ ollama [label="Ollama 本地服务
+127.0.0.1:11434
+nomic-embed-text", fillcolor="#EDE9FE"];
+ store [label="data/database/store.ts + schema.sql
+PGlite + pgvector
+business/.runtime/data 持久化", shape=cylinder, fillcolor="#FEF3C7"];
+ sources [label="data/RAG/sources.ts + search.ts
+公开 URL / SSRF 校验
+搜索额度门禁", fillcolor="#FFFBEB"];
+ export [label="business/backend/export.ts → business/cases/
+版本化 Markdown / JSON 快照", shape=folder];
+}
+cloud [label="Claude 云端推理
+通过已登录 CLI 订阅访问", fillcolor="#FCE7F3"];
+public [label="公开 HTTP(S) 网站", fillcolor="#FCE7F3"];
+tavily [label="Tavily API（可选）
+真实调用待验收", style="rounded,dashed,filled", fillcolor="#FFFBEB"];
+browser -> api [label="同源请求 / 状态轮询"];
+api -> {worker rag store export};
+worker -> research; worker -> sources;
+research -> {skills rag cli store};
+rag -> {ollama store cli};
+cli -> cloud [label="网络推理"];
+sources -> public [label="读取正文"];
+sources -> tavily [style=dashed, label="额度已确认时"];
+sources -> rag [label="正文入库"];
+export -> store [label="读取快照"];
+note [shape=note, label="部署边界\l默认 127.0.0.1:4318，仅本机\l无独立 PostgreSQL / Docker 依赖\l手机访问需可信 HTTPS 与局域网配置\l真实五专家全流程尚未验收\l", fillcolor="#FFFBEB"];
+browser -> note [style=dotted, arrowhead=none];
+
+}

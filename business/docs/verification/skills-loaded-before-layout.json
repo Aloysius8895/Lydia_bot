@@ -1,0 +1,103 @@
+{
+  "timestamp": "2026-11-03T11:52:17.397Z",
+  "root": "C:\\maven\\business_agent\\business\\skills",
+  "mode": "EXPLICIT_CONTEXT_INJECTION",
+  "skills": [
+    {
+      "root": "C:\\maven\\business_agent\\business\\skills",
+      "role": "steve",
+      "status": "LOADED",
+      "mode": "EXPLICIT_CONTEXT_INJECTION",
+      "files": [
+        {
+          "file": "steve-blank-discovery/SKILL.md",
+          "hash": "0995c8d074e2ef776344105c329f74856c3320cfe143bd27722dd3bfe1cd0c0e"
+        },
+        {
+          "file": "steve-blank-discovery/references/methods.md",
+          "hash": "09fce397ed1e678e423ea2746698c76e0cb6b1819efb9cc8da27d81f14556f76"
+        }
+      ]
+    },
+    {
+      "root": "C:\\maven\\business_agent\\business\\skills",
+      "role": "teresa",
+      "status": "LOADED",
+      "mode": "EXPLICIT_CONTEXT_INJECTION",
+      "files": [
+        {
+          "file": "teresa-torres-opportunity/SKILL.md",
+          "hash": "2a3b17097227aa6eff9dad68f38ce18c4950ec9ec6737b19f0cf74e846c7a78a"
+        },
+        {
+          "file": "teresa-torres-opportunity/references/methods.md",
+          "hash": "073d506f03b561bf5115b52b3348eff682511e19c6e339fdaecb15fef9da8589"
+        }
+      ]
+    },
+    {
+      "root": "C:\\maven\\business_agent\\business\\skills",
+      "role": "april",
+      "status": "LOADED",
+      "mode": "EXPLICIT_CONTEXT_INJECTION",
+      "files": [
+        {
+          "file": "april-dunford-positioning/SKILL.md",
+          "hash": "40dbf23bf12833932b884ae1efbdd18fc003cdf936054363d6909676bb5392a1"
+        },
+        {
+          "file": "april-dunford-positioning/references/methods.md",
+          "hash": "e02f9c623a2430dca20db1898aaf9352e482c448b6acc840e5f2371d128ec1f8"
+        }
+      ]
+    },
+    {
+      "root": "C:\\maven\\business_agent\\business\\skills",
+      "role": "bob",
+      "status": "LOADED",
+      "mode": "EXPLICIT_CONTEXT_INJECTION",
+      "files": [
+        {
+          "file": "bob-moesta-demand/SKILL.md",
+          "hash": "3e2e0cbe069740a581404ea01ae1fff3c9f94739badb1fb1842e5095cbdbb42f"
+        },
+        {
+          "file": "bob-moesta-demand/references/methods.md",
+          "hash": "5200d68c452ac1a02d13a1ba2184fe7aa8504cbb2c80a8f44df1f6c0610013bf"
+        }
+      ]
+    },
+    {
+      "root": "C:\\maven\\business_agent\\business\\skills",
+      "role": "ash",
+      "status": "LOADED",
+      "mode": "EXPLICIT_CONTEXT_INJECTION",
+      "files": [
+        {
+          "file": "ash-maurya-lean-model/SKILL.md",
+          "hash": "fb26d41faa5135f5d4ac385322e35595ee5fb9c3f7bf515af9741225a4a28266"
+        },
+        {
+          "file": "ash-maurya-lean-model/references/methods.md",
+          "hash": "db2fc4abe4e16482bb9931dab8ef23211d9b98c8347cde564931cb13f11ba701"
+        }
+      ]
+    },
+    {
+      "root": "C:\\maven\\business_agent\\business\\skills",
+      "role": "controller",
+      "status": "LOADED",
+      "mode": "EXPLICIT_CONTEXT_INJECTION",
+      "files": [
+        {
+          "file": "hackathon-gap-research/SKILL.md",
+          "hash": "0109bf30798b502dbd6e3b4a80e7c180602712a8669be1bc399a2d702130dd6e"
+        },
+        {
+          "file": "hackathon-gap-research/references/protocol.md",
+          "hash": "2fc09fa3bc2c5506382e235f4abb351fbc153dbbd23af73284906ef0ee40f3be"
+        }
+      ]
+    }
+  ]
+}

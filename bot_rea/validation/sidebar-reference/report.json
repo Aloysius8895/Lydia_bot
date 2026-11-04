@@ -1,0 +1,17 @@
+{
+  "checks": [
+    "Artifacts and Recents removed; larger expert rows and team sections always expanded",
+    "Projects is the real project hub; selecting a case does not execute research",
+    "file content is indexed into the chosen PROJECT collection, separate from MARKET",
+    "URL intake sends PROJECT scope and retains existing private-network protection",
+    "switching projects isolates documents and resets the intake draft",
+    "discussion and task submission target the explicitly selected project only",
+    "27/42/31 panes remain unchanged",
+    "project selection and materials survive refresh",
+    "Design and Crawl destinations still work",
+    "mobile Projects intake and navigation fit without horizontal overflow"
+  ],
+  "errors": [],
+  "production_database_touched": false,
+  "model_calls": 0
+}

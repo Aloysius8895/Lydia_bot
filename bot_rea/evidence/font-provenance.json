@@ -1,0 +1,14 @@
+[
+  {
+    "source": "dist/renderer/assets/X-VF-C7NyO54W.woff2",
+    "destination": "business\\frontend\\src\\assets\\grok\\X-VF.woff2",
+    "sha256": "0e287249b246a4fa1b2e87c15a1f95daa831938a44e2c2a0b1a61a0df8b18a43",
+    "bytes": 82620
+  },
+  {
+    "source": "dist/renderer/assets/XMono-VF-K4lk0ar0.woff2",
+    "destination": "business\\frontend\\src\\assets\\grok\\XMono-VF.woff2",
+    "sha256": "2a5fda92be2d5288468b6e231ca260135acb6e913e77a37634c145eb4d93e341",
+    "bytes": 24704
+  }
+]

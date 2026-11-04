@@ -1,0 +1,4502 @@
+{
+  "archive": "C:\\Users\\User\\AppData\\Local\\Programs\\Grok Bot\\resources\\app.asar",
+  "sha256": "00e3e3aaf693aa76e7afe0e6b37a71b5af7377c52de6bbcadcd611890cb0e7ae",
+  "package": {
+    "name": "sand",
+    "productName": "Grok Bot",
+    "version": "0.78.1",
+    "main": "dist/electron-main/main.cjs"
+  },
+  "files": [
+    {
+      "path": "dist/deps/@anysphere/jpeg-napi/index.js",
+      "bytes": 24321,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/@anysphere/jpeg-napi/package.json",
+      "bytes": 1363,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/@anysphere/jpeg-napi/jpeg-napi.win32-x64-msvc.node",
+      "bytes": 1241088,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/cursor-proclist/index.js",
+      "bytes": 1258,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/cursor-proclist/package.json",
+      "bytes": 442,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/cursor-proclist/rebuild-with-lock.js",
+      "bytes": 12667,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/cursor-proclist/build/Release/cursor_proclist.node",
+      "bytes": 168448,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/node-addon-api/index.js",
+      "bytes": 435,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/node-addon-api/package-support.json",
+      "bytes": 467,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/node-addon-api/package.json",
+      "bytes": 11005,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/node-gyp-build/bin.js",
+      "bytes": 2094,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/node-gyp-build/build-test.js",
+      "bytes": 398,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/node-gyp-build/index.js",
+      "bytes": 390,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/node-gyp-build/node-gyp-build.js",
+      "bytes": 6078,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/node-gyp-build/optional.js",
+      "bytes": 143,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/node-gyp-build/package.json",
+      "bytes": 1004,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/runtime-deps-manifest.json",
+      "bytes": 1249,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/sand-address-lookup/index.js",
+      "bytes": 245,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/sand-address-lookup/package.json",
+      "bytes": 334,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/sand-address-lookup/build/Release/sand_address_lookup.node",
+      "bytes": 136704,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/sand-card-text-recognition/index.js",
+      "bytes": 189,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/sand-card-text-recognition/package.json",
+      "bytes": 339,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/sand-card-text-recognition/build/Release/sand_card_text_recognition.node",
+      "bytes": 126976,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/sand-devicecheck/index.js",
+      "bytes": 241,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/sand-devicecheck/package.json",
+      "bytes": 333,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/sand-devicecheck/build/Release/sand_devicecheck.node",
+      "bytes": 140288,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/sand-notification-settings/index.js",
+      "bytes": 268,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/sand-notification-settings/package.json",
+      "bytes": 372,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/sand-notification-settings/build/Release/sand_notification_settings.node",
+      "bytes": 189440,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/sand-window-capture/index.js",
+      "bytes": 432,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/sand-window-capture/package.json",
+      "bytes": 334,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/sand-window-capture/build/Release/sand_window_capture.node",
+      "bytes": 134144,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/tree-sitter-bash/bindings/node/index.js",
+      "bytes": 201,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/tree-sitter-bash/package.json",
+      "bytes": 1616,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/tree-sitter-bash/prebuilds/win32-x64/tree-sitter-bash.node",
+      "bytes": 1556480,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/tree-sitter/index.js",
+      "bytes": 25716,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/tree-sitter/package.json",
+      "bytes": 1770,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/tree-sitter/build/Release/tree_sitter_runtime_binding.node",
+      "bytes": 477184,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/web-tree-sitter/package.json",
+      "bytes": 886,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/web-tree-sitter/tree-sitter.js",
+      "bytes": 75606,
+      "unpacked": true
+    },
+    {
+      "path": "dist/deps/web-tree-sitter/tree-sitter.wasm",
+      "bytes": 185642,
+      "unpacked": true
+    },
+    {
+      "path": "dist/electron-main/locales/af/messages.cjs",
+      "bytes": 28237,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/ar/messages.cjs",
+      "bytes": 83300,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/bn/messages.cjs",
+      "bytes": 92538,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/cs/messages.cjs",
+      "bytes": 35299,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/da/messages.cjs",
+      "bytes": 27791,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/de/messages.cjs",
+      "bytes": 30023,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/el/messages.cjs",
+      "bytes": 107812,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/es/messages.cjs",
+      "bytes": 29578,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/fi/messages.cjs",
+      "bytes": 30651,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/fr/messages.cjs",
+      "bytes": 33161,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/ha/messages.cjs",
+      "bytes": 28081,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/he/messages.cjs",
+      "bytes": 72461,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/hi/messages.cjs",
+      "bytes": 85678,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/hu/messages.cjs",
+      "bytes": 34536,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/id/messages.cjs",
+      "bytes": 26803,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/it/messages.cjs",
+      "bytes": 30175,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/ja/messages.cjs",
+      "bytes": 57341,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/ko/messages.cjs",
+      "bytes": 46658,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/mr/messages.cjs",
+      "bytes": 88553,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/nb/messages.cjs",
+      "bytes": 28146,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/nl/messages.cjs",
+      "bytes": 28203,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/pl/messages.cjs",
+      "bytes": 33846,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/pt-PT/messages.cjs",
+      "bytes": 30578,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/pt/messages.cjs",
+      "bytes": 29969,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/ru/messages.cjs",
+      "bytes": 102120,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/sv/messages.cjs",
+      "bytes": 29556,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/sw/messages.cjs",
+      "bytes": 27809,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/ta/messages.cjs",
+      "bytes": 107232,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/te/messages.cjs",
+      "bytes": 100398,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/th/messages.cjs",
+      "bytes": 88851,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/tr/messages.cjs",
+      "bytes": 34462,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/uk/messages.cjs",
+      "bytes": 100716,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/ur/messages.cjs",
+      "bytes": 86475,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/vi/messages.cjs",
+      "bytes": 41004,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/zh-CN/messages.cjs",
+      "bytes": 37863,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/locales/zh-TW/messages.cjs",
+      "bytes": 38412,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/main-app.cjs",
+      "bytes": 3470507,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/main-core.cjs",
+      "bytes": 989495,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/main.cjs",
+      "bytes": 11952,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-arch-face.png",
+      "bytes": 1331,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-arch-face@2x.png",
+      "bytes": 3304,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-arch.png",
+      "bytes": 282,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-arch@2x.png",
+      "bytes": 483,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-bean-face.png",
+      "bytes": 1422,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-bean-face@2x.png",
+      "bytes": 3474,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-bean.png",
+      "bytes": 292,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-bean@2x.png",
+      "bytes": 499,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-blob-face.png",
+      "bytes": 1745,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-blob-face@2x.png",
+      "bytes": 4459,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-blob.png",
+      "bytes": 277,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-blob@2x.png",
+      "bytes": 511,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-capsule-face.png",
+      "bytes": 1450,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-capsule-face@2x.png",
+      "bytes": 3501,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-capsule.png",
+      "bytes": 291,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-capsule@2x.png",
+      "bytes": 527,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-cloud-face.png",
+      "bytes": 1687,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-cloud-face@2x.png",
+      "bytes": 3786,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-cloud.png",
+      "bytes": 305,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-cloud@2x.png",
+      "bytes": 543,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-clover-face.png",
+      "bytes": 1569,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-clover-face@2x.png",
+      "bytes": 3749,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-clover.png",
+      "bytes": 295,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-clover@2x.png",
+      "bytes": 539,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-crystal-face.png",
+      "bytes": 1250,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-crystal-face@2x.png",
+      "bytes": 3108,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-crystal.png",
+      "bytes": 279,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-crystal@2x.png",
+      "bytes": 497,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-cylinder-face.png",
+      "bytes": 1608,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-cylinder-face@2x.png",
+      "bytes": 3892,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-cylinder.png",
+      "bytes": 309,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-cylinder@2x.png",
+      "bytes": 556,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-dome-face.png",
+      "bytes": 1280,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-dome-face@2x.png",
+      "bytes": 3316,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-dome.png",
+      "bytes": 270,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-dome@2x.png",
+      "bytes": 484,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-egg-face.png",
+      "bytes": 1535,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-egg-face@2x.png",
+      "bytes": 3938,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-egg.png",
+      "bytes": 304,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-egg@2x.png",
+      "bytes": 568,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-flower-face.png",
+      "bytes": 1615,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-flower-face@2x.png",
+      "bytes": 3823,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-flower.png",
+      "bytes": 320,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-flower@2x.png",
+      "bytes": 591,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-gem-face.png",
+      "bytes": 1808,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-gem-face@2x.png",
+      "bytes": 4275,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-gem.png",
+      "bytes": 320,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-gem@2x.png",
+      "bytes": 529,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-heart-face.png",
+      "bytes": 1478,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-heart-face@2x.png",
+      "bytes": 3551,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-heart.png",
+      "bytes": 293,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-heart@2x.png",
+      "bytes": 519,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-hex-face.png",
+      "bytes": 1863,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-hex-face@2x.png",
+      "bytes": 4308,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-hex.png",
+      "bytes": 313,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-hex@2x.png",
+      "bytes": 537,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-house-face.png",
+      "bytes": 1501,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-house-face@2x.png",
+      "bytes": 3504,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-house.png",
+      "bytes": 302,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-house@2x.png",
+      "bytes": 520,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-leaf-face.png",
+      "bytes": 1430,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-leaf-face@2x.png",
+      "bytes": 3316,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-leaf.png",
+      "bytes": 298,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-leaf@2x.png",
+      "bytes": 479,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-pebble-face.png",
+      "bytes": 1713,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-pebble-face@2x.png",
+      "bytes": 4243,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-pebble.png",
+      "bytes": 322,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-pebble@2x.png",
+      "bytes": 577,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-pumpkin-face.png",
+      "bytes": 1761,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-pumpkin-face@2x.png",
+      "bytes": 4249,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-pumpkin.png",
+      "bytes": 321,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-pumpkin@2x.png",
+      "bytes": 575,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-shield-face.png",
+      "bytes": 1768,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-shield-face@2x.png",
+      "bytes": 4187,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-shield.png",
+      "bytes": 312,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-shield@2x.png",
+      "bytes": 571,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-sparkle-face.png",
+      "bytes": 1530,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-sparkle-face@2x.png",
+      "bytes": 3604,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-sparkle.png",
+      "bytes": 300,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-sparkle@2x.png",
+      "bytes": 533,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-square-face.png",
+      "bytes": 1621,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-square-face@2x.png",
+      "bytes": 3968,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-square.png",
+      "bytes": 311,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-square@2x.png",
+      "bytes": 563,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-squircle-face.png",
+      "bytes": 1691,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-squircle-face@2x.png",
+      "bytes": 3905,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-squircle.png",
+      "bytes": 314,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-squircle@2x.png",
+      "bytes": 579,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-star-face.png",
+      "bytes": 1631,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-star-face@2x.png",
+      "bytes": 3837,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-star.png",
+      "bytes": 328,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-star@2x.png",
+      "bytes": 591,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-tablet-face.png",
+      "bytes": 1731,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-tablet-face@2x.png",
+      "bytes": 4078,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-tablet.png",
+      "bytes": 299,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-tablet@2x.png",
+      "bytes": 525,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-teardrop-face.png",
+      "bytes": 1588,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-teardrop-face@2x.png",
+      "bytes": 4043,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-teardrop.png",
+      "bytes": 299,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-teardrop@2x.png",
+      "bytes": 552,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-wedge-face.png",
+      "bytes": 1211,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-wedge-face@2x.png",
+      "bytes": 3163,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-wedge.png",
+      "bytes": 281,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/bot-wedge@2x.png",
+      "bytes": 485,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/brand.png",
+      "bytes": 302,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/brand@2x.png",
+      "bytes": 570,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/working.png",
+      "bytes": 310,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/menubar-tray/assets/working@2x.png",
+      "bytes": 608,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-main/onepassword-connection-service.cjs",
+      "bytes": 107436,
+      "unpacked": true
+    },
+    {
+      "path": "dist/electron-main/proto.cjs",
+      "bytes": 1429117,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-preload/preload-avatar-source.cjs",
+      "bytes": 5568,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-preload/preload-desktop-mount-capture-overlay.cjs",
+      "bytes": 13604,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-preload/preload-desktop-mount-panel.cjs",
+      "bytes": 19887,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-preload/preload-vnc.cjs",
+      "bytes": 49114,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-preload/preload-webview.cjs",
+      "bytes": 6654,
+      "unpacked": false
+    },
+    {
+      "path": "dist/electron-preload/preload.cjs",
+      "bytes": 133662,
+      "unpacked": false
+    },
+    {
+      "path": "dist/local-exec-daemon/main.cjs",
+      "bytes": 3945762,
+      "unpacked": false
+    },
+    {
+      "path": "dist/local-exec-daemon/messages-worker.cjs",
+      "bytes": 121022,
+      "unpacked": false
+    },
+    {
+      "path": "dist/native/sand-webauthn-signer.exe",
+      "bytes": 263168,
+      "unpacked": true
+    },
+    {
+      "path": "dist/node-agent-coordinator/main.cjs",
+      "bytes": 1193881,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
+      "bytes": 28076,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2",
+      "bytes": 6912,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2",
+      "bytes": 6908,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2",
+      "bytes": 11348,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2",
+      "bytes": 11316,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_Main-Bold-Cx986IdX.woff2",
+      "bytes": 25324,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2",
+      "bytes": 16780,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_Main-Italic-NWA7e6Wa.woff2",
+      "bytes": 16988,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_Main-Regular-B22Nviop.woff2",
+      "bytes": 26272,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2",
+      "bytes": 16400,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_Math-Italic-t53AETM-.woff2",
+      "bytes": 16440,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2",
+      "bytes": 12216,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2",
+      "bytes": 12028,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2",
+      "bytes": 10344,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_Script-Regular-D3wIWfF6.woff2",
+      "bytes": 9644,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_Size1-Regular-mCD8mA8B.woff2",
+      "bytes": 5468,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_Size2-Regular-Dy4dx90m.woff2",
+      "bytes": 5208,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2",
+      "bytes": 4928,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2",
+      "bytes": 13568,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/X-VF-C7NyO54W.woff2",
+      "bytes": 82620,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/XMono-VF-K4lk0ar0.woff2",
+      "bytes": 24704,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/amex-B44h7XJJ.svg",
+      "bytes": 5067,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/amex-BoiAwICI.svg",
+      "bytes": 5062,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/apollo-B0sEgAUH.png",
+      "bytes": 8150,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/app-icon-C7NKj2u7.png",
+      "bytes": 33135,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/ashby-BidvOSTU.png",
+      "bytes": 5030,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/box-DrJB_xON.png",
+      "bytes": 7524,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/calendly-D2epP-qs.svg",
+      "bytes": 5754,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/canva-94e3J4cN.svg",
+      "bytes": 4285,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-2KBZBTPU-DRjBhaiH.js",
+      "bytes": 20837,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-2LRPAJJ6-777GMhtI.js",
+      "bytes": 8723,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-4X3DD7WN-BSOHM6Gf.js",
+      "bytes": 12519,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-5THPTBWS-Ce_hS451.js",
+      "bytes": 912,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-7WLXJQOR-D6QVYUu9.js",
+      "bytes": 2382,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-B2BIWMB2-BowTSLXR.js",
+      "bytes": 27546,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-BBBUIAME-BqR24AKH.js",
+      "bytes": 1044,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-Button-DFBxxGP_.js",
+      "bytes": 4379,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-CAVQFYGD-C9SDpZjn.js",
+      "bytes": 1418,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-CodeBlock-DCgX8EwU.js",
+      "bytes": 14514,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-ComboboxItemIndicator-CrprgrdC.js",
+      "bytes": 1087,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-CompositeRoot-B7he7-9j.js",
+      "bytes": 4312,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-DH7PSFAY-BgYAQlWw.js",
+      "bytes": 23554,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-DKTLEL5E-DciMwFJ1.js",
+      "bytes": 1264,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-DefaultCode-OWSYVXIa.js",
+      "bytes": 194060,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-EJ5KOXYD-CRoRPyqN.js",
+      "bytes": 8053,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-EJHJNRVT-DQIiylwT.js",
+      "bytes": 11642,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-ENHYH22O-CU-1mw8e.js",
+      "bytes": 2085,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-F2PHAMTK-tA6zZuHy.js",
+      "bytes": 21232,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-FTXIJQGB-CggtIYAM.js",
+      "bytes": 2975,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-FWLQQKDT-ChA7gb0K.js",
+      "bytes": 6248,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-G3EVRVUR-Bg03HLV7.js",
+      "bytes": 28646,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-G3MDBVQH-BZmnMkFw.js",
+      "bytes": 993,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-G56O52EW-BQ3HjqUw.js",
+      "bytes": 818,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-G5TUMYLJ-CwJnmH31.js",
+      "bytes": 44535,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-G5Y43LOA-_891cNPg.js",
+      "bytes": 9746,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-GU44UQXE-CreScpPF.js",
+      "bytes": 39856,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-GUJTEFZK-DPEFMf5Q.js",
+      "bytes": 945,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-HT3OICJK-JNKzov1X.js",
+      "bytes": 5764,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-IUDOOOVD-DSF6ZuBi.js",
+      "bytes": 9385,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-JNVLUO7U-2YNg33je.js",
+      "bytes": 12502,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-JOZ4YUAH-DAS_uwc3.js",
+      "bytes": 19537,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-KGUIZAAD-BtjEdFKJ.js",
+      "bytes": 57,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-KHO3NZBQ-CM65O68V.js",
+      "bytes": 28895,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-LGDMSN7I-M51FJtW8.js",
+      "bytes": 7553,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-LQLOTJAJ-UG9X5ogv.js",
+      "bytes": 13914,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-MAD42XYF-b8ZucNYH.js",
+      "bytes": 24617,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-MRR2UVJE-Bj2qgUdN.js",
+      "bytes": 5712,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-NSMYCP52-yhZTsagi.js",
+      "bytes": 7694,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-NWYJBIV3-CHoK5RZQ.js",
+      "bytes": 41859,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-NXOHZVKJ-C_jrNo7e.js",
+      "bytes": 2501,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-PPKJ5VRU-u0iAF4rA.js",
+      "bytes": 15611,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-Q627WNH4-BcxLa2A-.js",
+      "bytes": 14996,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-RFCA4H5P-C-ED6z3y.js",
+      "bytes": 9890,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-RVARI57O-CgA1WoRv.js",
+      "bytes": 593,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-S7YETIVK-zOwgQ-6-.js",
+      "bytes": 4625,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-STJZCPHQ-BdNUg1lF.js",
+      "bytes": 7755,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-SZNAIJJQ-BGb0j-t0.js",
+      "bytes": 5590,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-SegmentedControl-BjFU1BSP.js",
+      "bytes": 11274,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-TU3SOGH5-zTCConqX.js",
+      "bytes": 1847,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-ToggleIconButton-Bm_YniG8.js",
+      "bytes": 12559,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-UUXJ5PB3-DlIgjMF4.js",
+      "bytes": 11037,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-UY54MIDN-D7EI2TIj.js",
+      "bytes": 6633,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-VBDNR4S5-C4ddewro.js",
+      "bytes": 14558,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-VCEB3UVF-Dg001WbQ.js",
+      "bytes": 843,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-WEVWDWVA-C9ZydQg_.js",
+      "bytes": 1469,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-XJVNNBRC-BKQCzWNZ.js",
+      "bytes": 30582,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-Y5CVV63W-C2ac0qcf.js",
+      "bytes": 16887,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-YRIGOE2X-BY-AfHC9.js",
+      "bytes": 6466,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-YXPY6UTP-BpfUUDSA.js",
+      "bytes": 3872,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-ZEMRW44H-Dmst9SB_.js",
+      "bytes": 30105,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-ZIMOLUY6-CGtun3or.js",
+      "bytes": 8019,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-ZJKP2ZMR-JZsWuiyl.js",
+      "bytes": 34631,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agent-avatar-editor-CDdk4oQS.js",
+      "bytes": 22719,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agent-invite-dialog-DfLzKMco.js",
+      "bytes": 15659,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-BCMyKT7d.js",
+      "bytes": 41011,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-BGH-QV3H.js",
+      "bytes": 34780,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-BImJ0hb4.js",
+      "bytes": 28288,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-BMaycy-w.js",
+      "bytes": 24878,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-BNF61UZh.js",
+      "bytes": 28720,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-BPVxEJwv.js",
+      "bytes": 24851,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-C-WmxaI-.js",
+      "bytes": 26911,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-C0LkYxgU.js",
+      "bytes": 50160,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-CBl1a8CU.js",
+      "bytes": 27604,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-CDs-nDA9.js",
+      "bytes": 28221,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-COSJgp-B.js",
+      "bytes": 42464,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-CRlcU-Xr.js",
+      "bytes": 29655,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-CVTRrVh3.js",
+      "bytes": 26093,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-CVjkgT56.js",
+      "bytes": 26815,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-CW7s647R.js",
+      "bytes": 44864,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-CdnpKQR9.js",
+      "bytes": 28313,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-CizM9VVn.js",
+      "bytes": 25389,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-CkoXyuM2.js",
+      "bytes": 52472,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-D-s9M6dY.js",
+      "bytes": 42937,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-D24xGE7d.js",
+      "bytes": 26639,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-D3Xtl0Q_.js",
+      "bytes": 25036,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-D4VpsmnK.js",
+      "bytes": 45534,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-D6TovOaZ.js",
+      "bytes": 38407,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-D8JLlzG6.js",
+      "bytes": 25662,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-DJ90OR-b.js",
+      "bytes": 25873,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-DSeefHF5.js",
+      "bytes": 27971,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-DZjnqJnR.js",
+      "bytes": 26677,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-DnK0G_MF.js",
+      "bytes": 25827,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-DzDniP5S.js",
+      "bytes": 29172,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-IIhX-AC2.js",
+      "bytes": 41447,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-ISuy_8VR.js",
+      "bytes": 27807,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-Xb8ABV8d.js",
+      "bytes": 22973,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-a3bZeghy.js",
+      "bytes": 38687,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-fERo9crJ.js",
+      "bytes": 31709,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-hHSEEhQr.js",
+      "bytes": 23128,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-agents-jqT_DJmh.js",
+      "bytes": 26202,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-app-copy-BxFB-tt4.js",
+      "bytes": 1355,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-app-copy-CgNsT-Hw.js",
+      "bytes": 1569,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-asm-Cmm7eHzH.js",
+      "bytes": 41145,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-astro-MxfF1b9g.js",
+      "bytes": 24491,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-auto-review-rule-notice-wMrkDWYI.js",
+      "bytes": 5895,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-auto-review-selector-DaN5QCt8.js",
+      "bytes": 2582,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-automation-detail-panel-DjJ9seXa.js",
+      "bytes": 16868,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-bonfire-dialog-CNte2xY7.js",
+      "bytes": 12690,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-bot-configure-dialog-CFt4OVPW.js",
+      "bytes": 33868,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-bot-manage-knowledge-C_B8dK91.js",
+      "bytes": 23697,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-bot-manage-screen-CVApO48o.js",
+      "bytes": 67962,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-bot-manage-section-BpnC7scc.js",
+      "bytes": 1722,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-bot-share-control-B2166Eo3.js",
+      "bytes": 7838,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-bot-share-invite-popover-B2ZuBmYj.js",
+      "bytes": 32312,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-bot-share-popover-C7-atc3U.js",
+      "bytes": 46752,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-bot-share-state-line-Bn3MOKDo.js",
+      "bytes": 5144,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-bot-share-trigger-DFgFJhbr.js",
+      "bytes": 12468,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-bot-sharing-reads-DAol-ocb.js",
+      "bytes": 2802,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-bot-slack-copy-C8sRECjW.js",
+      "bytes": 11250,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-bot-store-files-library-CEaO6M_6.js",
+      "bytes": 10092,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-bot-template-details-dialog-_1Kdy66y.js",
+      "bytes": 36053,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-bot-template-details-focus-DT_htZOQ.js",
+      "bytes": 749,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-bot-template-share-card-frame-Ba2RZMxS.js",
+      "bytes": 5678,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-box-desktop-modal-BuXZY352.js",
+      "bytes": 26884,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-brand-marks-BKWG_hmP.js",
+      "bytes": 10876,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-button-layout.stylex-2EXpWo1n.js",
+      "bytes": 1590,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-c-CC63xDpy.js",
+      "bytes": 72620,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-card-dialog-CeC5l7w_.js",
+      "bytes": 3417,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-card-field-zrTmta8i.js",
+      "bytes": 5247,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-card-item-Bw4C2qAv.js",
+      "bytes": 4343,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-character-entities-Cc6Nt2lQ.js",
+      "bytes": 29183,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-5bCUFt3D.js",
+      "bytes": 78077,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-5keUntrL.js",
+      "bytes": 79254,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-B0iDyB_D.js",
+      "bytes": 89127,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-B3SKwu1J.js",
+      "bytes": 82257,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-BHQY466c.js",
+      "bytes": 176193,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-BN5sZEum.js",
+      "bytes": 100672,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-BPseBQGa.js",
+      "bytes": 127958,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-BZg_lVDV.js",
+      "bytes": 114446,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-BcvUYRWk.js",
+      "bytes": 94970,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-BdXOCH8i.js",
+      "bytes": 84462,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-BofUnwJa.js",
+      "bytes": 73353,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-Bq4sJLOa.js",
+      "bytes": 89670,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-BrTFo5YI.js",
+      "bytes": 127057,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-C43jCsOf.js",
+      "bytes": 112226,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-C9QvOHsw.js",
+      "bytes": 145472,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-CClhOBMJ.js",
+      "bytes": 76986,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-CJdjco3e.js",
+      "bytes": 85346,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-CKhmusnv.js",
+      "bytes": 145425,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-CRhxiHwR.js",
+      "bytes": 84559,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-CUFDmu53.js",
+      "bytes": 76493,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-CpezbMN1.js",
+      "bytes": 149959,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-CujJu3_2.js",
+      "bytes": 85446,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-D7p7H_Xs.js",
+      "bytes": 80862,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-DG8-VwO6.js",
+      "bytes": 79778,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-DNvGSTOu.js",
+      "bytes": 88913,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-DPJOWFcr.js",
+      "bytes": 164584,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-DikOM9Co.js",
+      "bytes": 86298,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-RFeIZckh.js",
+      "bytes": 80113,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-blA0OBsh.js",
+      "bytes": 72606,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-f5DA-P9a.js",
+      "bytes": 129593,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-fdTmGndi.js",
+      "bytes": 139336,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-lPciHQhQ.js",
+      "bytes": 82400,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-laezLstO.js",
+      "bytes": 88331,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-pYtmxUdX.js",
+      "bytes": 82344,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-sRJdxJ0J.js",
+      "bytes": 87548,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-widget-CjvdpoFI.js",
+      "bytes": 4967,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-chat-zy0OqrfN.js",
+      "bytes": 78353,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-clojure-DqKBuwfJ.js",
+      "bytes": 6841,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-cloud-agent-artifact-open-telemetry-DtHldMi0.js",
+      "bytes": 678,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-cloud-agent-card-elevated-Cy1YxB5P.js",
+      "bytes": 17866,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-cmake-Bj61d0ZC.js",
+      "bytes": 10283,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-code-body-WQe5p1Jn.js",
+      "bytes": 3909,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-compact-CelYNJqw.js",
+      "bytes": 571922,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-computer-screen-preview-ChL60m5q.js",
+      "bytes": 25466,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-connect-Bn-SkVGx.js",
+      "bytes": 1702,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-connector-CXeNHPDD.js",
+      "bytes": 841,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-connector-auth-telemetry-B20G-uv5.js",
+      "bytes": 6562,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-connector-card-CHwWn9cF.js",
+      "bytes": 19946,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-connector-card-view-DH9UiunZ.js",
+      "bytes": 25564,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-connector-data-center-DHf3FX9M.js",
+      "bytes": 1130,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core--51Nh9s-.js",
+      "bytes": 242981,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-B-c6fDNL.js",
+      "bytes": 130702,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-B47Q_O54.js",
+      "bytes": 249176,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-B7-9XUjN.js",
+      "bytes": 304352,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-BFmwJ4C7.js",
+      "bytes": 137199,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-BJMpYDdD.js",
+      "bytes": 130131,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-BNp-XF8k.js",
+      "bytes": 259837,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-BSYyZor1.js",
+      "bytes": 141367,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-BbTLTT1_.js",
+      "bytes": 139310,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-Bs2MDkXA.js",
+      "bytes": 187579,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-C5iSfGMs.js",
+      "bytes": 143910,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-CGCrbga9.js",
+      "bytes": 140800,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-CHvxy-IP.js",
+      "bytes": 284189,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-CQGIVT8a.js",
+      "bytes": 147091,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-CSMOkzPz.js",
+      "bytes": 213073,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-CXBwRBzw.js",
+      "bytes": 115789,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-C_8Hw6Xh.js",
+      "bytes": 134961,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-Ca0_jo4g.js",
+      "bytes": 253700,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-CgdDoKBg.js",
+      "bytes": 150740,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-ChItHS3Y.js",
+      "bytes": 215617,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-Cn1hehTO.js",
+      "bytes": 133546,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-CnbxhHBg.js",
+      "bytes": 133225,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-D0jmdp68.js",
+      "bytes": 129434,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-D6xcDaSV.js",
+      "bytes": 190227,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-DUA7td9C.js",
+      "bytes": 126855,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-DVo01Ktg.js",
+      "bytes": 137548,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-DYjpukqI.js",
+      "bytes": 117387,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-DeW1FbXN.js",
+      "bytes": 147880,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-LV4IY0dH.js",
+      "bytes": 225506,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-NkT2kKxV.js",
+      "bytes": 141055,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-_3AqYdRE.js",
+      "bytes": 151165,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-c0smRO-T.js",
+      "bytes": 140817,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-d5R3__Qf.js",
+      "bytes": 165498,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-eCACa040.js",
+      "bytes": 131000,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-kLTQvpyh.js",
+      "bytes": 161856,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-core-vyxpo99C.js",
+      "bytes": 145834,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-cpp-DHsugqeC.js",
+      "bytes": 626596,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-crystal-CZzOIReM.js",
+      "bytes": 29881,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-csharp-Ct8U2NOr.js",
+      "bytes": 90115,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-css-C9CY8zzB.js",
+      "bytes": 49548,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-csv-parse-CrEyvt0N.js",
+      "bytes": 1374,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-custom-mcp-form-Btz9yUUc.js",
+      "bytes": 22213,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-custom-plugin-slots-CXUaje8_.js",
+      "bytes": 491,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-dart-CnvKMtbv.js",
+      "bytes": 9051,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-device-action-BnV1s6H8.js",
+      "bytes": 937,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-diff-woXpYk--.js",
+      "bytes": 2997,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-dist-CFE3rr0S.js",
+      "bytes": 1555319,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-dist-DSk--iLv.js",
+      "bytes": 382739,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-dockerfile-IyjqRm3v.js",
+      "bytes": 2169,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-document-page-yPx_J1Z_.js",
+      "bytes": 234621,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-dotenv-_5a1GRtc.js",
+      "bytes": 1850,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-draft-send-error-Dh4gFR79.js",
+      "bytes": 5945,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-elevated-draft-fields-JaE61d8W.js",
+      "bytes": 8096,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-elixir-DjWh4WI-.js",
+      "bytes": 16705,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-elm-hMyRoyoN.js",
+      "bytes": 11387,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-emoji-messages.af-D4heFg29.js",
+      "bytes": 990,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-emoji-messages.ar-yvwS8RVz.js",
+      "bytes": 1102,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-emoji-messages.cs-5mWPKgMD.js",
+      "bytes": 996,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-emoji-messages.el-CBsIypas.js",
+      "bytes": 1138,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-emoji-messages.ha-DcYuXZzg.js",
+      "bytes": 995,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-emoji-messages.he-C93LjpkI.js",
+      "bytes": 1039,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-emoji-messages.id-TU_qKbsI.js",
+      "bytes": 990,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-emoji-messages.mr-ywyrMiWO.js",
+      "bytes": 1150,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-emoji-messages.pt-pt-DiqhV02f.js",
+      "bytes": 999,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-emoji-messages.sw-4tI05pwt.js",
+      "bytes": 988,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-emoji-messages.ta-R5umD_RM.js",
+      "bytes": 1292,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-emoji-messages.te-DiQ9cNa7.js",
+      "bytes": 1315,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-emoji-messages.tr-Dd-ZpGQn.js",
+      "bytes": 1015,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-emoji-messages.ur-CN_7R7p1.js",
+      "bytes": 1064,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-emojibase-BVpGez-n.js",
+      "bytes": 170771,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-erb-BzD3MWgH.js",
+      "bytes": 2583,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-erlang-D3xJYDzX.js",
+      "bytes": 37918,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-file-markdown-cBVIVLLm.js",
+      "bytes": 16080,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-file-markdown-hast-BOvh1QZz.js",
+      "bytes": 2520,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-file-markdown.worker-BT5Ny8O9.js",
+      "bytes": 557,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-file-stage-C01uAQ0a.js",
+      "bytes": 11688,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-fish-BJitypiv.js",
+      "bytes": 13466,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-form-values-Bh3Xe0qp.js",
+      "bytes": 1286,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-fsharp-COHO7w1M.js",
+      "bytes": 25743,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-fullscreen-file-viewer-body-CV7C9M8j.js",
+      "bytes": 81731,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-general-pane-BoaLGkwd.js",
+      "bytes": 105742,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-get-file-icon-tGef5WLJ.js",
+      "bytes": 34741,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-glsl-TW1y9gZg.js",
+      "bytes": 4146,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-go-rLFTqkRN.js",
+      "bytes": 47246,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-graphql-CuIeQpM_.js",
+      "bytes": 18552,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-grok-bot-secret-problem-text-Byrhpk7j.js",
+      "bytes": 1106,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-grok-bot-secrets-DhHPEPep.js",
+      "bytes": 1096,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-grok-bot-slack-dialog-live-cVIDWp2P.js",
+      "bytes": 41007,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-grok-bot-team-custom-mcp-C-TSJb9J.js",
+      "bytes": 29022,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-grok-bot-vault-login-dialogs-D87uGHOH.js",
+      "bytes": 131738,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-groovy-CacY0gHj.js",
+      "bytes": 19607,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-group-chat-connect-waiting-KbCSW1PR.js",
+      "bytes": 1734,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-haml-DGBBvuJE.js",
+      "bytes": 8791,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-haskell-D8IpX4py.js",
+      "bytes": 41918,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-hcl-Dh228itO.js",
+      "bytes": 10481,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-heading-link-BPP_DCqj.js",
+      "bytes": 2239,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-hlsl-Cvrh5tZx.js",
+      "bytes": 7692,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-html-4VOqdg0m.js",
+      "bytes": 57775,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-html-derivative-CpDC59AX.js",
+      "bytes": 1278,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-iamcal-CmuYY0XP.js",
+      "bytes": 48333,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-ini-B5eOa1yu.js",
+      "bytes": 1953,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-inline-user-form-BqW6fSgm.js",
+      "bytes": 47299,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-java-4gWYuTZt.js",
+      "bytes": 27726,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-javascript-XiMg69-7.js",
+      "bytes": 175334,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-json-qhed-kSA.js",
+      "bytes": 3252,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-json5-BR5RXkoi.js",
+      "bytes": 3682,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-jsonc-CYpm1nAK.js",
+      "bytes": 3537,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-jsx-NzBBkeOX.js",
+      "bytes": 178299,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-julia-Dur6_lkE.js",
+      "bytes": 31463,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-kotlin-DhhofPvG.js",
+      "bytes": 9213,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-latex-CRJtHShz.js",
+      "bytes": 82671,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-layout-C7TEXZHe.js",
+      "bytes": 10733,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-lazy-U6FCiJAI.js",
+      "bytes": 25693,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-lean-CewbzKMR.js",
+      "bytes": 6212,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-less-DVTAwKKz.js",
+      "bytes": 98061,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-lib-BgGplrgg.js",
+      "bytes": 18584,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-lib-CpheHymz.js",
+      "bytes": 56053,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-lib-D0oMHxig.js",
+      "bytes": 498840,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-library-visual-viewer-CQpWmmCT.js",
+      "bytes": 5946,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-link-brand-logo-Co-LXGoH.js",
+      "bytes": 1114,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-lisp-Cv5bFMCO.js",
+      "bytes": 23009,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-list-item-DJNGRVpu.js",
+      "bytes": 5739,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-listener-integrations-BqDTiQHs.js",
+      "bytes": 12523,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-lua-DLxAWxUm.js",
+      "bytes": 16047,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-mac-app-tile-cNXoTaln.js",
+      "bytes": 5513,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-mac-mail-setup-dialog-DIg6-cr1.js",
+      "bytes": 11774,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-makefile-Dixweg8N.js",
+      "bytes": 9389,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-markdown-BYOwaDjH.js",
+      "bytes": 59763,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-markdown-math-C4SygKlq.js",
+      "bytes": 3205,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-markdown-math-katex-C5NqQ9Zj.js",
+      "bytes": 257720,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-markdown-math-remark-Br6-bQmi.js",
+      "bytes": 88745,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-markdown-structure-CbCad0UW.js",
+      "bytes": 4163,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-marketplace-browse-model-DcfDpKw-.js",
+      "bytes": 6162,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-mdx-DQZ5AkYe.js",
+      "bytes": 136542,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-member-chip-DiNEogD2.js",
+      "bytes": 3348,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-4j2WTHdh.js",
+      "bytes": 6025,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-B1D15dLv.js",
+      "bytes": 6634,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-B1eC3cnP.js",
+      "bytes": 6597,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-BIzpIBtM.js",
+      "bytes": 8331,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-BODRrMEh.js",
+      "bytes": 6384,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-BfjeUDlq.js",
+      "bytes": 6475,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-BrgBfzRa.js",
+      "bytes": 6396,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-BwUkZ90f.js",
+      "bytes": 5948,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-CBd5Hblm.js",
+      "bytes": 6605,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-Ctq3iIf9.js",
+      "bytes": 6672,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-D14ymqYa.js",
+      "bytes": 6465,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-D4M6OIKC.js",
+      "bytes": 8483,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-D9zquYE9.js",
+      "bytes": 6607,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-DJ_oHCt2.js",
+      "bytes": 6324,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-DpcPRrBT.js",
+      "bytes": 7667,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-DqDLlneC.js",
+      "bytes": 6338,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-DxVOB7Ie.js",
+      "bytes": 6561,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-ObP3FNzi.js",
+      "bytes": 6475,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-dYv9vg_-.js",
+      "bytes": 6487,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-eCIcGsZV.js",
+      "bytes": 6336,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-i3H-LMje.js",
+      "bytes": 6487,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-kmpr0tfz.js",
+      "bytes": 8926,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-messages-yNWFxeoX.js",
+      "bytes": 7680,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-model-CexeI7gT.js",
+      "bytes": 1790,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-native-connector-card-Du5DIscR.js",
+      "bytes": 4692,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-native-plugin-detail-CXlfayVK.js",
+      "bytes": 50886,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-native-plugin-state-BKzDozWE.js",
+      "bytes": 1118,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-network-debugger-dialog-BILEtzOk.js",
+      "bytes": 11682,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-new-chat-bar-Df_gUrLS.js",
+      "bytes": 34915,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-nginx-CKT1Mqo0.js",
+      "bytes": 35793,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-nim-CY87q0jh.js",
+      "bytes": 22932,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-notice-eaXBdzwX.js",
+      "bytes": 980,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-objective-c-D1A_Heim.js",
+      "bytes": 105841,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-objective-cpp-BsSzOQcm.js",
+      "bytes": 172400,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-ocaml-O90oeIOV.js",
+      "bytes": 62877,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-onboarding-flow-BoOnTx1x.js",
+      "bytes": 65703,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-onepassword-previous-vault-note-Bcst_-Aq.js",
+      "bytes": 7183,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-order-checkout-C58R_-OT.js",
+      "bytes": 72534,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-pane-header-JcJL2SNz.js",
+      "bytes": 5007,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-pdf-DLGzp1Os.js",
+      "bytes": 393983,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-people-search-menu-live-Bc2yW1cs.js",
+      "bytes": 70412,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-perl-Cg4isTxO.js",
+      "bytes": 43611,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-personal-bot-target-Fz0pkC7e.js",
+      "bytes": 971,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-phone-call-CoT4xfK4.js",
+      "bytes": 26187,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-phone-icon-C9UON0MG.js",
+      "bytes": 1417,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-php-B2qDgV7Q.js",
+      "bytes": 111780,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-place-facts-Gi6VG55H.js",
+      "bytes": 1113,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-places-stage-CQaKMdGc.js",
+      "bytes": 125539,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-plugin-detail-sharepoint-write-Dt89Oqxk.js",
+      "bytes": 23104,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-plugin-detail-view-DH1iqW7s.js",
+      "bytes": 80267,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-pointer-release-BUCn2EgJ.js",
+      "bytes": 6112,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-postcss-BXeXVLqQ.js",
+      "bytes": 6845,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-powershell-DshXNtvi.js",
+      "bytes": 20579,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-presentation-aVawHX8V.js",
+      "bytes": 845,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-prisma-BsRQq5mF.js",
+      "bytes": 6758,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-prompt-editor-D-tCDVOs.js",
+      "bytes": 82235,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-proto-DB4EqR-F.js",
+      "bytes": 6976,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-python-gzcpVVnB.js",
+      "bytes": 70380,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-r-bCt7c2wX.js",
+      "bytes": 7048,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-regexp-CC_tTij5.js",
+      "bytes": 8495,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-review-item-seed-5Xs4jg85.js",
+      "bytes": 1024,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-review-usage-button-x2gkYnHM.js",
+      "bytes": 2637,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-rolldown-runtime-BCiCTKAo.js",
+      "bytes": 1301,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-rst-mwbDw8S9.js",
+      "bytes": 10798,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-ruby-hMNwd_Nb.js",
+      "bytes": 47110,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-rust-Cfkwpbl8.js",
+      "bytes": 15497,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-sand-auto-review-instructions-CoXp1wDA.js",
+      "bytes": 1630,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-sand-diagram-render-C92pERCU.js",
+      "bytes": 1706,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-sand-rule-text-diff-DZH51_ck.js",
+      "bytes": 1184,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-sass-DXrisJhu.js",
+      "bytes": 9717,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-scala-DKOlJaKm.js",
+      "bytes": 29312,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-scale-layer-TTSwFuRm.js",
+      "bytes": 711,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-scroll-pane-BF2f0a1G.js",
+      "bytes": 1506,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-scss-B6JN_s8D.js",
+      "bytes": 27647,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-see-usage-button-CCFLFe4q.js",
+      "bytes": 1255,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-send-imessage-approval-CsPjOqVJ.js",
+      "bytes": 8446,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-sentry-sdk-L6IK2WIc.js",
+      "bytes": 79600,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-session-2g3FILRe.js",
+      "bytes": 21815,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-B6IzZfG_.js",
+      "bytes": 68847,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-B8LnhWJJ.js",
+      "bytes": 47000,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-BbrFWJId.js",
+      "bytes": 40536,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-Bc6z3UTX.js",
+      "bytes": 53510,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-BckNJtPS.js",
+      "bytes": 59272,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-BpDznzVi.js",
+      "bytes": 49771,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-BpkrgQHL.js",
+      "bytes": 49590,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-C7wCYOAM.js",
+      "bytes": 44528,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-CBmH00ec.js",
+      "bytes": 46215,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-CLo2B-Ck.js",
+      "bytes": 48471,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-CPMnH7SO.js",
+      "bytes": 45362,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-CSeQkKIm.js",
+      "bytes": 49400,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-CUZmhYtV.js",
+      "bytes": 49494,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-CUnRDzCt.js",
+      "bytes": 48787,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-CWCoof3n.js",
+      "bytes": 51753,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-Cb-Jhru7.js",
+      "bytes": 52769,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-CgbfAiaE.js",
+      "bytes": 87825,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-ChRKJ959.js",
+      "bytes": 50828,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-Cl6F6iDi.js",
+      "bytes": 79981,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-CpijlFWo.js",
+      "bytes": 101975,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-CpjdQFpo.js",
+      "bytes": 78266,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-Csao-Zgt.js",
+      "bytes": 41101,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-CtOhIVu6.js",
+      "bytes": 51224,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-CtReoCP0.js",
+      "bytes": 45956,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-CyUlJZ5d.js",
+      "bytes": 77209,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-Cz6Rv25E.js",
+      "bytes": 92415,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-D6Siyzx8.js",
+      "bytes": 67207,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-DEjKXHPR.js",
+      "bytes": 88264,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-DHL5jaFT.js",
+      "bytes": 47508,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-DSKrusxG.js",
+      "bytes": 57904,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-DY41GMRE.js",
+      "bytes": 47975,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-DoORZtGx.js",
+      "bytes": 110132,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-Durm_boh.js",
+      "bytes": 89189,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-DwHOFDia.js",
+      "bytes": 45489,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-iRvCvukH.js",
+      "bytes": 46857,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-mSUKfNrQ.js",
+      "bytes": 53032,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-settings-row-CRw51Vqy.js",
+      "bytes": 10308,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-1D3BPKOW.js",
+      "bytes": 17690,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-3WxutsKX.js",
+      "bytes": 30342,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-B7DMwBFe.js",
+      "bytes": 21882,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-B8uXGhzT.js",
+      "bytes": 21698,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-BAn_LYUq.js",
+      "bytes": 23944,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-BFJlS9MU.js",
+      "bytes": 34444,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-BOtMadn6.js",
+      "bytes": 18769,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-BOwQRmwI.js",
+      "bytes": 21045,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-BbLFPTQL.js",
+      "bytes": 20243,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-Bei6FI2u.js",
+      "bytes": 20551,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-Bg3Y9Ioe.js",
+      "bytes": 41350,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-Bm-W5aKc.js",
+      "bytes": 19826,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-BzYySU9h.js",
+      "bytes": 19237,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-C8YWoWzz.js",
+      "bytes": 19629,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-CH5N5r9A.js",
+      "bytes": 21299,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-CK9U_pBA.js",
+      "bytes": 20942,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-CNxuWwRw.js",
+      "bytes": 34461,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-CQAz81eJ.js",
+      "bytes": 39577,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-CRtEFfLL.js",
+      "bytes": 26707,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-CV3QN-3c.js",
+      "bytes": 26670,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-CVl8BqP7.js",
+      "bytes": 20528,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-CfVHgOn0.js",
+      "bytes": 21031,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-CkRc6hqQ.js",
+      "bytes": 20624,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-D3XrYBDJ.js",
+      "bytes": 17883,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-D4g0NRGj.js",
+      "bytes": 23374,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-D73miMc8.js",
+      "bytes": 36732,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-D9CtUGkZ.js",
+      "bytes": 19693,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-DPqlgHk5.js",
+      "bytes": 30584,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-DfLkVztd.js",
+      "bytes": 31604,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-DiuGm7VR.js",
+      "bytes": 19665,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-DkNFl2Dr.js",
+      "bytes": 19021,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-HYP90iJt.js",
+      "bytes": 19086,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-NVmaWbfm.js",
+      "bytes": 21057,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-T2vpkSBj.js",
+      "bytes": 21707,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-bTaemn1b.js",
+      "bytes": 20506,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shared-dbDW3U5A.js",
+      "bytes": 35224,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shellscript-fq7dFakI.js",
+      "bytes": 41986,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shiki-grammars-OmJDPJ1p.js",
+      "bytes": 16013,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shiki-incremental-tokenizer-B4yjJ-k1.js",
+      "bytes": 2389,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shiki-sync-Hw-aX1Fd.js",
+      "bytes": 144675,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-shiki-token-cache-BTha3XOb.js",
+      "bytes": 978,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-sql-Cpez4Rww.js",
+      "bytes": 23914,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-svelte-IIsSK8B3.js",
+      "bytes": 18708,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-swift-DonLKvLd.js",
+      "bytes": 87115,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-teach-recording-controls-BoWmP9UU.js",
+      "bytes": 28452,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-agent-rows-Cg0svL_x.js",
+      "bytes": 1063,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-access-alerts-Ce-X3hxA.js",
+      "bytes": 1820,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-carry-over-plugin-selection-CrnXkfiO.js",
+      "bytes": 1568,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-context-dialog-QcVH6RUN.js",
+      "bytes": 22619,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-custom-plugins-DwnV1335.js",
+      "bytes": 6347,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-details-dialog-DGIWUBpS.js",
+      "bytes": 36776,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-details-pane-ai0Qu7tD.js",
+      "bytes": 842,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-details-rows-C6y3I0ma.js",
+      "bytes": 27323,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-line-render-DBfqACZH.js",
+      "bytes": 639404,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-manager-alerts-YyNl0tjr.js",
+      "bytes": 4077,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-memories-list-shdquU6Q.js",
+      "bytes": 6324,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-overview-panel-C_vhcn7m.js",
+      "bytes": 1062,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-overview-section-CygEhhZP.js",
+      "bytes": 67406,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-plugins-dialog-list-DZqpw3nt.js",
+      "bytes": 36612,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-service-account-tiles-CieR8gye.js",
+      "bytes": 1649,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-service-accounts-C6zVtUAK.js",
+      "bytes": 2250,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-service-accounts-dialog-CtRKkZDd.js",
+      "bytes": 64501,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-service-accounts-setup-copy-BZm1g4sf.js",
+      "bytes": 654,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-service-accounts-shown-Qf3RQ1V_.js",
+      "bytes": 886,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-setup-dialog-shell-DMdw-gIt.js",
+      "bytes": 7068,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-share-card-BMsOdBhN.js",
+      "bytes": 16358,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-teammate-intro-toknBgXw.js",
+      "bytes": 2808,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-teams-flow-dialog-live-BpX8fGAZ.js",
+      "bytes": 66592,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-vault-ZZ_u6-vh.js",
+      "bytes": 5089,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-vault-access-CvFgzQdb.js",
+      "bytes": 734,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-bot-vault-slot-BROQu9DW.js",
+      "bytes": 7489,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-setup-new-secret-dialog-URu6Ga_7.js",
+      "bytes": 8755,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-setup-new-skill-dialog-DGoMLHOa.js",
+      "bytes": 19778,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-setup-pills-DJ49-RSU.js",
+      "bytes": 3282,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-team-setup-row-C5KjjvHH.js",
+      "bytes": 23077,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-teams-integration-shown-DuOPw1D8.js",
+      "bytes": 777,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-template-editor-dialog-Co5Hgjyg.js",
+      "bytes": 4898,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-terraform-DswuEJGm.js",
+      "bytes": 11817,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-text-viewer-BTE1H3Ii.js",
+      "bytes": 18693,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-thread-card-HNqLw19z.js",
+      "bytes": 5939,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-tlaplus-G6I_Q7ax.js",
+      "bytes": 8580,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-toml-CcmNWLt0.js",
+      "bytes": 6854,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-top-up-modal-host-P7fTYDoA.js",
+      "bytes": 4792,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-top-up-recipe-DSqG_MFr.js",
+      "bytes": 1678,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-transcript-markdown-q0eqMATi.js",
+      "bytes": 38508,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-tsx-C_bLR6S3.js",
+      "bytes": 176043,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-typescript-CREhqYlH.js",
+      "bytes": 181587,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-unified-billing-dev-CsMH5ZU8.js",
+      "bytes": 2014,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-unrequested-meeting-approval-1rwRwSQn.js",
+      "bytes": 30403,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-usage-review-gate-DrQ1uMYS.js",
+      "bytes": 991,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-use-active-option-scroll-BPZrZl82.js",
+      "bytes": 973,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-use-bot-sharing-5B73raEW.js",
+      "bytes": 20150,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-use-draft-revision-highlight-BsAs124M.js",
+      "bytes": 16312,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-use-team-bot-access-kwySTdKd.js",
+      "bytes": 4497,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-user-custom-connector-4YLXUlSM.js",
+      "bytes": 3710,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-vault-card-dialog-C5RHQmme.js",
+      "bytes": 143890,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-vault-card-editor-CtWBMr1P.js",
+      "bytes": 7258,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-2jDjifr_.js",
+      "bytes": 9160,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-49zjuanw.js",
+      "bytes": 782,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-4JNyGVxn.js",
+      "bytes": 1936,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-4SWRi3hw.js",
+      "bytes": 24136,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-4igrTKUH.js",
+      "bytes": 927,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-B5MMUnHi.js",
+      "bytes": 12750,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-B6Z05iOs.js",
+      "bytes": 2091,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-BCOQhES2.js",
+      "bytes": 8683,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-BDbJhyoU.js",
+      "bytes": 989,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-BEjFzION.js",
+      "bytes": 20840,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-BGmUlnxt.js",
+      "bytes": 22548,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-BHDuPfOt.js",
+      "bytes": 9521,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-BHracNiu.js",
+      "bytes": 782,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-BKd9btXh.js",
+      "bytes": 782,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-BU7ojnqQ.js",
+      "bytes": 14007,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-BYuSEhyh.js",
+      "bytes": 1589,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-BZ8Qq8W6.js",
+      "bytes": 66783,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-B_bjWVJE.js",
+      "bytes": 1230,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-Ba4nwQhw.js",
+      "bytes": 1448,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-Bd5LaiEJ.js",
+      "bytes": 1620,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-BejdbtnD.js",
+      "bytes": 20947,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-BnEvhy72.js",
+      "bytes": 19135,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-BovpIv4I.js",
+      "bytes": 14021,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-BuyiRqCD.js",
+      "bytes": 11369,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-C0u2Xrcq.js",
+      "bytes": 23347,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-C2r53mk2.js",
+      "bytes": 6193,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-C3_76zuX.js",
+      "bytes": 1437,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-C5q6n0fH.js",
+      "bytes": 87526,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-CEk7vi4x.js",
+      "bytes": 3639,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-CL_-NXnB.js",
+      "bytes": 2159,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-CNp_DKke.js",
+      "bytes": 782,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-CVu-ZrPv.js",
+      "bytes": 46150,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-CWC1Bf72.js",
+      "bytes": 7170,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-CYd4xNHI.js",
+      "bytes": 3014,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-C_EdIp-e.js",
+      "bytes": 782,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-CgWdQ3ey.js",
+      "bytes": 19625,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-CksZ1a9h.js",
+      "bytes": 15173,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-CoPVb3cp.js",
+      "bytes": 3284,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-CpJYicNt.js",
+      "bytes": 4946,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-CrD2xteD.js",
+      "bytes": 1987,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-CtoxnWXl.js",
+      "bytes": 25369,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-D7xvH3FM.js",
+      "bytes": 490,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-D9WQthse.js",
+      "bytes": 24658,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-D9apQKj9.js",
+      "bytes": 2583,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-DDBG2RXb.js",
+      "bytes": 1000,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-DG7lyuaT.js",
+      "bytes": 1255,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-DHb5N5X_.js",
+      "bytes": 16059,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-DUxZep-L.js",
+      "bytes": 11562,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-DZNX2P2Z.js",
+      "bytes": 11992,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-D_c79MRY.js",
+      "bytes": 5164,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-DaMkL68M.js",
+      "bytes": 185791,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-DgFOQN9J.js",
+      "bytes": 28486,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-DhohE9gC.js",
+      "bytes": 79558,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-DnXBbF6N.js",
+      "bytes": 1401,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-DsRwzlgb.js",
+      "bytes": 278997,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-DtShcUVz.js",
+      "bytes": 9072,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-DwAMWz-K.js",
+      "bytes": 1093,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-DyQInYdo.js",
+      "bytes": 782,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-IqsL4cAR.js",
+      "bytes": 8345,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-KNMWSNGF.js",
+      "bytes": 1446,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-L6DMzGpl.js",
+      "bytes": 785,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-Nz7mKwh3.js",
+      "bytes": 4060,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-W1BfLUQ7.js",
+      "bytes": 5189,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-_t44VwJn.js",
+      "bytes": 2542,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-a5qEGQ7v.js",
+      "bytes": 782,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-aOIy-Yat.js",
+      "bytes": 9080,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-jpQDMM-5.js",
+      "bytes": 68561,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-kXWa2IxV.js",
+      "bytes": 782,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-mbWEllnc.js",
+      "bytes": 968,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-ptbSopA1.js",
+      "bytes": 16259,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-tqBPhndj.js",
+      "bytes": 4446,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-u9yZYthe.js",
+      "bytes": 25641,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-uarqZOWP.js",
+      "bytes": 490,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-view-zw6KWSML.js",
+      "bytes": 2125,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-virtual-card-checkout-BWHPnumZ.js",
+      "bytes": 26628,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-visualization-d3-runtime.gen-C5Md8kl5.js",
+      "bytes": 283962,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-visualization-document-CERfs-cI.js",
+      "bytes": 21791,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-visualization-three-runtime.gen-SrPEWFTp.js",
+      "bytes": 696182,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-voice-call-feedback-card-B7TWQ0qR.js",
+      "bytes": 7045,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-voice-memo-bubble-CDRCN6Da.js",
+      "bytes": 19989,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-vue-BVnkANHs.js",
+      "bytes": 24960,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-widget-5yJqS2YJ.js",
+      "bytes": 18068,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-window-chrome-BBCxSY-r.js",
+      "bytes": 494,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-wipe-navigation-CilJ_JzI.js",
+      "bytes": 5270,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-x-brand-logo-DSKSJ8xa.js",
+      "bytes": 14128,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-xlsx-CTEkZXD6.js",
+      "bytes": 424293,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-xml-DIQfOIbF.js",
+      "bytes": 5896,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-yaml-0O5KUNqZ.js",
+      "bytes": 11013,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/chunk-zig-CMLA9XwU.js",
+      "bytes": 5768,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/clay-CXmF7QZG.png",
+      "bytes": 13118,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/cloud-snow-DEN0DiIg.webp",
+      "bytes": 4152,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/cursor-icons-16-QUmxS7q3.woff2",
+      "bytes": 126980,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/databricks-NEF0SRYx.png",
+      "bytes": 14342,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/demo-computer-wallpaper-BO7Ye4dV.jpg",
+      "bytes": 97170,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/desktop-mount-capture-overlay-CNz62h2S.css",
+      "bytes": 1159,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/desktop-mount-capture-overlay-Vt45hXqa.js",
+      "bytes": 3133,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/desktop-mount-panel-BJHydUwA.js",
+      "bytes": 33533,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/desktop-mount-panel-NgyehdlN.css",
+      "bytes": 20745,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/dune-render-trace-hook-265eb7be.js",
+      "bytes": 1241,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/fullscreen-file-viewer-body-222A7KEi.css",
+      "bytes": 562,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/gallery-loop-B8hAOxyN.mp3",
+      "bytes": 12452,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/grok-bot-wallpaper-CmASvogy.jpg",
+      "bytes": 76310,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/hour-phila-lamp-detail-FyPZ3edz.webp",
+      "bytes": 9470,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/hour-phila-lamp-sDruKN28.webp",
+      "bytes": 15334,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/hudson-lamp-DLyPqIR4.webp",
+      "bytes": 15744,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/index-Dh7EWA8t.css",
+      "bytes": 766413,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/index-Dlpqhq5z.js",
+      "bytes": 10565,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/index.eager-app-D25OYGQG.js",
+      "bytes": 4491154,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/index.eager-common-DbK3Oi_r.js",
+      "bytes": 382800,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/index.eager-platform-C2su3Zzb.js",
+      "bytes": 768215,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/index.eager-vendor-BwKbmZU5.js",
+      "bytes": 714213,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/link-8YQaOv_R.svg",
+      "bytes": 25332,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/lumia-lamp-BKhb7V7g.webp",
+      "bytes": 16298,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/mailchimp-C1_zfH2S.svg",
+      "bytes": 5494,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/markdown-math-katex-BwuCGu1h.css",
+      "bytes": 26232,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/microsoft-teams-D0aHCR54.svg",
+      "bytes": 6236,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/nooks-Da6AC940.png",
+      "bytes": 8968,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/obsidian-lamp-DVo9PYfr.webp",
+      "bytes": 24154,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/pdf.worker.min-qwK7q_zL.mjs",
+      "bytes": 1046214,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/quickbooks-N88wePET.png",
+      "bytes": 8460,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/rippling-cz7o1jpc.png",
+      "bytes": 4570,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/sage-bar-lamp-packshot-DBFShtgj.webp",
+      "bytes": 5228,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/salesforce-BEE7f2QY.svg",
+      "bytes": 12689,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/snowflake-B53K53W6.png",
+      "bytes": 12293,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/tableau-DMgl1MR0.png",
+      "bytes": 4823,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/telegram-QYZUMR6n.png",
+      "bytes": 6060,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/tmp-1-open-blip-D1y74m9N.wav",
+      "bytes": 49004,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/tmp-2-tick-DY1KrPne.wav",
+      "bytes": 42284,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/tmp-3-double-tick-CdEXJqnB.wav",
+      "bytes": 63404,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/tmp-4-chime-a-CH10PUxT.wav",
+      "bytes": 65324,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/tmp-5-chime-b-B3aR0Am-.wav",
+      "bytes": 67244,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/whatsapp-Ck_8ZWxq.png",
+      "bytes": 4801,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/workday-D_SBn0hW.svg",
+      "bytes": 4200,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/yelp-logo-COqci6tr.svg",
+      "bytes": 12226,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/yelp-logo-dark-B0ChA2Eu.svg",
+      "bytes": 12224,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/assets/zoominfo-kXQt8h27.png",
+      "bytes": 7115,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/index.html",
+      "bytes": 1851,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/src/electron-renderer/desktop-mount/capture-overlay/capture-overlay.html",
+      "bytes": 1047,
+      "unpacked": false
+    },
+    {
+      "path": "dist/renderer/src/electron-renderer/desktop-mount/panel/panel.html",
+      "bytes": 4605,
+      "unpacked": false
+    },
+    {
+      "path": "package.json",
+      "bytes": 5153,
+      "unpacked": false
+    }
+  ]
+}

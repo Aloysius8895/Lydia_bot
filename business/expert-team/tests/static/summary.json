@@ -1,0 +1,149 @@
+{
+  "format_validators": [
+    {
+      "skill": "april-dunford-positioning",
+      "quick": {
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      "nuwa-quality": {
+        "exit_code": 1,
+        "status": "FAIL_OR_ERROR"
+      },
+      "nuwa-merge": {
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    },
+    {
+      "skill": "ash-maurya-lean-model",
+      "quick": {
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      "nuwa-quality": {
+        "exit_code": 1,
+        "status": "FAIL_OR_ERROR"
+      },
+      "nuwa-merge": {
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    },
+    {
+      "skill": "bob-moesta-demand",
+      "quick": {
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      "nuwa-quality": {
+        "exit_code": 1,
+        "status": "FAIL_OR_ERROR"
+      },
+      "nuwa-merge": {
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    },
+    {
+      "skill": "hackathon-gap-research",
+      "quick": {
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    },
+    {
+      "skill": "steve-blank-discovery",
+      "quick": {
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      "nuwa-quality": {
+        "exit_code": 1,
+        "status": "FAIL_OR_ERROR"
+      },
+      "nuwa-merge": {
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    },
+    {
+      "skill": "teresa-torres-opportunity",
+      "quick": {
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      "nuwa-quality": {
+        "exit_code": 1,
+        "status": "FAIL_OR_ERROR"
+      },
+      "nuwa-merge": {
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    }
+  ],
+  "missing_relative_links": [],
+  "unknown_source_ids": [],
+  "sources": [
+    {
+      "skill": "april-dunford-positioning",
+      "count": 8,
+      "body_read": 8,
+      "personal_primary": 6,
+      "kinds": {
+        "Louron Pratt 二手演讲报道": 1,
+        "Mark Littlewood 二手观点整理": 1,
+        "本人一手": 6
+      },
+      "unique_urls": 8
+    },
+    {
+      "skill": "ash-maurya-lean-model",
+      "count": 9,
+      "body_read": 9,
+      "personal_primary": 9,
+      "kinds": {
+        "本人一手": 9
+      },
+      "unique_urls": 9
+    },
+    {
+      "skill": "bob-moesta-demand",
+      "count": 8,
+      "body_read": 8,
+      "personal_primary": 4,
+      "kinds": {
+        "Christensen Institute 机构一手理论材料": 1,
+        "Re-Wired 项目实施方一手报告": 3,
+        "本人一手": 4
+      },
+      "unique_urls": 8
+    },
+    {
+      "skill": "steve-blank-discovery",
+      "count": 9,
+      "body_read": 9,
+      "personal_primary": 8,
+      "kinds": {
+        "NSF 机构一手": 1,
+        "本人一手": 8
+      },
+      "unique_urls": 9
+    },
+    {
+      "skill": "teresa-torres-opportunity",
+      "count": 8,
+      "body_read": 8,
+      "personal_primary": 5,
+      "kinds": {
+        "Melissa Suzuno 参与者访谈一手报告": 2,
+        "Product Talk 机构一手": 1,
+        "本人一手": 5
+      },
+      "unique_urls": 8
+    }
+  ],
+  "integrity_status": "PASS",
+  "scope": "STATIC_ONLY; original Nuwa string heuristics are not semantic/fidelity validation"
+}

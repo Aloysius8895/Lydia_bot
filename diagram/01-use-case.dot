@@ -1,0 +1,54 @@
+digraph G {
+graph [fontname="Microsoft YaHei", fontsize=22, bgcolor="#F8FAFC", pad=0.45, nodesep=0.35, ranksep=0.65, compound=true, labelloc=t, labeljust=l];
+node [fontname="Microsoft YaHei", fontsize=12, shape=box, style="rounded,filled", fillcolor="white", color="#CBD5E1", fontcolor="#0F172A", margin="0.18,0.12"];
+edge [fontname="Microsoft YaHei", fontsize=10, color="#64748B", fontcolor="#475569", arrowsize=0.7];
+
+label="用例图 / Use Case Diagram\nLydia · Current implementation / 当前实现";
+
+rankdir=LR;
+user [label="«actor»
+个人用户 / Project owner", fillcolor="#DBEAFE", color="#60A5FA"];
+claude [label="«actor»
+Claude CLI / 云端推理", fillcolor="#EDE9FE"];
+ollama [label="«actor»
+Ollama / 本地向量服务", fillcolor="#EDE9FE"];
+web [label="«actor»
+公开网站 / Public websites", fillcolor="#EDE9FE"];
+tavily [label="«actor»
+Tavily / 可选搜索服务", style="rounded,dashed,filled", fillcolor="#FEF3C7"];
+subgraph cluster_system {
+ label="Lydia 商业研究助手 / System boundary"; color="#94A3B8"; style=rounded; fontsize=16;
+ node [shape=ellipse, fillcolor="#EFF6FF"];
+ login [label="设置密码、登录与退出
+Manage personal session"];
+ projects [label="创建与查看研究项目
+Create / view projects"];
+ upload [label="导入文本资料
+Import text evidence"];
+ fetch [label="采集公开网页
+Fetch public URL"];
+ retrieve [label="检索项目资料
+Retrieve evidence"];
+ research [label="发起研究或追问
+Run research / ask questions"];
+ choose [label="明确选择机会缺口
+Confirm a Gap selection"];
+ model [label="生成商业模式与验证方案
+Generate model / validation plan"];
+ tasks [label="查看、取消及恢复任务
+View / cancel / resume tasks"];
+ export [label="导出研究报告
+Export research snapshot"];
+ appearance [label="调整主题与头像
+Customize appearance"];
+ search [label="搜索资料来源（可选）
+Discover sources", fillcolor="#FEF3C7", style="dashed,filled"];
+}
+user -> {login projects upload fetch retrieve research choose model tasks export appearance search} [dir=none];
+claude -> {research retrieve model} [dir=none];
+ollama -> {upload fetch retrieve research model} [dir=none];
+web -> fetch [dir=none]; tavily -> search [dir=none, style=dashed];
+note [shape=note, label="约束 / Constraints\l• 商业模式任务须先明确选定 Gap\l• 专家是系统内部角色，不作为外部用户\l• Tavily 需确认免费额度，真实搜索待验收\l• 手机 PWA 安装与真实五专家联调待验收\l", fillcolor="#FFFBEB"];
+choose -> note [style=dotted, arrowhead=none];
+
+}

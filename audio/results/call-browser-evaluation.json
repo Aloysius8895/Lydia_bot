@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-11-04T17:50:13.810Z",
+  "status": "TEST_PASSED",
+  "testType": "AUTOMATED_MOCK",
+  "fixture": "Chrome headless + --use-fake-device-for-media-stream; injected FAKE SpeechRecognition and FAKE speechSynthesis; stubbed Claude CLI process; temporary database",
+  "browser": "installed Chrome headless",
+  "checks": [
+    "phone entry sits at the right end of the project / 需求研究 / phase row",
+    "card 320–360px inside chat column; 27/42/31 panes and expert list unchanged at 1388/1440/1920",
+    "mic start/stop produces an editable caption; nothing is sent before the user presses 发送",
+    "voice turn → Teresa skill → reply text + fake speech; playback outcome and edited STT metadata persisted; proposed action not executed",
+    "mic press interrupts speech (INTERRUPTED recorded, not claimed as heard); hang-up aborts recognition and ends the call",
+    "hang-up during THINKING cancels the turn; the late result is discarded and not played",
+    "call records list, Markdown export with source note, and delete",
+    "switching project hangs up and does not carry the call into the other project",
+    "team room has no dialable single expert",
+    "390px mobile card fits without horizontal scroll; collapse does not hang up (viewport emulation, not a real phone)",
+    "logout ends the active call",
+    "mic denied and missing SpeechRecognition both show explicit messages; text path still works"
+  ],
+  "cliCalls": 4,
+  "realModelCalls": 0,
+  "realMicrophone": "NOT_RUN",
+  "realRecognition": "NOT_RUN",
+  "audiblePlayback": "NOT_RUN",
+  "phone": "NOT_RUN",
+  "pageErrors": [],
+  "consoleErrors": [],
+  "limitations": [
+    "Fake recognition/speech prove UI state, cleanup and persistence only",
+    "No real audio was captured, recognised or played",
+    "Mobile is viewport emulation, not a real phone over trusted HTTPS"
+  ]
+}

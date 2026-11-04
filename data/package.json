@@ -1,0 +1,15 @@
+{
+  "name": "lydia-data",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "0.3.16",
+    "graphql": "17.0.2",
+    "parse5": "8.1.0",
+    "zod": "4.6.7"
+  }
+}

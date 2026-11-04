@@ -1,0 +1,94 @@
+{
+  "timestamp": "2026-11-03T15:05:59.905Z",
+  "status": "TEST_PASSED",
+  "source": "User original frontend/src Crew React/Vite design",
+  "runtime": "frontend/dist served by backend/server.ts on http://127.0.0.1:4318",
+  "unchangedCore": [
+    {
+      "file": "src/styles.css",
+      "hashUnchanged": true
+    },
+    {
+      "file": "src/components/Avatars.jsx",
+      "hashUnchanged": true
+    }
+  ],
+  "liveAssets": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "hashMatches": true
+    },
+    {
+      "file": "sw.js",
+      "status": 200,
+      "hashMatches": true
+    },
+    {
+      "file": "manifest.webmanifest",
+      "status": 200,
+      "hashMatches": true
+    },
+    {
+      "file": "assets/index-CubhUz6W.js",
+      "status": 200,
+      "hashMatches": true
+    },
+    {
+      "file": "assets/index-C33JtgVh.css",
+      "status": 200,
+      "hashMatches": true
+    }
+  ],
+  "ownerConfigured": true,
+  "typescript": "TEST_PASSED",
+  "functional": {
+    "passed": 33,
+    "failed": 0,
+    "report": "../../test-results/unit-tests-original-frontend.txt"
+  },
+  "browser": {
+    "status": "TEST_PASSED",
+    "checks": 16,
+    "pageErrors": [],
+    "consoleErrors": [],
+    "legacyReplyRequests": [],
+    "realModelCalls": 0,
+    "fixture": "TEST_ONLY temporary database and exports; mocked CLI auth, inference deliberately disabled"
+  },
+  "theme": {
+    "settingsSwitch": "TEST_PASSED",
+    "lightIcon": "sun",
+    "darkIcon": "moon",
+    "persistedPreference": "TEST_PASSED",
+    "mobile": "TEST_PASSED"
+  },
+  "screenshots": [
+    "../../test-results/crew-design-light.png",
+    "../../test-results/crew-design-dark.png",
+    "../../test-results/crew-design-mobile-home.png",
+    "../../test-results/crew-design-mobile-settings.png",
+    "../../test-results/crew-design-mobile-chat.png"
+  ],
+  "fonts": "frontend-fonts.json",
+  "reference": "original-frontend-reference.json",
+  "historicalFailures": [
+    "../../test-results/browser-original-frontend-initial.json",
+    "../../test-results/browser-original-frontend-drawer-failure.json"
+  ],
+  "notRun": [
+    "Real five-expert end-to-end behavior",
+    "Actual phone installation",
+    "Real market/customer validation"
+  ],
+  "documentation": {
+    "status": "TEST_PASSED",
+    "brokenLinks": []
+  },
+  "latestAvatarUpdate": {
+    "status": "TEST_PASSED",
+    "report": "character-avatars.json",
+    "timestamp": "2026-11-03T15:19:41.520Z",
+    "authorizedChange": "Original avatar component intentionally replaced per subsequent user reference; prior unchangedCore hashes describe the earlier integration only"
+  }
+}

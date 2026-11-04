@@ -1,0 +1,19 @@
+{
+  "checks": [
+    "native welcome, sidebar controls, composer and detail profile are mounted",
+    "expert and team navigation stay expanded; pinned filter works",
+    "suggestion fills draft without sending; opening sources preserves draft",
+    "sidebar shortcut opens native Crawl settings with spider icon",
+    "failed send retains multiline draft and reports the error",
+    "Enter submits exactly one persistent task; Shift+Enter only inserts newline",
+    "message copy and acknowledgement work with native Windows line endings",
+    "composer stop cancels the actual queued task",
+    "27/42/31 proportions survive all desktop widths",
+    "new page components inherit the dark theme",
+    "mobile home shortcuts and multiline conversation fit 390px"
+  ],
+  "errors": [],
+  "production_database_touched": false,
+  "model_calls": 0,
+  "original_grok_runtime_validated": false
+}

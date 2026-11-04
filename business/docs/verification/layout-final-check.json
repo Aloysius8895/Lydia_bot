@@ -1,0 +1,45 @@
+{
+  "timestamp": "2026-11-03T14:29:23.815Z",
+  "status": "TEST_PASSED",
+  "documentation": {
+    "filesChecked": 12,
+    "brokenLinks": []
+  },
+  "assets": [
+    {
+      "file": "index.html",
+      "httpStatus": 200,
+      "hashMatches": true
+    },
+    {
+      "file": "app.js",
+      "httpStatus": 200,
+      "hashMatches": true
+    },
+    {
+      "file": "style.css",
+      "httpStatus": 200,
+      "hashMatches": true
+    },
+    {
+      "file": "manifest.webmanifest",
+      "httpStatus": 200,
+      "hashMatches": true
+    }
+  ],
+  "auth": {
+    "configured": false,
+    "local": true,
+    "secure": false
+  },
+  "legacyAppExists": false,
+  "ragFiles": [
+    "providers",
+    "query-expansion.ts",
+    "README.md",
+    "rerank.ts",
+    "retrieval.ts",
+    "search.ts",
+    "sources.ts"
+  ]
+}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#182621"><meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="你与一位顾问对话，背后是一支商业研究团队。">
+  <title>Crew · 你的商业研究团队</title>
+  <link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <section id="auth-screen" class="auth-screen">
+    <div class="auth-card">
+      <img src="/icons/icon.svg" width="60" height="60" alt="Crew">
+      <p class="eyebrow">YOUR PERSONAL RESEARCH CREW</p>
+      <h1>一个想法，<br>从了解市场开始。</h1>
+      <p id="auth-description">正在连接你电脑上的研究空间…</p>
+      <form id="auth-form" hidden>
+        <label for="password">个人访问密码</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required maxlength="128" placeholder="输入你的密码">
+        <button type="submit" id="auth-submit" class="primary">进入研究空间</button>
+      </form>
+      <p class="fine">个人自用 · 资料本地保存 · Claude 推理通过你的订阅联网运行</p>
+    </div>
+  </section>
+  <div id="workspace" class="workspace" hidden>
+    <aside id="sidebar">
+      <a class="brand" href="/" aria-label="Crew 首页"><img src="/icons/icon.svg" alt="" width="34" height="34"><span>Crew<span class="brand-dot">.</span></span><small>PERSONAL</small></a>
+      <button id="new-project" class="new-project">＋ 新建研究项目</button>
+      <p class="sidebar-label">你的项目 <span id="project-count">0</span></p>
+      <div id="project-list" class="project-list"></div>
+      <div class="team-section"><p class="sidebar-label">与你协作的团队</p><div id="team-list"></div></div>
+      <div class="sidebar-footer"><span class="online-dot"></span><span>本机研究空间</span><button id="logout" class="text-btn">退出</button></div>
+    </aside>
+    <main>
+      <header class="topbar"><button id="menu" class="icon-btn" aria-label="打开项目菜单">☰</button><div class="breadcrumb">研究空间 <span>/</span> <strong id="project-title">开始一个新项目</strong></div><button id="health-button" class="status-pill">检查连接</button></header>
+      <div id="offline" class="offline" hidden>当前无法连接电脑后端。已有任务是否继续取决于电脑是否保持运行；恢复连接后查看进度。</div>
+      <section class="advisor-heading"><div class="avatar">SB</div><div><h1>Steve，你的研究搭档</h1><p>客户发现与验证顺序 · AI 方法顾问</p></div><span id="phase" class="phase">尚未开始</span></section>
+      <nav class="tabs" aria-label="项目内容"><button data-tab="chat" class="active">对话</button><button data-tab="evidence">来源与证据 <span id="evidence-count">0</span></button><button data-tab="gaps">缺口候选 <span id="gap-count">0</span></button><button data-tab="requirements">企业要求 <span id="requirement-count">0</span></button><button data-tab="settings">连接与设置</button></nav>
+      <section id="content" class="content" aria-live="polite"></section>
+      <div id="composer-area" class="composer-area">
+        <form id="chat-form" class="composer"><label class="sr-only" for="message">发给研究顾问的消息</label><textarea id="message" rows="2" maxlength="8000" placeholder="分享你的 idea，或追问市场、客户和企业需求…"></textarea><div class="composer-actions"><button type="button" id="add-source" class="attach">＋ 添加资料</button><select id="task-kind" aria-label="任务类型"><option value="question">向顾问提问</option><option value="research">完整需求研究</option><option value="model">选定缺口的商业模式</option></select><button type="submit" class="send" aria-label="发送消息">↑</button></div></form>
+        <p class="composer-note">结论会区分来源支持、研究推断与待验证假设。选择缺口后，才进入商业模式。</p>
+      </div>
+    </main>
+  </div>
+  <dialog id="new-dialog"><form id="new-form"><p class="eyebrow">NEW RESEARCH</p><h2>你想了解哪个市场？</h2><label>项目名称<input name="title" required maxlength="120" placeholder="例如：SME 招聘流程研究"></label><label>Idea / 比赛 brief<textarea name="brief" required maxlength="150000" rows="6" placeholder="你的想法、目标人群、比赛约束，或还不确定的事情。"></textarea></label><label>目标地区<input name="region" value="马来西亚" maxlength="120"></label><div class="dialog-actions"><button type="button" data-close>取消</button><button class="primary" type="submit">创建研究项目</button></div></form></dialog>
+  <dialog id="source-dialog"><form id="source-form"><p class="eyebrow">ADD CONTEXT</p><h2>让判断有据可依</h2><p class="muted">支持文本、Markdown、JSON 和 CSV。PDF／扫描件请先提取文本。</p><label>资料标题<input name="title" maxlength="200" placeholder="资料名称"></label><label>公开网页 URL（可选）<input name="url" type="url" placeholder="https://…"></label><label>或选择本地文本文件<input id="source-file" type="file" accept=".txt,.md,.json,.csv"></label><label>正文<textarea name="content" rows="6" maxlength="150000" placeholder="粘贴原始资料或真实访谈记录；不要将 AI 模拟回答作为客户证据。"></textarea></label><label>资料类型<select name="collection"><option value="MARKET">市场资料／客户证据（未经独立核实）</option><option value="PROJECT">项目背景／比赛约束</option></select></label><div class="dialog-actions"><button type="button" data-close>取消</button><button class="primary" type="submit">保存资料</button></div></form></dialog>
+</body>
+</html>

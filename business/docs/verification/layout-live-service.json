@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-11-03T12:10:40.290Z",
+  "origin": "http://127.0.0.1:4318",
+  "status": "TEST_PASSED",
+  "files": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "sha256Matches": true
+    },
+    {
+      "file": "app.js",
+      "status": 200,
+      "sha256Matches": true
+    },
+    {
+      "file": "style.css",
+      "status": 200,
+      "sha256Matches": true
+    },
+    {
+      "file": "manifest.webmanifest",
+      "status": 200,
+      "sha256Matches": true
+    }
+  ],
+  "auth": {
+    "configured": true,
+    "local": true,
+    "secure": false
+  },
+  "note": "Existing backend/server.ts process was already listening; verified served assets against relocated PWA. No password changed, no process killed."
+}

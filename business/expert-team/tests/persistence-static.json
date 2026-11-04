@@ -1,0 +1,78 @@
+{
+  "scope": "STATIC_DURABLE_CASE_INVARIANTS_ONLY",
+  "checks": [
+    {
+      "check": "required_case_files",
+      "status": "PASS",
+      "detail": [
+        "brief.md",
+        "state.json",
+        "evidence-ledger.json",
+        "gaps.md",
+        "handoffs.md",
+        "model.md",
+        "validation.md"
+      ]
+    },
+    {
+      "check": "explicit_selection_preserved",
+      "status": "PASS",
+      "detail": {
+        "case_id": "TEST_ONLY-T11",
+        "test_only": true,
+        "state": "MODELING",
+        "selected_gap_id": "G11",
+        "selection_event": {
+          "actor": "user",
+          "text": "我明确选择G11：月末对表重复录入",
+          "test_only": true
+        },
+        "selection_event_context": {
+          "source": "tests/inputs.json:T11.selection_event",
+          "recorded_at": "2026-11-03（测试日期）",
+          "original_event_date": null
+        },
+        "updated_at": "2026-11-03（测试日期）",
+        "brief_missing": [],
+        "next_actions": [
+          "恢复先读state、ledger、最近handoff；复用G11及E001/E002。",
+          "等待用户提供本案已有合法脱敏任务/采购材料；当前禁止联网、联系、上传。"
+        ],
+        "state_history": [
+          {
+            "state": "AWAITING_SELECTION",
+            "selected_gap_id": null,
+            "source": "原始夹具快照"
+          },
+          {
+            "state": "MODELING",
+            "selected_gap_id": "G11",
+            "cause": "原始明确用户选择事件"
+          }
+        ]
+      }
+    },
+    {
+      "check": "test_only_isolation",
+      "status": "PASS",
+      "detail": 2
+    },
+    {
+      "check": "origin_and_claim_preserved",
+      "status": "PASS",
+      "detail": [
+        "E001",
+        "E002"
+      ]
+    },
+    {
+      "check": "no_orphan_case_evidence_refs",
+      "status": "PASS",
+      "detail": [
+        "E001",
+        "E002"
+      ]
+    }
+  ],
+  "status": "PASS"
+}

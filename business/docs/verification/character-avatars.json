@@ -1,0 +1,60 @@
+{
+  "timestamp": "2026-11-03T15:19:41.520Z",
+  "status": "TEST_PASSED",
+  "request": "User supplied colorful shape-character reference image",
+  "implementation": "../../frontend/src/components/Avatars.jsx",
+  "mapping": {
+    "steve": "blue-block",
+    "ash": "orange-oval",
+    "teresa": "teal-pebble",
+    "april": "pink-triangle",
+    "bob": "purple-diamond",
+    "personal": "ink-round"
+  },
+  "scope": [
+    "sidebar",
+    "chat header",
+    "empty conversation",
+    "method panel",
+    "mobile home",
+    "team grid",
+    "team stack",
+    "personal avatar"
+  ],
+  "darkMode": "Ink avatar has subtle outline; vivid character colors and pale eyes retained",
+  "browser": {
+    "checks": 17,
+    "pageErrors": [],
+    "consoleErrors": [],
+    "realModelCalls": 0
+  },
+  "liveAssets": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "hashMatches": true
+    },
+    {
+      "file": "assets/index-DLYkmuid.js",
+      "status": 200,
+      "hashMatches": true
+    },
+    {
+      "file": "assets/index-DjdMK4HS.css",
+      "status": 200,
+      "hashMatches": true
+    }
+  ],
+  "screenshots": [
+    "../../test-results/crew-avatars-desktop.png",
+    "../../test-results/crew-design-light.png",
+    "../../test-results/crew-design-dark.png",
+    "../../test-results/crew-design-mobile-home.png"
+  ],
+  "visualReview": "Desktop, dark theme and mobile screenshots viewed",
+  "sourceHash": "a8f6ea46b27c14ee5d0a20a9aa5f6d159bea11d42aa388a13e725b6dd42a023c",
+  "notRun": [
+    "Actual phone installation",
+    "Real expert behavior or market validation"
+  ]
+}

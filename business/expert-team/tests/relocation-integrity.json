@@ -1,0 +1,17 @@
+﻿{
+    "source":  "C:\\maven\\Hackathon_map\\business\\expert-team\\skills",
+    "destination":  "C:\\maven\\Hackathon_map\\business\\skills",
+    "moved_skills":  [
+                         "steve-blank-discovery",
+                         "ash-maurya-lean-model",
+                         "teresa-torres-opportunity",
+                         "april-dunford-positioning",
+                         "bob-moesta-demand",
+                         "hackathon-gap-research"
+                     ],
+    "verified_files":  76,
+    "hash_mismatches_before_link_updates":  [
+
+                                            ],
+    "status":  "PASS"
+}

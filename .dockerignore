@@ -1,0 +1,13 @@
+**/node_modules
+**/.runtime
+**/.git
+**/.env
+**/.env.*
+business/deployment/certs
+business/cases
+business/test-results
+business/frontend/dist
+crawl/rea
+crawl/scrap
+crawl/reports
+diagram

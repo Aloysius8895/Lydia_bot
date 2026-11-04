@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-11-03T14:36:46.571Z",
+  "status": "CAPTURED",
+  "source": "User existing frontend/dist, before RAG integration",
+  "screenshots": [
+    "../../test-results/design-reference-desktop.png",
+    "../../test-results/design-reference-mobile.png"
+  ],
+  "files": [
+    {
+      "file": "src/styles.css",
+      "sha256": "0063131e6db4d01264d8dca76a9aeb88fcbc111b3e2f3279f5bfc4a72ccae0b0"
+    },
+    {
+      "file": "src/components/Avatars.jsx",
+      "sha256": "3863f15960697e7b0721622a7cf0c9e2f8dc01a59511268ed4e16591d7b1b657"
+    },
+    {
+      "file": "src/components/Sidebar.jsx",
+      "sha256": "f45e09a688026fe9bd64fbeffad6996d5fd5af3e507a16c8c511d1eecae21d3f"
+    },
+    {
+      "file": "src/components/Conversation.jsx",
+      "sha256": "234eedca4d3b9cf7ac68d1576726e5b4d2e6d77d2f42a5905a64b180075cfd8d"
+    },
+    {
+      "file": "src/components/MobileHome.jsx",
+      "sha256": "63734a6839bf47dbf3d7922a80c78e81af1d67d1c89c41e05ff3e59510da87dd"
+    },
+    {
+      "file": "src/App.jsx",
+      "sha256": "25ff648b2960d034661b3d405fa9ac965c56b74cbe5cbe145eda44d9031f9e00"
+    }
+  ],
+  "modelCalls": 0
+}

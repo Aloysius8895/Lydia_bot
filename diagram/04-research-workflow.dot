@@ -1,0 +1,53 @@
+digraph G {
+graph [fontname="Microsoft YaHei", fontsize=22, bgcolor="#F8FAFC", pad=0.45, nodesep=0.35, ranksep=0.65, compound=true, labelloc=t, labeljust=l];
+node [fontname="Microsoft YaHei", fontsize=12, shape=box, style="rounded,filled", fillcolor="white", color="#CBD5E1", fontcolor="#0F172A", margin="0.18,0.12"];
+edge [fontname="Microsoft YaHei", fontsize=10, color="#64748B", fontcolor="#475569", arrowsize=0.7];
+
+label="研究流程图 / Research Workflow\nLydia · Current implementation / 当前实现";
+
+rankdir=TB;
+start [shape=oval, label="登录 / Login", fillcolor="#DBEAFE"];
+brief [label="创建项目与 brief
+SCOPED"];
+materials [label="导入文本 / 公开网页
+规范化、分块、版本与向量索引"];
+request [label="提交 research 任务
+request_key 幂等入队"];
+collect [label="尝试可选搜索与采集
+不可用则记录状态，仅分析已有资料"];
+research [label="研究阶段 / RESEARCHING
+Steve → Teresa → April → Bob → Steve review
+每步：技能 + 检索 → CLI → 引用复核 → 持久化", fillcolor="#EDE9FE"];
+gaps [label="研究摘要 / 候选 Gap / 企业要求
+AWAITING_SELECTION", fillcolor="#FEF3C7"];
+choice [shape=diamond, label="用户明确确认
+具体 Gap？", fillcolor="#FEF3C7"];
+wait [label="继续查看、追问或补充资料
+不自动替用户选择"];
+decision [label="记录选择与 selection_version
+提交 model 任务"];
+model [label="商业模式阶段 / MODELING
+Bob → April → Ash → Steve review
+生成模式与验证方案", fillcolor="#DCFCE7"];
+export [label="用户随时可导出当前快照
+brief / summary / evidence / gaps / requirements / decisions
+有结果时附 model / validation", shape=folder, fillcolor="#DBEAFE"];
+paused [label="PAUSED
+认证 / 额度 / 超时 / 输出验证失败
+保存已完成步骤", fillcolor="#FFEDD5"];
+resume [label="用户恢复 / Resume
+跳过已完成步骤"];
+cancel [shape=oval, label="CANCELLED
+用户取消，终止活动进程", fillcolor="#FEE2E2"];
+start -> brief -> materials -> request -> collect -> research -> gaps -> choice;
+choice -> wait [label="否"]; wait -> materials [label="补资料 / 再研究"];
+choice -> decision [label="是"]; decision -> model;
+{gaps model} -> export;
+research -> paused [label="失败", style=dashed]; model -> paused [style=dashed];
+paused -> resume; resume -> research [label="按原任务 kind 恢复", style=dashed]; resume -> model [style=dashed];
+{research model paused} -> cancel [label="用户取消", style=dotted];
+note [shape=note, label="追问 question 会按主题路由角色，未必运行完整研究链。
+图示为当前代码流程；真实完整联调待验收。", fillcolor="#FFFBEB"];
+request -> note [style=dotted, arrowhead=none];
+
+}

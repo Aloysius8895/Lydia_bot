@@ -1,0 +1,41 @@
+/* Screenshot-directed left sidebar only. Main/chat/detail proportions stay 27/42/31. */
+.sidebar.claude-sidebar{--nav-bg:#fafafa;--nav-hover:#ededed;--nav-selected:#e2e2e2;--nav-ink:#171717;--nav-muted:#676767;--nav-border:#dedede;display:flex;flex-direction:column;gap:0;padding:0!important;background:var(--nav-bg);color:var(--nav-ink);border-right:1px solid var(--nav-border);overflow:hidden}
+.app:not(.app--mobile)>.sidebar.claude-sidebar{padding:0!important}
+:root[data-theme=dark] .sidebar.claude-sidebar{--nav-bg:#141414;--nav-hover:#242424;--nav-selected:#2d2d2d;--nav-ink:#eee;--nav-muted:#aaa;--nav-border:#303030}
+.claude-sidebar__header{height:52px;flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 16px}
+.claude-sidebar .claude-sidebar__brand{gap:10px;min-width:0;color:var(--nav-ink);text-decoration:none}
+.claude-sidebar__brand>svg{color:var(--nav-muted);flex:none}
+.claude-sidebar .brand__name{font-family:Georgia,'Times New Roman',serif;font-size:32px;line-height:1;font-weight:400;letter-spacing:-1.3px}
+.claude-sidebar__header-actions{display:flex;gap:8px}
+.claude-sidebar__header-actions button{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--nav-border);border-radius:9px;background:var(--main-bg);color:var(--nav-ink)}
+.claude-sidebar__header-actions button:hover{background:var(--nav-hover)}
+.claude-sidebar__menu{display:flex;flex-direction:column;gap:2px;padding:4px 8px 12px;flex:none}
+.claude-sidebar__menu>a,.claude-sidebar__menu>button{display:flex;align-items:center;gap:13px;width:100%;min-height:42px;padding:9px 12px;border:0;border-radius:8px;background:transparent;color:var(--nav-ink);font-size:18px;line-height:1.4;font-weight:400;text-decoration:none;text-align:left;cursor:pointer}
+.claude-sidebar__menu svg{flex:none;width:21px;height:21px;stroke-width:1.5}
+.claude-sidebar__menu>.claude-sidebar__new{background:var(--nav-selected)}
+.claude-sidebar__menu>a:hover,.claude-sidebar__menu>button:hover{background:var(--nav-hover)}
+.claude-sidebar__menu>a[aria-current=page]{background:var(--nav-selected)}
+.claude-sidebar__search{display:flex;align-items:center;gap:7px;margin:0 14px 12px;padding:8px 10px;border:1px solid var(--nav-border);border-radius:8px;background:var(--main-bg);color:var(--nav-muted);flex:none}
+.claude-sidebar__search:focus-within{outline:1px solid var(--nav-muted)}
+.claude-sidebar__search input{width:100%;min-width:0;border:0;background:transparent;color:var(--nav-ink);font:14px/1.5 var(--font-body);outline:none}
+.claude-sidebar__search button{display:grid;place-items:center;flex:none;border:0;background:transparent;color:var(--nav-muted);padding:0}
+.claude-sidebar__scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:8px 8px 24px;scrollbar-width:thin;scrollbar-color:#aaa transparent;overscroll-behavior:contain}
+.claude-sidebar__section{display:flex;align-items:center;gap:8px;width:100%;padding:12px 10px 10px;border:0;border-radius:5px;background:transparent;color:var(--nav-muted);font-size:14px;font-weight:400;line-height:1.5;text-align:left;cursor:pointer}
+.claude-sidebar__section:hover{color:var(--nav-ink)}
+.claude-sidebar__empty{padding:12px 10px;color:var(--nav-muted);font-size:13px;line-height:1.7;margin:0}
+.claude-sidebar__team{margin-top:12px}.claude-sidebar__subsection{font-size:12px;padding-top:8px;cursor:default}
+.claude-sidebar .grok-scope{margin:6px 6px 10px;background:var(--nav-hover)}
+.claude-sidebar .row{min-height:68px;gap:12px;margin:0;padding:10px 12px;border-radius:7px;box-shadow:none}
+.claude-sidebar .row>.crew-avatar,.claude-sidebar .row>.room-dots{width:48px;height:48px;flex:none}
+.claude-sidebar .row__name{font-size:var(--lydia-list-name);font-weight:400;line-height:1.4}
+.claude-sidebar .row__preview,.claude-sidebar .row__time{display:none}
+.claude-sidebar .row[aria-current=page]{background:var(--nav-hover);box-shadow:none}
+.claude-sidebar__footer{display:flex;align-items:center;gap:8px;flex:none;border-top:1px solid var(--nav-border);padding:10px 12px;min-height:68px;background:var(--nav-bg)}
+.claude-sidebar__account{display:flex;align-items:center;gap:10px;flex:1;min-width:0;border:0;border-radius:7px;background:transparent;color:var(--nav-ink);text-align:left;padding:4px}
+.claude-sidebar__account:hover{background:var(--nav-hover)}
+.claude-sidebar__account .me__avatar{width:28px;height:28px;flex:none}
+.claude-sidebar__account-name{font-size:14px;line-height:1.4;min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.claude-sidebar__account-name small{display:block;font-size:11px;color:var(--nav-muted);margin-top:2px}
+.claude-sidebar__preferences{display:grid;place-items:center;width:30px;height:34px;flex:none;border:0;border-radius:6px;background:transparent;color:var(--nav-ink)}
+.claude-sidebar__preferences:hover{background:var(--nav-hover)}
+.claude-sidebar button:focus-visible,.claude-sidebar a:focus-visible{outline:2px solid var(--nav-muted);outline-offset:-2px}

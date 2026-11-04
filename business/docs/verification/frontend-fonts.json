@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-11-03T14:52:14.502Z",
+  "fonts": [
+    {
+      "family": "DM Sans",
+      "source": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K4.woff2",
+      "file": "../../frontend/public/fonts/dm-sans-latin.woff2",
+      "bytes": 36932,
+      "license": "SIL Open Font License 1.1",
+      "status": "DOWNLOADED"
+    },
+    {
+      "family": "Bricolage Grotesque",
+      "source": "https://fonts.gstatic.com/s/bricolagegrotesque/v9/3y9K6as8bTXq_nANBjzKo3IeZx8z6up5BeSl9D4dj_x9PpZBMlGIInE.woff2",
+      "file": "../../frontend/public/fonts/bricolage-grotesque-latin.woff2",
+      "bytes": 76888,
+      "license": "SIL Open Font License 1.1",
+      "status": "DOWNLOADED"
+    }
+  ],
+  "previousAttempt": [
+    {
+      "family": "DM Sans",
+      "status": "UNAVAILABLE",
+      "error": "No latin font in official stylesheet"
+    },
+    {
+      "family": "Bricolage Grotesque",
+      "status": "UNAVAILABLE",
+      "error": "No latin font in official stylesheet"
+    }
+  ]
+}

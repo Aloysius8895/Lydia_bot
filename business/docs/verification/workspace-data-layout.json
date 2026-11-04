@@ -1,0 +1,401 @@
+{
+  "timestamp": "2026-11-04T06:52:18.7303685Z",
+  "workspaceRoot": "C:\\maven\\business_agent",
+  "source": "C:\\maven\\business_agent\\business\\data",
+  "destination": "C:\\maven\\business_agent\\data",
+  "status": "TEST_PASSED",
+  "movedFiles": [
+    {
+      "oldPath": "business/data/DATA_AUDIT_AND_SOLUTIONS.md",
+      "newPath": "data/DATA_AUDIT_AND_SOLUTIONS.md",
+      "beforeHash": "5774ACC24B7A02D2531B3AE71D0D842E93472CD8A4633132F6F207BEDDBFC50C",
+      "afterMoveHash": "5774ACC24B7A02D2531B3AE71D0D842E93472CD8A4633132F6F207BEDDBFC50C",
+      "identicalBeforeEdits": true,
+      "finalHash": "554D86EE3095BCEC8D9204A1F0D262CDE63315DBB3085CA00C6B9081AD88E4D3"
+    },
+    {
+      "oldPath": "business/data/README.md",
+      "newPath": "data/README.md",
+      "beforeHash": "27C028777C6685B7BE0121020B12FCBF34A0F0A04E80A004DA9DDEB0AC653932",
+      "afterMoveHash": "27C028777C6685B7BE0121020B12FCBF34A0F0A04E80A004DA9DDEB0AC653932",
+      "identicalBeforeEdits": true,
+      "finalHash": "D54A00E2A9A6F9B1A787508AEC73CBE368494DE342D06A3DF19A8F8ABB997360"
+    },
+    {
+      "oldPath": "business/data/database/README.md",
+      "newPath": "data/database/README.md",
+      "beforeHash": "59EB7EA2D01EA5ECE2730D7311A98053C4C0B822E9C791242B0B95F5B165FC4D",
+      "afterMoveHash": "59EB7EA2D01EA5ECE2730D7311A98053C4C0B822E9C791242B0B95F5B165FC4D",
+      "identicalBeforeEdits": true,
+      "finalHash": "7D33DAB9174A7EA907084B87DF160133617830287FDF9193A9EA8AC961398AA3"
+    },
+    {
+      "oldPath": "business/data/database/schema.sql",
+      "newPath": "data/database/schema.sql",
+      "beforeHash": "0A75CDE54657A631574ECD2554B0C25CE3002428A171CC52193FE9FC5FCBD8E7",
+      "afterMoveHash": "0A75CDE54657A631574ECD2554B0C25CE3002428A171CC52193FE9FC5FCBD8E7",
+      "identicalBeforeEdits": true,
+      "finalHash": "0A75CDE54657A631574ECD2554B0C25CE3002428A171CC52193FE9FC5FCBD8E7"
+    },
+    {
+      "oldPath": "business/data/database/store.ts",
+      "newPath": "data/database/store.ts",
+      "beforeHash": "822618F9C696278BD6900E78942F3C0014E0FD7A0EE04274052A8D7325572F99",
+      "afterMoveHash": "822618F9C696278BD6900E78942F3C0014E0FD7A0EE04274052A8D7325572F99",
+      "identicalBeforeEdits": true,
+      "finalHash": "706EF606B189E98086E7382CDB09C16E07679294827E22D4705BC05391C2E0F3"
+    },
+    {
+      "oldPath": "business/data/RAG/query-expansion.ts",
+      "newPath": "data/RAG/query-expansion.ts",
+      "beforeHash": "9FBAFFAF3ED162FB045B003F720AE5E2BC469A5488836B57D91F382AA845D4DA",
+      "afterMoveHash": "9FBAFFAF3ED162FB045B003F720AE5E2BC469A5488836B57D91F382AA845D4DA",
+      "identicalBeforeEdits": true,
+      "finalHash": "7CC4D7CE374899CCFA1641639C7C9B36C0E5751327A75D6D7929E17628BEDD0A"
+    },
+    {
+      "oldPath": "business/data/RAG/README.md",
+      "newPath": "data/RAG/README.md",
+      "beforeHash": "7DBFAF5C3AEE61975E64009418330283D2A7BBE5F47B6C4FB592166380AA2AFD",
+      "afterMoveHash": "7DBFAF5C3AEE61975E64009418330283D2A7BBE5F47B6C4FB592166380AA2AFD",
+      "identicalBeforeEdits": true,
+      "finalHash": "897B30353A4B19C0B7C39C706FF0D5D6695F47D87CBD9E4AE7778DA32601F003"
+    },
+    {
+      "oldPath": "business/data/RAG/rerank.ts",
+      "newPath": "data/RAG/rerank.ts",
+      "beforeHash": "231D9A13CBB2C53B4832273600A78A5E17B05CF95E69C09662B6E8F322A32041",
+      "afterMoveHash": "231D9A13CBB2C53B4832273600A78A5E17B05CF95E69C09662B6E8F322A32041",
+      "identicalBeforeEdits": true,
+      "finalHash": "290C654F574A782A4D557A7622051D355FA002AB08754547BE9E8416A974D322"
+    },
+    {
+      "oldPath": "business/data/RAG/retrieval.ts",
+      "newPath": "data/RAG/retrieval.ts",
+      "beforeHash": "F71A4C70F9C445B4E1C3F37746992B9C164956136F5EAB9E5115B272DC752806",
+      "afterMoveHash": "F71A4C70F9C445B4E1C3F37746992B9C164956136F5EAB9E5115B272DC752806",
+      "identicalBeforeEdits": true,
+      "finalHash": "50D4B53771F9A75A6C1D3EBA49A0C1DAAF8914E50AAE97BE8AA9A0DDF21E9ADA"
+    },
+    {
+      "oldPath": "business/data/RAG/search.ts",
+      "newPath": "data/RAG/search.ts",
+      "beforeHash": "E25083AB66DC2199084286BBEE431507817AB4B05DA2CEE22EFB0A2314DCAE69",
+      "afterMoveHash": "E25083AB66DC2199084286BBEE431507817AB4B05DA2CEE22EFB0A2314DCAE69",
+      "identicalBeforeEdits": true,
+      "finalHash": "423F1F106556EA73C51B9591E6C89B18DFEEEE1875FD8423AE5FCA52D5B4F6EF"
+    },
+    {
+      "oldPath": "business/data/RAG/sources.ts",
+      "newPath": "data/RAG/sources.ts",
+      "beforeHash": "DE5C355488A398903B3FBB355FC548A8B114FE79156DED281CC1FD64659D82E4",
+      "afterMoveHash": "DE5C355488A398903B3FBB355FC548A8B114FE79156DED281CC1FD64659D82E4",
+      "identicalBeforeEdits": true,
+      "finalHash": "DF32B4072E769A4B5D2EF3EC3277E6555A3DEF3235528CF7252703BDBCC7B9B0"
+    },
+    {
+      "oldPath": "business/data/RAG/providers/embedding.ts",
+      "newPath": "data/RAG/providers/embedding.ts",
+      "beforeHash": "671B6A3738F108A5125E51D2C72991783546596185E5D40110C9C916C9451716",
+      "afterMoveHash": "671B6A3738F108A5125E51D2C72991783546596185E5D40110C9C916C9451716",
+      "identicalBeforeEdits": true,
+      "finalHash": "ADFFCCEF3562FE2CE71BD555DC3F842610096D36A4A5894549D7DAB147239F56"
+    }
+  ],
+  "runtimeDatabaseMoved": false,
+  "importChanges": [
+    {
+      "file": "business/backend/auth.ts",
+      "before": "../data/database/store.ts",
+      "after": "../../data/database/store.ts"
+    },
+    {
+      "file": "business/backend/export.ts",
+      "before": "../data/database/store.ts",
+      "after": "../../data/database/store.ts"
+    },
+    {
+      "file": "business/backend/server.ts",
+      "before": "../data/database/store.ts",
+      "after": "../../data/database/store.ts"
+    },
+    {
+      "file": "business/backend/server.ts",
+      "before": "../data/RAG/providers/embedding.ts",
+      "after": "../../data/RAG/providers/embedding.ts"
+    },
+    {
+      "file": "business/backend/server.ts",
+      "before": "../data/RAG/retrieval.ts",
+      "after": "../../data/RAG/retrieval.ts"
+    },
+    {
+      "file": "business/backend/server.ts",
+      "before": "../data/RAG/sources.ts",
+      "after": "../../data/RAG/sources.ts"
+    },
+    {
+      "file": "business/backend/server.ts",
+      "before": "../data/RAG/search.ts",
+      "after": "../../data/RAG/search.ts"
+    },
+    {
+      "file": "business/backend/server.ts",
+      "before": "../data/RAG/query-expansion.ts",
+      "after": "../../data/RAG/query-expansion.ts"
+    },
+    {
+      "file": "business/backend/server.ts",
+      "before": "../data/RAG/rerank.ts",
+      "after": "../../data/RAG/rerank.ts"
+    },
+    {
+      "file": "business/agents/citations.ts",
+      "before": "../data/database/store.ts",
+      "after": "../../data/database/store.ts"
+    },
+    {
+      "file": "business/agents/research.ts",
+      "before": "../data/database/store.ts",
+      "after": "../../data/database/store.ts"
+    },
+    {
+      "file": "business/agents/research.ts",
+      "before": "../data/RAG/providers/embedding.ts",
+      "after": "../../data/RAG/providers/embedding.ts"
+    },
+    {
+      "file": "business/agents/research.ts",
+      "before": "../data/RAG/retrieval.ts",
+      "after": "../../data/RAG/retrieval.ts"
+    },
+    {
+      "file": "business/agents/research.ts",
+      "before": "../data/RAG/query-expansion.ts",
+      "after": "../../data/RAG/query-expansion.ts"
+    },
+    {
+      "file": "business/agents/research.ts",
+      "before": "../data/RAG/rerank.ts",
+      "after": "../../data/RAG/rerank.ts"
+    },
+    {
+      "file": "business/agents/skills.ts",
+      "before": "../data/database/store.ts",
+      "after": "../../data/database/store.ts"
+    },
+    {
+      "file": "business/agents/worker.ts",
+      "before": "../data/database/store.ts",
+      "after": "../../data/database/store.ts"
+    },
+    {
+      "file": "business/agents/worker.ts",
+      "before": "../data/RAG/providers/embedding.ts",
+      "after": "../../data/RAG/providers/embedding.ts"
+    },
+    {
+      "file": "business/agents/worker.ts",
+      "before": "../data/RAG/search.ts",
+      "after": "../../data/RAG/search.ts"
+    },
+    {
+      "file": "business/agents/worker.ts",
+      "before": "../data/RAG/sources.ts",
+      "after": "../../data/RAG/sources.ts"
+    },
+    {
+      "file": "business/scripts/audit.ts",
+      "before": "../data/database/store.ts",
+      "after": "../../data/database/store.ts"
+    },
+    {
+      "file": "business/scripts/audit.ts",
+      "before": "../data/RAG/providers/embedding.ts",
+      "after": "../../data/RAG/providers/embedding.ts"
+    },
+    {
+      "file": "business/scripts/expansion-evaluation.ts",
+      "before": "../data/database/store.ts",
+      "after": "../../data/database/store.ts"
+    },
+    {
+      "file": "business/scripts/expansion-evaluation.ts",
+      "before": "../data/RAG/providers/embedding.ts",
+      "after": "../../data/RAG/providers/embedding.ts"
+    },
+    {
+      "file": "business/scripts/expansion-evaluation.ts",
+      "before": "../data/RAG/query-expansion.ts",
+      "after": "../../data/RAG/query-expansion.ts"
+    },
+    {
+      "file": "business/scripts/expansion-evaluation.ts",
+      "before": "../data/RAG/retrieval.ts",
+      "after": "../../data/RAG/retrieval.ts"
+    },
+    {
+      "file": "business/scripts/rerank-evaluation.ts",
+      "before": "../data/database/store.ts",
+      "after": "../../data/database/store.ts"
+    },
+    {
+      "file": "business/scripts/rerank-evaluation.ts",
+      "before": "../data/RAG/providers/embedding.ts",
+      "after": "../../data/RAG/providers/embedding.ts"
+    },
+    {
+      "file": "business/scripts/rerank-evaluation.ts",
+      "before": "../data/RAG/retrieval.ts",
+      "after": "../../data/RAG/retrieval.ts"
+    },
+    {
+      "file": "business/scripts/rerank-evaluation.ts",
+      "before": "../data/RAG/query-expansion.ts",
+      "after": "../../data/RAG/query-expansion.ts"
+    },
+    {
+      "file": "business/scripts/rerank-evaluation.ts",
+      "before": "../data/RAG/rerank.ts",
+      "after": "../../data/RAG/rerank.ts"
+    },
+    {
+      "file": "business/scripts/retrieval-evaluation.ts",
+      "before": "../data/database/store.ts",
+      "after": "../../data/database/store.ts"
+    },
+    {
+      "file": "business/scripts/retrieval-evaluation.ts",
+      "before": "../data/RAG/providers/embedding.ts",
+      "after": "../../data/RAG/providers/embedding.ts"
+    },
+    {
+      "file": "business/scripts/retrieval-evaluation.ts",
+      "before": "../data/RAG/retrieval.ts",
+      "after": "../../data/RAG/retrieval.ts"
+    },
+    {
+      "file": "business/tests/core.test.ts",
+      "before": "../data/database/store.ts",
+      "after": "../../data/database/store.ts"
+    },
+    {
+      "file": "business/tests/core.test.ts",
+      "before": "../data/RAG/retrieval.ts",
+      "after": "../../data/RAG/retrieval.ts"
+    },
+    {
+      "file": "business/tests/core.test.ts",
+      "before": "../data/RAG/providers/embedding.ts",
+      "after": "../../data/RAG/providers/embedding.ts"
+    },
+    {
+      "file": "business/tests/core.test.ts",
+      "before": "../data/RAG/search.ts",
+      "after": "../../data/RAG/search.ts"
+    },
+    {
+      "file": "business/tests/core.test.ts",
+      "before": "../data/RAG/sources.ts",
+      "after": "../../data/RAG/sources.ts"
+    },
+    {
+      "file": "business/tests/query-expansion.test.ts",
+      "before": "../data/database/store.ts",
+      "after": "../../data/database/store.ts"
+    },
+    {
+      "file": "business/tests/query-expansion.test.ts",
+      "before": "../data/RAG/query-expansion.ts",
+      "after": "../../data/RAG/query-expansion.ts"
+    },
+    {
+      "file": "business/tests/rerank.test.ts",
+      "before": "../data/database/store.ts",
+      "after": "../../data/database/store.ts"
+    },
+    {
+      "file": "business/tests/rerank.test.ts",
+      "before": "../data/RAG/rerank.ts",
+      "after": "../../data/RAG/rerank.ts"
+    },
+    {
+      "file": "business/tests/workflow.test.ts",
+      "before": "../data/database/store.ts",
+      "after": "../../data/database/store.ts"
+    },
+    {
+      "file": "business/tests/workflow.test.ts",
+      "before": "../data/RAG/retrieval.ts",
+      "after": "../../data/RAG/retrieval.ts"
+    },
+    {
+      "file": "data/database/store.ts",
+      "before": "../../shared/config.ts",
+      "after": "../../business/shared/config.ts"
+    },
+    {
+      "file": "data/RAG/query-expansion.ts",
+      "before": "../../agents/providers/claude.ts",
+      "after": "../../business/agents/providers/claude.ts"
+    },
+    {
+      "file": "data/RAG/rerank.ts",
+      "before": "../../agents/providers/claude.ts",
+      "after": "../../business/agents/providers/claude.ts"
+    },
+    {
+      "file": "data/RAG/retrieval.ts",
+      "before": "../../shared/config.ts",
+      "after": "../../business/shared/config.ts"
+    },
+    {
+      "file": "data/RAG/search.ts",
+      "before": "../../shared/config.ts",
+      "after": "../../business/shared/config.ts"
+    },
+    {
+      "file": "data/RAG/sources.ts",
+      "before": "../../shared/config.ts",
+      "after": "../../business/shared/config.ts"
+    },
+    {
+      "file": "data/RAG/providers/embedding.ts",
+      "before": "../../../shared/config.ts",
+      "after": "../../../business/shared/config.ts"
+    }
+  ],
+  "verifiedAt": "2026-11-04T06:55:50.911265+00:00",
+  "applicationRoot": "C:\\maven\\business_agent\\business",
+  "sourceCodeRoot": "C:\\maven\\business_agent\\data",
+  "schemaChanged": false,
+  "applicationBehaviorChanged": false,
+  "recommendationsImplemented": false,
+  "checks": {
+    "movedFiles": 12,
+    "importRewrites": 52,
+    "codeOnlyImportEdits": [
+      "data/database/store.ts",
+      "data/RAG/query-expansion.ts",
+      "data/RAG/rerank.ts",
+      "data/RAG/retrieval.ts",
+      "data/RAG/search.ts",
+      "data/RAG/sources.ts",
+      "data/RAG/providers/embedding.ts"
+    ],
+    "resolvedRelativeImports": 108,
+    "resolvedDocumentationLinks": 22,
+    "typecheck": "TEST_PASSED",
+    "frontendBuild": "TEST_PASSED",
+    "unitTests": {
+      "pass": 33,
+      "fail": 0
+    },
+    "browserChecks": 20,
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "realModelCalls": 0,
+    "dependencyInstall": "OFFLINE_PINNED_PRIVATE_ESM_PACKAGE",
+    "diagrams": "REGENERATED_AND_VALIDATED"
+  }
+}

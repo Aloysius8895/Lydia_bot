@@ -1,0 +1,9 @@
+export function renderGraph(graph,onEvidence){
+ const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg'),height=Math.max(160,graph.nodes.length*58);
+ svg.setAttribute('viewBox',`0 0 760 ${height}`);svg.setAttribute('role','img');svg.setAttribute('aria-label','带来源证据的项目关系图');svg.classList.add('relation-graph');
+ const positions=new Map(graph.nodes.map((node,i)=>[node.id,{x:i===0?135:560,y:i===0?height/2:40+(i-1)*58}]));
+ const text=(x,y,value)=>{const t=document.createElementNS(ns,'text');t.setAttribute('x',x);t.setAttribute('y',y);t.setAttribute('text-anchor','middle');t.textContent=value;return t;};
+ for(const edge of graph.edges){const from=positions.get(edge.source_id||edge.project_id),to=positions.get(edge.target_id);if(!from||!to)continue;const line=document.createElementNS(ns,'line');for(const [k,v] of Object.entries({x1:from.x,y1:from.y,x2:to.x,y2:to.y}))line.setAttribute(k,v);line.setAttribute('stroke',edge.nature==='author_claim'?'#b18a38':'#8ba28d');line.setAttribute('stroke-width','2');svg.append(line);const label=text((from.x+to.x)/2,(from.y+to.y)/2-8,edge.relation_type);label.classList.add('edge-label');label.setAttribute('tabindex','0');label.setAttribute('role','button');label.setAttribute('aria-label',`${edge.relation_type} 查看证据`);label.addEventListener('click',()=>onEvidence(edge));label.addEventListener('keydown',e=>{if(e.key==='Enter')onEvidence(edge);});svg.append(label);}
+ for(const node of graph.nodes){const pos=positions.get(node.id),rect=document.createElementNS(ns,'rect');rect.setAttribute('x',pos.x-120);rect.setAttribute('y',pos.y-20);rect.setAttribute('width','240');rect.setAttribute('height','40');rect.setAttribute('rx','8');rect.setAttribute('fill',node.type==='project'?'#e7efdd':'#f4f7f0');rect.setAttribute('stroke','#91a98b');svg.append(rect,text(pos.x,pos.y+5,node.label.length>28?node.label.slice(0,27)+'…':node.label));}
+ return svg;
+}

@@ -1,0 +1,107 @@
+{
+  "timestamp": "2026-11-04T16:51:00.857Z",
+  "status": "TEST_PASSED",
+  "fixture": "TEST_ONLY temporary database and exports; mocked CLI auth, inference deliberately disabled",
+  "browser": "installed Chrome headless",
+  "frontend": "User original React/Vite Crew design connected to RAG backend",
+  "checks": [
+    "owner setup/login through authenticated RAG API",
+    "Lydia title and brand are visible, and existing Crew theme preference migrates",
+    "original Crew sidebar/avatar/chat components are the default UI",
+    "reference-inspired vector characters are consistent across expert, room and personal avatars",
+    "user-required 27/42/31 layout and readable typography preserved at 1388/1440/1920px; tablet drawer fits",
+    "local XVF font and screenshot-directed sidebar neutral palette are applied",
+    "project creation and refresh restore server state via URL case ID",
+    "source upload/indexing uses RAG backend; source HTML remains inert text",
+    "evidence retrieval from real temporary database with explicit model fallback",
+    "project switching isolates sources and restores the selected case",
+    "tasks pause honestly, cancel persists, and continue does not select a Gap",
+    "explicit Gap selection enables modeling; viewing a gap never selects it",
+    "company product requirements and evidence labels render from backend",
+    "Settings modal theme switch displays sun in light mode and moon in dark mode",
+    "avatar studio applies a custom avatar live and restores the original character",
+    "theme preference persists without storing private conversations in localStorage",
+    "report export downloads real snapshot into isolated test export directory",
+    "original mobile home/chat/settings work at 390px without horizontal overflow",
+    "Lydia PWA name/cache migrate, hashed public assets cache, private APIs excluded",
+    "logout clears private UI and invalidates authenticated access",
+    "no legacy reply endpoint, browser exceptions or CSP/asset console errors"
+  ],
+  "typography": {
+    ".research-panel__header": "20px",
+    ".research-tabs button": "15px",
+    ".panel__heading": "17px",
+    ".panel__empty": "16px",
+    ".btn-outline": "17.28px",
+    ".set-dialog__header h2": "16px",
+    ".set-nav__item": "14px",
+    ".set-section__title": "15px",
+    ".set-row__label": "14px",
+    ".set-row__desc": "13px",
+    ".theme-switch": "14px"
+  },
+  "paneMeasurements": [
+    {
+      "viewport": 1388,
+      "left": {
+        "width": 374.75,
+        "fontSize": "14px"
+      },
+      "chat": {
+        "width": 582.984375,
+        "fontSize": "14px"
+      },
+      "right": {
+        "width": 430.265625,
+        "fontSize": "14px"
+      },
+      "listFont": "18.738px",
+      "messageFont": "18.044px"
+    },
+    {
+      "viewport": 1440,
+      "left": {
+        "width": 388.796875,
+        "fontSize": "14px"
+      },
+      "chat": {
+        "width": 604.8125,
+        "fontSize": "14px"
+      },
+      "right": {
+        "width": 446.390625,
+        "fontSize": "14px"
+      },
+      "listFont": "19.44px",
+      "messageFont": "18.72px"
+    },
+    {
+      "viewport": 1920,
+      "left": {
+        "width": 518.390625,
+        "fontSize": "14px"
+      },
+      "chat": {
+        "width": 806.421875,
+        "fontSize": "14px"
+      },
+      "right": {
+        "width": 595.1875,
+        "fontSize": "14px"
+      },
+      "listFont": "20px",
+      "messageFont": "20px"
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "legacyRequests": [],
+  "disabledModelAttempts": 0,
+  "realModelCalls": 0,
+  "phoneInstallation": "NOT_RUN",
+  "limitations": [
+    "Desktop/mobile viewport is not actual phone installation",
+    "Fixture gaps/requirements are not real market validation",
+    "Full real five-expert behavior not evaluated"
+  ]
+}

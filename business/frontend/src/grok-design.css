@@ -1,0 +1,70 @@
+/* Grok Bot 0.78.1 design port. Provenance: bot_rea/evidence/grok-design-tokens.json,
+   index.eager-common (Sand Light/Dark palettes). User's 27/42/31 pane layout
+   and readable sidebar/detail typography take precedence over source defaults.
+   Only local design resources are used; application logic remains Lydia's. */
+:root{
+  --font-body:'Grok XVF',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-display:var(--font-body);
+  --app-bg:#fcfcfc;--sidebar-bg:#f5f5f5;--main-bg:#fff;--surface:#fff;
+  --field-bg:#fff;--chip-bg:#1c1c1c0f;--border:#1c1c1c14;--border-strong:#1c1c1c1f;
+  --border-dashed:#1c1c1c1f;--text:#1c1c1c;--muted:#1c1c1cad;--placeholder:#1c1c1c8f;
+  --bubble-bot:#1c1c1c0a;--bubble-me:#1c1c1c0f;--bubble-me-text:#1c1c1c;
+  --inverse:#1c1c1c;--inverse-text:#fff;--accent:#1680f3;--link:#1680f3;
+  --selected-bg:#1c1c1c0f;--selected-ring:none;--hover-bg:#1c1c1c0f;
+  --composer-shadow:0 1px 3px #1c1c1c0a;--set-bg:#fff;
+  --set-overlay:#00000080;--set-shadow:0 16px 64px #00000029;
+  --lydia-list-name:17px;--lydia-list-preview:15px;--lydia-message-size:18px;
+  --lydia-panel-size:17px;--lydia-panel-note:16px;
+}
+:root[data-theme='dark']{
+  --app-bg:#121212;--sidebar-bg:#0e0e0e;--main-bg:#161616;--surface:#1f1f1f;
+  --field-bg:#1f1f1f;--chip-bg:#f5f5f50f;--border:#f5f5f514;--border-strong:#f5f5f51f;
+  --border-dashed:#f5f5f51f;--text:#f5f5f5;--muted:#f5f5f5ad;--placeholder:#f5f5f58f;
+  --bubble-bot:#f5f5f50a;--bubble-me:#f5f5f50f;--bubble-me-text:#f5f5f5;
+  --inverse:#f5f5f5;--inverse-text:#161616;--accent:#4d9bff;--link:#4d9bff;
+  --selected-bg:#f5f5f50f;--selected-ring:none;--hover-bg:#f5f5f50f;
+  --composer-shadow:none;--set-bg:#1f1f1f;--set-shadow:0 16px 64px #00000066;
+}
+body,input,textarea,button,select{font-family:var(--font-body)}
+body{font-size:14px;-webkit-font-smoothing:antialiased}
+pre,code{font-family:'Grok XVF Mono',ui-monospace,monospace}
+.sidebar{background:var(--sidebar-bg);padding:12px!important;border-right:1px solid var(--border)}
+.sidebar__top{padding:4px 6px 14px}.brand__name{font-family:var(--font-body);font-size:17px;font-weight:600;letter-spacing:-.02em}
+.brand__mark{width:24px;height:24px}.sidebar .search{height:34px;border-color:transparent;background:var(--chip-bg);border-radius:8px;margin-bottom:12px}
+.sidebar .search input{font-size:13px}.section-label{font-size:12px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--muted);padding:14px 10px 6px}
+.sidebar .row{padding:12px 10px;border-radius:8px;gap:12px;min-height:64px}.sidebar .row__name{font-size:var(--lydia-list-name);font-weight:500}.sidebar .row__preview{font-size:var(--lydia-list-preview);line-height:1.45}.sidebar .row__time{font-size:12px}
+.sidebar .row>.crew-avatar,.sidebar .room-dots{width:32px;height:32px;flex-shrink:0}.sidebar .row[aria-current='page']{box-shadow:none;background:var(--selected-bg)}
+.sidebar__bottom{border-color:var(--border)}
+.chat-header{padding:12px 20px;border-bottom:1px solid var(--border);min-height:64px;background:var(--main-bg)}
+.chat-header__title{font-family:var(--font-body);font-size:15px;font-weight:600;letter-spacing:0}.chat-header__sub{font-size:12px;color:var(--muted)}
+.research-toolbar{padding:8px 16px;font-size:12px;background:var(--main-bg);border-color:var(--border)}
+.research-toolbar select,.project-picker select{font-family:var(--font-body);font-size:13px;border-color:var(--border-strong);border-radius:6px}
+.research-panel{background:var(--main-bg);border-left:1px solid var(--border)}
+.research-panel__header{font-family:var(--font-body);font-size:20px;padding:20px 24px}.research-panel__body{padding:24px}
+.research-tabs{padding:0 16px;gap:0}.research-tabs button{font-size:15px;padding:10px 12px;border-radius:6px}
+.research-panel .panel__heading{font-family:var(--font-body);font-size:17px;letter-spacing:0}.research-title{font-size:20px}
+.research-panel .panel__profile strong{font-family:var(--font-body);font-size:20px}.research-panel .panel__empty,.research-panel .panel__profile p{font-size:var(--lydia-panel-note);line-height:1.65}
+.research-copy,.research-card p{font-size:var(--lydia-panel-size);line-height:1.65}.research-card h3{font-size:18px}.research-panel .btn-outline,.research-panel .btn-primary{font-size:var(--lydia-panel-size);min-height:48px;padding:12px;border-radius:8px}
+.composer-wrap{padding:14px 24px 20px;background:var(--main-bg)}
+.composer{border:1px solid var(--border-strong);border-radius:16px;background:var(--field-bg);box-shadow:var(--composer-shadow);padding:10px 12px;min-height:56px;gap:10px}
+.composer input{font-size:var(--lydia-message-size)}.composer__add,.composer__send{width:30px;height:30px}.composer__send{background:var(--inverse);color:var(--inverse-text)}
+.pill,.btn-outline,.btn-primary{font-family:var(--font-body);border-radius:8px}.btn-outline{background:var(--field-bg);border-color:var(--border-strong)}
+.set-dialog{border-radius:14px;background:var(--set-bg);box-shadow:var(--set-shadow)}
+.set-dialog__body{grid-template-columns:220px minmax(0,1fr)}.set-dialog__header{padding:14px 16px 14px 22px}.set-dialog__header h2{font-size:16px}
+.set-content{padding:24px 28px;gap:28px}.set-nav{padding:14px 10px}.set-nav__item{font-size:14px;padding:9px 12px;gap:10px}.set-search input{font-size:13px}
+.set-section__title{font-size:15px}.set-row__label{font-size:14px}.set-row__desc,.set-muted{font-size:13px}.set-btn,.set-value,.set-select{font-size:13px}.set-row{padding:14px 0}.set-btn{border-radius:7px}
+.crawl-settings h4{font-size:14px}.crawl-field{font-size:13px}.crawl-settings .set-chip{font-size:12px}.crawl-settings .set-btn{font-size:13px}.crawl-content{font-size:14px}
+.m-home{background:var(--main-bg)}.m-home__title{font-family:var(--font-body)}
+@media(min-width:1181px){
+  :root{--lydia-list-name:clamp(18px,1.35vw,20px);--lydia-list-preview:clamp(15px,1.15vw,17px);--lydia-message-size:clamp(18px,1.3vw,20px);--lydia-panel-size:clamp(17px,1.2vw,19px);--lydia-panel-note:clamp(16px,1.1vw,18px)}
+  .app:not(.app--mobile)>.sidebar{flex:0 0 27%;min-width:0;padding:20px 16px!important}
+  .app:not(.app--mobile)>.research-panel{flex:0 0 31%;width:auto;min-width:0}
+  .sidebar .row>.crew-avatar,.sidebar .room-dots{width:48px;height:48px}
+}
+@media(min-width:761px) and (max-width:1180px){.app:not(.app--mobile)>.sidebar{flex:0 0 clamp(260px,27vw,320px);min-width:0}}
+@media(max-width:760px){
+  .set-dialog{border-radius:0}.set-dialog__body{grid-template-columns:minmax(0,1fr)}.set-content{padding:18px 16px 32px}
+  .set-nav{padding:10px 12px}.set-nav__item{font-size:14px;white-space:nowrap}
+  .chat-header{padding:10px 14px}.composer-wrap{padding:10px 12px 16px}.composer input{font-size:16px}
+  .research-panel__body{padding:18px}.m-sheet .row__name{font-size:15px}.m-sheet .row__preview{font-size:13px}
+}

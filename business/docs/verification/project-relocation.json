@@ -1,0 +1,21 @@
+﻿{
+    "date":  "2026-11-03",
+    "source":  "C:\\maven\\Hackathon_map\\business",
+    "target":  "C:\\maven\\business_agent\\business",
+    "moved":  [
+                  "app",
+                  "docs"
+              ],
+    "filesVerified":  3107,
+    "mismatches":  [
+
+                   ],
+    "status":  "TEST_PASSED",
+    "scope":  "All moved files, including dependencies, local database and certificates, before intentional reference updates",
+    "preservedExistingFolders":  [
+                                     "skills",
+                                     "expert-team",
+                                     "frontend",
+                                     "RAG"
+                                 ]
+}

@@ -1,0 +1,79 @@
+{
+  "timestamp": "2026-11-03T15:28:00.174Z",
+  "status": "TEST_PASSED",
+  "productName": "Lydia",
+  "projectRoot": "C:/maven/business_agent/business",
+  "startup": "../../Start-Lydia.cmd",
+  "legacyLauncher": "Start-Crew.cmd delegates to Start-Lydia.cmd",
+  "packages": [
+    {
+      "file": "package.json",
+      "name": "lydia-business-research"
+    },
+    {
+      "file": "package-lock.json",
+      "name": "lydia-business-research"
+    },
+    {
+      "file": "frontend/package.json",
+      "name": "lydia-frontend"
+    },
+    {
+      "file": "frontend/package-lock.json",
+      "name": "lydia-frontend"
+    }
+  ],
+  "pwa": {
+    "name": "Lydia · 个人商业研究团队",
+    "shortName": "Lydia",
+    "id": "/"
+  },
+  "liveAssets": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "hashMatches": true
+    },
+    {
+      "file": "assets/index-BsbzM143.js",
+      "status": 200,
+      "hashMatches": true
+    },
+    {
+      "file": "assets/index-DjdMK4HS.css",
+      "status": 200,
+      "hashMatches": true
+    }
+  ],
+  "browser": {
+    "checks": 18,
+    "pageErrors": [],
+    "consoleErrors": [],
+    "realModelCalls": 0,
+    "report": "../../test-results/browser-lydia-name.txt"
+  },
+  "typescript": "TEST_PASSED",
+  "compatibility": {
+    "databasePath": ".runtime/data unchanged",
+    "cases": "unchanged",
+    "theme": "lydia-theme reads existing crew-theme",
+    "cache": "new lydia cache namespace; own old crew cache cleaned",
+    "cookies": "existing session identifier retained",
+    "certificates": "existing file names and trust material retained",
+    "dataEnvironment": "LYDIA_DATA_DIR with CREW_DATA_DIR fallback",
+    "sourceExtractorVersion": "existing provenance version retained"
+  },
+  "downloadPrefix": "lydia-report-",
+  "screenshots": [
+    "../../test-results/lydia-desktop.png",
+    "../../test-results/lydia-mobile.png",
+    "../../test-results/lydia-light.png",
+    "../../test-results/lydia-dark.png"
+  ],
+  "firstAttempt": "../../test-results/browser-lydia-name-initial.json",
+  "firstAttemptFix": "Seed legacy theme/cache with browser init script instead of navigating the JSON manifest document that triggered an unrelated favicon 404; console error assertion retained",
+  "notRun": [
+    "Actual installed-phone app name refresh",
+    "Real five-expert behavior or market validation"
+  ]
+}
