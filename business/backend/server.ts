@@ -27,6 +27,7 @@ import {Dialogue} from '../agents/dialogue.ts';
 import {CallAPI} from './calls.ts';
 import {VoiceTTS} from './voice-tts.ts';
 import {phoneInfo,publicCA,selfLANConnection} from './phone.ts';
+import {startOptionalRelay} from '../executor/runtime.ts';
 
 const id=z.string().uuid(),text=z.string().trim().min(1).max(150000);
 const publicFiles=['index.html','manifest.webmanifest','sw.js','icons/icon.svg','icons/icon-192.png','icons/icon-512.png','icons/apple-touch-icon.png','fonts/dm-sans-latin.woff2','fonts/bricolage-grotesque-latin.woff2','fonts/OFL-dmsans.txt','fonts/OFL-bricolagegrotesque.txt'];
@@ -157,8 +158,9 @@ export async function main(){
   // Claim the port before touching the persistent database, preventing ordinary double-starts.
   await new Promise<void>((resolve,reject)=>{server.once('error',reject);server.listen(config.port,config.host,()=>{server.removeListener('error',reject);resolve();});});
   try{app=await createApp({secure,localAutoLogin:process.env.LYDIA_LOCAL_AUTO_LOGIN!=='false'});}catch(e){server.close();throw e;}
-  console.log(`Lydia listening at ${config.origin}; paid inference API disabled; inference=claude_cli`);
-  let closing=false;const stop=async()=>{if(closing)return;closing=true;server.close();await app!.close();process.exit(0);};process.on('SIGINT',()=>void stop());process.on('SIGTERM',()=>void stop());
+  const relay=await startOptionalRelay(app).catch(()=>({enabled:false,stop:async()=>{}}));
+  console.log(`Lydia listening at ${config.origin}; paid inference API disabled; inference=claude_cli${relay.enabled?'; remote executor=outbound':''}`);
+  let closing=false;const stop=async()=>{if(closing)return;closing=true;server.close();await relay.stop();await app!.close();process.exit(0);};process.on('SIGINT',()=>void stop());process.on('SIGTERM',()=>void stop());
   if(process.send){process.on('message',message=>{if(message==='LYDIA_SHUTDOWN')void stop();});process.on('disconnect',()=>void stop());}
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))void main().catch(e=>{console.error(e instanceof AppError?e.message:'应用启动失败；请检查本地依赖与端口');process.exitCode=1;});

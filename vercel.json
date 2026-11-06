@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm install && npm --prefix data ci && npm --prefix business ci && npm --prefix business/frontend ci",
+  "buildCommand": "VITE_LYDIA_REMOTE=1 npm --prefix business run build:frontend",
+  "outputDirectory": "business/frontend/dist",
+  "functions": {
+    "api/relay.ts": { "maxDuration": 10 }
+  },
+  "rewrites": [
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
+}
