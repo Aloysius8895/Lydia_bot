@@ -7,3 +7,5 @@
 `certs` 保留已生成的本机 HTTPS 证书。只有公开 `crew-local-ca.cer` 可用于本人手机信任，私钥不能分享。相对证书路径为 `deployment/certs/...`，从 business 根解析。`.env.lan.example` 仅为准备配置，并未自动开启局域网监听或完成手机安装。
 
 完整步骤见 `../docs/RUNNING.md`。不自动安装根证书、不修改防火墙或发布公网。
+
+远程网页和本机执行器的控制通道见 `REMOTE.md`。未配置持久协调库时，远程任务会被拒绝。

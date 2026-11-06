@@ -1,11 +1,15 @@
-// Authenticated, same-origin RAG API. No legacy reply endpoint or API-key fallback.
+// Authenticated API. Empty base stays on the page origin. A configured base must be public https.
+import { apiUrl } from './api-base.js';
+
+const configuredBase = import.meta.env?.VITE_API_BASE || '';
 let csrf = null;
 export function setCsrf(value) { csrf = value || null; }
+export function resolveRoute(route) { return apiUrl(configuredBase, route); }
 export async function apiResponse(route, method = 'GET', data, { keepalive = false, signal } = {}) {
   let response;
   try {
-    response = await fetch(route, {
-      method, credentials: 'same-origin', cache: 'no-store', keepalive, signal,
+    response = await fetch(resolveRoute(route), {
+      method, credentials: configuredBase ? 'include' : 'same-origin', cache: 'no-store', keepalive, signal,
       headers: { ...(data !== undefined ? { 'content-type': 'application/json' } : {}), ...(csrf ? { 'x-csrf-token': csrf } : {}) },
       body: data !== undefined ? JSON.stringify(data) : undefined,
     });

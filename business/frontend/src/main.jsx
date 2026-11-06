@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.jsx';
+import RemoteApp from './RemoteApp.jsx';
 import './styles.css';
 import './research.css';
 import './settings.css';
@@ -22,7 +23,7 @@ for (const [file, url] of Object.entries(grokFonts)) {
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    {import.meta.env.VITE_LYDIA_REMOTE === '1' ? <RemoteApp /> : <App />}
   </React.StrictMode>
 );
 
