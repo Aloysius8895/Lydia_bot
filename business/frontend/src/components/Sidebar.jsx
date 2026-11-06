@@ -6,11 +6,7 @@ import { me } from '../data.js';
 export function Brand() {
   return (
     <a className="brand" href="#/">
-      <span className="brand__mark">
-        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 3a9 9 0 100 18V3z" />
-        </svg>
-      </span>
+      <img className="brand__mark" src="/icons/icon.svg" width="28" height="28" alt="" />
       <span className="brand__name">Lydia</span>
     </a>
   );
@@ -61,7 +57,7 @@ export default function Sidebar({ bots, rooms, botsById, route, query, onQuery, 
 
   return <aside className="sidebar claude-sidebar" aria-label="Bots and rooms">
     <header className="claude-sidebar__header">
-      <a className="brand claude-sidebar__brand" href="#/"><Icon name="panel" size={20} strokeWidth={1.5} /><span className="brand__name">Lydia</span></a>
+      <a className="brand claude-sidebar__brand" href="#/"><img className="brand__mark" src="/icons/icon.svg" width="28" height="28" alt="" /><span className="brand__name">Lydia</span></a>
       <div className="claude-sidebar__header-actions"><button type="button" aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'} onClick={onToggleTheme}><Icon name={theme === 'dark' ? 'moon' : 'sun'} size={19} /></button><button type="button" aria-label="打开 Crawl" title="Crawl" onClick={onOpenCrawl}><Icon name="spider" size={19} /></button></div>
     </header>
     <nav className="claude-sidebar__menu" aria-label="工作区导航">

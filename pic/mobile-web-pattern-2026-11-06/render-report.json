@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-06",
+  "artifact": "DESIGN_REFERENCE_ONLY",
+  "applicationModified": false,
+  "productionDataUsed": false,
+  "reference": "../implemented/desktop-light.png",
+  "dimensions": "390x844 CSS px; single-screen exports at 2x",
+  "errors": [],
+  "measurements": [
+    {
+      "screen": "home",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "deviceWidth": 390,
+      "deviceHeight": 844
+    },
+    {
+      "screen": "chat",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "deviceWidth": 390,
+      "deviceHeight": 844
+    },
+    {
+      "screen": "detail",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "deviceWidth": 390,
+      "deviceHeight": 844
+    },
+    {
+      "screen": "sources",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "deviceWidth": 390,
+      "deviceHeight": 844
+    },
+    {
+      "screen": "settings",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "deviceWidth": 390,
+      "deviceHeight": 844
+    },
+    {
+      "screen": "dark",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "deviceWidth": 390,
+      "deviceHeight": 844
+    }
+  ]
+}

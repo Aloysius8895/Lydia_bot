@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-06",
+  "status": "REFERENCE_RENDERED",
+  "applicationModified": false,
+  "contentPreserved": true,
+  "checks": [
+    "Expert/conversation/task/source/settings/project text unchanged",
+    "Content viewport ends above navigation",
+    "Input above home indicator",
+    "Call description reachable from header button"
+  ],
+  "errors": [],
+  "measurements": [
+    {
+      "screen": "home",
+      "horizontalOverflow": false,
+      "navTop": 753,
+      "contentBottom": 733,
+      "homeIndicatorTop": 833
+    },
+    {
+      "screen": "chat",
+      "horizontalOverflow": false,
+      "inputBottom": 805,
+      "homeIndicatorTop": 833
+    },
+    {
+      "screen": "detail",
+      "horizontalOverflow": false,
+      "homeIndicatorTop": 833
+    },
+    {
+      "screen": "sources",
+      "horizontalOverflow": false,
+      "homeIndicatorTop": 833
+    },
+    {
+      "screen": "settings",
+      "horizontalOverflow": false,
+      "navTop": 753,
+      "contentBottom": 733,
+      "homeIndicatorTop": 833
+    },
+    {
+      "screen": "dark",
+      "horizontalOverflow": false,
+      "inputBottom": 805,
+      "homeIndicatorTop": 833
+    }
+  ]
+}

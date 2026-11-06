@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-05",
+  "timezone": "Asia/Kuala_Lumpur",
+  "rea": "COMPLETED_PUBLIC_LOGGED_OUT_SCOPE",
+  "reaSummary": "evidence/rea-summary.json",
+  "backendTests": {
+    "passed": 7,
+    "testType": "LOCAL_PROVIDER_FIXTURE"
+  },
+  "totalTests": {
+    "passed": 84,
+    "testType": "AUTOMATED"
+  },
+  "typecheck": "PASSED",
+  "frontendBuild": "PASSED",
+  "browser": "PASSED_PROVIDER_AND_AUDIO_FIXTURES",
+  "elevenlabsRealKey": "NOT_CONFIGURED_BY_AGENT",
+  "realSynthesis": "NOT_RUN",
+  "voiceCloning": "NOT_RUN",
+  "realAudioLatency": "NOT_MEASURED",
+  "reasoningBackend": "UNCHANGED_CLAUDE_CLI",
+  "stt": "UNCHANGED_BROWSER_STT",
+  "browserReport": "../results/call-browser-evaluation.json",
+  "uiScreenshot": "../results/elevenlabs-settings.png",
+  "csp": "media-src self blob; connect-src self",
+  "defaultProvider": "browser"
+}

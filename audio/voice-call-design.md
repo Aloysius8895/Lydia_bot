@@ -1,65 +1,64 @@
-# 专家按轮语音通话 · 实施设计与能力表
+# 持续专家通话 · v1.3 实施设计
 
-依据：[business/docs/prompts/2026-11-04-expert-voice-call-prompt.md](../business/docs/prompts/2026-11-04-expert-voice-call-prompt.md) v1.2。
-日期：2026-11-05。本文记录实际检测结果和实现边界，不代表语音闭环已经通过验收。
+日期：2026-11-05（Asia/Kuala_Lumpur）。需求：[持续通话 Prompt](../business/docs/prompts/2026-11-05-continuous-expert-voice-call-prompt.md)。本文件描述实现，不等于真实语音验收通过。
 
-## 1. 本机能力（2026-11-05 实测检测）
+## 已确认的架构
 
-| 项目 | 检测结果 | 状态 | 处理位置 / 说明 |
-| --- | --- | --- | --- |
-| Chrome | 147.0.7727.138 | 已检测到 | 提供 `webkitSpeechRecognition` 与 `speechSynthesis`；Chrome 识别通常将音频发送到 Google 服务（云端，免费但非离线） |
-| Edge | 156.0.4314.58 | 已检测到 | 提供 `SpeechRecognition`，识别通常走微软在线服务（云端）；另有 “Online (Natural)” 在线音色 |
-| Windows 本地音色 | Huihui / Kangkang / Yaoyao（zh-CN），David / Zira / Mark（en-US），Hazel / George / Susan（en-GB） | 已检测到 | 本机 OneCore/SAPI，浏览器 `speechSynthesis` 中通常标记 `localService=true` |
-| Windows 本地识别 | SAPI 桌面识别器 zh-CN、en-US、en-GB、zh-TW | 已检测到，**未接入** | 离线，但需要 WAV PCM 输入；准确率未实测，列为后续候选 |
-| whisper / whisper.cpp / 模型 | 未找到 | 待配置 | 未擅自下载 |
-| ffmpeg | 未找到 | 待配置 | 无音频转码工具，所以第一版不走后端音频上传 |
-| 麦克风 | Realtek 麦克风阵列、NVIDIA Broadcast | 已检测到设备 | 设备存在不等于浏览器权限或识别可用 |
-| Claude CLI | `claude.exe` 已安装 | 已检测到 | 推理仍走原有订阅与串行调度 |
-| 真实语音识别 / 朗读 / 专家生成 | — | **未实测** | 需要用户本人在电脑上说话、听朗读；会消耗订阅额度，没有用户确认不自动执行 |
+保留原有专家 dialogue、案件隔离、PROJECT/METHOD/MARKET 边界、引用校验、CallStore 和共享 Claude CLI 串行队列。无新增付费服务、API 后备、模型下载或数据库迁移；新增测量保存在已有 JSON 元数据中。
 
-## 2. 第一版采用的组合
-
-* **STT**：浏览器 Web Speech `SpeechRecognition`（Chrome / Edge）。不新增付费服务，但**音频由浏览器厂商的在线服务处理**，界面会说明“可能需要联网”。如果浏览器暴露 `SpeechRecognition.available({processLocally:true})`，界面只报告检测结果，不声称离线。浏览器不支持时界面显示“当前未配置可用的语音识别”，保留文字输入。
-* **TTS**：浏览器 `speechSynthesis`，优先选择 `localService=true` 的本机音色（Windows 已有 zh-CN / en-US 音色）。没有合适音色时只显示文字。
-* **推理**：新增专用 dialogue 路径（`agents/dialogue.ts`），复用 `Skills`、`retrieve`、PROJECT 上下文、`checkEvidence`、`reviewCitations` 与 `ClaudeCLI` 串行调度；不跑五步研究流程，也不另开 CLI 实例。
-* **传输**：普通 HTTP + 轮询（202 + 轮次 ID）。不需要 WebSocket，CSP 不变。
-
-## 3. 主要等待点
-
-1. 浏览器识别出最终文字：通常 1 秒以内，取决于网络和厂商服务（未实测）。
-2. **共享 CLI 排队**：研究任务正在调用 CLI 时，通话轮次会显示“排队”，可以取消，不会抢占或取消研究任务。
-3. **Claude CLI 生成**：非流式，每轮需要启动进程、检查认证、生成完整 JSON；预计需要数秒到几十秒（未实测）。这是最主要的等待。
-4. 若回答带来源支持的主张，会再调用一次引用复核，因此等待时间会更长。
-5. 浏览器开始朗读：本机音色通常很快（未实测）。
-
-## 4. 架构
+| 层 | 文件 | 职责 |
+| --- | --- | --- |
+| 浏览器适配器 | `business/frontend/src/voice.js` | 按索引合并最终/临时识别；识别真实 start/end/error 事件；临时 Web Audio 活动分析；TTS 开始/结束/失败和超时 |
+| 持续输入控制 | `business/frontend/src/call-controller.js` | 1100ms 起始静音窗口；语句聚合；自动提交最终文字；有限退避恢复；静音；回声/附和筛选；语音打断 |
+| 对话与播放 | `business/frontend/src/call-session.js` | POST 幂等键；串行取消/替换请求；最新问题与补充合并；轮询；输入期间暂缓播放；输出代际隔离；播放报告 |
+| React 通话卡片 | `business/frontend/src/components/CallCard.jsx` | 连接就绪后计时；问候一次；麦克风静音开关；字幕、文字补充、恢复、挂断与历史记录 |
+| 专家上下文 | `business/agents/dialogue.ts`、`data/database/calls.ts` | 最近 8 轮完整历史及预算内较早片段；历史播放状态；短口语与自然追问；同一行锁协调提交与挂断 |
 
 ```text
-浏览器（CallCard）                               后端                                    CLI
-麦克风 ─► SpeechRecognition（厂商服务）
-         ─► 临时/最终文字 ─► 可编辑字幕
-用户点“发送” ─► POST /api/cases/:c/calls/:k/turns ─► call_turns(QUEUED) ─► Dialogue.run
-         ◄── 202 {turn}                                                     ├─ Skills.load(role)
-轮询 GET …/turns/:t ◄── QUEUED / THINKING / COMPLETED                       ├─ METHOD / MARKET / PROJECT 检索
-                                                                            ├─ ClaudeCLI.run（共享串行）──► claude -p
-                                                                            └─ Zod + 证据校验 + 引用复核
-speechSynthesis.speak(spoken_text) ─► POST …/turns/:t/playback（实际播放结果）
+点击接通 → 临时音频活动流 + 浏览器识别实际启动 → 创建鉴权通话 → 问候一次
+  ↓
+持续输入 → 临时字幕 / 活动检测 → 等待端点与最终转写 → 自动 POST 本句
+  ↑                                                   ↓
+继续倾听 ← 自动结束朗读 ← 引用校验 ← 指定专家 ← 共享 CLI 串行队列
+  │
+  └─ 专家讲话时识别到有效纠正 → 停止朗读 → 保留新输入 → 回应最新意图
 ```
 
-* 数据：迁移 `data/database/migrations/006-voice-calls.sql` 新增 `call_sessions` / `call_turns`（只新增表，兼容旧库）；访问封装在 `data/database/calls.ts`。
-* API：`backend/calls.ts`，路由挂在 `/api/cases/:caseId/calls/...` 下，每次都校验 call 属于该 case、turn 属于该 call；所有 mutation 继续要求同源和 CSRF。
-* 角色白名单：`steve | teresa | april | bob | ash`；controller 不可拨打。
-* 半双工：同一通话同一时间只允许一个 QUEUED/THINKING 轮次；`request_key` 保证幂等。
-* 取消：每轮有自己的 AbortController；CLI 排队可中途放弃，且不影响后面的队列；迟到结果按状态条件写入，被丢弃。
-* 重启：服务启动时，把未完成的轮次标记为 `FAILED/INTERRUPTED`，不自动重跑，也不重复消耗额度。
-* 原始音频：浏览器识别模式下应用拿不到也不保存原始音频，只提交最终文字和 provider / 语言元数据。
+## 能力与处理位置
 
-## 5. 证据边界
+- STT 使用已存在的浏览器 Web Speech 能力；处理位置未知时明确为可能由浏览器厂商在线处理。浏览器报告并实际启用本地模式时才采用该模式。
+- TTS 使用浏览器 speechSynthesis；按实际语言/音色枚举选择，优先本机音色。
+- 活动检测使用 getUserMedia 的 echoCancellation/noiseSuppression 请求和 Web Audio RMS 分析。样本只暂存在内存，不连接到扬声器、不保存、不上传。浏览器识别器拥有独立输入路径，不能声称这个音频流的回声约束已作用于识别器。
+- 有效打断由识别内容辅助判断，不以音量单独触发。过滤当前朗读的连续片段及简短附和，保留纠正的临时转写作为输入预缓冲。复杂回声、远场声音及所有设备上的可靠性仍需真实测试；建议耳机。
+- 识别器 continuous 不是永不结束的保证。自动结束有限恢复；持续启动失败、权限失效或网络失败需要明确恢复操作。
+- 本次环境检查发现 Claude CLI；未找到 whisper/ffmpeg 命令，未安装或下载替代语音模型。
 
-* METHOD：方法依据；MARKET：唯一可以作为市场证据的来源；PROJECT：背景和约束（列出采用/未纳入的文档）；通话历史：`HISTORY_NOT_EVIDENCE`；用户口述：`USER_REPORTED`。
-* 每条主张都必须使用本轮读取的 MARKET `source_id`；`SOURCE_SUPPORTED` 必须有证据，并通过引用复核。
-* `proposed_actions` 只显示为候选，不会自动选择 Gap、启动研究或建模。
+## 延迟与恢复
 
-## 6. 回退
+- 自动端点默认 1100ms，可通过控制器构造参数调整；活动输入延长等待，最终转写未返回时不能用草稿自动提交。
+- 非流式 Claude CLI 仍是主要等待点；不能承诺 1 秒回复。回声、准确率和对话总延迟无实机测量数据。
+- 持久元数据包含 `endpoint_ms`、`final_at`、`response_delay_ms` 及既有排队/生成/验证/播放启动测量。`final_at` 为最终文字事件时间；用户实际停口时间仍需音频测试，不能把两者混称。
+- 思考时补充会合并未回答的原问题与新条件，先取消旧轮次再提交最新请求。已发出但响应未到的 POST 会等待其 ID，以相同幂等键处理网络不确定性。
+- 输入和输出并行管理；有待定用户语句时暂缓播放旧结果。旧轮询、音频回调和已取消生成不能恢复播放。
+- 进入后台主动暂停收音和播放，返回后由用户恢复。刷新、登出、项目/专家切换和挂断清理资源；不承诺锁屏后台电话能力。
+- 正常沉默不发空请求、不循环调用模型。长等待不伪造专家已理解，也不反复播放填充语音。
 
-删除 `backend/calls.ts` 的挂载代码和前端电话入口后即可停用。新表不被其他模块引用，保留在库中不会影响原有功能。
+## 数据与回退
+
+沿用迁移 006 的表和现有鉴权 API，无新服务端音频上传。记录仍可更正、导出和删除；更正不篡改已提交原文。较早上下文是截断的历史片段，不是经模型核实的长期记忆，遗漏数量明确给模型。
+
+语音能力不足时明确停在未接通或受限状态；文字通话需用户明确选择。基础问答或 mock 测试通过不能替代持续通话验收。
+
+停用时移除前端持续控制集成并回退相关提交；原数据表兼容。没有覆写业务技能、原有数据或订阅配置。
+
+## 实际 CLI 故障修复补充
+
+CLI 2.1.143 的真实 init 验证显示，Zod Draft 2020-12 `$schema` URI 使结构化工具未注册。对话 profile 仅在 CLI wire schema 中去掉此顶层声明，并仅允许 StructuredOutput 工具；原字段限制与本地 Zod/证据校验保留。研究 profile 没有变更。
+
+对话 profile 用当前模型的 low effort 和专用系统提示；spoken_text 默认生成字幕，其他空字段由应用填充，避免生成重复长报告。成功和格式失败均保留独立 auth_ms/generation_ms；失败回答显示明确状态，并允许手动重试。用户说话的相同识别文本在上一问尚未回答时不会重复入队。
+
+最终两轮真实文本测量为 7.707s 与 7.575s，不包含完整 STT/TTS 音频链路；无流式朗读、模型更换或付费 API 后备。详见验收报告。
+
+## ElevenLabs 可选朗读层
+
+调查与配置见 [ElevenLabs 接入](elevenlabs/README.md)。语音层现可选择浏览器或 ElevenLabs；Claude CLI、检索、校验和 STT 不变。后端密钥、鉴权的已完成轮次音频路由、固定文本预览、流式代理与前端 MP3 播放器分开。浏览器 MediaSource 不可用时使用完整缓冲；播放报告记录 provider/model/delivery_mode，打断进度不明时仍记 UNKNOWN。配置切换/Key 更新会终止正在处理的云端音频，请以新请求或重新接通验证。真实云端声音尚待用户 Key 与实测。

@@ -19,10 +19,16 @@ export class CrawlAPI {
     const exportId=z.string().uuid().parse(op.result.id);
     return {path:this.snapshots.resolve(`exports/${exportId}/${name}`),name,type:name.endsWith('.csv')?'text/csv; charset=utf-8':name.endsWith('.md')?'text/markdown; charset=utf-8':'application/json; charset=utf-8'};
   }
-  async handle(p:string,method:string,url:URL,body:()=>Promise<any>):Promise<{data:unknown;status?:number}|null>{
+  async handle(p:string,method:string,url:URL,body:()=>Promise<any>,context:{loopback?:boolean}={}):Promise<{data:unknown;status?:number}|null>{
     const store=this.repo.store;
+    if(p==='/api/crawl/twitter/session'&&method==='GET')return {data:await this.worker.twitter.status()};
+    if(p==='/api/crawl/twitter/api-status'&&method==='GET')return {data:this.worker.twitterAPI.status()};
+    if(['/api/crawl/twitter/login','/api/crawl/twitter/close'].includes(p)&&method==='POST'){
+      assert(context.loopback,'TWITTER_LOCAL_ONLY','请在运行后端的电脑上打开或关闭 X 登录窗口',403);
+      return {data:p.endsWith('/login')?await this.worker.twitter.login():await this.worker.twitter.close()};
+    }
     if(p==='/api/crawl/sources'&&method==='GET')return {data:await store.rows('SELECT * FROM crawl_sources ORDER BY id')};
-    if(p==='/api/crawl/runs'&&method==='GET')return {data:await store.rows('SELECT * FROM crawl_runs ORDER BY created_at DESC LIMIT 100')};
+    if(p==='/api/crawl/runs'&&method==='GET')return {data:await store.rows("SELECT r.*,(SELECT count(*)::integer FROM crawl_tasks t WHERE t.run_id=r.id AND t.status='blocked') AS blocked_tasks,(SELECT error FROM crawl_tasks t WHERE t.run_id=r.id AND error IS NOT NULL ORDER BY updated_at DESC LIMIT 1) AS last_error FROM crawl_runs r ORDER BY r.created_at DESC LIMIT 100")};
     if(p==='/api/crawl/operations'&&method==='GET')return {data:await store.rows('SELECT id,kind,status,result,error,created_at FROM crawl_operations ORDER BY created_at DESC LIMIT 20')};
     if(p==='/api/crawl/events'&&method==='GET')return {data:await store.rows('SELECT * FROM crawl_events ORDER BY year DESC NULLS LAST,name LIMIT 200')};
     if(p==='/api/crawl/coverage'&&method==='GET')return {data:await this.repo.coverage(url.searchParams.get('run_id')||undefined)};
@@ -40,7 +46,7 @@ export class CrawlAPI {
         return {data:await this.repo.control(id,run[2] as 'pause'|'resume'|'cancel',b.extend_budget)};
       }
     }
-    if(p==='/api/crawl/projects'&&method==='GET')return {data:await this.repo.projects(z.object({source:z.string().optional(),year:z.coerce.number().int().min(2025).max(2026).optional(),query:z.string().max(200).optional(),limit:z.coerce.number().int().min(1).max(100).optional(),offset:z.coerce.number().int().min(0).max(1000000).optional()}).parse(Object.fromEntries(url.searchParams)))};
+    if(p==='/api/crawl/projects'&&method==='GET')return {data:await this.repo.projects(z.object({source:z.string().optional(),year:z.coerce.number().int().min(2006).max(2100).optional(),query:z.string().max(200).optional(),limit:z.coerce.number().int().min(1).max(100).optional(),offset:z.coerce.number().int().min(0).max(1000000).optional()}).parse(Object.fromEntries(url.searchParams)))};
     const project=/^\/api\/crawl\/projects\/([^/]+)(?:\/(relations))?$/.exec(p);
     if(project&&method==='GET'){
       const id=z.string().uuid().parse(project[1]),p=await this.repo.project(id);

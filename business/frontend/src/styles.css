@@ -261,8 +261,9 @@ a {
 .brand__mark {
   width: 28px;
   height: 28px;
-  border-radius: 50%;
-  background: var(--inverse);
+  border-radius: 6px;
+  object-fit: contain;
+  flex-shrink: 0;
   display: grid;
   place-items: center;
 }

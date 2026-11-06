@@ -1,0 +1,17 @@
+{
+  "status": "PASSED",
+  "checks": [
+    "passwordless local entry and actual fixture data",
+    "single project selector and collapsed research/method/task details",
+    "disclosed research tools still navigate to real source form",
+    "compact composer grows for multiline input and shrinks back",
+    "voice dock opens compact call card without starting a call or displaying fabricated live status",
+    "27/42/31 allocation of available panel space across desktop widths; light and dark render",
+    "390px conversation and details drawer without horizontal overflow"
+  ],
+  "pageErrors": [],
+  "synthetic": true,
+  "productionDatabaseTouched": false,
+  "realModelCalls": 0,
+  "realAudio": false
+}

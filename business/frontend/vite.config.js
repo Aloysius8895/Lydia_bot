@@ -9,7 +9,11 @@ export default defineConfig({
     name: 'lydia-public-shell',
     generateBundle(_options, bundle) {
       const assets = Object.keys(bundle).filter(name => /\.(js|css|woff2)$/.test(name)).sort();
-      const version = createHash('sha256').update(JSON.stringify(assets)).digest('hex').slice(0,16);
+      const versionHash = createHash('sha256').update(JSON.stringify(assets));
+      for (const file of publicShell.filter(file => file !== '/')) {
+        versionHash.update(readFileSync(new URL('./public' + file, import.meta.url)));
+      }
+      const version = versionHash.digest('hex').slice(0,16);
       const template = readFileSync(new URL('./pwa/service-worker.template.js',import.meta.url),'utf8');
       this.emitFile({type:'asset',fileName:'sw.js',source:template.replace('__CACHE_NAME__','lydia-design-'+version).replace('__SHELL_FILES__',JSON.stringify([...publicShell,...assets.map(name=>'/'+name)]))});
     },

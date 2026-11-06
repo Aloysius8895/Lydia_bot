@@ -67,8 +67,16 @@ export class CallStore {
     return (await this.store.rows(`UPDATE call_turns SET status='CANCELLED',error=$2,timings=timings||$3::jsonb,updated_at=now() WHERE id=$1 AND status IN ${ACTIVE_TURN} RETURNING id`,[turnId,{code:'CANCELLED',message:reason},JSON.stringify({cancelled_at:new Date().toISOString()})])).length>0;
   }
   async recentTurns(callId:string,beforeSeq:number,limit=8){
-    const rows=await this.store.rows("SELECT seq,user_text,corrections,reply,input_source FROM call_turns WHERE call_id=$1 AND seq<$2 AND status='COMPLETED' ORDER BY seq DESC",[callId,beforeSeq]);
-    return {included:rows.slice(0,limit).reverse(),omitted:Math.max(0,rows.length-limit)};
+    const rows=await this.store.rows("SELECT seq,user_text,corrections,reply,input_source,playback FROM call_turns WHERE call_id=$1 AND seq<$2 AND status='COMPLETED' ORDER BY seq DESC",[callId,beforeSeq]);
+    // Deterministic compact context: no extra model call, and never represented as evidence.
+    let budget=6000;
+    const earlier:Row[]=[];
+    for(const row of rows.slice(limit)){
+      const item={seq:row.seq,user:String(row.corrections?.at(-1)?.text||row.user_text).slice(0,240),expert:String(row.reply?.spoken_text||'').slice(0,240),playback:row.playback||{status:'NOT_REPORTED',progress:'UNKNOWN'}};
+      const size=JSON.stringify(item).length;if(size>budget)break;
+      budget-=size;earlier.push(item);
+    }
+    return {included:rows.slice(0,limit).reverse(),omitted:Math.max(0,rows.length-limit),earlier:earlier.reverse(),earlier_omitted:Math.max(0,rows.length-limit-earlier.length)};
   }
   async recordPlayback(caseId:string,callId:string,turnId:string,playback:Row){
     const t=await this.turn(caseId,callId,turnId);assert(t.status==='COMPLETED','TURN_NOT_COMPLETED','只有已完成的回答可以记录播放',409);
@@ -82,11 +90,14 @@ export class CallStore {
     return this.turn(caseId,callId,turnId);
   }
   async endCall(caseId:string,callId:string,reason='USER_HANGUP'){
-    await this.call(caseId,callId);
-    const active=await this.store.rows(`SELECT id FROM call_turns WHERE call_id=$1 AND status IN ${ACTIVE_TURN}`,[callId]);
-    for(const t of active)await this.cancelTurn(t.id,'通话已结束');
-    await this.store.db.query("UPDATE call_sessions SET status='ENDED',ended_at=coalesce(ended_at,now()),meta=meta||$2::jsonb,updated_at=now() WHERE id=$1 AND status='ACTIVE'",[callId,JSON.stringify({ended_reason:reason})]);
-    return {call:await this.call(caseId,callId),cancelled:active.map(t=>t.id)};
+    // Same row lock as addTurn: ending cannot race a submitted turn into an ended call.
+    return this.store.db.transaction(async tx=>{
+      const call=(await tx.query<Row>('SELECT * FROM call_sessions WHERE id=$1 AND case_id=$2 FOR UPDATE',[callId,caseId])).rows[0];
+      assert(call,'CALL_NOT_FOUND','通话不存在或不属于当前项目',404);
+      const active=(await tx.query<Row>(`UPDATE call_turns SET status='CANCELLED',error=$2,timings=timings||$3::jsonb,updated_at=now() WHERE call_id=$1 AND status IN ${ACTIVE_TURN} RETURNING id`,[callId,{code:'CANCELLED',message:'通话已结束'},JSON.stringify({cancelled_at:new Date().toISOString()})])).rows;
+      await tx.query("UPDATE call_sessions SET status='ENDED',ended_at=coalesce(ended_at,now()),meta=meta||$2::jsonb,updated_at=now() WHERE id=$1 AND status='ACTIVE'",[callId,JSON.stringify({ended_reason:reason})]);
+      return {call:(await tx.query<Row>('SELECT * FROM call_sessions WHERE id=$1',[callId])).rows[0],cancelled:active.map(t=>t.id)};
+    });
   }
   /** Single-owner app: logout ends every open call so no turn keeps generating without a session. */
   async endAllActive(reason:string){

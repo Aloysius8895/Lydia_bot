@@ -50,8 +50,8 @@ const statuses = { QUEUED: '排队中', RUNNING: '研究中', PAUSED: '已暂停
 export function TaskProgress({ tasks, busy, onTaskAction }) {
   return <div className="research-tasks">{tasks.filter(t => t.status !== 'COMPLETED').map(t => <article className="research-card task-progress" key={t.id} data-task-status={t.status}>
     <div className="research-card__head"><span className="status-dot" /><strong>{statuses[t.status]} · {t.kind === 'model' ? '商业模式' : t.kind === 'research' ? '需求研究' : '顾问问答'}</strong></div>
-    {t.checkpoint?.current && <p>当前步骤：{t.checkpoint.current}</p>}{t.error && <p role="status">{t.error.message}</p>}
-    {t.checkpoint?.collection && <p>资料采集：{t.checkpoint.collection.status}</p>}
+    {t.error && <p className="task-progress__reason" role="status">{t.error.message}</p>}
+    {(t.checkpoint?.current || t.checkpoint?.collection) && <details className="task-progress__details"><summary>查看进度详情</summary>{t.checkpoint?.current && <p>当前步骤：{t.checkpoint.current}</p>}{t.checkpoint?.collection && <p>资料采集：{t.checkpoint.collection.status}</p>}</details>}
     <div className="research-actions">{t.status === 'PAUSED' && <button className="pill" disabled={busy} onClick={() => onTaskAction(t.id, 'resume')}>恢复此任务</button>}{['QUEUED', 'RUNNING', 'PAUSED'].includes(t.status) && <button className="pill" disabled={busy} onClick={() => onTaskAction(t.id, 'cancel')}>取消任务</button>}</div>
   </article>)}</div>;
 }

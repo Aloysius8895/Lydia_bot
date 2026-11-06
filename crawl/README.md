@@ -89,3 +89,6 @@ Dockerfile 与运维说明见 [deployment](deployment/README.md)。本机 Docker
 `scrap/` 和 `rea/` 保留原有第三方源码，未安装或调用。Downloads 中原 prompt 未改。工作区根不是 Git 仓库，没有创建提交。
 
 原 `crawl/web` 为历史界面源码，后端不再提供这套页面或样式。当前界面在 `business/frontend/src/components/CrawlSettings.jsx`，沿用原 App 的深浅主题。
+
+
+[Twitter (X) extension usage and limitations](docs/TWITTER_USAGE.md)

@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-06",
+  "status": "PASSED",
+  "checks": [
+    "All experts reachable; Bob fully above glass navigation in day and night; no horizontal overflow",
+    "Chosen theme persists on refresh",
+    "Settings vertical overview, subsection back, phone guide and project file upload use existing APIs",
+    "Single header call entry opens existing card; no automatic call; no bottom dock/nav in chat",
+    "Research drawer/tabs available in both themes; paused task cancellation persists",
+    "Composer stays visible at 320px, reduced 500px height and 430px; 16px editing text",
+    "Desktop retains original call dock/three-column interface"
+  ],
+  "pageErrors": [],
+  "fixture": "TEST_ONLY isolated DB, mocked CLI identity; real inference and audio disabled",
+  "productionDatabaseTouched": false,
+  "phoneKeyboard": "Desktop resized viewport only; actual iPhone keyboard still requires user verification"
+}

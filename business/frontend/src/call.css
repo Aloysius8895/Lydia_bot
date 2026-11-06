@@ -19,7 +19,7 @@
 .call-entry:focus-visible { outline: 2px solid var(--call-focus); outline-offset: 2px; }
 
 .call-card {
-  position: absolute; top: 140px; right: 20px; z-index: 30; width: 340px; max-height: calc(100% - 160px);
+  position: absolute; top: 140px; right: 20px; z-index: 30; width: 340px; max-height: min(560px, calc(100% - 160px));
   display: flex; flex-direction: column; gap: 10px; padding: 14px 16px 16px; overflow: auto;
   background: var(--call-bg); color: var(--call-text); border-radius: 24px; box-shadow: 0 18px 48px rgba(0, 0, 0, .28);
   font-size: 14px; line-height: 1.5;
@@ -44,11 +44,16 @@
 .call-card--collapsed .call-card__name { font-size: 16px; }
 
 .call-setup { display: flex; flex-direction: column; gap: 10px; background: var(--call-bg-2); border-radius: 16px; padding: 12px; }
+.call-preferences{flex-shrink:0;border:1px solid var(--call-line);border-radius:12px;padding:8px 10px;font-size:12px;color:var(--call-muted)}
+.call-preferences>summary{cursor:pointer;line-height:24px}.call-preferences .call-setup{margin-top:8px}
+.call-preferences[open]{max-height:220px;overflow:auto}
+.call-card__top,.call-card__identity,.call-card__status,.call-card__controls{flex-shrink:0}
+.call-card__controls{position:sticky;bottom:-16px;background:var(--call-bg);padding:10px 0 6px;z-index:2}
 .call-setup dl { margin: 0; display: flex; flex-direction: column; gap: 8px; }
 .call-setup dt { font-size: 12px; color: var(--call-muted); }
 .call-setup dd { margin: 0; font-size: 13px; overflow-wrap: anywhere; }
 .call-setup label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--call-muted); }
-.call-setup select, .call-draft textarea { background: var(--call-bg); color: var(--call-text); border: 1px solid var(--call-line); border-radius: 10px; padding: 8px 10px; font: inherit; font-size: 14px; }
+.call-setup select, .call-draft textarea { background: var(--call-bg); color: var(--call-text); border: 1px solid var(--call-line); border-radius: 10px; padding: 8px 10px; font: inherit; font-size: 14px; min-width:0;max-width:100%; }
 
 .call-turns { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; max-height: 300px; overflow: auto; }
 .call-turn { display: flex; flex-direction: column; gap: 6px; }

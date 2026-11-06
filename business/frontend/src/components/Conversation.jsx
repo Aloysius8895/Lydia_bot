@@ -162,7 +162,7 @@ function RoomPanel({ room, botsById, onClose, onClear }) {
   );
 }
 
-export default function Conversation({ bot, room, messages, botsById, pending, isMobile, onSend, onStop, onClear, onAction, busy, toolbar, overlay, progress, renderPanel, openPanelSignal, onAttachment }) {
+export default function Conversation({ bot, room, messages, botsById, pending, isMobile, onSend, onStop, onClear, onAction, busy, toolbar, overlay, progress, renderPanel, openPanelSignal, onAttachment, voiceDock, headerAction }) {
   const isRoom = Boolean(room);
   const [panelOpen, setPanelOpen] = useState(() => !isMobile && window.matchMedia('(min-width: 1181px)').matches);
   const [draft, setDraft] = useState('');
@@ -210,6 +210,7 @@ export default function Conversation({ bot, room, messages, botsById, pending, i
               <span className="chat-header__sub">{subtitle}</span>
             </div>
           </div>
+          {headerAction}
           <button
             type="button"
             className="icon-btn"
@@ -237,6 +238,7 @@ export default function Conversation({ bot, room, messages, botsById, pending, i
           </div>
         </div>
 
+        {voiceDock}
         <Composer
           placeholder={`Message ${title}`}
           value={draft}

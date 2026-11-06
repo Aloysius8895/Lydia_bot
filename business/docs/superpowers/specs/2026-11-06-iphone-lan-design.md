@@ -1,0 +1,5 @@
+# iPhone LAN installation
+
+User approved the same-Wi-Fi iPhone/Safari design on 2026-11-06. Reuse the current backend, database, password authentication, PWA manifest and service worker. Add a phone settings view with current connection checks and Safari instructions. Provide a launcher that selects a private IPv4 address, verifies/prepares its certificate, builds the UI and starts the single HTTPS backend. A separate minimal HTTP listener serves only the public CA and bootstrap instructions, so an iPhone can install the CA before trusting HTTPS. Never serve private keys or database files. Bind both listeners to the selected LAN address. Do not change system trust stores or firewall automatically.
+
+Acceptance: typecheck/build, isolated real TLS login and Secure cookie test, bootstrap certificate download verification and phone settings browser checks. iPhone certificate trust, standalone launch and real device interaction remain pending until the user performs them. Existing dirty files are preserved; no unrelated changes are committed.

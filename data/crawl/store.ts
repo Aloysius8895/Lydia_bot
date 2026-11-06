@@ -3,7 +3,7 @@ import {Store,hash,type Row} from '../database/store.ts';
 import {assert} from '../../business/shared/config.ts';
 import {sources,sourceFor,sourceURL} from '../../crawl/sources/registry.ts';
 import type {RunConfig,ParsedPage,FetchResult} from '../../crawl/types.ts';
-import {stableJSON} from '../../crawl/core/config.ts';
+import {stableJSON,runSchema} from '../../crawl/core/config.ts';
 import {upsertEvent,saveOutcomes,reconcileOutcomes,saveDiscovery,invalidateProject} from './discovery.ts';
 
 export class CrawlStore {
@@ -11,6 +11,7 @@ export class CrawlStore {
   constructor(store:Store){this.store=store;}
   async init(){for(const s of sources)await this.store.db.query("INSERT INTO crawl_sources(id,name,entry_url,audit) VALUES($1,$2,$3,$4) ON CONFLICT(id) DO UPDATE SET audit=jsonb_set(crawl_sources.audit,'{capabilities}',$5::jsonb)",[s.id,s.name,s.url,{capabilities:s.capabilities},JSON.stringify(s.capabilities)]);}
   async createRun(config:RunConfig,requestKey:string){
+    if(config.sources.includes('twitter'))config=runSchema.parse(config);
     for(const id of config.sources)sourceFor(id);
     for(const s of config.seeds||[])assert(config.sources.includes(s.source)&&!!sourceURL(s.source,s.url),'SOURCE_SCOPE','种子 URL 不属于已选来源');
     return this.store.db.transaction(async tx=>{

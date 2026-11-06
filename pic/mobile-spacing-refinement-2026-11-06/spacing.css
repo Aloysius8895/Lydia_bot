@@ -1,0 +1,24 @@
+/* Pic-only revision: reserve navigation clearance and simplify chat controls. */
+.screen[data-screen=home] .home-content,.screen[data-screen=settings] .home-content{position:absolute;top:117px;left:0;right:0;bottom:111px;overflow-y:auto;overscroll-behavior:contain;padding:0 18px 25px;scrollbar-width:none}
+.nav{bottom:29px;z-index:5}
+.chat-shell .topbar{gap:5px;padding:12px 9px;min-height:76px}
+.chat-shell .topbar .titleblock{flex:1}
+.chat-shell .topbar .spacer{display:none}
+.chat-shell .topbar>.iconbutton{width:38px;min-height:44px}
+.chat-shell .topbar .titleblock strong{font-size:14px}
+.chat-shell .topbar .titleblock small{font-size:9px;white-space:nowrap}
+.chat-shell .topbar .voice{position:relative;margin:0;padding:0;gap:0;border:0;border-radius:14px;background:none;flex:none}
+.chat-shell .topbar .voice>.avatar,.chat-shell .topbar .voice>div,.chat-shell .topbar .voice>.spacer{display:none}
+.chat-shell .topbar .voice>button{width:44px;height:44px;min-height:44px;padding:0;display:grid;place-items:center;background:#e7def20e;color:#d6c5e4;border:1px solid #b8a0cb27;border-radius:14px;font-size:0}
+.chat-shell .topbar .voice>button svg{width:18px;height:18px}
+.chat-bottom{padding:18px 15px 20px;background:linear-gradient(180deg,#29292900,#292929 18%);flex:none}
+.composer{min-height:62px;gap:11px;border:1px solid #4a434f;border-radius:24px;padding:10px 12px;box-shadow:0 5px 20px #0000000a}
+.composer .round{height:36px;width:36px;flex:none}
+.composer .placeholder{font-size:14px}
+.thread{padding:20px 19px 8px}
+.copy-row{margin-top:12px;margin-bottom:22px}
+.task-strip{border-top:1px solid #464047;border-radius:0;background:transparent;margin-top:14px;padding:14px 0 0;font-size:10px;line-height:1.7;gap:7px;color:#b2a7ba}
+.task-strip svg{color:#aaa0b2;width:14px;height:14px}
+.assistant-bubble{padding:17px 16px}
+.voice-popover{position:absolute;top:64px;right:8px;width:278px;z-index:20;padding:18px;background:#36323b;border:1px solid #75638360;border-radius:23px;box-shadow:0 15px 45px #0006;color:#eee8f3}
+.voice-popover[hidden]{display:none}.voice-popover .voice-intro{display:flex;gap:10px;align-items:center}.voice-popover strong{display:block;font-size:14px}.voice-popover small{display:block;font-size:11px;color:#b1a5bb;margin-top:3px}.voice-popover .voice-confirm{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:44px;border-radius:14px;background:#e7def2;color:#342a40;border:0;margin-top:17px;font-size:12px}.voice-popover .voice-confirm svg{width:16px;height:16px}.voice-popover .voice-note{font-size:10px;color:#aaa0b3;line-height:1.7;margin:12px 0 0}

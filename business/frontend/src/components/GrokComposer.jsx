@@ -5,7 +5,7 @@ export default function GrokComposer({ placeholder, value, onChange, inputRef, b
   const form = useRef(null), submitting = useRef(false);
   useEffect(() => {
     const input = inputRef.current;
-    if (input) { input.style.height = 'auto'; input.style.height = Math.min(180, Math.max(60, input.scrollHeight)) + 'px'; }
+    if (input) { input.style.height = 'auto'; input.style.height = Math.min(180, Math.max(28, input.scrollHeight)) + 'px'; }
   }, [value, inputRef]);
   async function submit(event) {
     event.preventDefault();
@@ -16,7 +16,7 @@ export default function GrokComposer({ placeholder, value, onChange, inputRef, b
   }
   return <div className="composer-wrap grok-composer-wrap">
     <form className="composer grok-composer" ref={form} onSubmit={submit}>
-      <textarea ref={inputRef} rows={2} maxLength={8000} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} aria-label={placeholder}
+      <textarea ref={inputRef} rows={1} maxLength={8000} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} aria-label={placeholder}
         onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing && e.keyCode !== 229) { e.preventDefault(); if (!busy) form.current?.requestSubmit(); } }} />
       <div className="grok-composer__toolbar"><div className="grok-composer__tools">
         <button type="button" className="composer__add" aria-label="Add attachment" title="添加案件资料" onClick={onAttachment}><Icon name="plus" size={18} /></button>

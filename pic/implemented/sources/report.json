@@ -1,0 +1,15 @@
+{
+  "status": "PASSED",
+  "checks": [
+    "three explicit input modes, truthful empty state and disabled empty submit",
+    "text submission still writes original MARKET source through authenticated API",
+    "styled file picker rejects PDF, previews supported text, stores PROJECT and keeps it distinct from MARKET",
+    "web mode forwards selected category; request intercepted, no external fetching",
+    "switching detail tabs retains unsent source draft",
+    "light/dark and 390px sources sidebar without horizontal overflow"
+  ],
+  "errors": [],
+  "temporaryDatabase": true,
+  "realModelCalls": 0,
+  "externalURLFetches": 0
+}

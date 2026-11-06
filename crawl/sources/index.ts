@@ -10,10 +10,12 @@ import {parseImagineCup} from './imaginecup.ts';
 import {parseHosted} from './hosted.ts';
 import {pagination} from './discovery.ts';
 import {sourceURL} from './registry.ts';
+import {parseTwitter} from './twitter.ts';
 
 export function parseSource(source:string,url:string,html:string,context:ParseContext={years:[2025,2026]}):ParsedPage{
  let page:ParsedPage;
  switch(source){
+  case 'twitter':page=parseTwitter(url,html);break;
   case 'ethglobal':page=parseETHDiscovery(url,html,context)||parseETHGlobal(url,html);break;
   case 'hackquest':page=parseHQDiscovery(url,html,context)||parseHackQuest(url,html);break;
   case 'devfolio':page=parseDevfolio(url,html,context);break;
@@ -26,7 +28,7 @@ export function parseSource(source:string,url:string,html:string,context:ParseCo
  if(!page.pageType)page.pageType=page.projects.some(p=>p.meta.record_kind!=='listing')?'detail':'listing';
  if(!page.pagination&&page.pageType==='listing')Object.assign(page,pagination(html,url));
  for(const p of page.projects){const event=context.input?.event;if(p.year===null&&event?.year&&p.event?.id===event.id){p.year=event.year;p.meta={...p.meta,year_basis:'official_event_context',year_evidence_snapshot_id:context.input?.event_evidence_snapshot_id||null};}}
- page.projects=page.projects.filter(p=>p.year===null||context.years.includes(p.year));
+ page.projects=page.projects.filter(p=>p.meta.record_kind==='social_post'||p.year===null||context.years.includes(p.year));
  const excludedEvents=new Set(page.events?.filter(e=>e.year!==null&&!context.years.includes(e.year)).map(e=>e.id));
  page.events=page.events?.filter(e=>e.year===null||context.years.includes(e.year));page.outcomes=page.outcomes?.filter(o=>!excludedEvents.has(o.eventId));
  const seen=new Set<string>();page.links=page.links.filter(link=>{try{link.url=sourceURL(source,link.url);}catch{return false;}if(seen.has(link.url))return false;seen.add(link.url);const e=link.input?.event as any;return !e?.year||context.years.includes(e.year);});

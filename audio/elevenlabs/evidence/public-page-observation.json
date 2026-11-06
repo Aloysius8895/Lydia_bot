@@ -1,0 +1,7 @@
+{
+  "url": "https://elevenlabs.io/app/create-voice/instant",
+  "title": "ElevenLabs",
+  "observedText": "",
+  "profile": "dedicated logged-out headless Chrome; no uploads, login, synthesis or account changes",
+  "note": "Early document-load snapshot preceded the SPA redirect. Use REA page Evidence and screenshot for the final Sign in route."
+}

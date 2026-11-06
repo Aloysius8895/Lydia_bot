@@ -21,7 +21,9 @@ before(async()=>{
   app=await createApp({dataDir:path.join(tmp,'pg'),origin,startWorker:false});
   app.cli.options.noOverageConfirmed=true;
   app.cli.auth=async()=>({loggedIn:true,authMethod:'claude.ai',apiProvider:'firstParty',subscriptionType:'TEST_ONLY'});
-  app.cli.process=async(_args:string[],input:string)=>{prompts.push(input);const data=await next(input);return {stdout:JSON.stringify({type:'result',subtype:'success',structured_output:data}),exit:0};};
+  app.cli.process=async(args:string[],input:string)=>{
+    if(input.includes('UNTRUSTED_CALL_DATA_JSON')){assert.equal(args[args.indexOf('--tools')+1],'StructuredOutput');assert.equal(args[args.indexOf('--effort')+1],'low');}
+    prompts.push(input);const data=await next(input);return {stdout:JSON.stringify({type:'result',subtype:'success',structured_output:data}),exit:0};};
   await req('/api/auth/setup','POST',{password:'TEST_ONLY-Calls-Password-42'});
   const login=await req('/api/auth/login','POST',{password:'TEST_ONLY-Calls-Password-42'});cookie=login.r.headers.get('set-cookie')!.split(';')[0];csrf=login.j.csrf;
 });
@@ -140,10 +142,13 @@ test('hang-up cancels the thinking turn and a late result is discarded',async()=
 
 test('playback, transcript correction, export and delete keep honest records',async()=>{
   const a=await project();next=async()=>reply();const c=await call(a.id,'steve');
-  const r=await req(`/api/cases/${a.id}/calls/${c.id}/turns`,'POST',{request_key:crypto.randomUUID(),text:'预算是五千',input_source:'BROWSER_STT',stt:{provider:'TEST_ONLY_FAKE_RECOGNITION',lang:'zh-CN',processing_location:'UNKNOWN',transcript_original:'预算是五千',edited:false,recognition_ms:null}});
+  const finalAt=new Date().toISOString();
+  const r=await req(`/api/cases/${a.id}/calls/${c.id}/turns`,'POST',{request_key:crypto.randomUUID(),text:'预算是五千',input_source:'BROWSER_STT',stt:{provider:'TEST_ONLY_FAKE_RECOGNITION',lang:'zh-CN',processing_location:'UNKNOWN',transcript_original:'预算是五千',edited:false,recognition_ms:null,endpoint_ms:1100,final_at:finalAt}});
   assert.equal(r.r.status,202);assert.equal(r.j.turn.stt.confidence,null,'missing confidence stays missing');
+  assert.equal(r.j.turn.stt.endpoint_ms,1100);assert.equal(r.j.turn.stt.final_at,finalAt);
   const t=await settle(a.id,c.id,r.j.turn.id);
-  assert.equal((await req(`/api/cases/${a.id}/calls/${c.id}/turns/${t.id}/playback`,'POST',{status:'INTERRUPTED',progress:'UNKNOWN',voice_name:'TEST_ONLY',voice_local:true,lang:'zh-CN'})).j.turn.playback.progress,'UNKNOWN');
+  const playback=(await req(`/api/cases/${a.id}/calls/${c.id}/turns/${t.id}/playback`,'POST',{status:'INTERRUPTED',progress:'UNKNOWN',voice_name:'TEST_ONLY',voice_local:true,lang:'zh-CN',response_delay_ms:4200})).j.turn.playback;
+  assert.equal(playback.progress,'UNKNOWN');assert.equal(playback.response_delay_ms,4200);
   const corrected=(await req(`/api/cases/${a.id}/calls/${c.id}/turns/${t.id}/correction`,'POST',{text:'预算是五百'})).j.turn;
   assert.equal(corrected.user_text,'预算是五千','original text the expert received is preserved');assert.equal(corrected.corrections[0].text,'预算是五百');
   const exp=(await req(`/api/cases/${a.id}/calls/${c.id}/export`)).j;assert.ok(exp.markdown.includes('不是真人客户访谈'));assert.ok(exp.markdown.includes('预算是五百'));assert.ok(exp.markdown.includes('INTERRUPTED'));
@@ -165,4 +170,42 @@ test('spoken text drops Markdown, URLs and citation IDs; overall label is the we
   assert.equal(speakable('**重点**：见 [E001] https://example.com/x 和 E002。'),'重点：见 和 。');
   assert.equal(overallLabel([]),'TO_VALIDATE');
   assert.equal(overallLabel([{statement:'a',claim_label:'SOURCE_SUPPORTED',basis:'MARKET_EVIDENCE',evidence_ids:['E001']},{statement:'b',claim_label:'RESEARCH_INFERENCE',basis:'INFERENCE',evidence_ids:[]}]),'RESEARCH_INFERENCE');
+});
+
+test('long calls retain compact earlier context and honest playback status across the recent-history boundary',async()=>{
+  const a=await project('TEST_ONLY 长通话'),c=await call(a.id,'steve');prompts=[];next=async()=>reply();
+  for(let i=1;i<=11;i++){
+    const t=await settle(a.id,c.id,(await say(a.id,c.id,`TEST_ONLY 第${i}句；预算约束 ${i===1?'不得做硬件':'继续'}`)).j.turn.id);
+    assert.equal(t.status,'COMPLETED');
+    if(i===1||i===3)await req(`/api/cases/${a.id}/calls/${c.id}/turns/${t.id}/playback`,'POST',{status:'INTERRUPTED',progress:'UNKNOWN'});
+  }
+  const h=payload(dialoguePrompts().at(-1)!).CALL_HISTORY;
+  assert.equal(h.turns.length,8);assert.equal(h.omitted_earlier_turns,2);
+  assert.match(h.earlier_compact_context.entries[0].user,/不得做硬件/);
+  assert.equal(h.earlier_compact_context.entries[0].playback.status,'INTERRUPTED');
+  assert.equal(h.turns[0].expert.playback.progress,'UNKNOWN');
+  assert.equal(h.earlier_compact_context.label,'USER_REPORTED_AND_HISTORY_NOT_EVIDENCE');
+  assert.ok(JSON.stringify(h.earlier_compact_context.entries).length<6500);
+});
+
+test('all five call roles load their own method and remain separate from the controller',async()=>{
+  const a=await project('TEST_ONLY 五角色');next=async()=>reply();
+  const methods={steve:'steve-blank-discovery',teresa:'teresa-torres-opportunity',april:'april-dunford-positioning',bob:'bob-moesta-demand',ash:'ash-maurya-lean-model'};
+  for(const [role,method]of Object.entries(methods)){
+    prompts=[];const c=await call(a.id,role),t=await settle(a.id,c.id,(await say(a.id,c.id,'从你的方法来看先做什么？')).j.turn.id);
+    assert.equal(t.status,'COMPLETED');assert.equal(t.reply.role,role);
+    assert.ok(dialoguePrompts()[0].includes(`${method}/SKILL.md`));
+    assert.ok(t.provenance.methods.every((m:any)=>m.file.startsWith(`${method}/`)));
+  }
+  const caps=(await req('/api/voice/capabilities')).j;
+  assert.equal(caps.continuous_call.verification,'PENDING_REAL_DEVICE_TEST');assert.equal(caps.duplex,'CONTINUOUS_CLIENT_SERIAL_INFERENCE');
+});
+
+test('compact voice returns render the spoken answer as captions without generating duplicate text',async()=>{
+  const a=await project('TEST_ONLY 简短口语'),c=await call(a.id,'steve');
+  next=async()=>({spoken_text:'这个项目有两个候选方向，我们先把它们的区别讲清楚。',claims:[]});
+  const t=await settle(a.id,c.id,(await say(a.id,c.id,'解释项目的大纲，不用重复提问')).j.turn.id);
+  assert.equal(t.status,'COMPLETED');assert.equal(t.reply.display_text,t.reply.spoken_text);
+  assert.deepEqual(t.reply.limitations,[]);assert.equal(t.reply.follow_up_question,'');assert.deepEqual(t.reply.proposed_actions,[]);
+  assert.ok(t.timings.auth_ms>=0&&t.timings.generation_ms>=0);
 });

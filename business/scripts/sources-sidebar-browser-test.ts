@@ -1,0 +1,40 @@
+import {chromium} from 'playwright-core';
+import http from 'node:http';
+import path from 'node:path';
+import os from 'node:os';
+import {mkdir,mkdtemp,writeFile} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {createApp} from '../backend/server.ts';
+import {businessRoot} from '../shared/config.ts';
+
+const out=path.resolve(businessRoot,'../pic/implemented/sources');await mkdir(out,{recursive:true});
+const temp=await mkdtemp(path.join(os.tmpdir(),'lydia-source-design-'));
+let app:Awaited<ReturnType<typeof createApp>>;
+const server=http.createServer((req,res)=>void app.handler(req,res));await new Promise<void>(r=>server.listen(0,'127.0.0.1',r));
+const origin=`http://127.0.0.1:${(server.address() as any).port}`;
+app=await createApp({origin,dataDir:path.join(temp,'pg'),crawlStorageDir:path.join(temp,'crawl'),localAutoLogin:true,startWorker:false});
+(app.cli as any).auth=async()=>({loggedIn:true,authMethod:'claude.ai',apiProvider:'firstParty',subscriptionType:'pro'});
+app.cli.run=async()=>{throw new Error('TEST_ONLY no inference');};
+const project=await app.store.createCase('TEST_ONLY · Global Sustainability Challenge','TEST_ONLY sources-sidebar design fixture');
+const browser=await chromium.launch({executablePath:process.env.BROWSER_EXECUTABLE||'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',headless:true});
+const page=await browser.newPage({viewport:{width:1717,height:1000}}),errors:string[]=[],checks:string[]=[];
+page.on('pageerror',e=>errors.push(e.message));const panel=()=>page.getByRole('complementary',{name:'研究工作区'});
+const mode=(name:string)=>panel().getByRole('group',{name:'资料方式'}).getByRole('button',{name,exact:true}).click();
+const tab=(name:string)=>panel().getByRole('navigation',{name:'研究页面'}).getByRole('button',{name,exact:true}).click();
+try{
+  await page.goto(origin+'/#/bot/steve');await page.locator('.research-toolbar').waitFor();await tab('资料');await page.locator('#source-form').waitFor();
+  assert.equal(await panel().getByRole('group',{name:'资料方式'}).getByRole('button').count(),3);await panel().getByText('还没有添加资料',{exact:true}).waitFor();assert.equal(await panel().getByRole('button',{name:'添加并索引资料',exact:true}).isDisabled(),true);
+  await page.screenshot({path:path.join(out,'desktop-empty.png'),fullPage:true});checks.push('three explicit input modes, truthful empty state and disabled empty submit');
+  await page.locator('#source-form [name=title]').fill('TEST_ONLY 访谈原文');await page.locator('#source-form [name=content]').fill('TEST_ONLY：工作人员每周人工整理预约记录，改期需要逐个联系。这是测试资料，不是真实市场事实。');
+  await panel().getByRole('button',{name:'添加并索引资料',exact:true}).click();await panel().getByRole('heading',{name:'TEST_ONLY 访谈原文',exact:true}).waitFor();assert.equal((await app.store.evidence(project.id)).length,1);checks.push('text submission still writes original MARKET source through authenticated API');
+  await mode('上传文件');await panel().getByLabel('选择文本文件',{exact:true}).setInputFiles({name:'TEST_ONLY.pdf',mimeType:'application/pdf',buffer:Buffer.from('not supported')});await panel().getByRole('alert').waitFor();
+  await panel().getByLabel('选择文本文件',{exact:true}).setInputFiles({name:'TEST_ONLY_project.md',mimeType:'text/markdown',buffer:Buffer.from('# TEST_ONLY 项目背景\n比赛要求讨论可持续性；这不是需求验证。')});await page.locator('#source-form [name=title]').waitFor();assert.equal(await page.locator('#source-form [name=title]').inputValue(),'TEST_ONLY_project.md');
+  await panel().getByLabel('资料类别',{exact:true}).selectOption('PROJECT');await panel().locator('.source-file-preview > summary').first().click();assert.match(await page.locator('#source-form [name=content]').inputValue(),/可持续性/);await page.screenshot({path:path.join(out,'desktop-file.png'),fullPage:true});
+  await panel().getByRole('button',{name:'添加并索引资料',exact:true}).click();await panel().getByRole('heading',{name:'TEST_ONLY_project.md',exact:true}).waitFor();assert.equal((await app.store.evidence(project.id)).length,1);assert.equal((await app.store.snapshot(project.id)).project_documents.length,1);checks.push('styled file picker rejects PDF, previews supported text, stores PROJECT and keeps it distinct from MARKET');
+  await mode('网页链接');let payload:any=null;await page.route(`**/api/cases/${project.id}/sources`,route=>{payload=route.request().postDataJSON();return route.fulfill({status:201,contentType:'application/json',body:'{"test_only":true}'});});
+  await panel().getByLabel('公开网页 URL',{exact:true}).fill('https://example.com/TEST_ONLY');await panel().getByRole('button',{name:'添加并索引资料',exact:true}).click();await page.waitForFunction(()=>document.querySelector<HTMLInputElement>('#source-form [name=url]')?.value==='');assert.deepEqual(payload,{url:'https://example.com/TEST_ONLY',collection:'PROJECT'});checks.push('web mode forwards selected category; request intercepted, no external fetching');
+  await mode('粘贴文字');await page.locator('#source-form [name=title]').fill('TEST_ONLY 未发送草稿');await tab('项目');await tab('资料');assert.equal(await page.locator('#source-form [name=title]').inputValue(),'TEST_ONLY 未发送草稿');await page.locator('#source-form [name=title]').fill('');checks.push('switching detail tabs retains unsent source draft');
+  await page.screenshot({path:path.join(out,'desktop-library.png'),fullPage:true});await page.getByRole('button',{name:'Switch to dark theme',exact:true}).click();await page.screenshot({path:path.join(out,'desktop-dark.png'),fullPage:true});await page.getByRole('button',{name:'Switch to light theme',exact:true}).click();
+  await page.setViewportSize({width:390,height:844});assert.ok(await panel().locator('.research-panel__body').evaluate(e=>e.scrollWidth<=e.clientWidth));assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:path.join(out,'mobile.png'),fullPage:true});checks.push('light/dark and 390px sources sidebar without horizontal overflow');
+  assert.deepEqual(errors,[]);await writeFile(path.join(out,'report.json'),JSON.stringify({status:'PASSED',checks,errors,temporaryDatabase:true,realModelCalls:0,externalURLFetches:0},null,2));console.log(JSON.stringify({status:'PASSED',checks},null,2));
+}finally{await browser.close();await new Promise<void>(r=>server.close(()=>r()));await app.close();}

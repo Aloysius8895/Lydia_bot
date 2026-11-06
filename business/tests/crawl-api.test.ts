@@ -7,17 +7,20 @@ import path from 'node:path';
 import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 import {createApp} from '../backend/server.ts';
+import {sources} from '../../crawl/sources/registry.ts';
 import {tickOperation} from '../../data/crawl/operations.ts';
 let app:Awaited<ReturnType<typeof createApp>>,server:http.Server,origin:string,cookie='',csrf='';
 before(async()=>{const tmp=await mkdtemp(path.join(os.tmpdir(),'lydia-crawl-api-'));server=http.createServer((req,res)=>void app.handler(req,res));await new Promise<void>(r=>server.listen(0,'127.0.0.1',r));origin=`http://127.0.0.1:${(server.address() as any).port}`;app=await createApp({dataDir:path.join(tmp,'pg'),crawlStorageDir:path.join(tmp,'crawl'),origin,startWorker:false});});
 after(async()=>{await new Promise<void>(r=>server.close(()=>r()));await app.close();});
 async function req(p:string,method='GET',data?:unknown,extra:Record<string,string>={}){const r=await fetch(origin+p,{method,headers:{origin,cookie,'x-csrf-token':csrf,'content-type':'application/json',...extra},body:data===undefined?undefined:JSON.stringify(data)});return {r,j:await r.json()};}
 test('crawler API reuses owner auth, Origin and CSRF; static UI does not expose data',async()=>{
+ assert.equal((await req('/api/crawl/twitter/session')).r.status,401);
  assert.equal((await req('/api/crawl/sources')).r.status,401);const page=await fetch(origin+'/crawl/',{redirect:'manual'});assert.equal(page.status,302);assert.equal(page.headers.get('location'),'/?settings=crawl');
  assert.equal((await fetch(origin+'/crawl/style.css')).status,404);
  const password='TEST_ONLY-crawl-password-42';await req('/api/auth/setup','POST',{password});const login=await req('/api/auth/login','POST',{password});cookie=login.r.headers.get('set-cookie')!.split(';')[0];csrf=login.j.csrf;
- assert.equal((await req('/api/crawl/sources')).j.length,10);
+ assert.equal((await req('/api/crawl/sources')).j.length,sources.length);
  assert.equal((await req('/api/crawl/runs','POST',{config:{},request_key:'TEST_ONLY-api-run'},{'x-csrf-token':'bad'})).r.status,403);
+ assert.equal((await req('/api/crawl/twitter/login','POST',{}, {'x-csrf-token':'bad'})).r.status,403);
  assert.equal((await req('/api/crawl/runs','POST',{config:{},request_key:'TEST_ONLY-api-run'},{origin:'https://evil.example'})).r.status,403);
  for(const p of ['/crawl/cli.ts','/crawl/../docs/ARCHITECTURE.md','/crawl/%2e%2e%5cpackage.json'])assert.equal((await fetch(origin+p)).status,404);
 });
@@ -31,7 +34,7 @@ test('API lifecycle, validation and persistent asynchronous export',async()=>{
  const file=await req(`/api/crawl/exports/${exp.j.id}/files/crawl.json`);assert.equal(file.r.status,200);assert.equal(file.j.schema_version,1);assert.ok(file.r.headers.get('content-disposition')?.includes('attachment'));
  assert.equal((await req(`/api/crawl/exports/${exp.j.id}/files/secret.json`)).r.status,404);
  assert.equal((await req(`/api/crawl/runs/${id}/cancel`,'POST',{})).j.status,'cancelled');assert.equal((await req(`/api/crawl/runs/${id}/resume`,'POST',{})).r.status,409);
- assert.equal((await req('/api/crawl/projects?year=2024')).r.status,400);assert.equal((await req('/api/crawl/projects?limit=1000')).r.status,400);
+ assert.equal((await req('/api/crawl/projects?year=2024')).r.status,200);assert.equal((await req('/api/crawl/projects?year=2005')).r.status,400);assert.equal((await req('/api/crawl/projects?limit=1000')).r.status,400);
  assert.equal((await req('/api/crawl/health')).j.browser,'constrained_http_replay');
- const cli=await promisify(execFile)(process.execPath,['--experimental-strip-types',path.resolve('../crawl/cli.ts'),'sources','--origin',origin],{env:{...process.env,LYDIA_CRAWL_SESSION:cookie.split('=')[1],LYDIA_CRAWL_CSRF:csrf}});assert.equal(JSON.parse(cli.stdout).length,10);
+ const cli=await promisify(execFile)(process.execPath,['--experimental-strip-types',path.resolve('../crawl/cli.ts'),'sources','--origin',origin],{env:{...process.env,LYDIA_CRAWL_SESSION:cookie.split('=')[1],LYDIA_CRAWL_CSRF:csrf}});assert.equal(JSON.parse(cli.stdout).length,sources.length);
 });

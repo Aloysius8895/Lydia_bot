@@ -1,0 +1,12 @@
+{
+  "origin": "https://192.168.100.4:4318",
+  "status": "PASSED",
+  "date": "2026-11-06",
+  "script": "assets/index-zFv8SLtK.js",
+  "css": "assets/index-Dx84WdAn.css",
+  "databaseChanged": false,
+  "checks": [
+    "Live JS/CSS accessible with validated TLS",
+    "Glass navigation and new UI in deployed assets"
+  ]
+}

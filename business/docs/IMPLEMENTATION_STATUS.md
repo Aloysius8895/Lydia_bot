@@ -1,5 +1,21 @@
 # 实施进度
 
+**2026-11-06 手机界面正式实现（含白天/黑夜）：** 按最后确认的间距稿落地炭灰/浅蓝/淡紫卡片与液态玻璃底部导航；新增分组会话、设置纵向概览与返回，手机通话入口移至聊天顶部，桌面语音条保留；列表结尾预留导航空间，任务保留恢复/取消并减轻底色。修复手机首页刷新误跳聊天。现有内容、业务 API、角色及自定义头像继续使用。构建/类型检查通过，隔离库手机专项通过（主题记忆、Bob 防遮挡、导航/设置、真实临时库文件上传、通话卡、任务取消、320/390/430px 与缩短高度、桌面布局）；页面错误 0，无真实推理或音频。实际截图与报告见 [手机实现记录](../../pic/mobile-implemented-2026-11-06/README.md)。iPhone 的真实软键盘与语音体验仍需设备确认。
+
+该轮原应用浏览器回归 21 组通过，页面/控制台错误 0；局域网服务已正常重启到当前构建。运行中 HTTPS 与新版 JS/CSS 只读检查通过，报告 `pic/mobile-implemented-2026-11-06/live-assets.json`。
+
+**2026-11-06 iPhone 局域网安装支持：** 新增 `Start-Lydia-Phone.cmd`，检查端口、选择电脑私有 IPv4、验证 HTTPS 证书、构建并启动唯一后端；4319 仅供公开 CA 与安装引导，4318 提供 HTTPS 工作区。设置 → 手机新增地址、指纹、Safari 安装说明和当前设备检查；修复电脑使用自身 LAN 地址时无法首次设置密码的问题。未自动改变防火墙或系统信任。具体步骤见 [iPhone 安装](IPHONE_INSTALL.md)。真实 iPhone 的证书信任、主屏幕安装及设备交互仍待用户验收，不以桌面测试替代。
+
+电脑验证：前端构建/TypeScript 通过，3 项本机登录与 LAN 边界回归通过；隔离库中实际 LAN-IP TLS 证书链/主机名、首次密码设置、Secure Cookie、CSRF 拒绝、公开 CA 与私钥路径隔离通过；390px/桌面手机设置页验证通过，页面错误 0。运行中服务只读检查也通过（正式账号已设置，未修改密码或项目）。报告：`test-results/phone-verification.json`、`phone-live-check.json`，截图 `phone-mobile.png`/`phone-desktop.png`。浏览器测试跳过测试证书的 OS 信任安装，真实 TLS 则独立使用显式 CA 验证；不代表 iPhone 信任成功。
+
+**2026-11-05 已确认的柔和三栏设计：** 按 `pic/07-full-page-soft-assistant-style.png` 落地浅色柔和背景、圆角面板、紧凑顶部、自动增高的输入框和真实通话入口；右侧去掉重复项目选择，研究工具与方法介绍折叠。三栏在可用内容空间保持 27/42/31。桌面/手机视口、深色模式、资料与任务流程、连续通话浏览器检查通过；实际截图与专项报告见 [pic/implemented](../../pic/implemented/README.md)。测试使用临时数据，不代表真人声音或真实市场验证。
+
+**2026-11-05 ElevenLabs 可选 TTS：** 完成公开页面 REA、官方 API 调查及后端加密凭据/音色/试听/流式代理、前端语音设置与专家音色接入。Claude CLI 与 STT 保留，默认仍是浏览器语音。84 项测试及浏览器替身验证通过，真实 ElevenLabs 合成需用户 Key；见 [接入说明](../../audio/elevenlabs/README.md)。
+
+**2026-11-05 实际通话故障修复：** 修复 CLI schema 方言声明导致结构化工具未注册的问题；通话专用 low effort、短回答与字幕复用，增加失败重试和重复语音拦截。真实 CLI 两轮测量 7.707s / 7.575s；完整语音体验仍待重测，见 [验收报告](../../audio/acceptance-report.md)。
+
+**2026-11-05 持续专家通话：** 已按 v1.3 实现自动端点/提交/倾听恢复、语音打断、静音、识别有限重试、最新意图替换及长通话历史。74 项单元/API 测试与浏览器 mock 验证通过；真实语音闭环、10 分钟通话、实际延迟和手机尚未验收。详见 [语音验收报告](../../audio/acceptance-report.md)。
+
 **2026-11-04 用户指定路径修正：** 当前数据模块的唯一位置为 `C:\maven\business_agent\data`，与 `business` 同级；此前 `business/data` 是位置理解错误，已迁出。模块入口与审计见 [data/README](../../data/README.md)、[数据审计](../../data/DATA_AUDIT_AND_SOLUTIONS.md)。跨目录引用、依赖解析、类型检查范围及图示随之调整。迁移记录为 `verification/workspace-data-layout.json`。本机实际数据库仍在 `business/.runtime/data`，应用仍从 business 启动；下文目录记录为历史状态。
 
 **2026-11-04 首轮数据模块整理（历史）：** 当时将 `RAG/` 迁至 `business/data/RAG/`、`database/` 迁至 `business/data/database/`；之后根据用户明确路径再次迁出，当前以本页顶部修正记录为准。首轮完整性与验证记录保留于 `verification/data-layout.json`。当前说明见 [data/README](../../data/README.md)，数据问题与建议见 [数据审计](../../data/DATA_AUDIT_AND_SOLUTIONS.md)。该整理没有新增抽样/代表性判断或数据质量门禁，也不改变真实专家与手机验收状态。

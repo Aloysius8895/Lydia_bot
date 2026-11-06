@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-05",
+  "timezone": "Asia/Kuala_Lumpur",
+  "test_type": "REAL_CLAUDE_CLI_TEXT_ONLY",
+  "model_changed": false,
+  "effort": "low",
+  "tools": [
+    "StructuredOutput"
+  ],
+  "billing": "existing confirmed subscription; no paid API fallback",
+  "rounds": [
+    {
+      "kind": "PROJECT_OUTLINE",
+      "elapsed_ms": 7707,
+      "auth_ms": 615,
+      "generation_ms": 7088,
+      "native_structured_output": true,
+      "valid_schema": true,
+      "declared_citation_checks_passed": true,
+      "spoken_characters": 145,
+      "output_tokens": 233
+    },
+    {
+      "kind": "FOLLOW_UP",
+      "elapsed_ms": 7575,
+      "auth_ms": 414,
+      "generation_ms": 7161,
+      "native_structured_output": true,
+      "valid_schema": true,
+      "declared_citation_checks_passed": true,
+      "spoken_characters": 147,
+      "output_tokens": 238
+    }
+  ],
+  "real_audio": "NOT_RUN",
+  "production_records_modified": false,
+  "limitations": [
+    "Two text calls are not a latency guarantee",
+    "Declared citation checks are not independent factual verification"
+  ]
+}

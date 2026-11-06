@@ -11,6 +11,8 @@ const sttMeta=z.object({
   confidence:z.number().min(0).max(1).nullable().default(null),
   transcript_original:z.string().max(2000).nullable().default(null),
   edited:z.boolean().default(false),recognition_ms:z.number().int().min(0).max(600000).nullable().default(null),
+  endpoint_ms:z.number().int().min(0).max(600000).nullable().default(null),
+  final_at:z.string().datetime().nullable().default(null),
 }).strict();
 const turnInput=z.discriminatedUnion('input_source',[
   z.object({request_key:key,text:z.string().trim().min(1).max(2000),input_source:z.literal('TEXT')}).strict(),
@@ -21,6 +23,10 @@ const playback=z.object({
   progress:z.enum(['COMPLETE','PARTIAL','NONE','UNKNOWN']),
   voice_name:z.string().max(200).nullable().default(null),voice_local:z.boolean().nullable().default(null),lang:z.string().max(20).nullable().default(null),
   start_delay_ms:z.number().int().min(0).max(600000).nullable().default(null),error:z.string().max(200).nullable().default(null),
+  response_delay_ms:z.number().int().min(0).max(3600000).nullable().default(null),
+  provider:z.enum(['browser','elevenlabs']).default('browser'),
+  model_id:z.string().max(100).nullable().default(null),
+  delivery_mode:z.enum(['browser','streaming','buffered','unknown']).default('browser'),
 }).strict();
 
 export function transcriptMarkdown(call:Row,turns:Row[],caseTitle:string){
@@ -48,7 +54,9 @@ export class CallAPI {
       server:{stt:{status:'NOT_CONFIGURED',reason:'未配置后端或本地音频转写（未发现 whisper/ffmpeg）；第一版不接收音频上传'},tts:{status:'NOT_CONFIGURED',reason:'朗读在浏览器内进行'},paid_voice_services:false,cloud_voice_api:false},
       client_required:['microphone_permission','speech_recognition','speech_synthesis_voices'],
       inference:{backend:'claude_cli',shared_serial_queue:true,streaming:false,cli:cliStatus},
-      transport:'HTTP_POLLING',duplex:'HALF_DUPLEX_TURNS',languages:{supported_for_selection:['zh-CN','en-US'],malay:'NOT_TESTED'},
+      transport:'HTTP_POLLING',duplex:'CONTINUOUS_CLIENT_SERIAL_INFERENCE',
+      continuous_call:{implementation:'CLIENT_ENDPOINTING_AND_BARGE_IN',verification:'PENDING_REAL_DEVICE_TEST',echo_cancellation:'DEVICE_DEPENDENT_NOT_VERIFIED'},
+      languages:{supported_for_selection:['zh-CN','en-US'],malay:'NOT_TESTED'},
       max_turn_characters:2000,roles:callRoles.map(r=>({role:r,name:expertNames[r],verification:'PENDING_REAL_TEST'})),
     };
   }

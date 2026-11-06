@@ -111,6 +111,15 @@ test('CLI arguments and environment do not bypass permissions or inherit API rou
   const e=subscriptionEnv({PATH:'test',ANTHROPIC_API_KEY:'TEST_ONLY',ANTHROPIC_PROFILE:'api',CLAUDE_CODE_USE_BEDROCK:'1',CLAUDE_CODE_OAUTH_TOKEN:'TEST_ONLY'});
   assert.equal(e.PATH,'test');assert.equal(e.ANTHROPIC_API_KEY,undefined);assert.equal(e.CLAUDE_CODE_OAUTH_TOKEN,undefined);
   const args=cliArgs();assert.ok(!args.includes('--bare'));assert.ok(!args.includes('--dangerously-skip-permissions'));assert.ok(args.includes('--no-session-persistence'));
+  assert.equal(args[args.indexOf('--tools')+1],'','research profile stays tool-free');
+  const voice=cliArgs({type:'object'},'dialogue');
+  assert.equal(voice[voice.indexOf('--tools')+1],'StructuredOutput');
+  assert.equal(voice[voice.indexOf('--allowedTools')+1],'StructuredOutput');
+  assert.equal(voice[voice.indexOf('--effort')+1],'low');assert.ok(voice.includes('--system-prompt'));
+  for(const flag of ['--bare','--model','--fallback-model','--dangerously-skip-permissions'])assert.equal(voice.includes(flag),false,flag);
+  const schema={$schema:'https://json-schema.org/draft/2020-12/schema',type:'object',properties:{text:{type:'string',maxLength:100}},required:['text']};
+  const compatible=cliArgs(schema,'dialogue'),sent=JSON.parse(compatible[compatible.indexOf('--json-schema')+1]);
+  assert.equal(sent.$schema,undefined);assert.deepEqual(sent.properties,schema.properties);assert.deepEqual(sent.required,schema.required);assert.ok(schema.$schema,'caller schema not mutated');
 });
 test('CLI process JSON errors and malformed results are not success',()=>{
   assert.throws(()=>parseResult('{"type":"result","subtype":"success","result":"{}"}',1));

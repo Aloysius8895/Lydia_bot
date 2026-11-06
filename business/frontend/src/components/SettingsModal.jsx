@@ -4,6 +4,8 @@ import { BotAvatar } from './Avatars.jsx';
 import { ThemeSwitch } from './ResearchForms.jsx';
 import AvatarStudio from './AvatarStudio.jsx';
 import CrawlSettings from './CrawlSettings.jsx';
+import VoiceSettings from './VoiceSettings.jsx';
+import PhoneSettings from './PhoneSettings.jsx';
 import { me } from '../data.js';
 
 const GROUPS = [
@@ -14,6 +16,7 @@ const GROUPS = [
   ],
   [
     { id: 'connections', label: '连接', icon: 'plug', keywords: 'connections claude cli embedding 数据库 订阅 额外用量 技能 skills 连接' },
+    { id: 'voice', label: '语音', icon: 'speaker', keywords: 'voice audio elevenlabs 语音 声音 音色 api key 配音 试听' },
     { id: 'data', label: '数据', icon: 'database', keywords: 'data export 导出 研究报告 json 数据' },
     { id: 'crawl', label: 'Crawl', icon: 'spider', keywords: 'crawl crawler 爬虫 采集 项目 赛事 导出 下载 获奖' },
   ],
@@ -32,7 +35,7 @@ function Row({ label, desc, children }) {
   );
 }
 
-export default function SettingsModal({ section, onSection, onClose, theme, onToggleTheme, health, busy, active, onReloadHealth, onConfirmSubscription, onExport, onLogout }) {
+export default function SettingsModal({ isMobile = false, mobileNavigation, passwordless = false, section, onSection, onClose, theme, onToggleTheme, health, busy, active, onReloadHealth, onConfirmSubscription, onExport, onLogout }) {
   const [query, setQuery] = useState('');
   const dialog = useRef(null);
 
@@ -46,7 +49,8 @@ export default function SettingsModal({ section, onSection, onClose, theme, onTo
 
   const q = query.trim().toLowerCase();
   const groups = GROUPS.map((g) => g.filter((s) => !q || s.label.includes(q) || s.keywords.toLowerCase().includes(q))).filter((g) => g.length);
-  const current = GROUPS.flat().find((s) => s.id === section) || GROUPS[0][0];
+  const overview = isMobile && section === 'index';
+  const current = GROUPS.flat().find((s) => s.id === section) || (overview ? { id: 'index', label: '设置' } : GROUPS[0][0]);
 
   let body;
   if (current.id === 'account') body = <>
@@ -56,12 +60,12 @@ export default function SettingsModal({ section, onSection, onClose, theme, onTo
         <button type="button" className="set-avatar-btn" aria-label="编辑头像" onClick={() => onSection('avatar')}><BotAvatar color="ink" size={44} /></button>
       </Row>
       <Row label="工作区名称"><span className="set-field">{me.name}</span></Row>
-      <Row label="登录方式"><span className="set-value">本机个人密码</span></Row>
+      <Row label="登录方式"><span className="set-value">{passwordless ? '本机直接进入，无需密码' : '本机个人密码'}</span></Row>
     </section>
     <section className="set-section">
       <h3 className="set-section__title">会话</h3>
-      <Row label="退出登录" desc="退出后，这台设备上的私人页面和缓存会被清除。">
-        <button type="button" className="set-btn" disabled={busy} onClick={onLogout}><Icon name="logout" size={16} />退出登录</button>
+      <Row label={passwordless ? '重置会话' : '退出登录'} desc={passwordless ? '结束当前通话并重新进入工作区，项目资料会保留。' : '退出后，这台设备上的私人页面和缓存会被清除。'}>
+        <button type="button" className="set-btn" disabled={busy} onClick={onLogout}><Icon name="logout" size={16} />{passwordless ? '重置会话' : '退出登录'}</button>
       </Row>
     </section>
   </>;
@@ -71,6 +75,7 @@ export default function SettingsModal({ section, onSection, onClose, theme, onTo
   </section>;
   if (current.id === 'avatar') body = <AvatarStudio />;
   if (current.id === 'crawl') body = <CrawlSettings activeCase={active} />;
+  if (current.id === 'voice') body = <VoiceSettings />;
   if (current.id === 'connections') body = <>
     <section className="set-section">
       <div className="set-section__head">
@@ -81,7 +86,7 @@ export default function SettingsModal({ section, onSection, onClose, theme, onTo
         <Row label="Claude CLI"><span className="set-value">{health.cli.loggedIn ? `已登录 · ${health.cli.subscriptionType}` : health.cli.message || '未确认'}</span></Row>
         <Row label="本地 embedding"><span className="set-value">{health.embedding.status}</span></Row>
         <Row label="数据库"><span className="set-value">PostgreSQL / pgvector</span></Row>
-        <Row label="额外付费 API 预算"><span className="set-value">USD 0</span></Row>
+        <Row label="研究与推理 API 预算" desc="语音服务额度在「语音」设置及服务商账户中管理。"><span className="set-value">USD 0</span></Row>
         <Row label="额外用量关闭" desc={health.subscriptionNoOverageConfirmed ? undefined : '请先在 Claude 官方设置里关闭额外用量，再回来确认。'}>
           {health.subscriptionNoOverageConfirmed
             ? <span className="set-value">已记录你的确认</span>
@@ -100,16 +105,14 @@ export default function SettingsModal({ section, onSection, onClose, theme, onTo
       <button type="button" className="set-btn" disabled={busy || !active} onClick={onExport}><Icon name="download" size={16} />导出研究报告</button>
     </Row>
   </section>;
-  if (current.id === 'phone') body = <section className="set-section">
-    <h3 className="set-section__title">在手机上使用</h3>
-    <Row label="添加到主屏幕" desc="手机需要能访问电脑的地址和可信 HTTPS，再用浏览器添加到主屏幕。电脑要保持运行；目前尚未验收手机安装。" />
-  </section>;
+  if (current.id === 'phone') body = <PhoneSettings />;
 
   return (
     <div className="set-overlay" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
-      <div className="set-dialog" role="dialog" aria-modal="true" aria-labelledby="settings-title" tabIndex={-1} ref={dialog}>
+      <div className={`set-dialog${overview ? ' set-dialog--overview' : ''}`} role="dialog" aria-modal="true" aria-labelledby="settings-title" tabIndex={-1} ref={dialog}>
         <header className="set-dialog__header">
-          <h2 id="settings-title">Settings</h2>
+          {isMobile && !overview && <button type="button" className="icon-btn" aria-label="返回设置" onClick={() => onSection('index')}><Icon name="back" /></button>}
+          <h2 id="settings-title">{isMobile ? overview ? '设置' : current.label : 'Settings'}</h2>
           <button type="button" className="icon-btn" aria-label="Close settings" onClick={onClose}><Icon name="close" /></button>
         </header>
         <div className="set-dialog__body">
@@ -121,7 +124,7 @@ export default function SettingsModal({ section, onSection, onClose, theme, onTo
             {groups.map((g, i) => (
               <div className="set-nav__group" key={i}>
                 {g.map((s) => (
-                  <button key={s.id} type="button" className="set-nav__item" aria-current={s.id === current.id ? 'page' : undefined} onClick={() => onSection(s.id)}>
+                  <button key={s.id} type="button" className="set-nav__item" aria-label={s.label} aria-current={s.id === current.id ? 'page' : undefined} onClick={() => onSection(s.id)}>
                     <Icon name={s.icon} size={18} strokeWidth={1.8} />{s.label}
                   </button>
                 ))}
@@ -129,11 +132,12 @@ export default function SettingsModal({ section, onSection, onClose, theme, onTo
             ))}
             {!groups.length && <p className="set-muted set-nav__empty">没有匹配“{query.trim()}”的设置</p>}
           </nav>
-          <div className="set-content" key={current.id}>
-            <div className="grok-settings-heading"><span className="grok-eyebrow">WORKSPACE / SETTINGS</span><h3>{current.label}设置</h3><p>{({account:'管理本机工作区和登录会话。',appearance:'让工作空间适合你的阅读习惯。',avatar:'为顾问和自己设计独立的形象。',connections:'查看模型、资料库和工具的真实连接状态。',data:'导出你的研究记录与来源。',crawl:'采集公开项目，核对证据并下载数据。',phone:'把同一个工作区带到手机上。'})[current.id]}</p></div>
+          {!overview && <div className="set-content" key={current.id}>
+            {current.id !== 'crawl' && <div className="grok-settings-heading"><span className="grok-eyebrow">WORKSPACE / SETTINGS</span><h3>{current.label}设置</h3><p>{({account:'管理本机工作区和登录会话。',appearance:'让工作空间适合你的阅读习惯。',avatar:'为顾问和自己设计独立的形象。',connections:'查看模型、资料库和工具的真实连接状态。',voice:'选择专家的声音，讨论仍由 Claude CLI 完成。',data:'导出你的研究记录与来源。',crawl:'采集公开项目，核对证据并下载数据。',phone:'把同一个工作区带到手机上。'})[current.id]}</p></div>}
             {body}
-          </div>
+          </div>}
         </div>
+        {overview && mobileNavigation}
       </div>
     </div>
   );

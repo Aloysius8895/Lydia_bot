@@ -22,3 +22,32 @@
 .crawl-feedback,.crawl-operation{padding:14px;border:1px solid var(--border);border-radius:10px;background:var(--field-bg);overflow-wrap:anywhere;font-size:14px;margin:0}
 .crawl-downloads{display:flex;flex-wrap:wrap;gap:8px}.crawl-downloads p{flex-basis:100%}
 @media(max-width:600px){.crawl-grid{grid-template-columns:minmax(0,1fr)}.crawl-actions>.crawl-field{flex-basis:100%}.crawl-tabs .set-chip{font-size:13px;padding:6px 10px}.crawl-settings .set-btn{white-space:normal;overflow-wrap:anywhere}.crawl-downloads .set-btn{max-width:100%}}
+
+/* Grouped settings, following the familiar desktop/mobile system-settings pattern. */
+.crawl-settings{--crawl-blue:#007aff;gap:20px;background:color-mix(in srgb,var(--text) 3%,var(--surface));padding:22px;border-radius:22px}
+.crawl-settings>.set-section{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px;margin:0;min-width:0}
+.crawl-settings>.crawl-intro{background:transparent;border:0;padding:0 2px 6px}
+.crawl-eyebrow{font-size:10px;font-weight:600;letter-spacing:.15em;color:var(--muted)}
+.crawl-intro .set-section__title{font-size:24px;letter-spacing:-.7px;margin-top:7px;line-height:1.35}
+.crawl-intro p{max-width:540px;font-size:14px;margin:12px 0 18px}
+.crawl-steps{display:flex;flex-wrap:wrap;gap:12px 24px;margin:0;padding:0;list-style:none;font-size:12px;color:var(--muted)}
+.crawl-steps li{display:flex;align-items:center;gap:7px}.crawl-steps li>span{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--surface);border:1px solid var(--border);font-size:11px;font-weight:600;color:var(--text)}
+.crawl-tabs{display:flex;background:color-mix(in srgb,var(--text) 7%,transparent);padding:4px;border-radius:11px;gap:4px}
+.crawl-tabs .set-chip{flex:1;border:0;border-radius:8px;background:transparent;color:var(--muted);padding:9px 12px;font-size:13px;font-weight:600;margin:0}
+.crawl-tabs .set-chip[aria-pressed=true]{background:var(--surface);color:var(--text);box-shadow:0 1px 5px #00000015}
+.crawl-tools{order:20;font-size:13px;padding:16px 4px;border-top:1px solid var(--border)}
+.crawl-settings>.crawl-operation{order:10}.crawl-settings>.crawl-record{order:11}
+.crawl-tools>summary{font-weight:500}.crawl-tools .crawl-actions{margin-top:12px}.crawl-tools p{font-size:12px}
+.crawl-start h4{font-size:18px;margin:0 0 6px;letter-spacing:-.3px}.crawl-start>p{font-size:13px;margin:0 0 22px}
+.crawl-settings .crawl-source{gap:10px;font-size:13px;font-weight:500}
+.crawl-settings .crawl-source select{padding:13px 14px;border-radius:11px;background:color-mix(in srgb,var(--text) 3%,var(--surface));font-size:15px}
+.crawl-advanced{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:15px 0;margin:3px 0}
+.crawl-advanced>summary{font-size:13px;color:var(--text)!important}.crawl-advanced>summary>span{display:block;margin-left:15px;font-size:11px;color:var(--muted);font-weight:400}
+.crawl-advanced>.crawl-form{margin-top:18px}.crawl-advanced small{font-size:11px;line-height:1.6;color:var(--muted)}
+.crawl-settings .crawl-start-button{align-self:stretch!important;background:var(--crawl-blue);border-color:var(--crawl-blue);color:white;border-radius:11px;padding:13px 18px;font-size:14px;font-weight:600}
+.crawl-settings .crawl-start-button:disabled{opacity:.5}.crawl-settings .crawl-start-button:hover:not(:disabled){filter:brightness(1.08)}
+.crawl-caption{text-align:center;font-size:11px;color:var(--muted);margin:0}
+.crawl-empty{padding:26px 12px;text-align:center}.crawl-empty strong{font-size:14px;font-weight:500}.crawl-empty p{font-size:12px}
+.crawl-status{border-radius:20px;padding:3px 9px;font-size:11px;background:color-mix(in srgb,var(--crawl-blue) 9%,var(--surface));color:var(--crawl-blue)!important}
+.crawl-settings button:focus-visible,.crawl-settings summary:focus-visible{outline:2px solid var(--crawl-blue);outline-offset:3px}
+@media(max-width:600px){.crawl-settings{padding:12px;border-radius:16px;gap:16px}.crawl-settings>.set-section{padding:17px;border-radius:14px}.crawl-settings>.crawl-intro{padding:3px}.crawl-intro .set-section__title{font-size:21px}.crawl-steps{gap:12px}.crawl-steps li{font-size:11px;gap:5px}.crawl-intro .set-section__head{align-items:center}.crawl-settings .crawl-start-button{min-height:46px}}

@@ -1,5 +1,5 @@
 // Browser voice adapters. Capability is reported from what the browser actually exposes;
-// "API exists" is never reported as "speech works". No audio is captured or uploaded by the app.
+// "API exists" is never reported as "speech works". Audio is not stored or uploaded by the app.
 
 export function recognitionCtor() {
   return window.SpeechRecognition || window.webkitSpeechRecognition || null;
@@ -72,49 +72,87 @@ const recognitionErrors = {
   aborted: null,
 };
 
-export function createRecognizer({ lang, processLocally, onText, onEnd, onError }) {
+export function createRecognizer({ lang, processLocally, onText, onSegment, onStart, onSpeech, onEnd, onError }) {
   const Rec = recognitionCtor();
   if (!Rec) throw new Error('当前未配置可用的语音识别');
   const rec = new Rec();
   rec.lang = lang; rec.continuous = true; rec.interimResults = true; rec.maxAlternatives = 1;
   if (processLocally) { try { rec.processLocally = true; } catch { /* not supported */ } }
-  let finalText = '', confidences = [], live = true;
+  const results = new Map();
+  let live = true;
+  rec.onstart = () => { if (live) onStart?.(); };
+  rec.onspeechstart = () => { if (live) onSpeech?.(true); };
+  rec.onspeechend = () => { if (live) onSpeech?.(false); };
   rec.onresult = event => {
     if (!live) return;
-    let interim = '';
+    for (const index of results.keys()) if (index >= event.results.length) results.delete(index);
     for (let i = event.resultIndex; i < event.results.length; i++) {
       const result = event.results[i], alt = result[0];
-      if (result.isFinal) { finalText += alt.transcript; if (typeof alt.confidence === 'number' && alt.confidence > 0) confidences.push(alt.confidence); }
-      else interim += alt.transcript;
+      const segment = { id: i, text: alt.transcript, final: result.isFinal, confidence: typeof alt.confidence === 'number' && alt.confidence > 0 ? alt.confidence : null };
+      results.set(i, segment); onSegment?.(segment);
     }
-    onText(finalText, interim);
+    const all = [...results.values()];
+    onText?.(all.filter(r => r.final).map(r => r.text).join(' '), all.filter(r => !r.final).map(r => r.text).join(' '));
   };
-  rec.onerror = event => { if (live && recognitionErrors[event.error] !== null) onError(recognitionErrors[event.error] || `语音识别失败（${event.error}）`); };
-  rec.onend = () => { if (!live) return; live = false; onEnd({ text: finalText.trim(), confidence: confidences.length ? confidences.reduce((a, b) => a + b, 0) / confidences.length : null }); };
+  rec.onerror = event => { if (live) onError?.(recognitionErrors[event.error] || `语音识别失败（${event.error}）`, event.error); };
+  rec.onend = () => { if (!live) return; live = false; const all = [...results.values()].filter(r => r.final), cs = all.map(r => r.confidence).filter(c => c !== null); onEnd?.({ text: all.map(r => r.text).join(' ').trim(), confidence: cs.length ? cs.reduce((a, b) => a + b, 0) / cs.length : null }); };
   return {
     start: () => rec.start(),
     stop: () => { try { rec.stop(); } catch { /* already stopped */ } },
-    abort: () => { live = false; rec.onresult = rec.onend = rec.onerror = null; try { rec.abort(); } catch { /* already stopped */ } },
+    abort: () => { live = false; rec.onresult = rec.onend = rec.onerror = rec.onstart = rec.onspeechstart = rec.onspeechend = null; try { rec.abort(); } catch { /* already stopped */ } },
   };
+}
+
+/** Ephemeral, echo-cancelled activity analysis. Browser STT owns a separate input path:
+ * these constraints do NOT prove echo cancellation on that path. Never connect input to speakers. */
+export async function openActivityMonitor(onActivity) {
+  if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) throw new Error(micErrors.SecurityError);
+  let stream, context, source, timer;
+  const stop = () => { clearInterval(timer); source?.disconnect(); stream?.getTracks().forEach(t => t.stop()); void context?.close().catch(() => {}); };
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) throw new Error('此浏览器没有可用的音频活动检测，请使用文字通话。');
+    context = new Ctx(); await context.resume();
+    if (context.state !== 'running') throw new Error('浏览器暂停了音频输入，请点击恢复语音。');
+    const analyser = context.createAnalyser(); analyser.fftSize = 1024;
+    source = context.createMediaStreamSource(stream); source.connect(analyser);
+    const samples = new Float32Array(analyser.fftSize);
+    let floor = .003, voiced = 0;
+    timer = setInterval(() => {
+      analyser.getFloatTimeDomainData(samples);
+      const rms = Math.sqrt(samples.reduce((sum, n) => sum + n * n, 0) / samples.length);
+      const active = rms > Math.max(.015, floor * 3);
+      if (!active) floor = floor * .97 + rms * .03;
+      voiced = active ? voiced + 1 : 0;
+      onActivity(voiced >= 3, { rms, contextState: context.state });
+    }, 50);
+    return { stop, settings: stream.getAudioTracks()[0]?.getSettings?.() || {} };
+  } catch (e) { stop(); throw new Error(micErrors[e?.name] || e.message || '无法启动麦克风'); }
 }
 
 /** Speak and report what the engine said happened. Progress stays UNKNOWN when the engine cannot tell. */
 export function speak(text, { voice, lang, onStart }) {
   const synth = window.speechSynthesis;
-  let stopped = false, started = false, boundary = false, settle;
-  const promise = new Promise(resolve => { settle = resolve; });
+  let stopped = false, started = false, boundary = false, settle, startTimer, durationTimer, finished = false;
+  const promise = new Promise(resolve => { settle = result => {
+    if (finished) return; finished = true; clearTimeout(startTimer); clearTimeout(durationTimer); resolve(result);
+  }; });
   if (!synth || typeof window.SpeechSynthesisUtterance !== 'function') { settle({ status: 'NO_VOICE', progress: 'NONE', error: 'speechSynthesis unavailable' }); return { promise, stop() {} }; }
   const utterance = new window.SpeechSynthesisUtterance(text);
   utterance.lang = lang; if (voice) utterance.voice = voice;
-  utterance.onstart = () => { started = true; onStart?.(); };
+  utterance.onstart = () => { if (finished) return; started = true; clearTimeout(startTimer); onStart?.(); };
   utterance.onboundary = () => { boundary = true; };
   utterance.onend = () => settle(stopped ? { status: 'INTERRUPTED', progress: boundary ? 'PARTIAL' : started ? 'UNKNOWN' : 'NONE' } : { status: 'PLAYED', progress: 'COMPLETE' });
   utterance.onerror = event => settle(['interrupted', 'canceled'].includes(event.error) || stopped
     ? { status: 'INTERRUPTED', progress: boundary ? 'PARTIAL' : started ? 'UNKNOWN' : 'NONE' }
     : { status: 'FAILED', progress: started ? 'UNKNOWN' : 'NONE', error: String(event.error || 'unknown').slice(0, 200) });
-  synth.cancel(); synth.speak(utterance);
+  const timeout = () => { settle({ status: 'FAILED', progress: started ? 'UNKNOWN' : 'NONE', error: 'speech playback timed out' }); try { synth.cancel(); } catch { /* already stopped */ } };
+  startTimer = setTimeout(timeout, 12000); durationTimer = setTimeout(timeout, 180000);
+  try { synth.cancel(); synth.speak(utterance); }
+  catch (e) { settle({ status: 'FAILED', progress: 'NONE', error: String(e.message || 'speech failed').slice(0, 200) }); }
   return { promise, stop() {
-    stopped = true; synth.cancel();
+    stopped = true; try { synth.cancel(); } catch { /* already stopped */ }
     // Some engines fire neither end nor error after cancel(); report an interruption either way.
     setTimeout(() => settle({ status: 'INTERRUPTED', progress: boundary ? 'PARTIAL' : started ? 'UNKNOWN' : 'NONE' }), 300);
   } };

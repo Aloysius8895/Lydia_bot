@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-05",
+  "timezone": "Asia/Kuala_Lumpur",
+  "typecheck": "PASSED",
+  "unitApiTests": {
+    "passed": 84,
+    "failed": 0,
+    "realModelCalls": 0
+  },
+  "frontendBuild": "PASSED",
+  "browserReport": "call-browser-evaluation.json",
+  "realVoice": "PENDING_USER_TEST",
+  "tenMinuteCall": "NOT_VERIFIED",
+  "phone": "NOT_RUN",
+  "sourcePrompt": "business/docs/prompts/2026-11-05-continuous-expert-voice-call-prompt.md",
+  "realCliTextReport": "call-cli-latency-repair.json",
+  "optionalTts": "../elevenlabs/validation.json"
+}

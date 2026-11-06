@@ -1,8 +1,42 @@
-import { deflateSync } from 'node:zlib';
-import { writeFile, mkdir } from 'node:fs/promises';
+﻿import { chromium } from 'playwright-core';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { businessRoot } from '../shared/config.ts';
-function crc32(buf:Buffer){let c=0xffffffff;for(const b of buf){c^=b;for(let i=0;i<8;i++)c=(c>>>1)^((c&1)?0xedb88320:0);}return(c^0xffffffff)>>>0;}
-function chunk(type:string,data:Buffer){const t=Buffer.from(type),len=Buffer.alloc(4),crc=Buffer.alloc(4);len.writeUInt32BE(data.length);crc.writeUInt32BE(crc32(Buffer.concat([t,data])));return Buffer.concat([len,t,data,crc]);}
-function png(size:number){const rows=Buffer.alloc((size*4+1)*size);for(let y=0;y<size;y++){const offset=y*(size*4+1);for(let x=0;x<size;x++){const dx=(x-size/2)/size,dy=(y-size/2)/size,dist=Math.hypot(dx,dy);const ring=dist>.265&&dist<.325&&!(dx>0&&Math.abs(dy)<dx*.9);const dot=dist<.048;const color=ring||dot?[184,203,167,255]:[24,38,33,255];for(let i=0;i<4;i++)rows[offset+1+x*4+i]=color[i];}}const h=Buffer.alloc(13);h.writeUInt32BE(size);h.writeUInt32BE(size,4);h[8]=8;h[9]=6;return Buffer.concat([Buffer.from([137,80,78,71,13,10,26,10]),chunk('IHDR',h),chunk('IDAT',deflateSync(rows)),chunk('IEND',Buffer.alloc(0))]);}
-const root=path.join(businessRoot,'frontend','public','icons');await mkdir(root,{recursive:true});for(const [name,size]of [['icon-192.png',192],['icon-512.png',512],['apple-touch-icon.png',180]] as [string,number][])await writeFile(path.join(root,name),png(size));console.log('Generated three PWA icons.');
+
+// Use the approved transparent cutout; the supplied original includes an exterior gray matte.
+const source = await readFile(path.join(businessRoot, 'assets', 'project-icon-transparent.png'));
+const browser = await chromium.launch({
+  executablePath: process.env.BROWSER_EXECUTABLE || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+  headless: true,
+});
+try {
+  const page = await browser.newPage();
+  const sizes: [string, number][] = [['icon-192.png', 192], ['icon-512.png', 512], ['apple-touch-icon.png', 180]];
+  const outputs = new Map<string, Buffer>();
+  for (const [name, size] of sizes) {
+    const data = await page.evaluate(async ({ source, size }) => {
+      const image = new Image();
+      image.src = `data:image/png;base64,${source}`;
+      await image.decode();
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = size;
+      const context = canvas.getContext('2d')!;
+      context.imageSmoothingQuality = 'high';
+      context.drawImage(image, 0, 0, size, size);
+      for (const [x, y] of [[0, 0], [size - 1, 0], [0, size - 1], [size - 1, size - 1]]) {
+        if (context.getImageData(x, y, 1, 1).data[3] !== 0) throw new Error('Icon corners must remain transparent');
+      }
+      return canvas.toDataURL('image/png').split(',')[1];
+    }, { source: source.toString('base64'), size });
+    outputs.set(name, Buffer.from(data, 'base64'));
+  }
+  outputs.set('icon.svg', Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><image width="512" height="512" href="data:image/png;base64,${outputs.get('icon-512.png')!.toString('base64')}"/></svg>`));
+  for (const folder of ['public', 'research-pwa']) {
+    const root = path.join(businessRoot, 'frontend', folder, 'icons');
+    await mkdir(root, { recursive: true });
+    for (const [name, data] of outputs) await writeFile(path.join(root, name), data);
+  }
+  console.log('Generated app icons from assets/project-icon-transparent.png.');
+} finally {
+  await browser.close();
+}

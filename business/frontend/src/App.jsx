@@ -5,12 +5,14 @@ import { useHashRoute, useMediaQuery, useTheme } from './hooks.js';
 import Sidebar from './components/Sidebar.jsx';
 import Conversation from './components/Conversation.jsx';
 import MobileHome from './components/MobileHome.jsx';
+import MobileNav from './components/MobileNav.jsx';
 import ResearchPanel from './components/ResearchPanel.jsx';
 import SettingsModal from './components/SettingsModal.jsx';
 import ProjectsPage from './components/ProjectsPage.jsx';
 import { AuthScreen, NewProject, ProjectPicker, TaskProgress } from './components/ResearchForms.jsx';
 import CallCard from './components/CallCard.jsx';
 import Icon from './components/Icon.jsx';
+import { BotAvatar } from './components/Avatars.jsx';
 
 const phases = { SCOPED: '范围已建立', RESEARCHING: '研究中', AWAITING_SELECTION: '等待选择缺口', MODELING: '商业模式阶段' };
 export default function App() {
@@ -19,9 +21,16 @@ export default function App() {
   const [auth, setAuth] = useState(null), [cases, setCases] = useState([]), [active, setActive] = useState('');
   const [snapshot, setSnapshot] = useState(null), [health, setHealth] = useState(null), [notice, setNotice] = useState('');
   const [busy, setBusy] = useState(false), [query, setQuery] = useState(''), [kind, setKind] = useState('research');
-  const [workspaceTab, setWorkspaceTab] = useState('project'), [panelSignal, setPanelSignal] = useState(0), [globalPanel, setGlobalPanel] = useState(false), [settings, setSettings] = useState(() => new URLSearchParams(window.location.search).get('settings') === 'crawl' ? 'crawl' : null);
+  const [workspaceTab, setWorkspaceTab] = useState('project'), [panelSignal, setPanelSignal] = useState(0), [globalPanel, setGlobalPanel] = useState(false), [settings, setSettings] = useState(() => { const section=new URLSearchParams(window.location.search).get('settings'); return ['crawl','phone'].includes(section) ? section : null; });
   const mutation = useRef(false), activeRef = useRef(''), generation = useRef(0);
   const [callOpen, setCallOpen] = useState(false), callControl = useRef(null);
+  useEffect(() => {
+    if (!isMobile) return;
+    const viewport = window.visualViewport;
+    const resize = () => document.documentElement.style.setProperty('--mobile-height', `${Math.round(viewport?.height || window.innerHeight)}px`);
+    resize(); viewport?.addEventListener('resize', resize); window.addEventListener('resize', resize);
+    return () => { viewport?.removeEventListener('resize', resize); window.removeEventListener('resize', resize); document.documentElement.style.removeProperty('--mobile-height'); };
+  }, [isMobile]);
   const requestedCase = useRef(new URLSearchParams(window.location.hash.split('?')[1] || '').get('case'));
   const botsById = useMemo(() => Object.fromEntries(seedBots.map(b => [b.id, b])), []);
   const bots = useMemo(() => seedBots.map(bot => ({ ...bot, preview: bot.role })), []);
@@ -73,10 +82,10 @@ export default function App() {
   }, [cases]);
   useEffect(() => {
     if (active && auth?.authenticated) {
-      const base = window.location.hash.split('?')[0] || '#/bot/steve';
+      const base = window.location.hash.split('?')[0] || (isMobile ? '#/' : '#/bot/steve');
       window.history.replaceState(null, '', `${base}?case=${encodeURIComponent(active)}`);
     }
-  }, [active, auth?.authenticated, route.kind, route.id]);
+  }, [active, auth?.authenticated, route.kind, route.id, isMobile]);
 
   async function perform(fn) {
     if (mutation.current) return false;
@@ -126,7 +135,7 @@ export default function App() {
   const selectGap = gap => perform(async () => { await api(`/api/cases/${activeRef.current}/selection`, 'POST', { gap_id: gap.id, confirmed: true, user_message: `我明确选择 ${gap.id}：${gap.data.name}` }); await refresh(); });
   const reloadHealth = () => perform(async () => { const value = await api('/api/health'); setHealth(value); });
   const confirmSubscription = () => perform(async () => { await api('/api/settings/subscription', 'POST', { confirmed: true }); setHealth(await api('/api/health')); });
-  const logout = () => perform(async () => { await callControl.current?.hangup?.(); setCallOpen(false); await api('/api/auth/logout', 'POST', {}); resetSession(); window.navigator.serviceWorker?.controller?.postMessage('CLEAR_PRIVATE_CACHE'); });
+  const logout = () => perform(async () => { await callControl.current?.hangup?.(); setCallOpen(false); await api('/api/auth/logout', 'POST', {}); resetSession(); window.navigator.serviceWorker?.controller?.postMessage('CLEAR_PRIVATE_CACHE'); if(auth?.passwordless) window.location.reload(); });
   const exportProject = () => perform(async () => {
     const result = await api(`/api/cases/${activeRef.current}/export`, 'POST', {});
     const url = URL.createObjectURL(new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' }));
@@ -139,19 +148,27 @@ export default function App() {
     return result;
   });
   const running = snapshot?.tasks.find(t => ['QUEUED', 'RUNNING'].includes(t.status));
+  function openCall() {
+    if (!active) { setNotice('请先在 Projects 选择或创建项目，再拨打专家电话。'); return; }
+    setCallOpen(true);
+  }
+  const mobileSettings = () => setSettings(isMobile ? 'index' : 'account');
+  const mobileNavigation = activeTab => <MobileNav active={activeTab} onHome={() => { setSettings(null); window.location.hash = '#/'; }} onProjects={() => { setSettings(null); openProjects(); }} onSettings={() => setSettings('index')} />;
   const picker = <ProjectPicker cases={cases} active={active} onChange={setActive} />;
   const renderPanel = onClose => <ResearchPanel key={active || 'empty'} snapshot={snapshot} cases={cases} active={active} onProjectChange={setActive} method={method} tab={workspaceTab} onTab={setWorkspaceTab} onClose={onClose} onOpenSettings={() => setSettings('account')} busy={busy} onAddSource={addSource} onRetrieve={retrieve} onSelectGap={selectGap} />;
-  const settingsModal = settings && <SettingsModal section={settings} onSection={setSettings} onClose={() => setSettings(null)} theme={theme} onToggleTheme={toggleTheme} health={health} busy={busy} active={active} onReloadHealth={reloadHealth} onConfirmSubscription={confirmSubscription} onExport={exportProject} onLogout={logout} />;
+  const settingsModal = settings && <SettingsModal isMobile={isMobile} mobileNavigation={mobileNavigation('设置')} passwordless={auth?.passwordless} section={settings} onSection={setSettings} onClose={() => setSettings(null)} theme={theme} onToggleTheme={toggleTheme} health={health} busy={busy} active={active} onReloadHealth={reloadHealth} onConfirmSubscription={confirmSubscription} onExport={exportProject} onLogout={logout} />;
   const notification = notice && <div className="app-notice" role="alert"><span>{notice}</span><button type="button" aria-label="关闭提示" onClick={() => setNotice('')}>×</button></div>;
   if (!auth) return <><div className="app-loading">Connecting to Lydia… <button className="pill" onClick={() => window.location.reload()}>重新连接</button></div>{notification}</>;
   if (!auth.authenticated) return <><AuthScreen status={auth} onLogin={login} busy={busy} theme={theme} onToggleTheme={toggleTheme} />{notification}</>;
   let main;
   if (route.kind === 'new') main = <NewProject isMobile={isMobile} busy={busy} onCreate={createProject} />;
-  else if (route.kind === 'projects') main = <ProjectsPage cases={cases} active={active} snapshot={snapshot} query={query} onQuery={setQuery} onSelect={selectProject} onDiscuss={discussProject} onAdd={addProjectSource} busy={busy} onSettings={() => setSettings('account')} />;
+  else if (route.kind === 'projects') main = <ProjectsPage cases={cases} active={active} snapshot={snapshot} query={query} onQuery={setQuery} onSelect={selectProject} onDiscuss={discussProject} onAdd={addProjectSource} busy={busy} onSettings={mobileSettings} />;
   else if (hasConversation) main = <Conversation key={`${active}:${room ? 'team' : 'advisor'}`} bot={advisor} room={room} messages={messages} botsById={botsById} pending={running ? { from: 'steve', streaming: false } : null} isMobile={isMobile} onSend={send} onStop={() => running && taskAction(running.id, 'cancel')} onClear={() => { window.location.hash = '#/new'; }} onAction={(_, text) => send(text)} busy={busy} openPanelSignal={panelSignal} renderPanel={renderPanel} onAttachment={() => openWorkspace('sources')}
-    toolbar={<div className="research-toolbar"><ProjectPicker cases={cases} active={active} onChange={setActive} compact /><select aria-label="研究任务类型" value={kind} onChange={e => setKind(e.target.value)}><option value="research">需求研究</option><option value="question">顾问问答</option><option value="model" disabled={!snapshot?.case.selected_gap_id}>商业模式</option></select><span className="phase-tag">{phases[snapshot?.case.phase] || '新 idea'}</span><button type="button" className="call-entry" aria-label={callBot ? `与 ${callBot.name} 语音通话` : '团队房间不能拨打，请从专家列表选择一位专家'} title={callBot ? `与 ${callBot.name} 语音通话（按轮问答）` : '团队房间不能拨打，请从专家列表选择一位专家'} aria-pressed={callOpen} disabled={!callBot} onClick={() => { if (!active) { setNotice('请先在 Projects 选择或创建项目，再拨打专家电话。'); return; } setCallOpen(true); }}><Icon name="call" size={18} /></button></div>}
+    toolbar={<div className="research-toolbar"><ProjectPicker cases={cases} active={active} onChange={setActive} compact /><select aria-label="研究任务类型" value={kind} onChange={e => setKind(e.target.value)}><option value="research">需求研究</option><option value="question">顾问问答</option><option value="model" disabled={!snapshot?.case.selected_gap_id}>商业模式</option></select><span className="phase-tag">{phases[snapshot?.case.phase] || '新 idea'}</span><button type="button" className="call-entry" aria-label={callBot ? `与 ${callBot.name} 语音通话` : '团队房间不能拨打，请从专家列表选择一位专家'} title={callBot ? `与 ${callBot.name} 持续语音通话（可打断）` : '团队房间不能拨打，请从专家列表选择一位专家'} aria-pressed={callOpen} disabled={!callBot} onClick={() => { if (!active) { setNotice('请先在 Projects 选择或创建项目，再拨打专家电话。'); return; } setCallOpen(true); }}><Icon name="call" size={18} /></button></div>}
+    headerAction={isMobile && <button type="button" className="icon-btn mobile-call-entry" aria-label={callBot ? `与 ${callBot.name} 语音通话` : '团队房间不能拨打，请从专家列表选择一位专家'} aria-pressed={callOpen} disabled={!callBot} onClick={openCall}><Icon name="call" size={18} /></button>}
+    voiceDock={!isMobile && callBot && !callOpen ? <div className="voice-dock"><BotAvatar color={callBot.color} size={32} /><div className="voice-dock__text"><strong>语音通话</strong><span>与 {callBot.name} 继续讨论</span></div><span className="voice-dock__decoration" aria-hidden="true"><Icon name="mic" size={20} /></span><button type="button" className="voice-dock__start" onClick={openCall}>开始通话<Icon name="call" size={16} /></button></div> : null}
     overlay={callOpen && callBot && active ? <CallCard key={`${active}:${callBot.id}`} bot={callBot} caseId={active} caseTitle={cases.find(c => c.id === active)?.title || ''} isMobile={isMobile} controlRef={callControl} onClose={() => setCallOpen(false)} /> : null}
     progress={<TaskProgress tasks={snapshot?.tasks || []} busy={busy} onTaskAction={taskAction} />} />;
-  else main = <MobileHome bots={bots} rooms={rooms} botsById={botsById} query={query} onQuery={setQuery} projectPicker={picker} onOpenProjects={openProjects} onSettings={() => setSettings('account')} onOpenWorkspace={openWorkspace} onOpenCrawl={() => setSettings('crawl')} />;
-  return <><div className={`app${isMobile ? ' app--mobile' : ''}`}>{!isMobile && <Sidebar bots={bots} rooms={rooms} botsById={botsById} route={route} query={query} onQuery={setQuery} theme={theme} onToggleTheme={toggleTheme} onOpenProjects={openProjects} onSettings={(section = 'account') => setSettings(section)} onOpenWorkspace={openWorkspace} onOpenCrawl={() => setSettings('crawl')} />}{main}{globalPanel && !hasConversation && renderPanel(() => setGlobalPanel(false))}</div>{settingsModal}{notification}</>;
+  else main = <MobileHome bots={bots} rooms={rooms} botsById={botsById} query={query} onQuery={setQuery} projectPicker={picker} theme={theme} onToggleTheme={toggleTheme} onOpenProjects={openProjects} onSettings={mobileSettings} onOpenWorkspace={openWorkspace} onOpenCrawl={() => setSettings('crawl')} />;
+  return <><div className={`app${isMobile ? ' app--mobile' : ''}`}>{!isMobile && <Sidebar bots={bots} rooms={rooms} botsById={botsById} route={route} query={query} onQuery={setQuery} theme={theme} onToggleTheme={toggleTheme} onOpenProjects={openProjects} onSettings={(section = 'account') => setSettings(section)} onOpenWorkspace={openWorkspace} onOpenCrawl={() => setSettings('crawl')} />}{main}{globalPanel && !hasConversation && renderPanel(() => setGlobalPanel(false))}</div>{isMobile && !hasConversation && route.kind !== 'new' && !settings && mobileNavigation(route.kind === 'projects' ? '项目' : '会话')}{settingsModal}{notification}</>;
 }

@@ -6,7 +6,8 @@ import { isIP } from 'node:net';
 import { businessRoot,certsRoot,assert } from '../shared/config.ts';
 const exec=promisify(execFile),args=process.argv.slice(2),host=args[args.indexOf('--host')+1];
 assert(args.includes('--host')&&isIP(host)===4&&(/^(10\.|192\.168\.)/.test(host)||/^172\.(1[6-9]|2\d|3[01])\./.test(host)),'LAN_ADDRESS_REQUIRED','请用 --host 指定本人电脑的私有 IPv4 地址');
-const openssl=process.env.OPENSSL_EXECUTABLE||'openssl',dir=certsRoot;await mkdir(dir,{recursive:true});
+const gitOpenSSL='C:/Program Files/Git/usr/bin/openssl.exe';
+const openssl=process.env.OPENSSL_EXECUTABLE||await access(gitOpenSSL).then(()=>gitOpenSSL).catch(()=>'openssl'),dir=certsRoot;await mkdir(dir,{recursive:true});
 const exists=async(file:string)=>{try{await access(file);return true;}catch{return false;}};
 const rootKey=path.join(dir,'crew-local-ca-key.pem'),rootPem=path.join(dir,'crew-local-ca.pem'),rootCer=path.join(dir,'crew-local-ca.cer');
 const prefix=`crew-${host.replaceAll('.','-')}`,key=path.join(dir,`${prefix}-key.pem`),cert=path.join(dir,`${prefix}-cert.pem`),csr=path.join(dir,`${prefix}.csr`),rootConfig=path.join(dir,'ca.cnf'),leafConfig=path.join(dir,`${prefix}.cnf`);
@@ -18,12 +19,14 @@ if(!await exists(rootPem)){
   await exec(openssl,['req','-x509','-new','-key',rootKey,'-sha256','-days','365','-config',rootConfig,'-out',rootPem],{windowsHide:true});
 }
 if(!await exists(key))await exec(openssl,['genrsa','-out',key,'2048'],{windowsHide:true});
-if(!await exists(cert)){
+const valid=await exists(cert)&&await exec(openssl,['x509','-in',cert,'-checkend','86400','-noout'],{windowsHide:true}).then(()=>true).catch(()=>false);
+if(!valid){
   await exec(openssl,['req','-new','-key',key,'-config',leafConfig,'-out',csr],{windowsHide:true});
   await exec(openssl,['x509','-req','-in',csr,'-CA',rootPem,'-CAkey',rootKey,'-CAcreateserial','-out',cert,'-days','90','-sha256','-extfile',leafConfig,'-extensions','leaf'],{windowsHide:true});
 }
 await exec(openssl,['x509','-in',rootPem,'-outform','DER','-out',rootCer],{windowsHide:true});
 await exec(openssl,['verify','-CAfile',rootPem,cert],{windowsHide:true});
+await exec(openssl,['x509','-in',rootPem,'-checkend','86400','-noout'],{windowsHide:true});
 await exec(openssl,['x509','-in',cert,'-checkip',host,'-noout'],{windowsHide:true});
 const fingerprint=(await exec(openssl,['x509','-in',rootPem,'-noout','-fingerprint','-sha256'],{windowsHide:true})).stdout.trim();
 const env=`# Prepared only. Not enabled automatically; phone must trust crew-local-ca.cer.\nHOST=0.0.0.0\nPORT=4318\nAPP_ORIGIN=https://${host}:4318\nHTTPS_KEY_FILE=deployment/certs/${prefix}-key.pem\nHTTPS_CERT_FILE=deployment/certs/${prefix}-cert.pem\nLLM_PROVIDER=claude_cli\nCLAUDE_AUTH_MODE=subscription\nSUBSCRIPTION_NO_OVERAGE_CONFIRMED=true\nOLLAMA_URL=http://127.0.0.1:11434\nEMBEDDING_MODEL=nomic-embed-text:latest\n`;

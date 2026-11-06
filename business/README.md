@@ -30,6 +30,6 @@ Hackathon 爬虫管理入口为 `/crawl/`，与本应用共用账号、后端和
 npm.cmd start
 ```
 
-也可双击根目录 `Start-Lydia.cmd`。启动会先构建原前端，再启动统一 RAG 后端。电脑访问 <http://127.0.0.1:4318>，首次设置个人密码。Settings → 设置 → 外观可切换白天/黑夜：太阳代表白天，月亮代表黑夜，选择会记住。完整操作与手机 HTTPS 步骤见 [运行指南](docs/RUNNING.md)，实际完成情况见 [实施进度](docs/IMPLEMENTATION_STATUS.md)。
+也可双击根目录 `Start-Lydia.cmd`。启动会先构建原前端，再启动统一 RAG 后端。电脑访问 <http://127.0.0.1:4318>，本机直接进入，无需密码。Settings → 设置 → 外观可切换白天/黑夜：太阳代表白天，月亮代表黑夜，选择会记住。完整操作与手机 HTTPS 步骤见 [运行指南](docs/RUNNING.md)，实际完成情况见 [实施进度](docs/IMPLEMENTATION_STATUS.md)。
 
 Claude 推理使用本人已登录的 CLI；本机 Ollama 提供 embedding。当前真实五专家联调、实际市场验证和手机安装尚未验收，已生成的代码与技能读取不代表这些项目已通过。

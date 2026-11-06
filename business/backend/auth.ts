@@ -21,7 +21,10 @@ export class Auth {
       this.failures.set(address,{count:attempt&&attempt.until>Date.now()?attempt.count+1:1,until:Date.now()+900000});
       assert(false,'LOGIN_INVALID','密码不正确',401);
     }
-    this.failures.delete(address);const token=randomBytes(32).toString('base64url'),csrf=randomBytes(24).toString('base64url');
+    this.failures.delete(address);return this.createSession();
+  }
+  async createSession(){
+    const token=randomBytes(32).toString('base64url'),csrf=randomBytes(24).toString('base64url');
     await this.store.db.query('DELETE FROM sessions WHERE expires_at<now()');
     await this.store.db.query("INSERT INTO sessions VALUES($1,$2,now()+interval '12 hours')",[hash(token),csrf]);
     return {token,csrf};
