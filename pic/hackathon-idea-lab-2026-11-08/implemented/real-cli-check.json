@@ -1,0 +1,12 @@
+{
+  "status": "FAILED",
+  "duration_ms": 3097,
+  "realModelCalls": 1,
+  "input": "Two synthetic TEST_ONLY projects in an isolated temporary database; no production cases changed",
+  "ideas": 0,
+  "commonalities": 0,
+  "error": {
+    "code": "CLI_PROCESS_FAILED",
+    "message": "Claude CLI 进程未成功退出"
+  }
+}

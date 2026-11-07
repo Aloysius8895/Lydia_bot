@@ -1,0 +1,15 @@
+{
+  "status": "BLOCKED",
+  "code": "CLI_QUOTA_EXHAUSTED",
+  "attempts": 2,
+  "successfulGeneratedAnswers": 0,
+  "evidence": {
+    "exitCode": 1,
+    "type": "result",
+    "subtype": "success",
+    "is_error": true,
+    "quotaMessageDetected": true
+  },
+  "scope": "Only synthetic test input in an isolated temporary database. No production research task or paid API fallback.",
+  "repair": "Classify quota/auth errors before treating a nonzero CLI exit as a generic process failure. Synthetic regression covers exit=1 with subtype=success and is_error=true."
+}

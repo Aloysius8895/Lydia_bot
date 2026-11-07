@@ -27,6 +27,9 @@ import {Dialogue} from '../agents/dialogue.ts';
 import {CallAPI} from './calls.ts';
 import {VoiceTTS} from './voice-tts.ts';
 import {phoneInfo,publicCA,selfLANConnection} from './phone.ts';
+import {IdeaLab} from '../agents/idea-lab.ts';
+import {KnowledgeAPI} from './knowledge.ts';
+import {ObsidianBridge} from './obsidian.ts';
 
 const id=z.string().uuid(),text=z.string().trim().min(1).max(150000);
 const publicFiles=['index.html','manifest.webmanifest','sw.js','icons/icon.svg','icons/icon-192.png','icons/icon-512.png','icons/apple-touch-icon.png','fonts/dm-sans-latin.woff2','fonts/bricolage-grotesque-latin.woff2','fonts/OFL-dmsans.txt','fonts/OFL-bricolagegrotesque.txt'];
@@ -50,6 +53,9 @@ export async function createApp(options:{dataDir?:string;origin?:string;secure?:
   const savedSubscription=await store.setting('subscription_no_overage');
   const cli=new ClaudeCLI({executable:config.cli,workspace:config.cliWorkspace,timeout:config.cliTimeout,noOverageConfirmed:savedSubscription?.confirmed??config.subscriptionNoOverage});
   const worker=new Worker(store,skills,cli,embedding),search=new Search(store);if(options.startWorker!==false)await worker.start();
+  const ideaLab=new IdeaLab(store,crawlStore,cli);await ideaLab.recover();
+  const obsidian=new ObsidianBridge(store);await obsidian.init(options.startWorker!==false&&!options.dataDir);
+  const knowledgeAPI=new KnowledgeAPI(store,ideaLab,obsidian);
   // Calls interrupted by a restart are marked, never re-run automatically (no duplicate subscription use).
   const callStore=new CallStore(store);await callStore.recover();
   const dialogue=new Dialogue(store,callStore,skills,cli,embedding),callAPI=new CallAPI(callStore,dialogue);
@@ -95,6 +101,7 @@ export async function createApp(options:{dataDir?:string;origin?:string;secure?:
       assert(session,'LOGIN_REQUIRED','请先登录',401);
       if(p==='/api/phone'&&method==='GET'){json(await phoneInfo(origin,secure));return;}
       if(mutation)assert(req.headers['x-csrf-token']===session.csrf,'CSRF_INVALID','会话校验未通过，请刷新页面',403);
+      const knowledgeResult=await knowledgeAPI.handle(p,method,()=>body(req),url);if(knowledgeResult){json(knowledgeResult.data,knowledgeResult.status||200);return;}
       const crawlDownload=/^\/api\/crawl\/exports\/([^/]+)\/files\/([^/]+)$/.exec(p);
       if(crawlDownload&&['GET','HEAD'].includes(method)){const file=await crawlAPI.download(crawlDownload[1],crawlDownload[2]);res.setHeader('content-type',file.type);res.setHeader('Content-Disposition',`attachment; filename="${file.name}"`);res.setHeader('Cache-Control','no-store');if(method==='HEAD')res.end();else createReadStream(file.path).on('error',()=>res.destroy()).pipe(res);return;}
       const crawlResult=await crawlAPI.handle(p,method,url,()=>body(req),{loopback:['127.0.0.1','::1','::ffff:127.0.0.1'].includes(req.socket.remoteAddress||'')});if(crawlResult){json(crawlResult.data,crawlResult.status||200);return;}
@@ -143,7 +150,7 @@ export async function createApp(options:{dataDir?:string;origin?:string;secure?:
       throw new AppError('NOT_FOUND','接口不存在',404);
     }catch(e){if(res.headersSent){res.destroy();return;}const err=e as any;json({error:{code:err instanceof z.ZodError?'INPUT_INVALID':err.code||'INTERNAL_ERROR',message:err instanceof z.ZodError?'输入格式或长度不符合要求':err instanceof AppError?err.message:'服务操作未成功，请查看状态并重试'}},err instanceof z.ZodError?400:err.status||500);}
   };
-  return {store,auth,skills,embedding,cli,worker,callStore,dialogue,voiceTTS,crawlStore,crawlWorker,crawlSnapshots,handler,close:async()=>{voiceTTS.abortAll();await crawlWorker.stop();await worker.stop();await dialogue.stop();while(worker.active||worker.checking)await new Promise(r=>setTimeout(r,20));for(let i=0;dialogue.active.size&&i<100;i++)await new Promise(r=>setTimeout(r,20));await store.close();}};
+  return {store,auth,skills,embedding,cli,worker,callStore,dialogue,voiceTTS,crawlStore,crawlWorker,crawlSnapshots,ideaLab,obsidian,handler,close:async()=>{await ideaLab.stop();await obsidian.stop();voiceTTS.abortAll();await crawlWorker.stop();await worker.stop();await dialogue.stop();while(worker.active||worker.checking)await new Promise(r=>setTimeout(r,20));for(let i=0;dialogue.active.size&&i<100;i++)await new Promise(r=>setTimeout(r,20));await store.close();}};
 }
 export async function main(){
   assert(Number.isInteger(config.port)&&config.port>0&&config.port<65536,'PORT_INVALID','端口无效');

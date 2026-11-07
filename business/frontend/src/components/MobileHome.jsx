@@ -3,7 +3,7 @@ import Icon from './Icon.jsx';
 import { BotAvatar } from './Avatars.jsx';
 import { BotRow, RoomRow } from './Sidebar.jsx';
 
-export default function MobileHome({ bots, rooms, botsById, query, onQuery, projectPicker, onSettings, onOpenCrawl, theme, onToggleTheme }) {
+export default function MobileHome({ bots, rooms, botsById, query, onQuery, projectPicker, onSettings, onOpenCrawl, onOpenKnowledge, theme, onToggleTheme }) {
   const [searching, setSearching] = useState(false), [scope, setScope] = useState('all');
   const q = query.trim().toLowerCase();
   const matches = item => !q || item.name.toLowerCase().includes(q);
@@ -30,7 +30,7 @@ export default function MobileHome({ bots, rooms, botsById, query, onQuery, proj
         {!shownBots.length && <p className="sidebar__empty">{q ? `No matches for “${query.trim()}”` : '没有置顶的专家'}</p>}
         {!bots.length && <a className="row" href="#/new"><Icon name="plus" /><strong>Create your first bot</strong></a>}
       </div>
-      <div className="mobile-home-tools"><button type="button" onClick={onOpenCrawl}><Icon name="spider" size={16} />Crawl</button><button type="button" onClick={onSettings}><Icon name="settings" size={16} />Settings</button></div>
+      <div className="mobile-home-tools"><button type="button" onClick={onOpenKnowledge}><Icon name="panel" size={16} />知识库</button><button type="button" onClick={onOpenCrawl}><Icon name="spider" size={16} />Crawl</button><button type="button" onClick={onSettings}><Icon name="settings" size={16} />Settings</button></div>
     </div>
   </div>;
 }

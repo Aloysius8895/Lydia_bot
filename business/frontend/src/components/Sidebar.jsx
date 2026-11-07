@@ -45,7 +45,7 @@ export function BotRow({ bot, current }) {
   );
 }
 
-export default function Sidebar({ bots, rooms, botsById, route, query, onQuery, theme, onToggleTheme, onSettings, onOpenWorkspace, onOpenCrawl, onOpenProjects }) {
+export default function Sidebar({ bots, rooms, botsById, route, query, onQuery, theme, onToggleTheme, onSettings, onOpenWorkspace, onOpenCrawl, onOpenProjects, onOpenKnowledge }) {
   const [searching, setSearching] = useState(false);
   const [scope, setScope] = useState('all');
   const search = useRef(null);
@@ -64,6 +64,7 @@ export default function Sidebar({ bots, rooms, botsById, route, query, onQuery, 
       <a href="#/new" className="claude-sidebar__new" aria-label="New project" aria-current={route.kind === 'new' ? 'page' : undefined}><Icon name="plus" /><span>New</span></a>
       <button type="button" onClick={openSearch} aria-expanded={searching}><Icon name="search" /><span>Search</span></button>
       <button type="button" onClick={onOpenProjects} aria-current={route.kind === 'projects' ? 'page' : undefined}><Icon name="folder" /><span>Projects</span></button>
+      <button type="button" onClick={onOpenKnowledge}><Icon name="panel" /><span>知识库</span></button>
       <button type="button" onClick={onOpenCrawl}><Icon name="spider" /><span>Crawl</span></button>
       <button type="button" onClick={() => onSettings('avatar')}><Icon name="palette" /><span>Design</span></button>
       <button type="button" onClick={() => onSettings('connections')}><Icon name="settings" /><span>Customize</span></button>

@@ -1,0 +1,23 @@
+{
+  "status": "TEST_PASSED",
+  "url": "http://127.0.0.1:4318/#/knowledge",
+  "emptyLibrary": true,
+  "projects": 0,
+  "news": 0,
+  "newsFormAvailable": true,
+  "obsidianConnected": true,
+  "obsidianSync": {
+    "connected": true,
+    "folder": "C:\\Users\\User\\OneDrive\\Documents\\Obsidian Vault\\Lydia",
+    "at": "2026-11-07T18:13:35.937Z",
+    "written": 0,
+    "unchanged": 4,
+    "conflicts": [],
+    "projects": 0,
+    "news": 0,
+    "ideas": 0,
+    "research": 3
+  },
+  "returnToLydia": true,
+  "pageErrors": []
+}

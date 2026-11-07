@@ -1,0 +1,24 @@
+{
+  "origin": "http://127.0.0.1:4318",
+  "authenticated": true,
+  "library": {
+    "total": 0,
+    "loaded": 0,
+    "platforms": []
+  },
+  "obsidian": {
+    "connected": true,
+    "folder": "C:\\Users\\User\\OneDrive\\Documents\\Obsidian Vault\\Lydia"
+  },
+  "sync": {
+    "connected": true,
+    "folder": "C:\\Users\\User\\OneDrive\\Documents\\Obsidian Vault\\Lydia",
+    "at": "2026-11-07T17:54:03.807Z",
+    "written": 0,
+    "unchanged": 4,
+    "conflicts": [],
+    "projects": 0,
+    "ideas": 0,
+    "research": 3
+  }
+}

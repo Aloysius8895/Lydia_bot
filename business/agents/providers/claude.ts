@@ -29,13 +29,16 @@ export function cliArgs(schema?:unknown,profile:CliProfile='default') {
   return args;
 }
 export function parseResult(stdout:string,exitCode:number|null) {
-  assert(exitCode===0,'CLI_PROCESS_FAILED','Claude CLI 进程未成功退出',503);
-  let j:any;try{j=JSON.parse(stdout.trim());}catch{throw new AppError('CLI_OUTPUT_INVALID','CLI 未返回有效 JSON',503);}
+  let j:any;try{j=JSON.parse(stdout.trim());}catch{
+    assert(exitCode===0,'CLI_PROCESS_FAILED','Claude CLI 进程未成功退出',503);
+    throw new AppError('CLI_OUTPUT_INVALID','CLI 未返回有效 JSON',503);
+  }
   if(j.is_error===true||j.subtype!=='success'){
     const errorText=typeof j.result==='string'?j.result:JSON.stringify(j.errors||[]);
     if(/rate.?limit|usage.?limit|quota|exceed.*limit|hit.*limit/i.test(errorText))throw new AppError('CLI_QUOTA_EXHAUSTED','Claude 订阅额度受限；任务暂停，不切换 API 计费',503);
     if(/not.?logged|authenticat|login|credential|expired.*token/i.test(errorText))throw new AppError('CLI_AUTH_EXPIRED','Claude 登录失效，请通过官方 CLI 重新登录',503);
   }
+  assert(exitCode===0,'CLI_PROCESS_FAILED','Claude CLI 进程未成功退出',503);
   assert(j.type==='result'&&j.subtype==='success'&&j.is_error!==true,'CLI_RESULT_ERROR','CLI 返回错误或额度不足；未生成回答',503);
   if(j.structured_output)return {data:j.structured_output,usage:j.usage||null,session_id:j.session_id||null};
   let data:any;try{

@@ -13,10 +13,16 @@ import { AuthScreen, NewProject, ProjectPicker, TaskProgress } from './component
 import CallCard from './components/CallCard.jsx';
 import Icon from './components/Icon.jsx';
 import { BotAvatar } from './components/Avatars.jsx';
+import KnowledgeWorkspace from './components/KnowledgeWorkspace.jsx';
 
 const phases = { SCOPED: '范围已建立', RESEARCHING: '研究中', AWAITING_SELECTION: '等待选择缺口', MODELING: '商业模式阶段' };
 export default function App() {
-  const route = useHashRoute(), isMobile = useMediaQuery('(max-width: 760px)');
+  const requestedRoute = useHashRoute(), isMobile = useMediaQuery('(max-width: 760px)');
+  const lastRoute = useRef(requestedRoute.kind === 'knowledge' ? (isMobile ? {kind:'home'} : {kind:'bot',id:'steve'}) : requestedRoute);
+  const lastHash = useRef(isMobile ? '#/' : '#/bot/steve');
+  const inKnowledge = requestedRoute.kind === 'knowledge';
+  if (!inKnowledge) { lastRoute.current = requestedRoute; lastHash.current = window.location.hash || '#/'; }
+  const route = inKnowledge ? lastRoute.current : requestedRoute;
   const [theme, toggleTheme] = useTheme();
   const [auth, setAuth] = useState(null), [cases, setCases] = useState([]), [active, setActive] = useState('');
   const [snapshot, setSnapshot] = useState(null), [health, setHealth] = useState(null), [notice, setNotice] = useState('');
@@ -73,8 +79,8 @@ export default function App() {
     void poll(); return () => { ignore = true; clearTimeout(timer); };
   }, [active, auth?.authenticated]);
   useEffect(() => {
-    if (!isMobile && route.kind === 'home') window.location.replace('#/bot/steve');
-  }, [isMobile, route.kind]);
+    if (!inKnowledge && !isMobile && route.kind === 'home') window.location.replace('#/bot/steve');
+  }, [isMobile, route.kind, inKnowledge]);
   useEffect(() => {
     const selectFromLink = () => { const id = new URLSearchParams(window.location.hash.split('?')[1] || '').get('case'); if (id && cases.some(c => c.id === id)) { activeRef.current = id; setActive(id); } };
     window.addEventListener('hashchange', selectFromLink);
@@ -115,6 +121,9 @@ export default function App() {
   function openWorkspace(tab) { setWorkspaceTab(tab); setPanelSignal(value => value + 1); if (!hasConversation) setGlobalPanel(true); }
   function selectProject(id) { if (!cases.some(c => c.id === id)) return; activeRef.current = id; setActive(id); }
   function openProjects() { setGlobalPanel(false); window.location.hash = '#/projects' + (activeRef.current ? '?case=' + encodeURIComponent(activeRef.current) : ''); }
+  function openKnowledge() { setSettings(null); setGlobalPanel(false); void callControl.current?.hangup?.(); setCallOpen(false); window.location.hash = '#/knowledge' + (activeRef.current ? '?case=' + encodeURIComponent(activeRef.current) : ''); }
+  function returnFromKnowledge() { window.location.hash = lastHash.current; }
+  async function researchIdea(id) { const list=await api('/api/cases'); setCases(list); activeRef.current=id; setActive(id); window.location.hash='#/bot/steve?case='+encodeURIComponent(id); }
   function discussProject(id) { selectProject(id); setGlobalPanel(false); window.location.hash = '#/bot/steve?case=' + encodeURIComponent(id); }
   const addProjectSource = (id, type, data) => perform(async () => { if (!cases.some(c => c.id === id)) throw Error('请选择有效项目'); await api(`/api/cases/${id}/${type}`, 'POST', data); await refresh(id); return true; });
   function send(text) {
@@ -158,7 +167,7 @@ export default function App() {
   const renderPanel = onClose => <ResearchPanel key={active || 'empty'} snapshot={snapshot} cases={cases} active={active} onProjectChange={setActive} method={method} tab={workspaceTab} onTab={setWorkspaceTab} onClose={onClose} onOpenSettings={() => setSettings('account')} busy={busy} onAddSource={addSource} onRetrieve={retrieve} onSelectGap={selectGap} />;
   const settingsModal = settings && <SettingsModal isMobile={isMobile} mobileNavigation={mobileNavigation('设置')} passwordless={auth?.passwordless} section={settings} onSection={setSettings} onClose={() => setSettings(null)} theme={theme} onToggleTheme={toggleTheme} health={health} busy={busy} active={active} onReloadHealth={reloadHealth} onConfirmSubscription={confirmSubscription} onExport={exportProject} onLogout={logout} />;
   const notification = notice && <div className="app-notice" role="alert"><span>{notice}</span><button type="button" aria-label="关闭提示" onClick={() => setNotice('')}>×</button></div>;
-  if (!auth) return <><div className="app-loading">Connecting to Lydia… <button className="pill" onClick={() => window.location.reload()}>重新连接</button></div>{notification}</>;
+  if (!auth) return <><div hidden={inKnowledge} className="app-loading">Connecting to Lydia… <button className="pill" onClick={() => window.location.reload()}>重新连接</button></div>{notification}</>;
   if (!auth.authenticated) return <><AuthScreen status={auth} onLogin={login} busy={busy} theme={theme} onToggleTheme={toggleTheme} />{notification}</>;
   let main;
   if (route.kind === 'new') main = <NewProject isMobile={isMobile} busy={busy} onCreate={createProject} />;
@@ -169,6 +178,6 @@ export default function App() {
     voiceDock={!isMobile && callBot && !callOpen ? <div className="voice-dock"><BotAvatar color={callBot.color} size={32} /><div className="voice-dock__text"><strong>语音通话</strong><span>与 {callBot.name} 继续讨论</span></div><span className="voice-dock__decoration" aria-hidden="true"><Icon name="mic" size={20} /></span><button type="button" className="voice-dock__start" onClick={openCall}>开始通话<Icon name="call" size={16} /></button></div> : null}
     overlay={callOpen && callBot && active ? <CallCard key={`${active}:${callBot.id}`} bot={callBot} caseId={active} caseTitle={cases.find(c => c.id === active)?.title || ''} isMobile={isMobile} controlRef={callControl} onClose={() => setCallOpen(false)} /> : null}
     progress={<TaskProgress tasks={snapshot?.tasks || []} busy={busy} onTaskAction={taskAction} />} />;
-  else main = <MobileHome bots={bots} rooms={rooms} botsById={botsById} query={query} onQuery={setQuery} projectPicker={picker} theme={theme} onToggleTheme={toggleTheme} onOpenProjects={openProjects} onSettings={mobileSettings} onOpenWorkspace={openWorkspace} onOpenCrawl={() => setSettings('crawl')} />;
-  return <><div className={`app${isMobile ? ' app--mobile' : ''}`}>{!isMobile && <Sidebar bots={bots} rooms={rooms} botsById={botsById} route={route} query={query} onQuery={setQuery} theme={theme} onToggleTheme={toggleTheme} onOpenProjects={openProjects} onSettings={(section = 'account') => setSettings(section)} onOpenWorkspace={openWorkspace} onOpenCrawl={() => setSettings('crawl')} />}{main}{globalPanel && !hasConversation && renderPanel(() => setGlobalPanel(false))}</div>{isMobile && !hasConversation && route.kind !== 'new' && !settings && mobileNavigation(route.kind === 'projects' ? '项目' : '会话')}{settingsModal}{notification}</>;
+  else main = <MobileHome bots={bots} rooms={rooms} botsById={botsById} query={query} onQuery={setQuery} projectPicker={picker} theme={theme} onToggleTheme={toggleTheme} onOpenProjects={openProjects} onSettings={mobileSettings} onOpenWorkspace={openWorkspace} onOpenCrawl={() => setSettings('crawl')} onOpenKnowledge={openKnowledge} />;
+  return <><div hidden={inKnowledge} className={`app${isMobile ? ' app--mobile' : ''}`}>{!isMobile && <Sidebar bots={bots} rooms={rooms} botsById={botsById} route={route} query={query} onQuery={setQuery} theme={theme} onToggleTheme={toggleTheme} onOpenProjects={openProjects} onSettings={(section = 'account') => setSettings(section)} onOpenWorkspace={openWorkspace} onOpenCrawl={() => setSettings('crawl')} onOpenKnowledge={openKnowledge} />}{main}{globalPanel && !hasConversation && renderPanel(() => setGlobalPanel(false))}</div>{!inKnowledge && isMobile && !hasConversation && route.kind !== 'new' && !settings && mobileNavigation(route.kind === 'projects' ? '项目' : '会话')}{inKnowledge && <KnowledgeWorkspace activeCase={active} theme={theme} onToggleTheme={toggleTheme} onReturn={returnFromKnowledge} onOpenCrawl={() => setSettings('crawl')} onResearch={researchIdea} />}{settingsModal}{notification}</>;
 }

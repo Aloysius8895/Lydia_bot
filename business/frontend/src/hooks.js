@@ -6,6 +6,7 @@ function parseRoute(hash) {
   if ((kind === 'bot' || kind === 'room') && id) return { kind, id: decodeURIComponent(id) };
   if (kind === 'new') return { kind: 'new' };
   if (kind === 'projects') return { kind: 'projects' };
+  if (kind === 'knowledge') return { kind: 'knowledge' };
   return { kind: 'home' };
 }
 

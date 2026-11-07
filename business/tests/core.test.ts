@@ -129,6 +129,7 @@ test('CLI process JSON errors and malformed results are not success',()=>{
   assert.deepEqual(parseResult(JSON.stringify({type:'result',subtype:'success',result:'```json\n{"ok":true}\n```'}),0).data,{ok:true});
   assert.throws(()=>parseResult(JSON.stringify({type:'result',subtype:'success',result:'Some prose before {"ok":true}'}),0));
   assert.throws(()=>parseResult('{"type":"result","subtype":"error","is_error":true,"result":"Usage limit reached"}',0),(e:any)=>e.code==='CLI_QUOTA_EXHAUSTED');
+  assert.throws(()=>parseResult('{"type":"result","subtype":"success","is_error":true,"result":"You have hit your limit"}',1),(e:any)=>e.code==='CLI_QUOTA_EXHAUSTED');
 });
 test('CLI stdin is not shell-interpreted, and timeout/cancel are bounded',async()=>{
   const cli=new ClaudeCLI({executable:process.execPath,workspace:path.join(tmp,'workspace'),timeout:2000,noOverageConfirmed:true});

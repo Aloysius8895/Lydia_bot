@@ -1,0 +1,12 @@
+{
+  "created_with": "5.2.2 LTS",
+  "isolated_process": true,
+  "source": "knowledge-blender.py",
+  "sprites": [
+    "binders-ivory.png",
+    "binders-sand.png",
+    "binders-slate.png"
+  ],
+  "model_objects": 12,
+  "triangles": 264
+}

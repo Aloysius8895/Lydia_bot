@@ -1,0 +1,14 @@
+{
+  "error": "TimeoutError: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '◇ 空间', exact: true })\u001b[22m\n",
+  "checks": [
+    "Authenticated actual React workspace reads 30 TEST_ONLY projects and full details; both themes render real Blender sprites",
+    "Native drag adds projects to tray and duplicate drops are idempotent",
+    "Click Lydia returns to original expert route, case and unsent composer draft",
+    "Comparison job returns validated source-linked candidate ideas; native drag persists selected candidate",
+    "Draft, constraints and saved shelf survive refresh; notes save and isolated Obsidian exports run",
+    "Explicit research handoff creates PROJECT background without MARKET evidence or Gap selection",
+    "Mobile 320/390/430px list and add-button alternatives fit without horizontal overflow"
+  ],
+  "errors": [],
+  "consoleErrors": []
+}
