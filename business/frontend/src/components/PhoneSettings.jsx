@@ -16,8 +16,16 @@ export default function PhoneSettings() {
       {error && <p role="alert">{error}</p>}
       {!info && !error && <p className="set-muted">正在检查手机连接…</p>}
       {info && <>
-        <p>{info.enabled ? '局域网 HTTPS 已启用。请让 iPhone 与电脑连接同一个 Wi-Fi。' : '请在电脑双击 Start-Lydia-Phone.cmd，启用手机访问。'}</p>
+        <p>{info.mode === 'tailscale' ? 'Tailscale HTTPS 已启用。手机连接 Tailscale 后，可使用流量或其他 Wi-Fi 访问。' : info.enabled ? '局域网 HTTPS 已启用。请让 iPhone 与电脑连接同一个 Wi-Fi。' : '请在电脑双击 Start-Lydia-Phone.cmd，启用手机访问。'}</p>
         {info.suggestedOrigin && <p style={{overflowWrap:'anywhere'}}>手机访问地址：<strong>{info.suggestedOrigin}</strong></p>}
+        {info.mode === 'tailscale' ? <>
+          <p className="set-muted">电脑需要保持联网、不睡眠并登录 Windows。锁屏后仍可使用。</p>
+          <ol>
+            <li>手机安装 Tailscale，与电脑登录同一账号并连接。</li>
+            <li>在 Safari 打开上方 HTTPS 地址，使用原有工作区密码登录。</li>
+            <li>点击分享 → 添加到主屏幕。请从新图标打开，旧局域网图标仍指向原地址。</li>
+          </ol>
+        </> : <>
         <p className="set-muted">电脑和服务需要保持运行。更换 Wi-Fi 或电脑 IP 后，请重新运行手机启动器。</p>
         <ol>
           <li>在电脑运行手机启动器。首次使用时，按启动器提示在电脑本机设置登录密码。</li>
@@ -29,6 +37,7 @@ export default function PhoneSettings() {
         </ol>
         {info.certificate && <details><summary>核对证书指纹</summary><p style={{overflowWrap:'anywhere'}}>{info.certificate.fingerprint}</p><p className="set-muted">有效期至 {info.certificate.expires}。仅下载公开 .cer 文件。</p><a className="set-btn" href="/phone-ca.cer">下载公开根证书</a></details>}
         <p><a href="https://support.apple.com/102390" target="_blank" rel="noreferrer">Apple 证书信任说明</a></p>
+        </>}
       </>}
     </section>
     <section className="set-section">

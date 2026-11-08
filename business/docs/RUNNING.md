@@ -64,6 +64,8 @@ hackathon-gap-research/
 
 ## 手机与 HTTPS
 
+手机使用流量或不同 Wi-Fi 时，使用 [Tailscale 私人远程访问部署](REMOTE_ACCESS.md)。远程启动入口为 `Start-Lydia-Remote.cmd`；首次管理员配置命令为 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup-remote.ps1`。该模式在 Windows 登录后自动运行，电脑需保持联网且不睡眠。
+
 **2026-11-06 新入口：** 推荐双击 `business/Start-Lydia-Phone.cmd`，自动检查地址/证书并启动。iPhone 先打开终端显示的 HTTP 4319 安装引导，再使用 HTTPS 4318。完整步骤与真机验收见 [iPhone 安装](IPHONE_INSTALL.md)。以下为手动配置方式。
 
 默认仅监听电脑 loopback，手机无法通过该地址访问。设置页的 PWA/手机操作说明不等于已完成真手机安装。

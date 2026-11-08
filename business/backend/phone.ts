@@ -19,9 +19,12 @@ export async function publicCA() {
 }
 export async function phoneInfo(origin:string, secure:boolean) {
   const url = new URL(origin), addresses = lanAddresses();
+  if(secure&&url.protocol==='https:'&&/^[a-z0-9][a-z0-9.-]*\.ts\.net$/i.test(url.hostname)){
+    return {origin,enabled:true,mode:'tailscale',addresses:[],suggestedOrigin:origin,certificate:null,bootstrapURL:null};
+  }
   const enabled = secure && addresses.includes(url.hostname);
   const ca = await publicCA().catch(() => null);
-  return { origin, enabled, addresses, suggestedOrigin: enabled ? origin : addresses[0] ? `https://${addresses[0]}:4318` : null,
+  return { origin, enabled, mode:'lan', addresses, suggestedOrigin: enabled ? origin : addresses[0] ? `https://${addresses[0]}:4318` : null,
     certificate: ca ? { fingerprint: ca.fingerprint, expires: ca.expires } : null,
     bootstrapURL: enabled ? `http://${url.hostname}:4319` : null };
 }

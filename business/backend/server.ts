@@ -166,6 +166,13 @@ export async function main(){
   try{app=await createApp({secure,localAutoLogin:process.env.LYDIA_LOCAL_AUTO_LOGIN!=='false'});}catch(e){server.close();throw e;}
   console.log(`Lydia listening at ${config.origin}; paid inference API disabled; inference=claude_cli`);
   let closing=false;const stop=async()=>{if(closing)return;closing=true;server.close();await app!.close();process.exit(0);};process.on('SIGINT',()=>void stop());process.on('SIGTERM',()=>void stop());
-  if(process.send){process.on('message',message=>{if(message==='LYDIA_SHUTDOWN')void stop();});process.on('disconnect',()=>void stop());}
+  if(process.send){process.on('message',message=>{
+    if(message==='LYDIA_SHUTDOWN')void stop();
+    if(message==='LYDIA_RELOAD_TLS'&&server instanceof https.Server){
+      void Promise.all([readFile(config.httpsKey!),readFile(config.httpsCert!)]).then(([key,cert])=>{
+        server.setSecureContext({key,cert});console.log('HTTPS certificate reloaded');
+      }).catch(()=>console.error('HTTPS certificate reload failed; previous certificate retained'));
+    }
+  });process.on('disconnect',()=>void stop());}
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))void main().catch(e=>{console.error(e instanceof AppError?e.message:'应用启动失败；请检查本地依赖与端口');process.exitCode=1;});
