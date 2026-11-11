@@ -1,5 +1,5 @@
 import {randomUUID} from 'node:crypto';
-import type {Store} from '../../data/database/store.ts';
+import type {Store} from '../../data/data_preprocessing/database/store.ts';
 
 export async function seedKnowledge(store:Store,count=18){
  const run=randomUUID(),task=randomUUID(),snapshot=randomUUID();

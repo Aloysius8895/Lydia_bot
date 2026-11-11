@@ -1,7 +1,7 @@
 import {z} from 'zod';
 import {randomUUID} from 'node:crypto';
-import {Store,hash,type Row} from '../../data/database/store.ts';
-import {CrawlStore} from '../../data/crawl/store.ts';
+import {Store,hash,type Row} from '../../data/data_preprocessing/database/store.ts';
+import {CrawlStore} from '../../data/data_preprocessing/crawl/store.ts';
 import {ClaudeCLI} from './providers/claude.ts';
 import {assert,AppError} from '../shared/config.ts';
 
@@ -55,14 +55,18 @@ export class IdeaLab {
   const sources:Row[]=[];
   for(const id of projectIds){
    const p=await this.repo.project(id);
+   assert(p.meta.content_kind!=='summary_only','ORIGINAL_CONTENT_REQUIRED','该项目仅有外部摘要，请取得原文后再分析');
    assert(p.meta.source_nature!=='SOCIAL_POST','IDEA_NOT_PROJECT','请选择比赛项目；社交推文可在 Crawl 中查看');
    assert(p.content?.trim().length>=30,'IDEA_CONTENT_MISSING','项目正文不足，请先在 Crawl 中补采资料');
    sources.push({id:p.id,kind:'hackathon',title:p.title,url:p.url,source_id:p.source_id,version_id:p.current_version_id,revision:p.revision,content:p.content.slice(0,12000),truncated:p.content.length>12000,submissions:p.submissions.map((s:Row)=>({name:s.event_name,year:s.year}))});
   }
   for(const id of newsIds){
-   const n=await this.store.one('SELECT * FROM knowledge_news WHERE id=$1',[id]);assert(n,'NEWS_NOT_FOUND','新闻资料不存在',404);
-   assert(n.content.trim().length>=30,'NEWS_CONTENT_REQUIRED','新闻正文不足');
-   sources.push({id:n.id,kind:'news',title:n.title,url:n.url,source_id:n.publisher||'未注明媒体',published_at:n.published_at,revision:n.revision,content:n.content.slice(0,12000),truncated:n.content.length>12000,source_nature:'NEWS_REPORT_NOT_VERIFIED'});
+   const n=await this.store.one("SELECT n.*,s.content AS source_content,s.url AS source_url FROM knowledge_news n LEFT JOIN news_sources s ON s.news_id=n.id AND s.status='read' WHERE n.id=$1",[id]);assert(n,'NEWS_NOT_FOUND','新闻资料不存在',404);
+   // An imported item holds only Grok's summary: use the original article once it has been read from its source links.
+   const summaryOnly=n.meta.content_kind==='summary_only',body=summaryOnly?String(n.source_content||''):n.content;
+   assert(!summaryOnly||body,'ORIGINAL_CONTENT_REQUIRED','该新闻仅有外部摘要，原文还没读到；在「相似与搭档」比较新闻时会读取原文');
+   assert(body.trim().length>=30,'NEWS_CONTENT_REQUIRED','新闻正文不足');
+   sources.push({id:n.id,kind:'news',title:n.title,url:summaryOnly?n.source_url||n.url:n.url,source_id:n.publisher||'未注明媒体',published_at:n.published_at,revision:n.revision,content:body.slice(0,12000),truncated:body.length>12000,source_nature:'NEWS_REPORT_NOT_VERIFIED'});
   }
   const id=randomUUID();
   const r=await this.store.one("INSERT INTO knowledge_runs(id,request_key,input_hash,project_ids,constraints,sources,status,news_ids) VALUES($1,$2,$3,$4,$5,$6,'queued',$7) ON CONFLICT(request_key) DO NOTHING RETURNING *",[id,requestKey,inputHash,projectIds,constraints,sources,newsIds]);
@@ -84,7 +88,7 @@ export class IdeaLab {
 先比较问题、人群、场景、机制、技术和依赖；共同点和差异的每项给出参与项目 UUID，并逐字引用每个参与项目的一小段正文作为 quotes。只有部分项目相似时写明“部分案例”，不要扩大到全部。
 基于选中案例与用户约束提出默认三个、最多五个有区别的 idea。条件未指定时写明假设。ideas 必须全部作为待验证方向，说明借鉴来源、差异、适配理由、最小演示范围、至少一个假设及第一个验证动作。不能仅改名或宣称全球首创。资料不足允许零候选并解释缺口。所有引用 ID 必须来自输入，quotes 必须是正文中的原样片段。
 UNTRUSTED_INPUT_JSON=${JSON.stringify({constraints:r.constraints,projects:r.sources})}`;
-   const result=await this.cli.run(prompt,z.toJSONSchema(ideaOutput),signal);
+   const result=await this.cli.run(prompt,z.toJSONSchema(ideaOutput),signal,{tier:'idea'});
    const output=validateIdeaSources(ideaOutput.parse(result.data),r.sources);
    if(signal.aborted)return;
    await this.store.db.query("UPDATE knowledge_runs SET status='completed',output=$2,error=NULL,updated_at=now() WHERE id=$1 AND status='running'",[id,{...output,provenance:{usage:result.usage,generated_at:new Date().toISOString(),market_verified:false}}]);

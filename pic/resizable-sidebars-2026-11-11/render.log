@@ -1,0 +1,13 @@
+PASS main page shows both dividers
+PASS main drag changes widths (367->277, 422->532)
+PASS main widths are remembered after reload
+PASS right panel never grows past 640px
+PASS conversation keeps at least 380px (443)
+PASS double-click restores the right panel default
+PASS arrow keys move the focused divider 16px a step
+PASS knowledge page shows both dividers
+PASS knowledge drag changes widths (225->295, 306->436)
+PASS collapse button stays clickable; left divider hides while collapsed
+PASS expanding again returns to the dragged width
+PASS knowledge widths are remembered after reload
+PASS phone layout has no dividers

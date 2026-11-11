@@ -1,5 +1,5 @@
 import {TwitterBrowser} from '../fetch/twitter.ts';
-import {crawlStorageRoot} from '../../data/crawl/snapshots.ts';
+import {crawlStorageRoot} from '../../data/data_preprocessing/crawl/snapshots.ts';
 
 // Run only on the user's desktop. Credentials are entered by the user in X itself.
 const session=new TwitterBrowser(crawlStorageRoot);let stopping=false;

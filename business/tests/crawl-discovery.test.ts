@@ -3,13 +3,13 @@ import assert from 'node:assert/strict';
 import {mkdtemp} from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import {Store} from '../../data/database/store.ts';
-import {CrawlStore} from '../../data/crawl/store.ts';
-import {Snapshots} from '../../data/crawl/snapshots.ts';
+import {Store} from '../../data/data_preprocessing/database/store.ts';
+import {CrawlStore} from '../../data/data_preprocessing/crawl/store.ts';
+import {Snapshots} from '../../data/data_preprocessing/crawl/snapshots.ts';
 import {runSchema} from '../../crawl/core/config.ts';
 import {parseSource} from '../../crawl/sources/index.ts';
 import {blank,makeEvent,outcome,listing} from '../../crawl/sources/discovery.ts';
-import {readOnlyGraphQL} from '../../data/crawl/graphql.ts';
+import {readOnlyGraphQL} from '../../data/data_preprocessing/crawl/graphql.ts';
 import type {ParsedPage} from '../../crawl/types.ts';
 async function fixture(){const store=await Store.open(),repo=new CrawlStore(store);await repo.init();const snapshots=new Snapshots(await mkdtemp(path.join(os.tmpdir(),'crawl-discovery-')));return {store,repo,snapshots};}
 async function capture(env:Awaited<ReturnType<typeof fixture>>,key:string,page:ParsedPage,url='https://ethglobal.com/showcase',source='ethglobal'){

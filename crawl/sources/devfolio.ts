@@ -1,7 +1,7 @@
 import type {ParsedPage,ParseContext,ParsedEvent} from '../types.ts';
 import {readJSON,objects,eventYear} from './structured.ts';
 import {blank,makeEvent,pagination,listing,officialEvidence,outcome} from './discovery.ts';
-import {document,anchors,cleanText,find,tag,locator} from '../../data/crawl/html.ts';
+import {document,anchors,cleanText,find,tag,locator} from '../../data/data_preprocessing/crawl/html.ts';
 
 export function parseDevfolio(url:string,html:string,context:ParseContext):ParsedPage{
  const page=blank('devfolio-next-v1'),u=new URL(url),values=readJSON(html),next=values.find(v=>v?.props?.pageProps),props=next?.props?.pageProps||{},doc=document(html),all=anchors(doc,url);

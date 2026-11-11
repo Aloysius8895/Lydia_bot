@@ -1,8 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {Store} from '../../data/database/store.ts';
+import {Store} from '../../data/data_preprocessing/database/store.ts';
 import {ClaudeCLI} from '../agents/providers/claude.ts';
-import {expandQueries,expandQueryBatch} from '../../data/RAG/query-expansion.ts';
+import {expandQueries,expandQueryBatch} from '../../data/data_preprocessing/RAG/query-expansion.ts';
 
 test('translation cache is case-scoped and never becomes evidence',async()=>{
   const store=await Store.open();let calls=0;

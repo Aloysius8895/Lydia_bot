@@ -13,7 +13,7 @@
 | 真实代码 | 观察及设计影响 |
 | --- | --- |
 | `business/backend/server.ts` | Node HTTP 服务，默认 127.0.0.1:4318；已有登录、Origin、CSRF、请求大小限制和静态资源白名单；新增路由须走这些检查 |
-| `business/shared/config.ts` | 数据库路径默认 `business/.runtime/data`；不是根目录 `data` 内的数据库 |
+| `business/shared/config.ts` | 数据库路径默认 `data/data_storage/database`；不是根目录 `data` 内的数据库 |
 | `data/database/store.ts`、README | PGlite + pgvector；单服务进程持有数据库；不能从爬虫 CLI 再调用 `Store.open` 打开同一目录 |
 | `data/database/schema.sql` | 既有 cases/documents/chunks/tasks 等表；现有 tasks 属于专家工作流，不能直接混入爬虫任务 |
 | `data/RAG/retrieval.ts` | MARKET/PROJECT 必须有 caseId；METHOD 为全局；按 case 检索，没有全局项目库入口 |
@@ -117,7 +117,7 @@ flowchart TD
 
 ## 8. 数据与 RAG
 
-详见 [数据契约](../../data/crawl/DATA_CONTRACT.md)。根 `data` 是处理模块目录，不意味着把现有 PGlite 目录搬家。新增快照/正文/导出建议存 `data/.runtime/crawl/`，通过配置解析为绝对路径，不能依赖进程 cwd。
+详见 [数据契约](../../data/data_preprocessing/crawl/DATA_CONTRACT.md)。根 `data` 是处理模块目录，不意味着把现有 PGlite 目录搬家。新增快照/正文/导出建议存 `data/.runtime/crawl/`，通过配置解析为绝对路径，不能依赖进程 cwd。
 
 采用“全局采集主库 + case 内检索投影”。全局库以 SQL 搜索和结构化筛选浏览；用户选定研究 case 后，将选中项目资料投影到该 case 的 PROJECT 集合。不同项目的奖项/实现资料不得默认成为 MARKET 的用户需求证据；不借 METHOD 绕过全局库缺口。全局向量检索属于后续独立改造，首版不冒充已有能力。
 

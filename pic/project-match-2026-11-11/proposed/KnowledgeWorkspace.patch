@@ -1,0 +1,35 @@
+diff --git a/../../business/frontend/src/components/KnowledgeWorkspace.jsx b/proposed/KnowledgeWorkspace.jsx
+index 45fae76..de7ce46 100644
+--- a/../../business/frontend/src/components/KnowledgeWorkspace.jsx
++++ b/proposed/KnowledgeWorkspace.jsx
+@@ -139,6 +139,10 @@ export default function KnowledgeWorkspace({theme,onToggleTheme,onReturn,onOpenC
+  const active=detail;
+  const filteredMessage=useMemo(()=>source?library.sources.find(s=>s.source_id===source)?.source_id:materialType==='news'?'全部媒体':'全部平台',[source,library.sources,materialType]);
+  const [deepFor,setDeepFor]=useState(null);
++ // 「相似与搭档」: the project being compared; opened from the project details or the workbench.
++ const [matchTarget,setMatchTarget]=useState(null);
++ const asTarget=p=>({id:p.id,title:p.title,source_id:p.source_id});
++ function openMatch(p){setMatchTarget(asTarget(p));openBench('match');}
+  // Side panel widths chosen by dragging the dividers; null keeps the layout default.
+  const [leftWidth,setLeftWidth]=usePanelWidth('knowledge-left'),[rightWidth,setRightWidth]=usePanelWidth('knowledge-right'),iconRail=useMediaQuery('(max-width:850px)');
+  return <main className={'knowledge-workspace'+(collapsed?' kw-collapsed':'')} aria-label="知识库工作区">
+@@ -174,7 +178,7 @@ export default function KnowledgeWorkspace({theme,onToggleTheme,onReturn,onOpenC
+    <aside className="kw-inspector" aria-label="项目详情与我的 Idea 书架">
+     <section className="kw-detail">
+     {active&&(why=>why.length>0&&<div className="kw-why"><span aria-hidden="true">✦</span><span><b>为什么找到它</b>{why.map(s=><span key={s.id} className="kw-why__row">{why.length>1&&<em>{s.query}：</em>}{s.reasons[active.id]}</span>)}</span></div>)(searches.filter(s=>s.reasons?.[active.id]))}
+-    {<KnowledgeMaterialDetails active={active} selected={selected} materialType={materialType} onAdd={add} onGenerateBrief={generateBrief} onDeepDive={setDeepFor} briefStatus={briefStatus}/>}
++    {<KnowledgeMaterialDetails active={active} selected={selected} materialType={materialType} onAdd={add} onGenerateBrief={generateBrief} onDeepDive={setDeepFor} onMatch={openMatch} briefStatus={briefStatus}/>}
+     </section>
+     <section className="kw-saved"><h2>我的 Idea 书架 <small>{saved.length}</small></h2><IdeaShelf ideas={saved} selected={bench==='ideas'?benchIdea:null} onSelect={i=>openBench('ideas',i.id)} onDrop={value=>{if(value!=='')void save(value);}}/></section>
+     <footer className="kw-obsidian"><div><span className={'kw-connection-dot'+(obsidian?.connected?' is-connected':'')}/><strong>Obsidian</strong><small>{obsidian?.connected?'已连接 · 每分钟同步':'未连接'}</small></div><p>{obsidian?.connected?'项目、Idea 与研究摘要 → Vault / Lydia':'未发现可用 Vault，请先在本机 Obsidian 打开资料库。'}</p>{obsidian?.last?.at&&<small>最近同步 {new Date(obsidian.last.at).toLocaleTimeString()}{obsidian.last.conflicts?.length?' · 有笔记待复核':''}</small>}<button type="button" onClick={sync} disabled={busy||!obsidian?.connected}>立即同步 <Icon name="share" size={14}/></button></footer>
+@@ -186,7 +190,9 @@ export default function KnowledgeWorkspace({theme,onToggleTheme,onReturn,onOpenC
+   {bench&&<WorkbenchModal section={bench} onSection={openBench} onClose={()=>setBench(null)} tray={tray} colorOf={colorOf} onRemove={p=>setTray(list=>list.filter(i=>i.id!==p.id))} onNewCompare={newCompare}
+    constraints={constraints} setConstraints={setConstraints} analyze={analyze} canAnalyze={!busy&&!pending&&tray.length>=2&&ready} pending={!!pending} run={run} stale={stale} busy={busy}
+    onCancel={()=>act(async()=>setRun(await api('/api/knowledge/runs/'+run.id+'/cancel','POST',{})))} onSave={save} saved={saved} focus={benchIdea}
+-   onUpdate={updateIdea} onResearch={researchIdea} onOpenCase={id=>onResearch(id)} onReturn={onReturn}/>}
++   onUpdate={updateIdea} onResearch={researchIdea} onOpenCase={id=>onResearch(id)} onReturn={onReturn}
++   matchTarget={matchTarget} onMatchTarget={p=>setMatchTarget(asTarget(p))} matchCandidates={tray.filter(p=>p.kind!=='news')}
++   onPair={items=>{for(const p of items)add({...p,source_id:p.source_id||p.source,kind:p.kind||'hackathon'});openBench('lab');}}/>}
+   <TrackerToast event={trackerOpen?null:trackerToast} onOpen={openTracker} onDismiss={dismissToast}/>
+   {newsForm&&<KnowledgeNewsForm activeCase={activeCase} onClose={()=>setNewsForm(false)} onCreated={p=>{switchMaterial('news');setSelected(p.id);setSelectedKind('news');setReload(n=>n+1);setMessage('新闻资料已保存');}}/>}
+  </main>;

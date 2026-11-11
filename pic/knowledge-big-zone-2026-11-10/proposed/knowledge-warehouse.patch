@@ -1,0 +1,79 @@
+diff --git business/frontend/src/knowledge-warehouse.js pic/knowledge-big-zone-2026-11-10/proposed/knowledge-warehouse.js
+index 13cc89a..528d507 100644
+--- business/frontend/src/knowledge-warehouse.js
++++ pic/knowledge-big-zone-2026-11-10/proposed/knowledge-warehouse.js
+@@ -25,25 +25,38 @@ const units=s=>[...String(s)].reduce((w,ch)=>w+(wide(ch)?2:1),0);
+ const S=40,C=Math.cos(Math.PI/6),SLOT=1.05,LANE=1,LGAP=.55,PER=6,PAD=.5,TOPPAD=.45,STRIP=1.05,AISLE=1.5,M=1.4,BH=.66,WALL=1.6,WT=.18;
+ const MIN=.5,MAX=4;
+ 
++// A zone with more than BIG items would make its grid row far deeper than its
++// neighbours. Such a zone gets its own full-width band at the back of the floor,
++// with long lanes, so the ordinary zones keep a compact grid in front of it.
++const BIG=PER*3,ZW=PAD*2+PER*SLOT,FULL=ZW*3+AISLE*2,BAND_GAP=AISLE*1.6;
++const zoneDepth=lanes=>TOPPAD+lanes*(LANE+LGAP)-LGAP+STRIP;
++
+ export function layout(items,kind){
+  const groups=new Map();for(const it of items){const k=zoneKey(it);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(it);}
+- const zones=[...groups].sort((a,b)=>b[1].length-a[1].length||String(a[0]).localeCompare(String(b[0]))).map(([id,list])=>{
+-  const lanes=Math.max(2,Math.ceil(list.length/PER));return {id,label:zoneLabel(id,kind),list,lanes,w:PAD*2+PER*SLOT,d:TOPPAD+lanes*(LANE+LGAP)-LGAP+STRIP};
+- });
+- const cols=Math.min(3,Math.max(1,zones.length)),colW=Array(cols).fill(0),rowD=[];
+- zones.forEach((z,i)=>{colW[i%cols]=Math.max(colW[i%cols],z.w);const r=Math.floor(i/cols);rowD[r]=Math.max(rowD[r]||0,z.d);});
+- const placed=[],colors=new Map();
+- zones.forEach((z,i)=>{
+-  const c=i%cols,r=Math.floor(i/cols);z.x=colW.slice(0,c).reduce((a,b)=>a+b+AISLE,0);z.y=rowD.slice(0,r).reduce((a,b)=>a+b+AISLE,0);
++ const all=[...groups].sort((a,b)=>b[1].length-a[1].length||String(a[0]).localeCompare(String(b[0]))).map(([id,list])=>({id,label:zoneLabel(id,kind),list}));
++ const bands=all.filter(z=>z.list.length>BIG),grid=all.filter(z=>!bands.includes(z));
++ const longPer=Math.floor((FULL-PAD*2)/SLOT);
++ let y=0;
++ for(const z of bands){
++  Object.assign(z,{band:true,per:longPer,lanes:Math.ceil(z.list.length/longPer),w:FULL,x:0,y});
++  z.d=zoneDepth(z.lanes);y+=z.d+BAND_GAP;
++ }
++ for(const z of grid){z.per=PER;z.lanes=Math.max(2,Math.ceil(z.list.length/PER));z.w=ZW;z.d=zoneDepth(z.lanes);}
++ const cols=Math.min(3,Math.max(1,grid.length)),colW=Array(cols).fill(0),rowD=[];
++ grid.forEach((z,i)=>{colW[i%cols]=Math.max(colW[i%cols],z.w);const r=Math.floor(i/cols);rowD[r]=Math.max(rowD[r]||0,z.d);});
++ grid.forEach((z,i)=>{const c=i%cols,r=Math.floor(i/cols);z.x=colW.slice(0,c).reduce((a,b)=>a+b+AISLE,0);z.y=y+rowD.slice(0,r).reduce((a,b)=>a+b+AISLE,0);});
++ const zones=[...bands,...grid],placed=[],colors=new Map();
++ for(const z of zones){
+   let prev=-1;
+   z.items=z.list.map((it,k)=>{
+    let ci=hash(it.title)%PALETTE.length;if(ci===prev)ci=(ci+5)%PALETTE.length;prev=ci;colors.set(it.id,PALETTE[ci]);
+-   const p={id:it.id,title:it.title,kind:it.kind||kind,source:zoneLabel(z.id,kind),zone:z,x:z.x+PAD+(k%PER)*SLOT,y:z.y+TOPPAD+Math.floor(k/PER)*(LANE+LGAP),color:PALETTE[ci],data:it};
++   const p={id:it.id,title:it.title,kind:it.kind||kind,source:zoneLabel(z.id,kind),zone:z,x:z.x+PAD+(k%z.per)*SLOT,y:z.y+TOPPAD+Math.floor(k/z.per)*(LANE+LGAP),color:PALETTE[ci],data:it};
+    placed.push(p);return p;
+   });
+-  z.slots=z.lanes*PER;
+- });
+- const W=colW.reduce((a,b)=>a+b,0)+AISLE*(cols-1),D=rowD.reduce((a,b)=>a+b,0)+AISLE*Math.max(0,rowD.length-1);
++  z.slots=z.lanes*z.per;
++ }
++ const gridW=colW.reduce((a,b)=>a+b,0)+AISLE*(cols-1),gridD=grid.length?rowD.reduce((a,b)=>a+b,0)+AISLE*Math.max(0,rowD.length-1):-BAND_GAP;
++ const W=bands.length?Math.max(FULL,gridW):gridW,D=y+gridD;
+  return {zones,items:placed,W,D,colors};
+ }
+ 
+@@ -104,16 +117,19 @@ export default class Warehouse {
+   for(let x=Math.ceil(x0+WT);x<=x1;x++)line(this.P(x,y0+WT),this.P(x,y1));
+   for(let y=Math.ceil(y0+WT);y<=y1;y++)line(this.P(x0+WT,y),this.P(x1,y));
+   o.push(`<path class="ks-grid" d="${g.join('')}"/>`);
+-  const ax=[],xs=[...new Set(zones.map(z=>z.x))].sort((a,b)=>a-b),ys=[...new Set(zones.map(z=>z.y))].sort((a,b)=>a-b);
+-  xs.slice(1).forEach(cx=>{const a=this.P(cx-AISLE/2,y0+.6),b=this.P(cx-AISLE/2,y1-.4);ax.push(`M${a[0]} ${a[1]}L${b[0]} ${b[1]}`);});
+-  ys.slice(1).forEach(ry=>{const a=this.P(x0+.6,ry-AISLE/2),b=this.P(x1-.4,ry-AISLE/2);ax.push(`M${a[0]} ${a[1]}L${b[0]} ${b[1]}`);});
++  // Column aisles start below the full-width bands; each row aisle sits midway in its gap.
++  const grid=zones.filter(z=>!z.band),bandEnd=zones.filter(z=>z.band).reduce((e,z)=>Math.max(e,z.y+z.d),-Infinity);
++  const ax=[],xs=[...new Set(grid.map(z=>z.x))].sort((a,b)=>a-b),ys=[...new Set(zones.map(z=>z.y))].sort((a,b)=>a-b);
++  const top=Number.isFinite(bandEnd)?Math.max(y0+.6,grid.length?Math.min(...grid.map(z=>z.y))-.3:y1):y0+.6;
++  xs.slice(1).forEach(cx=>{const a=this.P(cx-AISLE/2,top),b=this.P(cx-AISLE/2,y1-.4);ax.push(`M${a[0]} ${a[1]}L${b[0]} ${b[1]}`);});
++  ys.slice(1).forEach(ry=>{const prev=Math.max(...zones.filter(z=>z.y<ry).map(z=>z.y+z.d)),my=(prev+ry)/2,a=this.P(x0+.6,my),b=this.P(x1-.4,my);ax.push(`M${a[0]} ${a[1]}L${b[0]} ${b[1]}`);});
+   o.push(`<path class="ks-aisle" d="${ax.join('')}"/>`);
+   const sel=this.itemById(this.selected),lit=this.focusZone||sel?.zone;
+   for(const z of zones){
+    const on=lit===z;
+    o.push(`<g class="ks-zone-g${on?' is-on':''}" data-zone="${esc(z.id)}"><polygon class="ks-zone${on?' is-on':this.hoverZone===z?' is-hover':''}" points="${this.quad(z.x,z.y,z.w,z.d)}"/>`);
+    for(let l=0;l<z.lanes;l++)o.push(`<polygon class="ks-lane" points="${this.quad(z.x+PAD*.5,z.y+TOPPAD+l*(LANE+LGAP)-.1,z.w-PAD,LANE+.05)}"/>`);
+-   for(let k=z.items.length;k<z.slots;k++)o.push(`<polygon class="ks-bay" points="${this.quad(z.x+PAD+(k%PER)*SLOT+.06,z.y+TOPPAD+Math.floor(k/PER)*(LANE+LGAP)+.02,SLOT-.16,.72)}"/>`);
++   for(let k=z.items.length;k<z.slots;k++)o.push(`<polygon class="ks-bay" points="${this.quad(z.x+PAD+(k%z.per)*SLOT+.06,z.y+TOPPAD+Math.floor(k/z.per)*(LANE+LGAP)+.02,SLOT-.16,.72)}"/>`);
+    const fy=z.y+z.d-.32,size=Math.min(this.kind==='news'?22:19,(z.w-PAD*2-2.4)*S/Math.max(1,units(z.label))/.66);
+    o.push(this.floorText(z.x+PAD,fy,'ks-zname',size.toFixed(1),z.label),this.floorText(z.x+z.w-PAD,fy,'ks-zcount',13,`${z.items.length} ${this.kind==='news'?'条新闻':'个项目'}`,'end'),'</g>');
+   }

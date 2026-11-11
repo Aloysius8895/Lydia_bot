@@ -1,7 +1,9 @@
-import {useLayoutEffect,useMemo,useRef,useState} from 'react';
+import {forwardRef,useEffect,useImperativeHandle,useLayoutEffect,useRef,useState} from 'react';
 import slate from '../assets/knowledge/binders-slate.png';
 import ivory from '../assets/knowledge/binders-ivory.png';
 import sand from '../assets/knowledge/binders-sand.png';
+import Warehouse from '../knowledge-warehouse.js';
+import {setDragGhost} from '../material-drag.js';
 
 export const binderImages=[slate,ivory,sand];
 export function dragProject(event,project){
@@ -9,89 +11,45 @@ export function dragProject(event,project){
  event.dataTransfer.setData('application/x-lydia-material',JSON.stringify({id:project.id,kind:project.kind||'hackathon'}));
  event.dataTransfer.setData('text/plain',project.id);event.dataTransfer.effectAllowed='copy';
 }
-const iso=(x,y,z=0)=>[520+(x-y)*.82,92+(x+y)*.43-z];
-const points=(coords)=>coords.map(p=>iso(...p).join(',')).join(' ');
-function Slab({x,y,w,d,z=0,kind='floor'}){
- return <g className={'ks-'+kind}>
-  <polygon className="ks-edge" points={points([[x,y,z],[x+w,y,z],[x+w,y,z-8],[x+w,y+d,z-8],[x,y+d,z-8]])}/>
-  <polygon className="ks-top" points={points([[x,y,z],[x+w,y,z],[x+w,y+d,z],[x,y+d,z]])}/>
- </g>;
-}
-export default function KnowledgeScene({projects,selected,onSelect,onAdd,materialType='hackathon'}){
- const host=useRef(null),[size,setSize]=useState({width:800,height:650}),[zoom,setZoom]=useState(1),[pan,setPan]=useState({x:0,y:0});
- const gesture=useRef(null),pointers=useRef(new Map()),camera=useRef({zoom:1,pan:{x:0,y:0}}),suppressClick=useRef(false);
- function updateCamera(next){camera.current=next;setZoom(next.zoom);setPan(next.pan);}
- useLayoutEffect(()=>{const observer=new ResizeObserver(entries=>{const r=entries[0].contentRect;setSize({width:r.width,height:r.height});});observer.observe(host.current);return()=>observer.disconnect();},[]);
- const shelves=useMemo(()=>{
-  const groups=new Map();for(const p of projects){const key=p.source_id;if(!groups.has(key))groups.set(key,[]);groups.get(key).push(p);}
-  const rows=[];for(const [source,items] of groups){for(let i=0;i<items.length;i+=6)rows.push({source,items:items.slice(i,i+6),first:i===0});}
-  return rows;
- },[projects]);
- const sceneHeight=Math.max(640,220+shelves.length*78),fit=Math.min(size.width/1060,size.height/sceneHeight),scale=fit*zoom;
- const transform=`translate(${(size.width-1060*scale)/2+pan.x}px,${(size.height-sceneHeight*scale)/2+pan.y}px) scale(${scale})`;
- const clamp=value=>Math.max(.5,Math.min(4,value));
- function position(e){const r=host.current.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};}
- function beginPinch(){
-  const [a,b]=[...pointers.current.values()],mid={x:(a.x+b.x)/2,y:(a.y+b.y)/2},c=camera.current,s=fit*c.zoom;
-  gesture.current={kind:'pinch',distance:Math.max(8,Math.hypot(a.x-b.x,a.y-b.y)),zoom:c.zoom,
-   anchor:{x:(mid.x-(size.width-1060*s)/2-c.pan.x)/s,y:(mid.y-(size.height-sceneHeight*s)/2-c.pan.y)/s}};
-  suppressClick.current=true;
- }
- function start(e){
-  if(e.button!==0)return;
-  if(e.pointerType!=='touch'&&e.target.closest('button')){suppressClick.current=false;return;}
-  if(!pointers.current.size)suppressClick.current=false;
-  const p=position(e);pointers.current.set(e.pointerId,p);
-  if(pointers.current.size===1)gesture.current={kind:'pan',start:p,pan:{...camera.current.pan}};
-  else beginPinch();
-  if(!e.target.closest('button')||pointers.current.size>1)for(const id of pointers.current.keys())e.currentTarget.setPointerCapture(id);
- }
- function move(e){
-  if(!pointers.current.has(e.pointerId))return;
-  const p=position(e);pointers.current.set(e.pointerId,p);const g=gesture.current;if(!g)return;
-  if(g.kind==='pinch'&&pointers.current.size>=2){
-   const [a,b]=[...pointers.current.values()],mid={x:(a.x+b.x)/2,y:(a.y+b.y)/2};
-   const nextZoom=clamp(g.zoom*Math.hypot(a.x-b.x,a.y-b.y)/g.distance),s=fit*nextZoom;
-   updateCamera({zoom:nextZoom,pan:{x:mid.x-g.anchor.x*s-(size.width-1060*s)/2,y:mid.y-g.anchor.y*s-(size.height-sceneHeight*s)/2}});
-   e.preventDefault();
-  }else if(g.kind==='pan'){
-   const dx=p.x-g.start.x,dy=p.y-g.start.y;
-   if(Math.hypot(dx,dy)>6)suppressClick.current=true;
-   if(suppressClick.current){updateCamera({zoom:camera.current.zoom,pan:{x:g.pan.x+dx,y:g.pan.y+dy}});e.preventDefault();}
-  }
- }
- function end(e){
-  if(!pointers.current.delete(e.pointerId))return;
-  if(pointers.current.size>=2)beginPinch();
-  else if(pointers.current.size===1)gesture.current={kind:'pan',start:[...pointers.current.values()][0],pan:{...camera.current.pan}};
-  else gesture.current=null;
- }
- function preventGestureClick(e){if(suppressClick.current&&e.detail!==0){e.preventDefault();e.stopPropagation();}}
- const depth=Math.max(540,shelves.length*98+70);
- return <div className="knowledge-scene" ref={host} aria-label="Hackathon 空间项目库">
-  <div className="knowledge-scene__viewport" onPointerDown={start} onPointerMove={move} onPointerUp={end} onPointerCancel={end} onLostPointerCapture={e=>{if(!e.currentTarget.hasPointerCapture(e.pointerId))end(e);}} onClickCapture={preventGestureClick} onDoubleClickCapture={preventGestureClick} onDragStartCapture={e=>{if(pointers.current.size)e.preventDefault();}}>
-   <div className="knowledge-scene__world" style={{width:1060,height:sceneHeight,transform}}>
-    <svg className="knowledge-scene__floor" viewBox={`0 0 1060 ${sceneHeight}`} aria-hidden="true">
-     <Slab x={-28} y={-24} w={620} d={depth} z={-8}/>
-     <g className="ks-grid">{Array.from({length:16},(_,i)=><line key={'x'+i} x1={iso(i*40,0,-7)[0]} y1={iso(i*40,0,-7)[1]} x2={iso(i*40,depth,-7)[0]} y2={iso(i*40,depth,-7)[1]}/>)}{Array.from({length:Math.ceil(depth/40)},(_,i)=><line key={'y'+i} x1={iso(0,i*40,-7)[0]} y1={iso(0,i*40,-7)[1]} x2={iso(590,i*40,-7)[0]} y2={iso(590,i*40,-7)[1]}/>)}</g>
-     {shelves.map((s,r)=><g key={r}>
-      <Slab x={0} y={r*98} w={560} d={73} z={10} kind="rack"/>
-      {[0,560].map(x=><g key={x} className="ks-upright"><line x1={iso(x,r*98,10)[0]} y1={iso(x,r*98,10)[1]} x2={iso(x,r*98,76)[0]} y2={iso(x,r*98,76)[1]}/><line x1={iso(x,r*98+73,10)[0]} y1={iso(x,r*98+73,10)[1]} x2={iso(x,r*98+73,76)[0]} y2={iso(x,r*98+73,76)[1]}/><line x1={iso(x,r*98,76)[0]} y1={iso(x,r*98,76)[1]} x2={iso(x,r*98+73,76)[0]} y2={iso(x,r*98+73,76)[1]}/></g>)}
-     </g>)}
-    </svg>
-    {shelves.map((s,r)=><div key={'row'+r}>
-     {s.first&&<span className="knowledge-zone" style={{left:iso(-70,r*98+30)[0]-80,top:iso(-70,r*98+30)[1]+5}}>{s.source}</span>}
-     {s.items.map((p,col)=>{const [x,y]=iso(35+col*86,r*98+39,9);const color=[...p.source_id].reduce((n,c)=>n+c.charCodeAt(0),0)%3;return <button type="button" className={'knowledge-object'+(selected===p.id?' is-selected':'')} key={p.id} style={{left:x-48,top:y-94}} draggable onDragStart={e=>dragProject(e,p)} onClick={()=>onSelect(p.id)} onDoubleClick={()=>onAdd(p)} aria-label={'查看项目 '+p.title} aria-pressed={selected===p.id} title={p.title+' · 双击加入分析'}>
-      <span className="knowledge-object__base"/><img src={binderImages[p.kind==='news'?1:color]} alt="" draggable={false}/><span className="knowledge-object__label">{p.kind==='news'?'新闻 · ':''}{p.title}</span>
-      </button>;})}
-    </div>)}
-   </div>
+
+/* The warehouse engine owns the SVG, labels and camera; React only feeds it data. */
+const KnowledgeScene=forwardRef(function KnowledgeScene({projects,selected,onSelect,onAdd,materialType='hackathon',tray=[],view='iso',onFocusChange,onColors,searches=[],onRemoveSearch},ref){
+ const host=useRef(null),viewport=useRef(null),cam=useRef(null),world=useRef(null),flight=useRef(null),labels=useRef(null),ctrls=useRef(null),hits=useRef(null),zoom=useRef(null),engine=useRef(null);
+ const handlers=useRef({});handlers.current={onSelect,onAdd,onFocusChange,onColors,onRemoveSearch};
+ const [touch,setTouch]=useState(false);
+ useLayoutEffect(()=>{
+  const w=new Warehouse({viewport:viewport.current,cam:cam.current,world:world.current,flight:flight.current,labels:labels.current,ctrls:ctrls.current,hits:hits.current,zoomLabel:zoom.current},{
+   onSelect:id=>handlers.current.onSelect?.(id),onAdd:p=>handlers.current.onAdd?.(p),onFocus:z=>handlers.current.onFocusChange?.(z),
+   onRemoveSearch:id=>handlers.current.onRemoveSearch?.(id),
+   onColors:m=>handlers.current.onColors?.(m),onDragStart:(e,p,color)=>{dragProject(e,p);setDragGhost(e,p,color);}
+  });
+  engine.current=w;
+  const observer=new ResizeObserver(entries=>{const r=entries[0].contentRect;if(r.width&&r.height)w.resize(r.width,r.height);});
+  observer.observe(host.current);setTouch(matchMedia('(pointer:coarse)').matches);
+  return()=>{observer.disconnect();w.destroy();engine.current=null;};
+ },[]);
+ useEffect(()=>{engine.current?.setData(projects.map(p=>({...p,kind:p.kind||materialType})),materialType);},[projects,materialType]);
+ useEffect(()=>{engine.current?.setSelected(selected||null);},[selected,projects]);
+ useEffect(()=>{engine.current?.setTray(tray);},[tray.join(','),projects]);
+ useEffect(()=>{engine.current?.setView(view);},[view]);
+ // Matches are passed in full (items) so books from other pages can fly in from above.
+ useEffect(()=>{engine.current?.setSearches(searches.map(s=>({...s,items:(s.items||[]).map(p=>({...p,kind:p.kind||materialType}))})));},[searches.map(s=>s.id+s.status+(s.ids||[]).join(',')).join(';')]);
+ useImperativeHandle(ref,()=>({overview:()=>engine.current?.overview(),focus:id=>engine.current?.focus(id)}),[]);
+ const news=materialType==='news';
+ return <div className="knowledge-scene" ref={host} aria-label={news?'新闻空间资料库':'Hackathon 空间项目库'}>
+  <div className="knowledge-scene__viewport" ref={viewport}>
+   <div className="knowledge-scene__world" ref={cam}><svg className="knowledge-scene__svg" width="1" height="1" aria-hidden="true"><g ref={world}/><g ref={flight} className="ks-flight"/></svg></div>
+   <div className="ks-hits" ref={hits}/>
   </div>
-  {!projects.length&&<div className="knowledge-scene__empty"><span className="knowledge-empty-mark">◇</span><h2>{materialType==='news'?'新闻库，等待新的线索':'项目书库，等待你的第一批案例'}</h2><p>{materialType==='news'?'添加公开链接、粘贴新闻正文，或从现有研究资料选择新闻。':'从 Crawl 收集 Hackathon 项目后，它们会出现在这里。'}<br/>清除筛选可以查看其他资料。</p></div>}
-  <div className="knowledge-scene__legend"><i/>{materialType==='news'?'新闻资料':'比赛项目'}<span className="kw-mouse-hint">点击查看 · 拖入分析</span><span className="kw-touch-hint">单指移动 · 双指缩放</span></div>
-  <div className="knowledge-camera"><button type="button" aria-label="缩小空间" onClick={()=>updateCamera({...camera.current,zoom:clamp(camera.current.zoom-.15)})}>−</button><span aria-label="空间缩放比例">{Math.round(zoom*100)}%</span><button type="button" aria-label="放大空间" onClick={()=>updateCamera({...camera.current,zoom:clamp(camera.current.zoom+.15)})}>+</button><button type="button" onClick={()=>{pointers.current.clear();gesture.current=null;updateCamera({zoom:1,pan:{x:0,y:0}});}}>总览</button></div>
+  <div className="ks-labels" ref={labels} aria-hidden="true"/>
+  <div className="ks-zone-ctrls" ref={ctrls}/>
+  {!!projects.length&&<div className="knowledge-scene__legend" aria-label="图例"><span><i className="ks-sw-multi"/>每个标题一种颜色</span><span><i className="ks-sw-sel"/>已选中</span><span><i className="ks-sw-empty"/>空位</span><span><i className="ks-sw-tray">1</i>在托盘</span><span className="ks-legend-hint">{touch?'单指移动 · 双指缩放 · 轻点区域聚焦':'拖动移动 · 滚轮缩放 · 点区域聚焦'}</span></div>}
+  {!projects.length&&<div className="knowledge-scene__empty"><span className="knowledge-empty-mark">◇</span><h2>{news?'新闻库，等待新的线索':'项目书库，等待你的第一批案例'}</h2><p>{news?'添加公开链接、粘贴新闻正文，或从现有研究资料选择新闻。':'从 Crawl 收集 Hackathon 项目后，它们会出现在这里。'}<br/>清除筛选可以查看其他资料。</p></div>}
+  <button type="button" className="ks-overview" onClick={()=>engine.current?.overview()}><span aria-hidden="true">⛶</span>查看整个书库</button>
+  <div className="knowledge-camera"><button type="button" aria-label="缩小空间" onClick={()=>engine.current?.zoomBy(1/1.3)}>−</button><span ref={zoom} aria-label="空间缩放比例">100%</span><button type="button" aria-label="放大空间" onClick={()=>engine.current?.zoomBy(1.3)}>+</button></div>
  </div>;
-}
+});
+export default KnowledgeScene;
 
 export function IdeaShelf({ideas,onSelect,onDrop,selected}){
  const [over,setOver]=useState(false);

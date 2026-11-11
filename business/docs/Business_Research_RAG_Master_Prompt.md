@@ -269,3 +269,6 @@ PWA 交付 manifest、独立图标与 apple-touch-icon、standalone 启动配置
 持续保存 IMPLEMENTATION_STATUS.md：完成项、证据、未通过项、阻塞和下一步。最终明确区分 GENERATED（文件已生成）、LOADED（实际读入）、CONNECTED（真实连接成功）、TEST_PASSED（指定测试通过）、NOT_RUN/BLOCKED，附命令、结果与时间。
 
 最终告诉我：做成了什么、电脑启动/停止方式、手机连接与添加主屏幕步骤、CLI 版本与实际认证类型、专家技能加载方式、本地 embedding、哪些测试真的通过、哪些仍未运行、订阅与联网额度/额外费用状态，以及下一步怎样提交一个 idea。明确电脑必须保持运行且 Claude 推理需要网络，区分应用可启动、CLI 已登录、专家真实答题成功、手机网页可达与手机 PWA 安装通过。不要只说“系统已完成”“全本地”或“完全免费”。
+# 2026-11-09 用户目录规则修正
+
+以下历史提示词中的目录示例以本条修正为准：实际数据统一在工作区 `data/data_storage`，数据处理代码统一在 `data/data_preprocessing/{RAG,database,crawl,imports,cli}`。数据库在 data_storage/database，研究导出在 data_storage/research/exports，备份在 data_storage/backups/database，预览/批次/迁移报告分开，分类资料在 data_storage/library。应用界面、API、专家逻辑、部署、测试仍按 business 下相应职责目录组织。不再把正式数据写到 business/.runtime/data 或 business/cases。目录分类不能升级来源真实性、原文证据或官方 SDG 归属。

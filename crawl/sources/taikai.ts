@@ -1,7 +1,7 @@
 import type {ParseContext,ParsedPage,ParsedEvent} from '../types.ts';
 import {readJSON,objects,eventYear} from './structured.ts';
 import {blank,makeEvent,listing,pagination,outcome} from './discovery.ts';
-import {document,parentOf,anchors,find,tag,cleanText,locator} from '../../data/crawl/html.ts';
+import {document,parentOf,anchors,find,tag,cleanText,locator} from '../../data/data_preprocessing/crawl/html.ts';
 
 export function parseTAIKAI(url:string,html:string,context:ParseContext):ParsedPage{
  const page=blank('taikai-public-next-v1'),doc=document(html),all=anchors(doc,url),values=readJSON(html),props=values.find(v=>v?.props?.pageProps)?.props?.pageProps,challenge=props?.challengeProps;

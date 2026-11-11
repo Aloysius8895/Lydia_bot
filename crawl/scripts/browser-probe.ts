@@ -2,7 +2,7 @@ import {mkdir,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {renderPage,browserReadySelector} from '../fetch/browser.ts';
 import {fetchPage,decodedBytes,robotsAllowed} from '../fetch/http.ts';
-import {Snapshots,crawlStorageRoot} from '../../data/crawl/snapshots.ts';
+import {Snapshots,crawlStorageRoot} from '../../data/data_preprocessing/crawl/snapshots.ts';
 import {sources,sourceURL} from '../sources/registry.ts';
 import {links,plain} from '../sources/ethglobal.ts';
 const root=path.join(crawlStorageRoot,'reports',`browser-probe-${Date.now()}`),snapshots=new Snapshots(root);await mkdir(root,{recursive:true});

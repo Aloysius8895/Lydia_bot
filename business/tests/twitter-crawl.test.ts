@@ -9,11 +9,11 @@ import {sourceURL} from '../../crawl/sources/registry.ts';
 import {runSchema} from '../../crawl/core/config.ts';
 import {collectTwitterCards,TwitterBrowser,type TwitterPage} from '../../crawl/fetch/twitter.ts';
 import {CrawlWorker} from '../../crawl/core/worker.ts';
-import {CrawlStore} from '../../data/crawl/store.ts';
-import {Snapshots} from '../../data/crawl/snapshots.ts';
-import {Store} from '../../data/database/store.ts';
-import {exportCrawl} from '../../data/crawl/export.ts';
-import {attachProject} from '../../data/RAG/crawl-bridge.ts';
+import {CrawlStore} from '../../data/data_preprocessing/crawl/store.ts';
+import {Snapshots} from '../../data/data_preprocessing/crawl/snapshots.ts';
+import {Store} from '../../data/data_preprocessing/database/store.ts';
+import {exportCrawl} from '../../data/data_preprocessing/crawl/export.ts';
+import {attachProject} from '../../data/data_preprocessing/RAG/crawl-bridge.ts';
 import type {FetchResult} from '../../crawl/types.ts';
 import {CrawlAPI} from '../backend/crawl.ts';
 

@@ -7,9 +7,9 @@ import {TwitterAPI,TwitterAPIError} from '../../crawl/fetch/twitter-api.ts';
 import {parseTwitterAPI} from '../../crawl/sources/twitter-api.ts';
 import {runSchema} from '../../crawl/core/config.ts';
 import {CrawlWorker} from '../../crawl/core/worker.ts';
-import {CrawlStore} from '../../data/crawl/store.ts';
-import {Store} from '../../data/database/store.ts';
-import {Snapshots} from '../../data/crawl/snapshots.ts';
+import {CrawlStore} from '../../data/data_preprocessing/crawl/store.ts';
+import {Store} from '../../data/data_preprocessing/database/store.ts';
+import {Snapshots} from '../../data/data_preprocessing/crawl/snapshots.ts';
 import {CrawlAPI} from '../backend/crawl.ts';
 
 const secret='TEST_ONLY_BEARER_SECRET';

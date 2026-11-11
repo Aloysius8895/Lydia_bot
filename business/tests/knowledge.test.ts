@@ -9,7 +9,7 @@ import {createApp} from '../backend/server.ts';
 import {ObsidianBridge} from '../backend/obsidian.ts';
 import {ideaOutput,validateIdeaSources} from '../agents/idea-lab.ts';
 import {seedKnowledge,knowledgeReply} from './knowledge-fixture.ts';
-import {ingest} from '../../data/RAG/retrieval.ts';
+import {ingest} from '../../data/data_preprocessing/RAG/retrieval.ts';
 
 let app:Awaited<ReturnType<typeof createApp>>,server:http.Server,origin:string,cookie='',csrf='',temp:string,projects:any[],run:any,saved:any;
 before(async()=>{

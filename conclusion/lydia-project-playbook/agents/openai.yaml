@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lydia 项目工作手册"
+  short_description: "复用 Lydia 的开发、研究、数据处理、界面设计与运维经验，并追溯历史记录"
+  default_prompt: "使用 $lydia-project-playbook，结合当前代码和历史决定继续处理 Lydia 项目的任务。"

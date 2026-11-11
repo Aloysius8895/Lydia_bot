@@ -1,11 +1,11 @@
 import {readFile,writeFile} from 'node:fs/promises';
 import path from 'node:path';
-import {Store} from '../../data/database/store.ts';
-import {Embedding} from '../../data/RAG/providers/embedding.ts';
+import {Store} from '../../data/data_preprocessing/database/store.ts';
+import {Embedding} from '../../data/data_preprocessing/RAG/providers/embedding.ts';
 import {ClaudeCLI} from '../agents/providers/claude.ts';
-import {ingest,retrieve} from '../../data/RAG/retrieval.ts';
-import {expandQueryBatch} from '../../data/RAG/query-expansion.ts';
-import {rerankBatch} from '../../data/RAG/rerank.ts';
+import {ingest,retrieve} from '../../data/data_preprocessing/RAG/retrieval.ts';
+import {expandQueryBatch} from '../../data/data_preprocessing/RAG/query-expansion.ts';
+import {rerankBatch} from '../../data/data_preprocessing/RAG/rerank.ts';
 import {config,businessRoot} from '../shared/config.ts';
 const dir=path.join(businessRoot,'test-results');
 const previous=JSON.parse(await readFile(path.join(dir,'expansion-evaluation-fixtures.json'),'utf8'));

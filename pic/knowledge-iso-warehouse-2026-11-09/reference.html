@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lydia · 等距项目仓库 v5</title>
+<!-- 设计参考稿，独立文件。不导入、不修改正式应用。标题、平台、新闻分类取自 2026-11-09 本地资料库。 -->
+<style>
+:root{
+ --bg:#f3f2ef;--panel:#fffefa;--line:#d8d6d0;--text:#22211f;--muted:#716e68;--btn:#242321;--btn-text:#fffdf9;--active:#e9e7e1;
+ --sc-bg1:#efede8;--sc-bg2:#e2dfd9;--floor:#e7e4de;--floor-edge:#c9c4bb;--grid:#dcd8d0;--zone:#dfdbd4;--zone-line:#bab4a9;--lane:#d6d1c8;--bay:#c3bdb2;
+ --wall-top:#d3cec5;--wall-face:#c4beb3;--zone-text:#6f695f;--name:#3f3a33;
+ --teal:#13907e;--teal-soft:rgba(19,144,126,.14);--teal-line:rgba(19,144,126,.8);
+ --shadow:rgba(60,48,30,.18);--chip:#fffefa;
+}
+:root[data-theme=dark]{
+ --bg:#080808;--panel:#101010;--line:#2a2a2a;--text:#ecebe8;--muted:#9c9a95;--btn:#eeece6;--btn-text:#161616;--active:#232323;
+ --sc-bg1:#0c0e11;--sc-bg2:#060708;--floor:#0f1215;--floor-edge:#1b1f25;--grid:#15181d;--zone:#121519;--zone-line:#2a3038;--lane:#1a1e24;--bay:#262c34;
+ --wall-top:#1c2027;--wall-face:#13161b;--zone-text:#7c8692;--name:#c3c9d0;
+ --teal:#3cc7b0;--teal-soft:rgba(60,199,176,.11);--teal-line:rgba(60,199,176,.78);
+ --shadow:rgba(0,0,0,.5);--chip:#16191d;
+ color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:14px "Segoe UI","Microsoft YaHei UI","PingFang SC",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+.app{height:100vh;display:flex;flex-direction:column}
+.hd{height:76px;flex:none;display:flex;align-items:center;gap:18px;padding:0 18px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-size:27px;font-weight:600;letter-spacing:-.5px}
+.brand i{width:30px;height:28px;border-radius:9px;background:var(--text);position:relative}
+.brand i:before,.brand i:after{content:"";position:absolute;top:10px;width:5px;height:7px;border-radius:3px;background:var(--bg)}
+.brand i:before{left:8px}.brand i:after{right:8px}
+.hd .div{width:1px;height:36px;background:var(--line)}
+.hd nav{display:flex;gap:6px}
+.hd nav button{border:0;background:transparent;padding:10px 16px;border-radius:9px;font-size:15px}
+.hd nav button.on{background:var(--active)}
+.search{flex:1;max-width:390px;margin-left:auto;height:44px;border:1px solid var(--line);border-radius:10px;display:flex;align-items:center;gap:10px;padding:0 14px;color:var(--muted)}
+.icon-btn{width:44px;height:44px;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center;background:transparent}
+.ret{color:var(--muted);font-size:14px}
+.layout{flex:1;min-height:0;display:grid;grid-template-columns:205px minmax(0,1fr) 290px;gap:12px;padding:16px 14px 14px}
+.side,.insp,.panel,.tray{background:var(--panel);border:1px solid var(--line);border-radius:18px}
+.side{border-radius:26px;padding:18px 14px;display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.side .ws{font-size:9px;letter-spacing:1.4px;color:var(--muted);display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.side .ws i{width:26px;height:24px;border-radius:7px;background:var(--text)}
+.side .proj{font-weight:600;padding:6px 2px 14px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.side small{color:var(--muted);font-size:11px;margin:6px 6px}
+.side .nav{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:10px;font-size:14px}
+.side .nav.on{background:var(--active)}
+.side .sub{padding:4px 12px 4px 26px;color:var(--muted);font-size:13px}
+.side .sel{margin:2px 0 8px 26px;border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:12px;display:flex;justify-content:space-between}
+.center{min-width:0;display:flex;flex-direction:column;gap:12px}
+.panel{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+.bar{height:56px;flex:none;display:flex;align-items:center;gap:10px;padding:0 12px;border-bottom:1px solid var(--line)}
+.back{width:32px;height:32px;border-radius:9px;border:1px solid var(--line);background:transparent;display:grid;place-items:center;font-size:15px;flex:none}
+.crumb{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted);white-space:nowrap;min-width:0;overflow:hidden}
+.crumb b{color:var(--text);font-weight:600}
+.crumb .sep{opacity:.5}
+.bar .grow{flex:1}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px;flex:none}
+.seg button{border:0;background:transparent;padding:5px 11px;border-radius:7px;font-size:12px;color:var(--muted);white-space:nowrap;transition:background .18s,color .18s}
+.seg button.on{background:var(--active);color:var(--text)}
+.seg button em{font-style:normal;opacity:.6;margin-left:4px;font-size:11px}
+.scene{position:relative;flex:1;min-height:0;overflow:hidden;background:radial-gradient(ellipse 80% 70% at 55% 35%,var(--sc-bg1),var(--sc-bg2));touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.scene.dragging{cursor:grabbing}
+#cam{position:absolute;left:0;top:0;transform-origin:0 0;transition:opacity .22s}
+#cam.moving{will-change:transform}
+#cam.swap{opacity:0}
+#svg{position:absolute;left:0;top:0;overflow:visible}
+#tags{position:absolute;inset:0;pointer-events:none}
+.tag{position:absolute;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center}
+.tag span{background:var(--chip);border:1px solid var(--teal-line);color:var(--text);border-radius:8px;padding:5px 9px;font-size:12px;white-space:nowrap;box-shadow:0 6px 18px var(--shadow);display:flex;gap:7px;align-items:center;max-width:260px;overflow:hidden;text-overflow:ellipsis}
+.tag span i{width:9px;height:9px;border-radius:2px;flex:none}
+.tag span small{color:var(--muted);font-size:11px}
+.tag>b{width:1px;height:14px;background:var(--teal-line)}
+.tag.hover span{border-color:var(--line)}
+.tag.hover>b{background:var(--line)}
+.tag .tn{font-style:normal;width:17px;height:17px;border-radius:50%;background:var(--teal);color:#06110f;font-size:10px;font-weight:700;display:grid;place-items:center;flex:none}
+.nm{position:absolute;transform:translateX(-50%);font-size:11px;line-height:15px;padding:2px 6px;border-radius:5px;background:color-mix(in srgb,var(--panel) 72%,transparent);color:var(--name);white-space:nowrap;backdrop-filter:blur(3px)}
+.badge{position:absolute;transform:translate(-50%,-50%);width:19px;height:19px;border-radius:50%;background:var(--teal);color:#06110f;font-size:11px;font-weight:700;display:grid;place-items:center;box-shadow:0 0 0 3px color-mix(in srgb,var(--teal) 25%,transparent)}
+.legend{position:absolute;left:14px;top:12px;display:flex;gap:12px;align-items:center;font-size:11px;color:var(--muted);background:color-mix(in srgb,var(--panel) 82%,transparent);border:1px solid var(--line);border-radius:10px;padding:7px 11px;backdrop-filter:blur(8px);max-width:calc(100% - 28px);flex-wrap:wrap;row-gap:5px}
+.legend span{display:flex;align-items:center;gap:5px;white-space:nowrap}
+.legend i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.sw-sel{background:var(--teal)}.sw-empty{border:1px dashed var(--bay)}
+.sw-tray{width:13px!important;height:13px!important;border-radius:50%!important;background:var(--teal);color:#06110f;font-size:8px;font-style:normal;display:grid!important;place-items:center;font-weight:700}
+.sw-multi{width:22px!important;background:linear-gradient(90deg,#4f6cae 0 25%,#d4a463 25% 50%,#7fa596 50% 75%,#b86a43 75%)}
+.overview{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:7px;border:0;border-radius:999px;background:var(--btn);color:var(--btn-text);padding:9px 16px;font-size:12px;font-weight:600;box-shadow:0 8px 24px var(--shadow);transition:transform .15s}
+.overview:active{transform:translateX(-50%) scale(.96)}
+.zoom{position:absolute;right:14px;bottom:14px;display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--panel) 82%,transparent);backdrop-filter:blur(8px)}
+.zoom button{border:0;background:transparent;width:32px;height:32px;font-size:15px}
+.zoom span{font-size:12px;min-width:44px;text-align:center;font-variant-numeric:tabular-nums}
+.hint{position:absolute;right:14px;top:12px;font-size:11px;color:var(--muted);opacity:.8}
+/* svg */
+.fl-plate{fill:var(--floor);stroke:var(--floor-edge);stroke-width:1}
+.fl-grid{stroke:var(--grid);stroke-width:.6}
+.wall-face{fill:var(--wall-face)}.wall-top{fill:var(--wall-top)}
+.wall-stripe{fill:#c9a24a;opacity:.5}
+.aisle{fill:none;stroke:var(--zone-line);stroke-width:.8;stroke-dasharray:10 8;opacity:.6}
+.zone{fill:var(--zone);stroke:var(--zone-line);stroke-width:1;transition:fill .2s}
+.zone.hover{fill:color-mix(in srgb,var(--zone) 85%,var(--teal) 15%)}
+.zone.on{fill:var(--teal-soft);stroke:var(--teal-line);stroke-width:1.3}
+.lane{fill:var(--lane);stroke:none}
+.zone-g.on .lane{fill:color-mix(in srgb,var(--lane) 70%,var(--teal) 10%)}
+.bay{fill:none;stroke:var(--bay);stroke-width:.7;stroke-dasharray:3 3}
+.zname{fill:var(--zone-text);font-weight:700;letter-spacing:1.6px}
+.zcount{fill:var(--zone-text);opacity:.75}
+.zone-g.on .zname,.zone-g.on .zcount{fill:var(--teal)}
+.iname{fill:var(--name)}
+.shadow{fill:var(--shadow)}
+.glow{fill:var(--teal-soft);stroke:var(--teal-line);stroke-width:1.1}
+.item{cursor:pointer}
+.item>g{transition:transform .16s cubic-bezier(.2,.8,.2,1)}
+.item.hover>g{transform:translateY(-4px)}
+.item.sel polygon{stroke:var(--teal);stroke-width:.9;stroke-linejoin:round}
+.spine{opacity:.85}
+/* tray + inspector */
+.tray{flex:none;height:118px;display:flex;align-items:center;gap:16px;padding:0 18px;border-style:dashed}
+.tray h3{margin:0 0 4px;font-size:15px;white-space:nowrap}
+.tray p{margin:0;color:var(--muted);font-size:11px}
+.tray .chips{display:flex;gap:8px;flex:1;min-width:0;overflow:hidden}
+.tray .chip{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:12px;white-space:nowrap;max-width:190px}
+.tray .chip span{overflow:hidden;text-overflow:ellipsis}
+.tray .chip b{width:17px;height:17px;border-radius:50%;background:var(--teal);color:#06110f;font-size:10px;display:grid;place-items:center;flex:none}
+.tray .chip i{width:8px;height:8px;border-radius:2px;flex:none}
+.tray .go{border:0;border-radius:10px;background:var(--btn);color:var(--btn-text);padding:10px 14px;font-size:12px;white-space:nowrap}
+.tray .cond{border:1px solid var(--line);background:transparent;border-radius:10px;padding:9px 12px;font-size:12px}
+.insp{padding:22px 18px;display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.insp .k{font-size:10px;letter-spacing:1.5px;color:var(--muted)}
+.insp h2{margin:0;font-size:23px;line-height:1.25;display:flex;gap:10px;align-items:flex-start}
+.insp h2 i{width:12px;height:22px;border-radius:3px;flex:none;margin-top:3px}
+.insp p{margin:0;color:var(--muted);font-size:13px}
+.insp dl{display:grid;grid-template-columns:72px 1fr;gap:9px 8px;margin:6px 0;padding-top:14px;border-top:1px solid var(--line);font-size:12px}
+.insp dt{color:var(--muted)}.insp dd{margin:0;word-break:break-word}
+.insp .row{display:flex;gap:8px}
+.insp .row button{border:1px solid var(--line);background:transparent;border-radius:10px;padding:9px 12px;font-size:12px}
+.insp .row button.pri{background:var(--btn);color:var(--btn-text);border-color:transparent}
+.insp .shelf{margin-top:auto;border-top:1px solid var(--line);padding-top:14px}
+.insp .shelf h4{margin:0 0 8px;font-size:17px}
+.insp .shelf div{height:110px;border:1px dashed var(--line);border-radius:12px;display:grid;place-items:center;color:var(--muted);font-size:12px}
+/* phone */
+body.is-phone .layout{grid-template-columns:1fr;padding:10px;gap:10px}
+body.is-phone .side,body.is-phone .insp,body.is-phone .hd nav,body.is-phone .hd .div,body.is-phone .ret,body.is-phone .legend{display:none}
+body.is-phone .hd{height:60px;gap:10px;padding:0 12px}
+body.is-phone .brand{font-size:22px}
+body.is-phone .search{height:38px;font-size:12px}
+body.is-phone .icon-btn{width:38px;height:38px}
+body.is-phone .bar{height:auto;flex-wrap:wrap;padding:9px 10px;row-gap:8px}
+body.is-phone .bar .grow{display:none}
+body.is-phone .crumb{flex-basis:calc(100% - 42px)}
+body.is-phone .seg button{padding:5px 9px}
+body.is-phone .overview{bottom:12px;left:12px;transform:none;padding:8px 13px}
+body.is-phone .zoom{bottom:12px;right:12px}
+body.is-phone .tray{height:auto;padding:12px 14px;flex-wrap:wrap;gap:10px}
+body.is-phone .tray>div:first-child p{display:none}
+body.is-phone .tray .chips{flex-basis:100%;order:3;overflow-x:auto}
+body.is-phone .tray .actions{margin-left:auto}
+</style>
+</head>
+<body>
+<div class="app">
+ <header class="hd">
+  <div class="brand"><i></i>Lydia</div><div class="div"></div>
+  <nav><button class="on">项目库</button><button>Idea 实验台</button></nav>
+  <div class="search">⌕ 搜索项目、探索下一个方向…</div>
+  <button class="icon-btn" aria-label="主题">☾</button>
+  <span class="ret">返回 Lydia ↗</span>
+ </header>
+ <div class="layout">
+  <aside class="side">
+   <div class="ws"><i></i>LYDIA WORKSPACE</div>
+   <div class="proj">◉ 我的 Hackathon 项目</div>
+   <small>工作区</small>
+   <div class="nav on" id="nav-lib"><span>▭ 项目库</span><span style="color:var(--muted)">37</span></div>
+   <div class="sub">全部比赛项目</div><div class="sub">采集平台</div>
+   <div class="sel"><span>全部平台</span><span>⌄</span></div>
+   <div class="nav">◫ Idea 实验台</div><div class="nav">◌ Lydia 研究</div><div class="nav">☆ 我的 Idea</div><div class="nav">✱ 采集项目</div><div class="nav" id="nav-news">❐ 新闻与资讯</div>
+  </aside>
+  <main class="center">
+   <section class="panel">
+    <div class="bar">
+     <button class="back" id="back" aria-label="返回上一级">‹</button>
+     <div class="crumb" id="crumb"></div>
+     <div class="grow"></div>
+     <div class="seg" id="floors"><button data-f="projects">比赛项目<em>37</em></button><button data-f="news">新闻资料<em>15</em></button></div>
+     <div class="seg" id="views"><button data-v="iso" class="on">等距</button><button data-v="top">俯视</button><button data-v="list">列表</button></div>
+    </div>
+    <div class="scene" id="scene">
+     <div id="cam"><svg id="svg" width="1" height="1"><g id="world"></g></svg></div>
+     <div id="tags"></div>
+     <div class="legend" id="legend"></div>
+     <button class="overview" id="overview">⛶ 查看整个书库</button>
+     <div class="zoom"><button id="zout" aria-label="缩小">−</button><span id="zval">100%</span><button id="zin" aria-label="放大">+</button></div>
+    </div>
+   </section>
+   <section class="tray">
+    <div><h3>▱ 分析托盘</h3><p>新闻变化 × 项目机制 → 新的 idea</p></div>
+    <div class="chips" id="chips"></div>
+    <div class="actions" style="display:flex;gap:8px"><button class="cond">⚙ 条件</button><button class="go">分析并生成 ↗</button></div>
+   </section>
+  </main>
+  <aside class="insp" id="insp"></aside>
+ </div>
+</div>
+<script>
+/* ---------- data (titles from local library, 2026-11-09) ---------- */
+const PROJECTS=[{"t":"RupeeRail","s":"ethglobal","tag":"payments/ai-agent"},{"t":"Echo (TeamCookie())","s":"google","tag":"ai/disaster-response"},{"t":"CopyFlag","s":"imaginecup","tag":"ai"},{"t":"Revora Health","s":"imaginecup","tag":"ai/health"},{"t":"Bramble","s":"ethglobal","tag":"ai-agent/security"},{"t":"ENShell","s":"ethglobal","tag":"ai-agent/security"},{"t":"SpoilSafe","s":"imaginecup","tag":"ai/iot"},{"t":"ECI Centauri / Exoplanet Hunter AI","s":"nasa","tag":"space/ai"},{"t":"CloudMap / AirWatch Pro","s":"nasa","tag":"space/climate"},{"t":"CosmicNova","s":"nasa","tag":"space/education"},{"t":"Astro Sweepers","s":"nasa","tag":"space"},{"t":"Gaia+LEO","s":"nasa","tag":"space/optimization"},{"t":"Aven","s":"ethglobal","tag":"defi"},{"t":"CopeyBara","s":"ethglobal","tag":"defi/security"},{"t":"Takarabako","s":"ethglobal","tag":"web3"},{"t":"yohaku","s":"ethglobal","tag":"ai-agent/web3"},{"t":"DIVE","s":"ethglobal","tag":"ai-agent/oracle"},{"t":"Enconomy","s":"ethglobal","tag":"zk/web3"},{"t":"Tap2ETH","s":"ethglobal","tag":"wallet/payments"},{"t":"Herald Protocol","s":"hackquest","tag":"ai-agent/payments"},{"t":"Bido","s":"taikai","tag":"ai-agent/adtech"},{"t":"CodeArcheology","s":"devfolio","tag":"ai/devtools"},{"t":"CFO Copilot","s":"devfolio","tag":"ai/finance"},{"t":"Senthos","s":"devfolio","tag":"defi/solana"},{"t":"ciFHEr","s":"taikai","tag":"privacy/solana"},{"t":"Muralis","s":"taikai","tag":"rwa/esg"},{"t":"STRUCTA","s":"taikai","tag":"rwa/solana"},{"t":"AgentBazaar","s":"devfolio","tag":"ai-agent/solana"},{"t":"True Deal","s":"taikai","tag":"solana/participant"},{"t":"ApprenticeCircle+","s":"junction","tag":"ai/aging"},{"t":"Tokito","s":"devfolio","tag":"ai/hardware"},{"t":"Edge-AI Spectrophotometer","s":"hackster","tag":"iot/winner"},{"t":"RCT IRL","s":"hackster","tag":"iot/winner"},{"t":"Smart Coop 2.0","s":"hackster","tag":"iot/winner"},{"t":"Smart Water Guardian AI","s":"hackster","tag":"iot/winner"},{"t":"Curie","s":"hackster","tag":"robotics/winner"},{"t":"HaloSense V1","s":"hackster","tag":"wearable/winner"}];
+const NEWS=[{"t":"OpenAI 据报已融110亿美元，估值1.25万亿","s":"business_finance","src":"Bloomberg via TechCrunch (media report)"},{"t":"NVIDIA 完成10亿美元入股 Naver，持股4.13%","s":"business_finance","src":"Yonhap (media report citing Naver filing)"},{"t":"Anthropic IPO 估值承压","s":"business_finance","src":"CNBC (media report, investor sources)"},{"t":"Google 接手 Crusoe 怀俄明数据中心项目，计划投资170亿美元","s":"infrastructure","src":"Crusoe (official) + TechCrunch (media report)"},{"t":"Meta 为 Muse 与 Meta AI 更新专项模型","s":"models","src":"Meta (official)"},{"t":"Google 推出 Gemini Omni 1.2 Flash","s":"models","src":"Google (official)"},{"t":"美国民主党人重提暂停建设数据中心","s":"policy","src":"The Guardian (media report)"},{"t":"Meta 无限期暂停商业条款更新","s":"policy","src":"Ars Technica (media report)"},{"t":"豆包工作个人版取消5小时额度限制","s":"products","src":"IT之家 (media report)"},{"t":"Meta 在 Muse 推出 Spaces","s":"products","src":"Meta (official)"},{"t":"OpenAI 发布 BioBasicsBench","s":"research","src":"OpenAI (official)"},{"t":"DeepMind AI 智能体在人工指导下发现旧版 RSA-1024 两处弱点","s":"security","src":"Interesting Engineering (media report of DeepMind claims)"},{"t":"美国情报备忘录称有人被招募接近黄仁勋","s":"security","src":"TechCrunch citing NYT (media report; allegation unverified)"},{"t":"OpenAI 发布 GPT-6 Cyber","s":"security","src":"OpenAI (official)"},{"t":"OpenAI 与 Hacktron 合作安全测试","s":"security","src":"OpenAI (official)"}];
+const FLOORS={
+ projects:{name:'比赛项目',root:'全部平台',unit:'个项目',kind:'binder',data:PROJECTS,order:['ethglobal','hackster','devfolio','taikai','nasa','imaginecup','hackquest','junction','google'],label:id=>id.toUpperCase()},
+ news:{name:'新闻资料',root:'全部分类',unit:'条新闻',kind:'stack',data:NEWS,order:['security','business_finance','models','policy','products','infrastructure','research'],label:id=>({business_finance:'商业与融资',infrastructure:'基础设施',models:'模型',policy:'政策',products:'产品',research:'研究',security:'安全'})[id]}
+};
+/* ---------- colour: every title gets its own book colour ---------- */
+const PALETTE=[['#d4a463','纸箱'],['#e9e3d3','象牙'],['#4f6cae','钴蓝'],['#9aa1aa','钢灰'],['#b86a43','铁锈'],['#8e9a62','橄榄'],['#7fa596','鼠尾草'],['#8a6f9e','梅紫'],['#c9b48a','沙色'],['#5d6570','炭灰'],['#f1f0ec','纸白'],['#a4533f','砖红']];
+const TOPIC={'ai-agent':[2,'AI 智能体'],ai:[1,'AI 应用'],payments:[4,'支付 / 钱包'],wallet:[4,'支付 / 钱包'],defi:[0,'DeFi / Web3'],web3:[0,'DeFi / Web3'],zk:[0,'DeFi / Web3'],solana:[7,'Solana'],privacy:[7,'Solana'],rwa:[6,'RWA / ESG'],space:[10,'太空'],iot:[5,'IoT / 硬件'],robotics:[5,'IoT / 硬件'],wearable:[5,'IoT / 硬件']};
+const NEWSTOPIC={security:9,business_finance:0,models:2,policy:11,products:6,research:10,infrastructure:3};
+const hash=s=>[...s].reduce((h,c)=>(h*33+c.codePointAt(0))>>>0,5381);
+function hex2hsl(h){let r=parseInt(h.slice(1,3),16)/255,g=parseInt(h.slice(3,5),16)/255,b=parseInt(h.slice(5,7),16)/255;const mx=Math.max(r,g,b),mn=Math.min(r,g,b),l=(mx+mn)/2;let H=0,Sa=0;if(mx!==mn){const d=mx-mn;Sa=l>.5?d/(2-mx-mn):d/(mx+mn);H=mx===r?(g-b)/d+(g<b?6:0):mx===g?(b-r)/d+2:(r-g)/d+4;H*=60;}return [H,Sa*100,l*100];}
+const shade=(h,dl)=>{const [H,Sa,L]=hex2hsl(h);return `hsl(${H.toFixed(0)} ${Sa.toFixed(0)}% ${Math.max(4,Math.min(97,L+dl)).toFixed(0)}%)`;};
+
+const Q=new URLSearchParams(location.search);
+document.documentElement.dataset.theme=Q.get('theme')||'dark';
+if(Q.get('device')==='phone')document.body.classList.add('is-phone');
+const colorMode=Q.get('color')||'title';
+
+/* ---------- warehouse layout: zones of long lanes with dashed bays ---------- */
+const S=40,C=Math.cos(Math.PI/6),SLOT=1.05,LANE=1.0,LGAP=.55,PER=6,PAD=.5,TOPPAD=.45,STRIP=1.05,AISLE=1.5,M=1.4,BH=.66;
+/* lanes start at the back; the zone name is printed on the FRONT strip, so boxes never stand on it */
+const laneY=(z,l)=>z.y+TOPPAD+l*(LANE+LGAP);
+function build(key){
+ const F=FLOORS[key];
+ const zones=F.order.map(id=>{const items=F.data.filter(d=>d.s===id).map(d=>({...d,floor:key}));const lanes=Math.max(2,Math.ceil(items.length/PER));return {id,items,lanes,w:PAD*2+PER*SLOT,d:TOPPAD+lanes*(LANE+LGAP)-LGAP+STRIP};});
+ const colW=[0,0,0],rowD=[];zones.forEach((z,i)=>{colW[i%3]=Math.max(colW[i%3],z.w);const r=Math.floor(i/3);rowD[r]=Math.max(rowD[r]||0,z.d);});
+ zones.forEach((z,i)=>{const c=i%3,r=Math.floor(i/3);z.x=colW.slice(0,c).reduce((a,b)=>a+b+AISLE,0);z.y=rowD.slice(0,r).reduce((a,b)=>a+b+AISLE,0);
+  let prev=-1;z.items.forEach((it,k)=>{const li=Math.floor(k/PER),si=k%PER;it.x=z.x+PAD+si*SLOT;it.y=laneY(z,li);it.zone=z;
+   let ci;if(colorMode==='topic'){ci=key==='news'?NEWSTOPIC[it.s]:TOPIC[it.tag.split('/')[0]][0];}else{ci=hash(it.t)%PALETTE.length;if(ci===prev)ci=(ci+5)%PALETTE.length;}prev=ci;it.color=PALETTE[ci][0];it.ci=ci;});
+  z.slots=z.lanes*PER;});
+ const W=colW.reduce((a,b)=>a+b)+AISLE*(colW.filter(Boolean).length-1),D=rowD.reduce((a,b)=>a+b)+AISLE*(rowD.length-1);
+ return {key,F,zones,items:zones.flatMap(z=>z.items),W,D};
+}
+const floors={projects:build('projects'),news:build('news')};
+let cur=floors[Q.get('floor')==='news'?'news':'projects'];
+
+/* ---------- state ---------- */
+let T=Q.get('view')==='top'?1:0,focusZone=null,hoverItem=null,hoverZone=null;
+const pick=(t)=>floors.projects.items.concat(floors.news.items).find(i=>i.t===t);
+let selected=pick(Q.get('select')||(cur.key==='news'?'OpenAI 发布 GPT-6 Cyber':'ENShell'));
+const tray=['ENShell','RupeeRail','OpenAI 发布 GPT-6 Cyber'].map(pick);
+const cam={x:0,y:0,k:1};let kFit=1;
+
+/* ---------- projection: iso ⇄ top-down morph ---------- */
+function P(x,y,z=0){const ix=(x-y)*C*S,iy=(x+y)*.5*S-z*S*.82,tx=x*S*.94,ty=y*S*.94;return [ix+(tx-ix)*T,iy+(ty-iy)*T];}
+const pts=a=>a.map(p=>P(...p).map(v=>v.toFixed(1)).join(',')).join(' ');
+const quad=(x,y,w,d,z=0)=>pts([[x,y,z],[x+w,y,z],[x+w,y+d,z],[x,y+d,z]]);
+function basis(){const o=P(0,0),ex=P(1,0),ey=P(0,1);return [(ex[0]-o[0])/S,(ex[1]-o[1])/S,(ey[0]-o[0])/S,(ey[1]-o[1])/S];}
+function floorText(x,y,cls,size,text,extra=''){const [a,b,c,d]=basis(),[e,f]=P(x,y);return `<text class="${cls}" font-size="${size}" transform="matrix(${a.toFixed(4)} ${b.toFixed(4)} ${c.toFixed(4)} ${d.toFixed(4)} ${e.toFixed(1)} ${f.toFixed(1)})" ${extra}>${text}</text>`;}
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const fit2=(s,n)=>{let w=0,o='';for(const ch of s){w+=/[　-鿿＀-￯]/.test(ch)?2:1;if(w>n)return o+'…';o+=ch;}return o;};
+
+/* a project = three standing binders; a news item = a stack of flat issues */
+function solids(it){
+ const out=[];
+ if(it.floor==='projects'){const bw=.22,g=.035,d=.58,y=it.y+.08;for(let i=0;i<3;i++){const hh=BH-(hash(it.t+i)%3)*.05;out.push({x:it.x+.1+i*(bw+g),y,w:bw,d,h:hh,z:0,dl:(i-1)*4,spine:true});}}
+ else{const w=.78,d=.62,hh=.1;for(let i=0;i<4;i++){const o=((hash(it.t+i)%5)-2)*.025;out.push({x:it.x+.12+o,y:it.y+.06-o,w,d,h:hh,z:i*hh,dl:(i%2?-5:3),spine:false});}}
+ return out;
+}
+function solidSVG(b,base){
+ const {x,y,w,d,h,z}=b,t=z+h,c=shade(base,b.dl);
+ let s=`<polygon fill="${shade(base,b.dl-22)}" points="${pts([[x+w,y,z],[x+w,y+d,z],[x+w,y+d,t],[x+w,y,t]])}"/>`
+  +`<polygon fill="${shade(base,b.dl-10)}" points="${pts([[x,y+d,z],[x+w,y+d,z],[x+w,y+d,t],[x,y+d,t]])}"/>`
+  +`<polygon fill="${shade(base,b.dl+8)}" points="${pts([[x,y,t],[x+w,y,t],[x+w,y+d,t],[x,y+d,t]])}"/>`;
+ if(b.spine)s+=`<polygon class="spine" fill="${shade(base,b.dl+26)}" points="${pts([[x+w*.2,y+d,z+h*.55],[x+w*.8,y+d,z+h*.55],[x+w*.8,y+d,z+h*.78],[x+w*.2,y+d,z+h*.78]])}"/>`;
+ else s+=`<polyline fill="none" stroke="${shade(base,b.dl-16)}" stroke-width=".8" points="${pts([[x+w*.12,y+d*.3,t],[x+w*.7,y+d*.3,t]])}"/>`;
+ return s;
+}
+
+/* ---------- render: one SVG, strict back-to-front order ---------- */
+function render(){
+ const o=[],{zones,items,W,D}=cur,x0=-M,y0=-M,x1=W+M,y1=D+M,wh=1.6,wt=.18;
+ // 1 walls
+ o.push(`<polygon class="wall-face" points="${pts([[x0,y0+wt,0],[x1,y0+wt,0],[x1,y0+wt,wh],[x0,y0+wt,wh]])}"/>`,`<polygon class="wall-top" points="${quad(x0,y0,x1-x0,wt,wh)}"/>`);
+ o.push(`<polygon class="wall-face" style="filter:brightness(.8)" points="${pts([[x0+wt,y0,0],[x0+wt,y1,0],[x0+wt,y1,wh],[x0+wt,y0,wh]])}"/>`,`<polygon class="wall-top" points="${quad(x0,y0,wt,y1-y0,wh)}"/>`);
+ o.push(`<polygon class="wall-stripe" points="${pts([[x0+wt,y0+wt,.05],[x1,y0+wt,.05],[x1,y0+wt,.12],[x0+wt,y0+wt,.12]])}"/>`);
+ // 2 floor, grid, aisle markings
+ o.push(`<polygon class="fl-plate" points="${quad(x0,y0,x1-x0,y1-y0)}"/>`);
+ const g=[];for(let x=Math.ceil(x0+wt);x<=x1;x++){const a=P(x,y0+wt),b=P(x,y1);g.push(`M${a[0].toFixed(1)} ${a[1].toFixed(1)}L${b[0].toFixed(1)} ${b[1].toFixed(1)}`);}
+ for(let y=Math.ceil(y0+wt);y<=y1;y++){const a=P(x0+wt,y),b=P(x1,y);g.push(`M${a[0].toFixed(1)} ${a[1].toFixed(1)}L${b[0].toFixed(1)} ${b[1].toFixed(1)}`);}
+ o.push(`<path class="fl-grid" d="${g.join('')}"/>`);
+ const ax=[];const cols=[...new Set(zones.map(z=>z.x))].sort((a,b)=>a-b),rows=[...new Set(zones.map(z=>z.y))].sort((a,b)=>a-b);
+ cols.slice(1).forEach(cx=>{const a=P(cx-AISLE/2,y0+.6),b=P(cx-AISLE/2,y1-.4);ax.push(`M${a[0]} ${a[1]}L${b[0]} ${b[1]}`);});
+ rows.slice(1).forEach(ry=>{const a=P(x0+.6,ry-AISLE/2),b=P(x1-.4,ry-AISLE/2);ax.push(`M${a[0]} ${a[1]}L${b[0]} ${b[1]}`);});
+ o.push(`<path class="aisle" d="${ax.join('')}"/>`);
+ // 3 zones: tile, lanes, empty bays, printed names (all flat)
+ const focusOrSel=focusZone||(selected&&selected.floor===cur.key?selected.zone:null);
+ for(const z of zones){
+  const on=focusOrSel===z;
+  o.push(`<g class="zone-g${on?' on':''}" data-zone="${z.id}"><polygon class="zone${on?' on':''}${hoverZone===z&&!on?' hover':''}" points="${quad(z.x,z.y,z.w,z.d)}"/>`);
+  for(let l=0;l<z.lanes;l++)o.push(`<polygon class="lane" points="${quad(z.x+PAD*.5,laneY(z,l)-.1,z.w-PAD,LANE+.05)}"/>`);
+  for(let k=z.items.length;k<z.slots;k++){const bx=z.x+PAD+(k%PER)*SLOT+.06,by=laneY(z,Math.floor(k/PER))+.02;o.push(`<polygon class="bay" points="${quad(bx,by,SLOT-.16,.72)}"/>`);}
+  const fy=z.y+z.d-.32;
+  o.push(floorText(z.x+PAD,fy,'zname',cur.key==='news'?22:19,cur.F.label(z.id)));
+  o.push(floorText(z.x+z.w-PAD,fy,'zcount',13,`${z.items.length} ${cur.F.unit}`,'text-anchor="end"'));
+  o.push('</g>');
+ }
+ // 4 decals: contact shadows, selection glow
+ for(const it of items){
+  o.push(`<polygon class="shadow" points="${quad(it.x+.12,it.y+.12,.9,.68)}"/>`);
+  if(it===selected)o.push(`<polygon class="glow" points="${quad(it.x-.02,it.y-.04,SLOT-.04,.86)}"/>`);
+ }
+ // 5 solids, painter's order by depth, so nothing can poke through
+ const all=[];items.forEach((it,i)=>solids(it).forEach(b=>all.push({b,it,i})));
+ all.sort((p,q)=>(p.b.x+p.b.w/2+p.b.y+p.b.d/2+p.b.z*.01)-(q.b.x+q.b.w/2+q.b.y+q.b.d/2+q.b.z*.01));
+ for(const {b,it,i} of all){const cls='item'+(it===selected?' sel':'')+(it===hoverItem?' hover':'');o.push(`<g class="${cls}" data-item="${i}"><g>${solidSVG(b,it.color)}</g></g>`);}
+ document.getElementById('world').innerHTML=o.join('');
+ applyCam();
+}
+
+/* ---------- camera (compositor-only transform; no geometry rebuild) ---------- */
+const scene=document.getElementById('scene'),camEl=document.getElementById('cam'),tags=document.getElementById('tags');
+function applyCam(){
+ camEl.style.transform=`translate3d(${cam.x.toFixed(2)}px,${cam.y.toFixed(2)}px,0) scale(${cam.k.toFixed(4)})`;
+ document.getElementById('zval').textContent=Math.round(cam.k/kFit*100)+'%';
+ const scr=(x,y,z)=>{const [px,py]=P(x,y,z);return [cam.x+px*cam.k,cam.y+py*cam.k];};
+ let h='';const placed=[];
+ const hit=r=>placed.some(p=>r.x<p.x+p.w&&r.x+r.w>p.x&&r.y<p.y+p.h&&r.y+r.h>p.y);
+ // screen-space title chips: tag for selected / hovered, small labels for the rest when zoomed in
+ const tagFor=(it,cls)=>{const [sx,sy]=scr(it.x+.45,it.y+.35,BH+.1),ti=tray.indexOf(it),txt=fit2(it.t,34),w=Math.min(260,txt.length*8+90);placed.push({x:sx-w/2,y:sy-46,w,h:40});
+  return `<div class="tag ${cls}" style="left:${sx}px;top:${sy-6}px"><span>${ti>=0?`<em class="tn">${ti+1}</em>`:`<i style="background:${it.color}"></i>`}${esc(txt)}<small>${cur.F.label(it.s)}</small></span><b></b></div>`;};
+ if(selected&&selected.floor===cur.key)h+=tagFor(selected,'');
+ if(hoverItem&&hoverItem!==selected)h+=tagFor(hoverItem,'hover');
+ tray.forEach((it,i)=>{if(it.floor!==cur.key||it===selected||it===hoverItem)return;const [sx,sy]=scr(it.x+.9,it.y+.1,BH+.3);placed.push({x:sx-11,y:sy-11,w:22,h:22});h+=`<div class="badge" style="left:${sx}px;top:${sy}px">${i+1}</div>`;});
+ const a=Math.max(0,Math.min(1,(cam.k*S-52)/18));
+ if(a>0){const r=scene.getBoundingClientRect();for(const it of cur.items){if(it===selected||it===hoverItem)continue;const [sx,sy]=scr(it.x+.48,it.y+.8,0);if(sx<-80||sy<-20||sx>r.width+80||sy>r.height+20)continue;const txt=fit2(it.t,cur.key==='news'?20:18);let wu=0;for(const ch of txt)wu+=/[　-鿿＀-￯]/.test(ch)?2:1;const w=wu*5.9+12,box={x:sx-w/2,y:sy+2,w,h:19};if(hit(box))continue;placed.push(box);h+=`<div class="nm" style="left:${sx}px;top:${sy+2}px;opacity:${a.toFixed(2)}">${esc(txt)}</div>`;}}
+ tags.innerHTML=h;
+}
+function boundsOf(list){let a=[1e9,1e9,-1e9,-1e9];for(const [x,y,z] of list){const [px,py]=P(x,y,z);a=[Math.min(a[0],px),Math.min(a[1],py),Math.max(a[2],px),Math.max(a[3],py)];}return a;}
+const corners=(x,y,w,d,h=0)=>[[x,y,0],[x+w,y,0],[x+w,y+d,0],[x,y+d,0],[x,y,h],[x+w,y,h],[x,y+d,h]];
+function fitB(b,pad=30,bottom=66){const r=scene.getBoundingClientRect(),aw=r.width-pad*2,ah=r.height-pad-bottom;const k=Math.min(aw/(b[2]-b[0]),ah/(b[3]-b[1]));return {k,x:pad+(aw-(b[2]-b[0])*k)/2-b[0]*k,y:pad+(ah-(b[3]-b[1])*k)/2-b[1]*k};}
+const worldBounds=()=>boundsOf(corners(-M,-M,cur.W+2*M,cur.D+2*M,1.6));
+const zoneBounds=z=>boundsOf(corners(z.x-.2,z.y-.2,z.w+.4,z.d+.4,BH));
+let anim=null;
+function flyTo(t,ms=520){cancelAnimationFrame(anim);if(!ms){Object.assign(cam,t);applyCam();return;}const s={...cam},t0=performance.now();camEl.classList.add('moving');
+ const step=now=>{const p=Math.min(1,(now-t0)/ms),e=1-Math.pow(1-p,3);cam.x=s.x+(t.x-s.x)*e;cam.y=s.y+(t.y-s.y)*e;cam.k=s.k+(t.k-s.k)*e;applyCam();if(p<1)anim=requestAnimationFrame(step);else camEl.classList.remove('moving');};anim=requestAnimationFrame(step);}
+function overview(ms=560){focusZone=null;crumb();render();const f=fitB(worldBounds());kFit=f.k;flyTo(f,ms);}
+function focus(z,ms=560){focusZone=z;crumb();render();flyTo(fitB(zoneBounds(z),24,60),ms);}
+function crumb(){const z=focusZone,F=cur.F;document.getElementById('crumb').innerHTML=`<span>${F.name}</span><span class="sep">›</span>${z?`<span>${F.root}</span><span class="sep">›</span><b>${F.label(z.id)}</b><span style="opacity:.6">· ${z.items.length} ${F.unit}</span>`:`<b>${F.root}</b><span style="opacity:.6">· ${cur.zones.length} 个区 · ${cur.items.length} ${F.unit}</span>`}`;
+ document.querySelectorAll('#floors button').forEach(b=>b.classList.toggle('on',b.dataset.f===cur.key));
+ document.getElementById('nav-lib').classList.toggle('on',cur.key==='projects');document.getElementById('nav-news').classList.toggle('on',cur.key==='news');}
+function legend(){
+ let h='';
+ if(colorMode==='topic'){const seen=new Map();cur.items.forEach(it=>{const name=cur.key==='news'?cur.F.label(it.s):TOPIC[it.tag.split('/')[0]][1];if(!seen.has(name))seen.set(name,it.color);});seen.forEach((c,n)=>h+=`<span><i style="background:${c}"></i>${n}</span>`);}
+ else h+=`<span><i class="sw-multi"></i>每个标题一种颜色</span>`;
+ h+=`<span><i class="sw-sel"></i>已选中</span><span><i class="sw-empty"></i>空位</span><span><i class="sw-tray">1</i>在托盘</span><span style="opacity:.7">· 双击区域聚焦</span>`;
+ document.getElementById('legend').innerHTML=h;
+}
+function inspect(){
+ const it=selected,news=it.floor==='news';
+ document.getElementById('insp').innerHTML=`<div class="k">${news?'NEWS / 报道待核对':'HACKATHON / 项目自述'}</div>
+  <h2><i style="background:${it.color}"></i><span>${esc(it.t)}</span></h2><p>${news?'尚未取得完整正文，来源待核对。':'尚未取得完整正文。'}</p>
+  <dl>${news?`<dt>分类</dt><dd>${FLOORS.news.label(it.s)}</dd><dt>来源</dt><dd>${esc(it.src)}</dd>`:`<dt>采集平台</dt><dd>${it.s}</dd><dt>主题</dt><dd>${it.tag.replace('/',' / ')}</dd><dt>赛事</dt><dd>待核验</dd>`}<dt>资料版本</dt><dd>v1 · external_summary_unverified</dd></dl>
+  <div class="row"><button>↗ 原始来源</button><button class="pri">${tray.includes(it)?'✓ 已在托盘':'+ 加入分析'}</button></div><p>▸ 正文与直接资源</p>
+  <div class="shelf"><h4>我的 Idea 书架 <small style="color:var(--muted);font-weight:400">0</small></h4><div>将候选 idea 拖到这里收藏</div></div>`;
+}
+function chips(){document.getElementById('chips').innerHTML=tray.map((t,i)=>`<span class="chip"><b>${i+1}</b><i style="background:${t.color}"></i><span>${esc(t.t)}</span></span>`).join('');}
+function switchFloor(key){if(cur.key===key)return;camEl.classList.add('swap');setTimeout(()=>{cur=floors[key];hoverItem=hoverZone=null;legend();overview(0);requestAnimationFrame(()=>camEl.classList.remove('swap'));},200);}
+
+/* ---------- iso ⇄ top morph: the floor point under the centre stays put ---------- */
+function morphTo(target,ms=460){
+ const r=scene.getBoundingClientRect(),cx=r.width/2,cy=r.height/2;
+ const [a,b,c,d]=basis().map(v=>v*S),det=a*d-b*c,px0=(cx-cam.x)/cam.k,py0=(cy-cam.y)/cam.k,ux=(d*px0-c*py0)/det,uy=(-b*px0+a*py0)/det,T0=T,t0=performance.now();
+ const step=now=>{const p=Math.min(1,(now-t0)/ms),e=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;T=T0+(target-T0)*e;render();const [px,py]=P(ux,uy);cam.x=cx-px*cam.k;cam.y=cy-py*cam.k;applyCam();if(p<1)requestAnimationFrame(step);};
+ requestAnimationFrame(step);
+}
+
+/* ---------- input: pan with inertia, wheel / pinch zoom anchored under the fingers ---------- */
+const ptrs=new Map();let pan=null,pinch=null,moved=false,vel={x:0,y:0},last=0,inertia=null;
+const pos=e=>{const r=scene.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};};
+function zoomAt(px,py,k){k=Math.max(kFit*.5,Math.min(kFit*6,k));cam.x=px-(px-cam.x)*k/cam.k;cam.y=py-(py-cam.y)*k/cam.k;cam.k=k;applyCam();}
+scene.addEventListener('pointerdown',e=>{if(e.target.closest('button,.legend'))return;cancelAnimationFrame(anim);cancelAnimationFrame(inertia);scene.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,pos(e));camEl.classList.add('moving');
+ if(ptrs.size===1){pan={...pos(e),cx:cam.x,cy:cam.y};moved=false;vel={x:0,y:0};last=performance.now();}
+ else{const [a,b]=[...ptrs.values()];pinch={d:Math.hypot(a.x-b.x,a.y-b.y),k:cam.k,m:{x:(a.x+b.x)/2,y:(a.y+b.y)/2}};pan=null;moved=true;}});
+scene.addEventListener('pointermove',e=>{
+ if(!ptrs.size){const it=e.target.closest('[data-item]'),zg=e.target.closest('[data-zone]');const ni=it?cur.items[it.dataset.item]:null,nz=zg?cur.zones.find(z=>z.id===zg.dataset.zone):null;if(ni!==hoverItem||nz!==hoverZone){hoverItem=ni;hoverZone=nz;render();}return;}
+ if(!ptrs.has(e.pointerId))return;const p=pos(e),prev=ptrs.get(e.pointerId);ptrs.set(e.pointerId,p);
+ if(pinch&&ptrs.size>=2){const [a,b]=[...ptrs.values()],m={x:(a.x+b.x)/2,y:(a.y+b.y)/2};cam.x+=m.x-pinch.m.x;cam.y+=m.y-pinch.m.y;pinch.m=m;zoomAt(m.x,m.y,pinch.k*Math.hypot(a.x-b.x,a.y-b.y)/pinch.d);}
+ else if(pan){const dx=p.x-pan.x,dy=p.y-pan.y;if(Math.hypot(dx,dy)>5)moved=true;if(moved){const now=performance.now(),dt=Math.max(1,now-last);vel={x:(p.x-prev.x)/dt,y:(p.y-prev.y)/dt};last=now;cam.x=pan.cx+dx;cam.y=pan.cy+dy;applyCam();scene.classList.add('dragging');}}});
+function up(e){if(!ptrs.delete(e.pointerId))return;scene.classList.remove('dragging');
+ if(ptrs.size===1){const p=[...ptrs.values()][0];pan={...p,cx:cam.x,cy:cam.y};pinch=null;return;}
+ if(ptrs.size)return;pinch=null;
+ if(!moved){const it=e.target.closest('[data-item]'),zg=e.target.closest('[data-zone]');if(it){selected=cur.items[it.dataset.item];inspect();render();}else if(zg){focusZone=cur.zones.find(z=>z.id===zg.dataset.zone);crumb();render();}}
+ else if(pan&&performance.now()-last<60){let v={...vel};const step=()=>{v.x*=.93;v.y*=.93;cam.x+=v.x*16;cam.y+=v.y*16;applyCam();if(Math.hypot(v.x,v.y)>.02)inertia=requestAnimationFrame(step);else camEl.classList.remove('moving');};inertia=requestAnimationFrame(step);pan=null;return;}
+ pan=null;camEl.classList.remove('moving');}
+scene.addEventListener('pointerup',up);scene.addEventListener('pointercancel',up);
+scene.addEventListener('wheel',e=>{e.preventDefault();cancelAnimationFrame(anim);const p=pos(e);zoomAt(p.x,p.y,cam.k*Math.exp(-e.deltaY*.0016));},{passive:false});
+scene.addEventListener('dblclick',e=>{const it=e.target.closest('[data-item]'),zg=e.target.closest('[data-zone]');if(it){const i=cur.items[it.dataset.item];if(!tray.includes(i))tray.push(i);chips();inspect();applyCam();}else if(zg)focus(cur.zones.find(z=>z.id===zg.dataset.zone));});
+document.getElementById('overview').onclick=()=>overview();
+document.getElementById('back').onclick=()=>overview();
+const zoomBtn=f=>{const r=scene.getBoundingClientRect(),k=Math.max(kFit*.5,Math.min(kFit*6,cam.k*f));flyTo({k,x:r.width/2-(r.width/2-cam.x)*k/cam.k,y:r.height/2-(r.height/2-cam.y)*k/cam.k},260);};
+document.getElementById('zin').onclick=()=>zoomBtn(1.3);document.getElementById('zout').onclick=()=>zoomBtn(1/1.3);
+document.querySelectorAll('#views button').forEach(b=>b.onclick=()=>{if(b.dataset.v==='list')return;document.querySelectorAll('#views button').forEach(x=>x.classList.toggle('on',x===b));morphTo(b.dataset.v==='top'?1:0);});
+document.querySelectorAll('#floors button').forEach(b=>b.onclick=()=>switchFloor(b.dataset.f));
+
+/* ---------- boot ---------- */
+if(T===1)document.querySelectorAll('#views button').forEach(x=>x.classList.toggle('on',x.dataset.v==='top'));
+inspect();chips();legend();overview(0);
+if(Q.get('focus')){const z=cur.zones.find(z=>z.id===Q.get('focus'));if(z)focus(z,0);}
+if(Q.get('hover')){hoverItem=cur.items.find(i=>i.t===Q.get('hover'));render();}
+let ro=0;new ResizeObserver(()=>{if(!ro++)return;focusZone?focus(focusZone,0):overview(0);}).observe(scene);
+window.__ready=true;
+</script>
+</body>
+</html>

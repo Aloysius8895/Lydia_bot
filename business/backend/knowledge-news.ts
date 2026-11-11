@@ -1,9 +1,12 @@
 import {z} from 'zod';
 import {randomUUID} from 'node:crypto';
-import {Store,hash,type Row} from '../../data/database/store.ts';
-import {fetchPublic} from '../../data/RAG/sources.ts';
-import {canonicalUrl} from '../../data/RAG/retrieval.ts';
+import {Store,hash,type Row} from '../../data/data_preprocessing/database/store.ts';
+import {fetchPublic} from '../../data/data_preprocessing/RAG/sources.ts';
+import {canonicalUrl} from '../../data/data_preprocessing/RAG/retrieval.ts';
 import {assert} from '../shared/config.ts';
+import {classify} from '../../data/data_preprocessing/imports/catalog.ts';
+// Category drives the news zones in the spatial library; untagged news is 'unclassified'.
+const category=(r:Row)=>classify(r,'news').theme;
 
 const input=z.object({
  title:z.string().trim().max(200).default(''),content:z.string().trim().max(150000).default(''),
@@ -14,15 +17,15 @@ const input=z.object({
 export class KnowledgeNews {
  store:Store;
  constructor(store:Store){this.store=store;}
- async get(id:string){
+ async get(id:string):Promise<Row>{
   const r=await this.store.one('SELECT * FROM knowledge_news WHERE id=$1',[id]);assert(r,'NEWS_NOT_FOUND','新闻资料不存在',404);
-  return {...r,kind:'news',source_id:r.publisher||'未注明媒体',depth:'新闻',quality:'报道待核对',submissions:[],resources:[]};
+  return {...r,kind:'news',category:category(r),source_id:r.publisher||'未注明媒体',depth:'新闻',quality:'报道待核对',submissions:[],resources:[]};
  }
  async list(url:URL){
   const b=z.object({query:z.string().max(200).default(''),source:z.string().max(160).default(''),offset:z.coerce.number().int().min(0).max(1000000).default(0)}).parse(Object.fromEntries(url.searchParams));
   const where="($1::text IS NULL OR title ILIKE $1) AND ($2::text IS NULL OR COALESCE(NULLIF(publisher,''),'未注明媒体')=$2)",params=[b.query?'%'+b.query+'%':null,b.source||null];
   const items=await this.store.rows('SELECT * FROM knowledge_news WHERE '+where+' ORDER BY updated_at DESC,id LIMIT 48 OFFSET $3',[...params,b.offset]);
-  return {items:items.map(r=>({...r,kind:'news',source_id:r.publisher||'未注明媒体',depth:'新闻',quality:'报道待核对'})),total:Number((await this.store.one('SELECT count(*) AS n FROM knowledge_news WHERE '+where,params))!.n),sources:await this.store.rows("SELECT COALESCE(NULLIF(publisher,''),'未注明媒体') AS source_id,count(*)::integer AS count FROM knowledge_news GROUP BY publisher ORDER BY publisher")};
+  return {items:items.map(r=>({...r,kind:'news',category:category(r),source_id:r.publisher||'未注明媒体',depth:'新闻',quality:'报道待核对'})),total:Number((await this.store.one('SELECT count(*) AS n FROM knowledge_news WHERE '+where,params))!.n),sources:await this.store.rows("SELECT COALESCE(NULLIF(publisher,''),'未注明媒体') AS source_id,count(*)::integer AS count FROM knowledge_news GROUP BY publisher ORDER BY publisher")};
  }
  async create(raw:unknown){
   const b=input.parse(raw);let {title,content,url,publisher,published_at}=b;const meta:Row={source_nature:'NEWS_REPORT_NOT_VERIFIED'};

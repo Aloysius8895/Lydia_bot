@@ -1,6 +1,6 @@
 import type {ParseContext,ParsedPage} from '../types.ts';
 import {blank,makeEvent,outcome,listing,officialEvidence} from './discovery.ts';
-import {document,parentOf,find,tag,cleanText,locator,anchors} from '../../data/crawl/html.ts';
+import {document,parentOf,find,tag,cleanText,locator,anchors} from '../../data/data_preprocessing/crawl/html.ts';
 import {knownYear} from './structured.ts';
 
 export function parseImagineCup(url:string,html:string,context:ParseContext):ParsedPage{

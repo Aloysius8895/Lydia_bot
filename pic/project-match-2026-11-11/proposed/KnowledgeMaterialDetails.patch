@@ -1,0 +1,21 @@
+diff --git a/../../business/frontend/src/components/KnowledgeMaterialDetails.jsx b/proposed/KnowledgeMaterialDetails.jsx
+index 8e305c4..7e455ff 100644
+--- a/../../business/frontend/src/components/KnowledgeMaterialDetails.jsx
++++ b/proposed/KnowledgeMaterialDetails.jsx
+@@ -46,7 +46,7 @@ function BriefCard({brief,onGenerate,onDeepDive}){
+  </section>;
+ }
+ 
+-export default function KnowledgeMaterialDetails({active,selected,materialType,onAdd,onGenerateBrief,onDeepDive,briefStatus}){
++export default function KnowledgeMaterialDetails({active,selected,materialType,onAdd,onGenerateBrief,onDeepDive,onMatch,briefStatus}){
+  const news=active?.kind==='news'||(!active&&materialType==='news');
+  const imported=active?.meta?.content_kind==='summary_only',meta=active?.meta||{};
+  return <><div className="kw-detail__eyebrow">{news?'NEWS / 报道待核对':'HACKATHON / 项目自述'}</div>
+@@ -54,6 +54,7 @@ export default function KnowledgeMaterialDetails({active,selected,materialType,o
+   {!active?<><p className="knowledge-muted">点击书架上的资料查看正文与出处，拖入托盘或点击加入分析。可以混合新闻与比赛项目。</p>
+    {!news&&briefStatus&&briefStatus.total>0&&<p className="kw-brief-progress">项目简介：已生成 {briefStatus.ready} / {briefStatus.total}{briefStatus.pending>0?(briefStatus.paused?' · Claude 暂不可用，稍后继续':' · 后台正在逐个生成'):''}{briefStatus.failed>0?` · ${briefStatus.failed} 个未成功`:''}{briefStatus.upgrading>0?` · 正在为 ${briefStatus.upgrading} 份旧简介补充原文依据`:''}</p>}</>:<>
+    {!news&&<BriefCard brief={active.brief} onGenerate={()=>onGenerateBrief?.(active)} onDeepDive={()=>onDeepDive?.(active)}/>}
++   {!news&&active.brief?.status==='ready'&&onMatch&&<button type="button" className="kw-match" onClick={()=>onMatch(active)}><Icon name="target" size={17}/><span><b>相似与搭档</b><small>谁和它撞车、谁能和它合体、哪条新闻给了它时机</small></span><span aria-hidden="true">›</span></button>}
+    <details className="kw-detail__package" open={news||undefined}><summary>资料包信息</summary>
+     <p className="kw-detail__excerpt">{imported?'外部资料摘要（非原文）：'+meta.imported_summary:active.content?.slice(0,450)||'尚未取得完整正文。'}</p>
+     {imported&&<><p className="knowledge-muted">仅摘要，未独立核实；取得原文前不能作为原文证据加入分析。</p><dl><dt>原始日期（按资料包记载）</dt><dd>{meta.original_date||'未提供'}</dd><dt>采集日期</dt><dd>{meta.collected_date||'未提供'}</dd><dt>分类</dt><dd>{meta.tags?.join(' · ')||'未提供'}</dd><dt>上游状态声称</dt><dd>{meta.source_claimed_status||'未提供'}</dd><dt>核实说明</dt><dd>{meta.verification_notes||'资料包未提供'}{meta.claims_note&&'；'+meta.claims_note}</dd></dl>{meta.imported_implementation&&<p className="kw-prewrap">资料包中的实现描述：{meta.imported_implementation}</p>}{meta.source_urls?.map((url,index)=><p key={index}><a href={safe(url)} target="_blank" rel="noreferrer">来源 {index+1}：{url}</a></p>)}</>}

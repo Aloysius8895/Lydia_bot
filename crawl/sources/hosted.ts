@@ -1,6 +1,6 @@
 import type {ParseContext,ParsedPage,ParsedEvent,Outcome} from '../types.ts';
 import {blank,makeEvent,listing,pagination,outcome,officialEvidence} from './discovery.ts';
-import {document,parentOf,anchors,find,tag,cleanText,locator,attr} from '../../data/crawl/html.ts';
+import {document,parentOf,anchors,find,tag,cleanText,locator,attr} from '../../data/data_preprocessing/crawl/html.ts';
 import {readJSON,objects,eventYear,knownYear} from './structured.ts';
 
 type HostedSource='dorahacks'|'hackster'|'junction'|'google';

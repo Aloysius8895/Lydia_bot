@@ -1,0 +1,50 @@
+{
+ "date": "2026-11-11",
+ "artifact": "DESIGN_ONLY",
+ "applicationModified": false,
+ "database": "copy of the live database (read-only use)",
+ "shots": [
+  {
+   "file": "01-brief-card-button.png",
+   "what": "选中 Tap2ETH：简介卡片右上角多了「深入了解」"
+  },
+  {
+   "file": "02-reading-progress.png",
+   "what": "点击后：中间书库区域换成解读面板，逐步显示正在读什么"
+  },
+  {
+   "file": "03-tap2eth-result.png",
+   "what": "解读完成：一句话概述、原文核对结果，以及分段要点，每条后面标着出处"
+  },
+  {
+   "file": "04-quote-open.png",
+   "what": "点开一条的出处：显示从来源里原样复制的原文，可以点链接回到原页面"
+  },
+  {
+   "file": "05-all-quotes.png",
+   "what": "勾选「展开全部原文」：每条要点下面都显示原文"
+  },
+  {
+   "file": "06-unknowns-and-sources.png",
+   "what": "最后：资料里没说清楚的地方，读过的资料清单（含没读的 x.com 和原因）"
+  },
+  {
+   "file": "07-dark-smart-water.png",
+   "what": "黑夜模式：Smart Water Guardian AI（GitHub 仓库是从 hackster 项目页里自动找到的）"
+  },
+  {
+   "file": "08-tokito.png",
+   "what": "Tokito（devfolio）：项目页里有两个 GitHub 链接，一个不公开，清单里写明了"
+  },
+  {
+   "file": "09-phone-button.png",
+   "what": "手机：简介卡片上的按钮"
+  },
+  {
+   "file": "10-phone-result.png",
+   "what": "手机：解读铺满整个屏幕"
+  }
+ ],
+ "video": "demo.webm",
+ "errors": []
+}

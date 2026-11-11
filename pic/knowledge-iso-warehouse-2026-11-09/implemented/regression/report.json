@@ -1,0 +1,28 @@
+{
+  "status": "TEST_PASSED",
+  "timestamp": "2026-11-09T05:28:42.266Z",
+  "checks": [
+    "Authenticated actual React workspace reads 30 TEST_ONLY projects and full details; both themes render the isometric warehouse",
+    "Native drag adds projects to tray and duplicate drops are idempotent",
+    "Click Lydia returns to original expert route, case and unsent composer draft",
+    "Comparison job returns validated source-linked candidate ideas; native drag persists selected candidate",
+    "Draft, constraints and saved shelf survive refresh; notes save and isolated Obsidian exports run",
+    "Explicit research handoff creates PROJECT background without MARKET evidence or Gap selection",
+    "Mobile 320/390/430px list and add-button alternatives fit without horizontal overflow",
+    "News form persists dated source; native news+project drag generates mixed-source ideas with news explanation, saves snapshot and survives refresh; Obsidian includes News"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "realModelCalls": 0,
+  "mockedModelCalls": 2,
+  "fixture": "Isolated temporary database, synthetic projects/news and model output, isolated Obsidian Vault. No production cases changed.",
+  "screenshots": [
+    "library-dark.png",
+    "library-light.png",
+    "analysis-light.png",
+    "mobile-light.png",
+    "mobile-dark.png",
+    "news-library-light.png",
+    "mixed-ideas-light.png"
+  ]
+}

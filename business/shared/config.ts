@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {defaultDatabaseDir,caseExportsRoot} from './data-paths.ts';
 
 export const businessRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const runtimeRoot = path.join(businessRoot, '.runtime');
@@ -9,10 +10,10 @@ const fromRoot = (value: string | undefined) => value ? path.resolve(businessRoo
 export const config = {
   host: process.env.HOST || '127.0.0.1', port: Number(process.env.PORT || 4318),
   origin: process.env.APP_ORIGIN || 'http://127.0.0.1:4318',
-  dataDir: fromRoot(process.env.LYDIA_DATA_DIR || process.env.CREW_DATA_DIR) || path.join(runtimeRoot, 'data'),
-  skillsDir: path.join(businessRoot, 'skills'), casesDir: path.join(businessRoot, 'cases'),
+  dataDir: fromRoot(process.env.LYDIA_DATA_DIR || process.env.CREW_DATA_DIR) || defaultDatabaseDir,
+  skillsDir: path.join(businessRoot, 'skills'), casesDir: caseExportsRoot,
   cli: process.env.CLAUDE_EXECUTABLE || 'claude', cliWorkspace: path.join(runtimeRoot, 'claude'),
-  cliTimeout: Math.min(Number(process.env.CLAUDE_TIMEOUT_MS || 180000), 300000),
+  cliTimeout: Math.min(Number(process.env.CLAUDE_TIMEOUT_MS || 300000), 300000),
   subscriptionNoOverage: process.env.SUBSCRIPTION_NO_OVERAGE_CONFIRMED === 'true',
   ollamaUrl: process.env.OLLAMA_URL || 'http://127.0.0.1:11434',
   embeddingModel: process.env.EMBEDDING_MODEL || 'nomic-embed-text:latest',

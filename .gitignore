@@ -20,6 +20,8 @@ business/deployment/certs/
 # Generated outputs and private exports
 business/cases/*
 !business/cases/README.md
+data/data_storage/
+data/preview-logs-*/
 business/test-results/
 crawl/rea/
 crawl/scrap/
@@ -35,3 +37,6 @@ Thumbs.db
 bot_rea/reference/
 bot_rea/evidence/rea-analysis.json
 business/frontend/src/assets/grok/
+
+# Locally installed video tooling is a separate Git checkout, not Lydia source.
+video/skill/

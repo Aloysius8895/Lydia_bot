@@ -1,11 +1,11 @@
 import {test,before,after} from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtemp,readFile} from 'node:fs/promises';
+import {mkdtemp,readFile,readdir} from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
-import {Store} from '../../data/database/store.ts';
-import {CrawlStore} from '../../data/crawl/store.ts';
-import {Snapshots} from '../../data/crawl/snapshots.ts';
+import {Store} from '../../data/data_preprocessing/database/store.ts';
+import {CrawlStore} from '../../data/data_preprocessing/crawl/store.ts';
+import {Snapshots} from '../../data/data_preprocessing/crawl/snapshots.ts';
 import {classify,robotsAllowed} from '../../crawl/fetch/http.ts';
 import type {RunConfig,FetchResult} from '../../crawl/types.ts';
 
@@ -14,7 +14,7 @@ export const pilotConfig:RunConfig={sources:['ethglobal'],years:[2025,2026],maxP
 const result:FetchResult={requestedUrl:'https://ethglobal.com/showcase',finalUrl:'https://ethglobal.com/showcase',statusCode:200,headers:{},contentType:'text/html',classification:'readable',bytes:Buffer.from('<h1>TEST_ONLY Unicode 爬虫</h1>'),capturedAt:new Date().toISOString(),backend:'test'};
 before(async()=>{store=await Store.open();repo=new CrawlStore(store);await repo.init();snapshots=new Snapshots(await mkdtemp(path.join(os.tmpdir(),'lydia-crawl-')));});
 after(async()=>{await store.close();});
-test('migration is versioned and preserves cases',async()=>{const c=await store.createCase('TEST_ONLY migration','existing case');assert.ok(await store.getCase(c!.id));const versions=(await store.rows('SELECT version FROM schema_migrations ORDER BY version')).map(r=>r.version);assert.equal(versions.length,8);assert.equal(versions.at(-1),'008-knowledge-news.sql');});
+test('migration is versioned and preserves cases',async()=>{const c=await store.createCase('TEST_ONLY migration','existing case');assert.ok(await store.getCase(c!.id));const versions=(await store.rows('SELECT version FROM schema_migrations ORDER BY version')).map(r=>r.version);const expected=(await readdir(new URL('../../data/data_preprocessing/database/migrations/',import.meta.url))).filter(f=>/^\d+.*\.sql$/.test(f)).sort();assert.deepEqual(versions,expected);assert.ok(versions.includes('009-file-imports.sql'));});
 test('persistent run idempotency, pause and fenced recovery',async()=>{
   const run=await repo.createRun(pilotConfig,'TEST_ONLY-run');assert.equal((await repo.createRun(pilotConfig,'TEST_ONLY-run')).id,run.id);
   const a=await repo.claim(10000);assert.ok(a);await store.db.query("UPDATE crawl_tasks SET lease_expires_at=now()-interval '1 second' WHERE id=$1",[a.id]);

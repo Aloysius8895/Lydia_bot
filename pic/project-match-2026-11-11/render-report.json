@@ -1,0 +1,99 @@
+{
+ "topic": "project-match",
+ "date": "2026-11-11",
+ "artifact": "DESIGN_ONLY",
+ "applicationModified": false,
+ "database": "copy of data\\data_storage\\backups\\database\\grok-import-2026-11-11T07-51-06-736Z-09336b99\\database",
+ "claudeCalls": 0,
+ "checks": [
+  "PASS Tap2ETH project: map shows one dot per listed match (6)",
+  "PASS Tap2ETH project: dots do not overlap (closest centres 25px apart)",
+  "PASS Tap2ETH project: every dot is clickable at its centre (nothing covers it)",
+  "PASS Tap2ETH project: every dot is drawn inside the zone its scores put it in (clear of the midlines)",
+  "PASS Tap2ETH project: radar has one vertex per axis (6)",
+  "PASS Tap2ETH project: no horizontal overflow",
+  "PASS clicking dot 2 switches the radar to that pair",
+  "PASS a run without a sample ends in the failed state with a retry button",
+  "PASS npmguard news: map shows one dot per listed match (6)",
+  "PASS npmguard news: dots do not overlap (closest centres 23px apart)",
+  "PASS npmguard news: every dot is clickable at its centre (nothing covers it)",
+  "PASS npmguard news: every dot is drawn inside the zone its scores put it in (clear of the midlines)",
+  "PASS npmguard news: radar has one vertex per axis (5)",
+  "PASS npmguard news: no horizontal overflow",
+  "PASS router402 dark: map shows one dot per listed match (7)",
+  "PASS router402 dark: dots do not overlap (closest centres 23px apart)",
+  "PASS router402 dark: every dot is clickable at its centre (nothing covers it)",
+  "PASS router402 dark: every dot is drawn inside the zone its scores put it in (clear of the midlines)",
+  "PASS router402 dark: radar has one vertex per axis (6)",
+  "PASS router402 dark: no horizontal overflow",
+  "PASS phone: map shows one dot per listed match (6)",
+  "PASS phone: dots do not overlap (closest centres 24px apart)",
+  "PASS phone: every dot is clickable at its centre (nothing covers it)",
+  "PASS phone: every dot is drawn inside the zone its scores put it in (clear of the midlines)",
+  "PASS phone: radar has one vertex per axis (6)",
+  "PASS phone: no horizontal overflow"
+ ],
+ "shots": [
+  {
+   "file": "01-detail-button.png",
+   "what": "项目详情底部多了「相似与搭档」，在「加入分析」旁边"
+  },
+  {
+   "file": "02-tap2eth-duplicate.png",
+   "what": "Tap2ETH × 作品：一句话总结、雷达（默认第 1 名 Carte Bleue，撞车）和搭档地图"
+  },
+  {
+   "file": "03-tap2eth-merge.png",
+   "what": "点地图上的 2 号：雷达换成 LeekDIYHardwareWallet（★ 合体），鼠标停在圆点上显示名字"
+  },
+  {
+   "file": "04-evidence.png",
+   "what": "往下：理由、\"放在一起可能是\"（待验证）、两边的原文，以及全部名单"
+  },
+  {
+   "file": "05-list-and-footnote.png",
+   "what": "名单和底部说明：程序核对结果、模型、用时，以及\"重新比较\""
+  },
+  {
+   "file": "06-start-news.png",
+   "what": "还没比较过的组合：说明要用 1 次额度，新闻只有 Grok 摘要"
+  },
+  {
+   "file": "07-running.png",
+   "what": "比较中：可以关掉窗口，后台继续"
+  },
+  {
+   "file": "08-npmguard-news.png",
+   "what": "npmguard × 新闻：Fireworks AI 入侵等 3 条落在 ★ 时机区（分数相同的圆点自动错开）"
+  },
+  {
+   "file": "09-watermark-weak.png",
+   "what": "watermark × 新闻：没有真正相关的新闻，Claude 如实说\"相关度偏低\"，3 个点都在左下"
+  },
+  {
+   "file": "10-router402-dark.png",
+   "what": "黑夜：router402 × 作品（x402 同类作品多，集中在撞车和搬运区）"
+  },
+  {
+   "file": "11-smartwater-dark.png",
+   "what": "黑夜：Smart Water Guardian AI（同样用 Arduino UNO Q 的作品都在左下\"搬运\"区）"
+  },
+  {
+   "file": "12-phone-button.png",
+   "what": "手机：详情里的按钮"
+  },
+  {
+   "file": "13-phone-top.png",
+   "what": "手机：工作台铺满，先看总结和雷达"
+  },
+  {
+   "file": "14-phone-map.png",
+   "what": "手机：搭档地图占满宽度，圆点可以点"
+  },
+  {
+   "file": "15-phone-detail.png",
+   "what": "手机：理由和原文上下排列"
+  }
+ ],
+ "errors": []
+}

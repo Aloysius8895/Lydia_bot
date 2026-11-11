@@ -1,0 +1,44 @@
+/* PROPOSED additions to business/frontend/src/knowledge.css — library search (搜索区) */
+.knowledge-workspace{--ks-magic:#7347c4;--ks-magic-soft:rgba(115,71,196,.09);--ks-magic-line:rgba(115,71,196,.62);--ks-magic-glow:rgba(115,71,196,.18)}
+:root[data-theme=dark] .knowledge-workspace{--ks-magic:#b796ff;--ks-magic-soft:rgba(183,150,255,.08);--ks-magic-line:rgba(183,150,255,.6);--ks-magic-glow:rgba(183,150,255,.16)}
+
+/* Header search box: Enter brings the found books in */
+.kw-global-search{transition:border-color .2s,box-shadow .2s}
+.kw-global-search:focus-within{border-color:var(--kw-selected)}
+.kw-global-search.is-casting{border-color:var(--ks-magic-line);box-shadow:0 0 0 3px var(--ks-magic-soft)}
+.kw-search-kbd{font:inherit;font-size:10px;color:var(--kw-muted);border:1px solid var(--kw-line);border-radius:5px;padding:2px 6px;flex:none}
+
+/* Status line while searching, or a short note afterwards */
+.kw-magic-chip{position:absolute;top:104px;left:50%;translate:-50% 0;z-index:6;display:flex;align-items:center;gap:8px;max-width:calc(100% - 30px);font-size:12px;padding:6px 12px;border-radius:999px;border:1px solid var(--ks-magic-line);background:var(--kw-panel);color:var(--kw-text);box-shadow:0 6px 22px var(--ks-magic-glow)}
+.kw-magic-chip:has(button){padding-right:5px}
+.kw-magic-chip>span{color:var(--ks-magic)}
+.knowledge-workspace .kw-magic-chip button{font-size:11px;padding:4px 10px;border-radius:999px}
+.kw-crumb__magic{color:var(--ks-magic)}
+
+/* 搜索区 bands on the warehouse floor */
+.ks-zone.is-magic{fill:var(--ks-magic-soft);stroke:var(--ks-magic-line);stroke-width:1.5;stroke-dasharray:7 5}
+.ks-zone.is-magic.is-casting{animation:ks-cast 1s linear infinite}
+.ks-zone.is-magic.is-on{fill:color-mix(in srgb,var(--ks-magic-soft) 70%,var(--ks-magic) 8%);stroke:var(--ks-magic)}
+@keyframes ks-cast{to{stroke-dashoffset:-24}}
+.ks-zone-g.is-magic .ks-lane{fill:color-mix(in srgb,var(--ks-lane) 82%,var(--ks-magic) 9%)}
+.ks-zone-g.is-magic .ks-bay{stroke:var(--ks-magic-line)}
+.ks-zone-g.is-magic .ks-zname,.ks-zone-g.is-magic .ks-zcount{fill:var(--ks-magic)}
+.ks-ghost{fill:none;stroke:var(--ks-magic-line);stroke-width:.9;stroke-dasharray:3 2.5;opacity:.75;pointer-events:none}
+.ks-flight{pointer-events:none}
+.ks-fly-shadow{fill:var(--ks-shadow)}
+
+/* Delete button beside each 搜索区 (outside the pan/zoom viewport so a tap never starts a drag) */
+.ks-zone-ctrls{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:4}
+.knowledge-workspace .ks-zone-del{position:absolute;left:0;top:0;translate:0 -50%;pointer-events:auto;gap:4px;font-size:11px;padding:4px 10px 4px 8px;border-radius:999px;border:1px solid var(--ks-magic-line);background:var(--kw-panel);color:var(--ks-magic);box-shadow:0 3px 10px var(--ks-shadow)}
+.knowledge-workspace .ks-zone-del:hover{background:var(--ks-magic-soft)}
+.ks-zone-del span{font-size:14px;line-height:1}
+
+/* "Why it was found" note on top of the inspector */
+.kw-detail .kw-why{display:flex;gap:9px;align-items:flex-start;margin:0 0 16px;padding:10px 12px;border-radius:10px;background:var(--ks-magic-soft);border:1px solid var(--ks-magic-line);font-size:12px;line-height:1.55}
+.kw-why>span:first-child{color:var(--ks-magic)}
+.kw-why b{display:block;font-size:10px;letter-spacing:.4px;color:var(--ks-magic);margin-bottom:2px}
+.kw-why__row{display:block}
+.kw-why__row em{font-style:normal;color:var(--kw-muted)}
+
+@media(max-width:760px){.kw-magic-chip{position:static;translate:none;margin:8px auto 0;width:max-content;max-width:calc(100% - 24px)}}
+@media(prefers-reduced-motion:reduce){.ks-zone.is-magic.is-casting{animation:none}}

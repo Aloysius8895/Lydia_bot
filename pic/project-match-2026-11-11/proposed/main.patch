@@ -1,0 +1,12 @@
+diff --git a/../../business/frontend/src/main.jsx b/proposed/main.jsx
+index 1b63014..51387a5 100644
+--- a/../../business/frontend/src/main.jsx
++++ b/proposed/main.jsx
+@@ -17,6 +17,7 @@ import './composer-mode.css';
+ import './knowledge.css';
+ import './deep-dive.css';
+ import './panel-resize.css';
++import './match.css';
+ 
+ // Optional, local-only fonts (not distributed in the public repo). When src/assets/grok/ is empty the glob is
+ // empty: no build error, no font request, and the system font stack in grok-design.css is used.

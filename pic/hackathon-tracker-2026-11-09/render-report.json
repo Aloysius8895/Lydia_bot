@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-09",
+  "artifact": "DESIGN_REFERENCE_ONLY",
+  "applicationModified": false,
+  "greenCardsFrom": "data/data_storage/raw_imports/grok/2026-11-07_08/lydia-import-2026-11-07_08.json",
+  "yellowCards": "placeholder events labelled 示例",
+  "shots": [
+    {
+      "name": "01-new-capture-toast-dark",
+      "overflow": []
+    },
+    {
+      "name": "02-panel-open-dark",
+      "overflow": [
+        {
+          "visible": 629,
+          "content": 1311
+        }
+      ]
+    },
+    {
+      "name": "03-card-states-dark",
+      "overflow": []
+    },
+    {
+      "name": "04-panel-open-light",
+      "overflow": [
+        {
+          "visible": 629,
+          "content": 1311
+        }
+      ]
+    },
+    {
+      "name": "05-card-states-light",
+      "overflow": []
+    },
+    {
+      "name": "06-phone-sheet-dark",
+      "overflow": [
+        {
+          "visible": 473,
+          "content": 1311
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

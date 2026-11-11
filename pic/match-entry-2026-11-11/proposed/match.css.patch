@@ -1,0 +1,26 @@
+diff --git a/../../business/frontend/src/match.css b/proposed/match.css
+index c4d966c..7da6172 100644
+--- a/../../business/frontend/src/match.css
++++ b/proposed/match.css
+@@ -94,14 +94,14 @@
+ .pm-skeleton{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+ .pm-skeleton b{height:210px;border-radius:12px;background:var(--kw-active)}
+ 
+-/* entry point in the project details, right under the brief */
+-.knowledge-workspace .kw-detail button.kw-match{display:flex;align-items:center;justify-content:flex-start;gap:11px;width:100%;margin:12px 0 4px;padding:11px 13px;border:1px solid var(--kw-line);border-radius:10px;background:var(--kw-raised);color:var(--kw-text);text-align:left;white-space:normal}
++/* entry point: the detective logo in a round button beside the project name, level with the
++   first line of the title (h2: 14px margin, 23px × 1.35 line). Hover/long-press shows what it does. */
++.kw-detail__titlebar{display:flex;align-items:flex-start;gap:10px}
++.kw-detail__titlebar h2{flex:1;min-width:0;overflow-wrap:anywhere}
++.knowledge-workspace .kw-detail button.kw-match{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;width:40px;height:40px;min-width:0;min-height:0;margin-top:10px;padding:0;border:1px solid var(--kw-line);border-radius:50%;background:var(--kw-raised);color:var(--kw-text)}
+ .knowledge-workspace .kw-detail button.kw-match:hover{border-color:var(--kw-selected)}
+-.kw-match svg{flex:none;color:var(--pm-accent)}
+-.kw-match>span:first-of-type{flex:1;min-width:0;display:grid;gap:2px}
+-.kw-match b{font-size:13.5px;font-weight:600}
+-.kw-match small{font-size:11.5px;line-height:1.45;color:var(--kw-muted)}
+-.kw-match>span:last-child{flex:none;font-size:18px;color:var(--kw-muted)}
++.kw-match svg{flex:none}
++.kw-match>span{display:none}
+ 
+ @media(max-width:760px){
+  .pm-target{margin-top:-4px}

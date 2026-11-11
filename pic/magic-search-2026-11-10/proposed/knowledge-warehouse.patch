@@ -1,0 +1,260 @@
+﻿diff --git a/business/frontend/src/knowledge-warehouse.js b/pic/magic-search-2026-11-10/proposed/knowledge-warehouse.js
+index 528d507..8124ac8 100644
+--- a/business/frontend/src/knowledge-warehouse.js
++++ b/pic/magic-search-2026-11-10/proposed/knowledge-warehouse.js
+@@ -9,7 +9,9 @@ export const NEWS_ZONES={security:'安全',business_finance:'商业与融资',mo
+ const hash=s=>[...String(s)].reduce((h,c)=>(h*33+c.codePointAt(0))>>>0,5381);
+ export const titleColor=title=>PALETTE[hash(title)%PALETTE.length];
+ export const zoneKey=item=>item.kind==='news'?(item.category||'unclassified'):item.source_id;
+-export const zoneLabel=(key,kind)=>kind==='news'?(NEWS_ZONES[key]||key):String(key).toUpperCase();
++export const SEARCH_ZONE='__search__';
++export const zoneLabel=(key,kind)=>key===SEARCH_ZONE?'搜索区':kind==='news'?(NEWS_ZONES[key]||key):String(key).toUpperCase();
++const ease=p=>p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+ 
+ function hsl(hex){
+  const r=parseInt(hex.slice(1,3),16)/255,g=parseInt(hex.slice(3,5),16)/255,b=parseInt(hex.slice(5,7),16)/255,mx=Math.max(r,g,b),mn=Math.min(r,g,b),l=(mx+mn)/2;
+@@ -31,7 +33,31 @@ const MIN=.5,MAX=4;
+ const BIG=PER*3,ZW=PAD*2+PER*SLOT,FULL=ZW*3+AISLE*2,BAND_GAP=AISLE*1.6;
+ const zoneDepth=lanes=>TOPPAD+lanes*(LANE+LGAP)-LGAP+STRIP;
+ 
+-export function layout(items,kind){
++// `searches` = [{id,query,status,ids,reasons,items}], oldest first. Each search gets its
++// own "搜索区" band in front of the floor (newest at the very front), so no existing
++// zone moves. A found book leaves a dashed gap at home; the same book may sit in
++// several bands, so every placed item has a unique `key` besides its project `id`.
++export const zoneOf=searchId=>SEARCH_ZONE+':'+searchId;
++export function layout(items,kind,searches=[]){
++ const L=homeLayout(items,kind);
++ if(!searches.length)return {...L,ghosts:[]};
++ const byId=new Map(L.items.map(p=>[p.id,p])),zones=[...L.zones],found=[],away=new Set();
++ let y=L.D+BAND_GAP+.4,W=L.W;
++ for(const s of searches){
++  const list=(s.ids||[]).map(id=>{const home=byId.get(id),data=home?.data||s.items?.find(i=>i.id===id);return data?{id,home,data}:null;}).filter(Boolean);
++  // As wide as its books need (at least two ordinary zones), so focusing on it fills the view.
++  const w=Math.min(Math.max(L.W,ZW*2+AISLE),Math.max(ZW*2+AISLE,PAD*2+list.length*SLOT)),per=Math.floor((w-PAD*2)/SLOT);
++  const z={id:zoneOf(s.id),searchId:s.id,label:'✦ '+s.query,magic:true,status:s.status,casting:s.status==='casting',band:true,per,lanes:Math.max(1,Math.ceil(list.length/per)),w,x:0,y};
++  z.d=zoneDepth(z.lanes);z.slots=z.lanes*per;
++  z.items=list.map(({id,home,data},k)=>{
++   const color=home?.color||titleColor(data.title);L.colors.set(id,color);if(home)away.add(id);
++   return {id,key:z.id+'|'+id,title:data.title,kind:data.kind||kind,source:s.reasons?.[id]||(home?home.source:'书库外'),zone:z,x:z.x+PAD+(k%per)*SLOT,y:z.y+TOPPAD+Math.floor(k/per)*(LANE+LGAP),color,data,home:home||null};
++  });
++  zones.push(z);found.push(...z.items);y+=z.d+BAND_GAP;W=Math.max(W,w);
++ }
++ return {zones,items:[...L.items.filter(i=>!away.has(i.id)),...found],ghosts:L.items.filter(i=>away.has(i.id)),W,D:y-BAND_GAP,colors:L.colors};
++}
++function homeLayout(items,kind){
+  const groups=new Map();for(const it of items){const k=zoneKey(it);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(it);}
+  const all=[...groups].sort((a,b)=>b[1].length-a[1].length||String(a[0]).localeCompare(String(b[0]))).map(([id,list])=>({id,label:zoneLabel(id,kind),list}));
+  const bands=all.filter(z=>z.list.length>BIG),grid=all.filter(z=>!bands.includes(z));
+@@ -50,7 +76,7 @@ export function layout(items,kind){
+   let prev=-1;
+   z.items=z.list.map((it,k)=>{
+    let ci=hash(it.title)%PALETTE.length;if(ci===prev)ci=(ci+5)%PALETTE.length;prev=ci;colors.set(it.id,PALETTE[ci]);
+-   const p={id:it.id,title:it.title,kind:it.kind||kind,source:zoneLabel(z.id,kind),zone:z,x:z.x+PAD+(k%z.per)*SLOT,y:z.y+TOPPAD+Math.floor(k/z.per)*(LANE+LGAP),color:PALETTE[ci],data:it};
++   const p={id:it.id,key:it.id,title:it.title,kind:it.kind||kind,source:zoneLabel(z.id,kind),zone:z,x:z.x+PAD+(k%z.per)*SLOT,y:z.y+TOPPAD+Math.floor(k/z.per)*(LANE+LGAP),color:PALETTE[ci],data:it};
+    placed.push(p);return p;
+   });
+   z.slots=z.lanes*z.per;
+@@ -61,8 +87,9 @@ export function layout(items,kind){
+ }
+ 
+ export default class Warehouse {
+- constructor({viewport,cam,world,labels,hits,zoomLabel},callbacks){
+-  Object.assign(this,{viewport,camEl:cam,world,labels,hits,zoomLabel,cb:callbacks});
++ constructor({viewport,cam,world,flight,labels,ctrls,hits,zoomLabel},callbacks){
++  Object.assign(this,{viewport,camEl:cam,world,flightEl:flight,labels,ctrlEl:ctrls,hits,zoomLabel,cb:callbacks});
++  this.items=[];this.searches=[];this.summoned=new Set();this.flights=[];this.after=null;this.hidden=new Set();this.fx=0;
+
+   this.T=0;this.cam={x:0,y:0,k:1};this.kFit=1;this.L=layout([],'hackathon');this.kind='hackathon';this.sig='';
+   this.selected=null;this.tray=[];this.hover=null;this.hoverZone=null;this.focusZone=null;this.userMoved=false;
+   this.ptrs=new Map();this.gesture=null;this.suppress=false;this.anim=0;this.inertia=0;this.raf=0;this.size={w:0,h:0};
+@@ -80,7 +107,7 @@ export default class Warehouse {
+  setData(items,kind){
+   const sig=kind+'|'+items.map(i=>i.id+':'+i.title+':'+zoneKey(i)).join('|');
+   if(sig===this.sig)return;
+-  const floorChanged=kind!==this.kind||!this.sig;this.sig=sig;this.kind=kind;this.L=layout(items,kind);
++  const floorChanged=kind!==this.kind||!this.sig;this.sig=sig;this.kind=kind;this.items=items;this.L=layout(items,kind,this.searches);this.buildCtrls();
+   if(this.focusZone)this.focusZone=this.L.zones.find(z=>z.id===this.focusZone.id)||null;
+   this.cb.onColors?.(this.L.colors);this.buildHits();this.render();
+   if(floorChanged||!this.userMoved){this.userMoved=false;this.focusZone?this.focus(this.focusZone.id,0):this.overview(0);}
+@@ -88,6 +115,7 @@ export default class Warehouse {
+  setSelected(id){if(this.selected===id)return;this.selected=id;for(const b of this.hits.children)b.setAttribute('aria-pressed',String(b.dataset.id===id));this.render();}
+  setTray(ids){const next=ids.join(',');if(next===this.tray.join(','))return;this.tray=ids;this.applyCam();}
+  itemById(id){return this.L.items.find(i=>i.id===id);}
++ itemByKey(key){return this.L.items.find(i=>i.key===key);}
+ 
+  /* ---------- painting ---------- */
+  solids(it){
+@@ -118,36 +146,117 @@ export default class Warehouse {
+   for(let y=Math.ceil(y0+WT);y<=y1;y++)line(this.P(x0+WT,y),this.P(x1,y));
+   o.push(`<path class="ks-grid" d="${g.join('')}"/>`);
+   // Column aisles start below the full-width bands; each row aisle sits midway in its gap.
+-  const grid=zones.filter(z=>!z.band),bandEnd=zones.filter(z=>z.band).reduce((e,z)=>Math.max(e,z.y+z.d),-Infinity);
++  const magic=zones.find(z=>z.magic),homeEnd=magic?Math.max(...zones.filter(z=>!z.magic).map(z=>z.y+z.d)):y1-.4;
++  const grid=zones.filter(z=>!z.band),bandEnd=zones.filter(z=>z.band&&!z.magic).reduce((e,z)=>Math.max(e,z.y+z.d),-Infinity);
+   const ax=[],xs=[...new Set(grid.map(z=>z.x))].sort((a,b)=>a-b),ys=[...new Set(zones.map(z=>z.y))].sort((a,b)=>a-b);
+   const top=Number.isFinite(bandEnd)?Math.max(y0+.6,grid.length?Math.min(...grid.map(z=>z.y))-.3:y1):y0+.6;
+-  xs.slice(1).forEach(cx=>{const a=this.P(cx-AISLE/2,top),b=this.P(cx-AISLE/2,y1-.4);ax.push(`M${a[0]} ${a[1]}L${b[0]} ${b[1]}`);});
++  xs.slice(1).forEach(cx=>{const a=this.P(cx-AISLE/2,top),b=this.P(cx-AISLE/2,magic?homeEnd+.3:y1-.4);ax.push(`M${a[0]} ${a[1]}L${b[0]} ${b[1]}`);});
+   ys.slice(1).forEach(ry=>{const prev=Math.max(...zones.filter(z=>z.y<ry).map(z=>z.y+z.d)),my=(prev+ry)/2,a=this.P(x0+.6,my),b=this.P(x1-.4,my);ax.push(`M${a[0]} ${a[1]}L${b[0]} ${b[1]}`);});
+   o.push(`<path class="ks-aisle" d="${ax.join('')}"/>`);
+   const sel=this.itemById(this.selected),lit=this.focusZone||sel?.zone;
+   for(const z of zones){
+-   const on=lit===z;
+-   o.push(`<g class="ks-zone-g${on?' is-on':''}" data-zone="${esc(z.id)}"><polygon class="ks-zone${on?' is-on':this.hoverZone===z?' is-hover':''}" points="${this.quad(z.x,z.y,z.w,z.d)}"/>`);
++   const on=lit===z,mg=z.magic?` is-magic${z.casting?' is-casting':''}`:'';
++   o.push(`<g class="ks-zone-g${on?' is-on':''}${mg}" data-zone="${esc(z.id)}"><polygon class="ks-zone${mg}${on?' is-on':this.hoverZone===z?' is-hover':''}" points="${this.quad(z.x,z.y,z.w,z.d)}"/>`);
+    for(let l=0;l<z.lanes;l++)o.push(`<polygon class="ks-lane" points="${this.quad(z.x+PAD*.5,z.y+TOPPAD+l*(LANE+LGAP)-.1,z.w-PAD,LANE+.05)}"/>`);
+    for(let k=z.items.length;k<z.slots;k++)o.push(`<polygon class="ks-bay" points="${this.quad(z.x+PAD+(k%z.per)*SLOT+.06,z.y+TOPPAD+Math.floor(k/z.per)*(LANE+LGAP)+.02,SLOT-.16,.72)}"/>`);
+    const fy=z.y+z.d-.32,size=Math.min(this.kind==='news'?22:19,(z.w-PAD*2-2.4)*S/Math.max(1,units(z.label))/.66);
+-   o.push(this.floorText(z.x+PAD,fy,'ks-zname',size.toFixed(1),z.label),this.floorText(z.x+z.w-PAD,fy,'ks-zcount',13,`${z.items.length} ${this.kind==='news'?'条新闻':'个项目'}`,'end'),'</g>');
++   const count=z.magic?(z.casting?'正在寻找…':z.status==='empty'?'没有找到相关资料':z.status==='failed'?'搜索失败':`找到 ${z.items.length} ${this.kind==='news'?'条':'本'}`):`${z.items.length} ${this.kind==='news'?'条新闻':'个项目'}`;
++   o.push(this.floorText(z.x+PAD,fy,'ks-zname',size.toFixed(1),clip(z.label,z.magic?40:99)),this.floorText(z.x+z.w-PAD,fy,'ks-zcount',13,count,'end'),'</g>');
+   }
+-  for(const it of items){
++  // Where a summoned book used to stand: a dashed outline until it flies home.
++  for(const gh of this.L.ghosts||[])o.push(`<polygon class="ks-ghost" points="${this.quad(gh.x+.1,gh.y+.08,.74,.58)}"/>`);
++  const grounded=items.filter(it=>!this.hidden.has(it.key));
++  for(const it of grounded){
+    o.push(`<polygon class="ks-shadow" points="${this.quad(it.x+.12,it.y+.12,.9,.68)}"/>`);
+-   if(it===sel)o.push(`<polygon class="ks-glow" points="${this.quad(it.x-.02,it.y-.04,SLOT-.04,.86)}"/>`);
++   if(it.id===this.selected)o.push(`<polygon class="ks-glow" points="${this.quad(it.x-.02,it.y-.04,SLOT-.04,.86)}"/>`);
+   }
+-  const all=[];items.forEach(it=>this.solids(it).forEach(b=>all.push({b,it})));
++  const all=[];grounded.forEach(it=>this.solids(it).forEach(b=>all.push({b,it})));
+   all.sort((p,q)=>(p.b.x+p.b.w/2+p.b.y+p.b.d/2+p.b.z*.01)-(q.b.x+q.b.w/2+q.b.y+q.b.d/2+q.b.z*.01));
+-  for(const {b,it} of all)o.push(`<g class="ks-item${it===sel?' is-selected':''}${it===this.hover?' is-hover':''}${it.id===this.lifted?' is-lifted':''}" data-item="${esc(it.id)}"><g>${this.solid(b,it.color)}</g></g>`);
++  for(const {b,it} of all)o.push(`<g class="ks-item${it.id===this.selected?' is-selected':''}${it===this.hover?' is-hover':''}${it.id===this.lifted?' is-lifted':''}" data-item="${esc(it.id)}"><g>${this.solid(b,it.color)}</g></g>`);
+   this.world.innerHTML=o.join('');
+   this.applyCam();
+  }
++ /* ---------- library search: found books fly out of their zones into a 搜索区 ---------- */
++ // Design-capture hook only: window.__ksSlow slows the animation so still frames can catch it mid-flight.
++ now(){return performance.now()*(window.__ksSlow||1);}
++ relayout(){this.L=layout(this.items,this.kind,this.searches);this.cb.onColors?.(this.L.colors);this.buildHits();this.buildCtrls();this.render();}
++ /** Searches in creation order. New results fly in; removed searches fly home, then their band goes. */
++ setSearches(list=[]){
++  const sig=s=>s.id+'|'+s.status+'|'+(s.ids||[]).join(',');
++  if(list.map(sig).join(';')===(this.after||this.searches).map(sig).join(';'))return;
++  this.settle();
++  for(const s of list)if(s.restored&&s.status==='ready')this.summoned.add(s.id);   // reopened page: no replay
++  const removed=this.searches.filter(p=>!list.some(s=>s.id===p.id)&&this.summoned.has(p.id));
++  if(removed.length){this.after=list;this.launch(removed,true);return;}
++  const casting=list.some(s=>s.status==='casting'&&!this.searches.some(p=>p.id===s.id));
++  this.searches=list;this.relayout();
++  const ready=list.filter(s=>s.status==='ready'&&!this.summoned.has(s.id));
++  if(ready.length)this.launch(ready,false);else if(casting)this.overview(600);
++ }
++ /** Finish any flight at once (a new change arrived mid-air). */
++ settle(){
++  if(!this.flights.length&&!this.after)return;
++  cancelAnimationFrame(this.fx);this.fx=0;this.flights=[];this.hidden.clear();if(this.flightEl)this.flightEl.innerHTML='';
++  if(this.after){this.searches=this.after;this.after=null;}
++  this.relayout();
++ }
++ /** Books travel on an arc between their home slot (or from above, if not on this page) and the band. */
++ launch(searches,back){
++  const keys=new Set(),zones=this.L.zones.filter(z=>z.magic&&searches.some(s=>s.id===z.searchId)),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
++  for(const s of searches)if(!back)this.summoned.add(s.id);else this.summoned.delete(s.id);
++  const items=zones.flatMap(z=>z.items);
++  if(reduce||!items.length){this.flights=[];this.done(back,zones);return;}
++  const t0=this.now()+(back?60:380);
++  this.flights=items.map((it,i)=>{
++   const home=it.home?{x:it.home.x,y:it.home.y,z:0}:{x:it.x,y:it.y-.8,z:7},slot={x:it.x,y:it.y,z:0},dist=Math.hypot(it.x-home.x,it.y-home.y);
++   return {it,from:back?slot:home,to:back?home:slot,t0:t0+i*(back?80:160),dur:back?800:1100+Math.min(600,dist*25),h:it.home?2+Math.min(3,dist*.15):.6,back};
++  });
++  for(const it of items)keys.add(it.key);this.hidden=keys;this.render();
++  if(!back)this.overview(480);
++  if(!this.fx)this.fx=requestAnimationFrame(()=>this.tick(zones));
++ }
++ done(back,zones){
++  if(back){this.searches=this.after||this.searches;this.after=null;this.hidden.clear();this.relayout();this.overview(600);}
++  else{this.hidden.clear();this.render();const z=zones[zones.length-1];if(z)setTimeout(()=>this.focus(z.id,650),200);}
++ }
++ tick(zones){
++  this.fx=0;const now=this.now(),out=[];let landed=false;
++  for(const f of this.flights){
++   const p=Math.max(0,Math.min(1,(now-f.t0)/f.dur));
++   if(p>=1){if(!f.landed){f.landed=true;landed=true;if(!f.back)this.hidden.delete(f.it.key);}continue;}
++   if(p===0&&!f.it.home&&!f.back)continue;   // not on this page: appears when it starts to fall
++   const e=ease(p),x=f.from.x+(f.to.x-f.from.x)*e,y=f.from.y+(f.to.y-f.from.y)*e,z=f.from.z+(f.to.z-f.from.z)*e+f.h*Math.sin(Math.PI*p);
++   out.push(this.flyingBook(f.it,x,y,z));
++  }
++  if(this.flightEl)this.flightEl.innerHTML=out.join('');
++  if(this.flights.every(f=>f.landed)){const back=this.flights.some(f=>f.back);this.flights=[];this.done(back,zones);return;}
++  if(landed)this.render();
++  this.fx=requestAnimationFrame(()=>this.tick(zones));
++ }
++ /** The same three-binder book as on the shelf, lifted to height z, with its shadow on the floor. */
++ flyingBook(it,x,y,z){
++  const sh=Math.max(.08,.4-z*.06);
++  return `<polygon class="ks-fly-shadow" style="opacity:${sh.toFixed(2)}" points="${this.quad(x+.12,y+.12,.9,.68)}"/>`+this.solids({...it,x,y}).map(b=>this.solid({...b,z:b.z+z},it.color)).join('');
++ }
++ /* One delete button beside each 搜索区, kept in place as the camera moves. */
++ buildCtrls(){
++  if(!this.ctrlEl)return;const zones=this.L.zones.filter(z=>z.magic),frag=document.createDocumentFragment();
++  for(const z of zones){
++   const b=document.createElement('button');b.type='button';b.className='ks-zone-del';b.dataset.search=z.searchId;
++   b.innerHTML=`<span aria-hidden="true">×</span>${z.casting?'取消':'删除'}`;b.setAttribute('aria-label',(z.casting?'取消搜索 ':'删除搜索区 ')+z.label.slice(2));
++   b.addEventListener('click',()=>this.cb.onRemoveSearch?.(z.searchId));frag.appendChild(b);
++  }
++  this.ctrlEl.replaceChildren(frag);this.placeCtrls();
++ }
++ placeCtrls(){
++  if(!this.ctrlEl)return;
++  for(const b of this.ctrlEl.children){const z=this.L.zones.find(z=>z.searchId===b.dataset.search);if(!z)continue;const [sx,sy]=this.toScreen(z.x+z.w+.35,z.y+z.d*.55,0);b.style.transform=`translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px)`;}
++ }
+  /* Transparent HTML buttons over each item: keyboard focus, native drag to the tray, screen-reader names. */
+  buildHits(){
+   const frag=document.createDocumentFragment();
+   for(const it of [...this.L.items].sort((a,b)=>(a.x+a.y)-(b.x+b.y))){
+-   const b=document.createElement('button');b.type='button';b.className='knowledge-object';b.draggable=true;b.dataset.id=it.id;
++   const b=document.createElement('button');b.type='button';b.className='knowledge-object';b.draggable=true;b.dataset.id=it.id;b.dataset.key=it.key;
+    b.setAttribute('aria-label','查看项目 '+it.title);b.setAttribute('aria-pressed',String(it.id===this.selected));b.title=it.title+' · 双击加入分析';
+    frag.appendChild(b);
+   }
+@@ -157,8 +266,9 @@ export default class Warehouse {
+   const {cam}=this;
+   this.camEl.style.transform=`translate3d(${cam.x.toFixed(2)}px,${cam.y.toFixed(2)}px,0) scale(${cam.k.toFixed(4)})`;
+   if(this.zoomLabel)this.zoomLabel.textContent=Math.round(cam.k/this.kFit*100)+'%';
++  this.placeCtrls();
+   for(const b of this.hits.children){
+-   const it=this.itemById(b.dataset.id);if(!it)continue;
++   const it=this.itemByKey(b.dataset.key);if(!it)continue;
+    const a=this.toScreen(it.x+.05,it.y+.75,0),c=this.toScreen(it.x+.95,it.y,BH),d=this.toScreen(it.x+.05,it.y,BH),e=this.toScreen(it.x+.95,it.y+.75,0);
+    const l=Math.min(a[0],d[0]),t=Math.min(c[1],d[1]),r=Math.max(c[0],e[0]),btm=Math.max(a[1],e[1]);
+    b.style.transform=`translate(${l.toFixed(1)}px,${t.toFixed(1)}px)`;b.style.width=(r-l).toFixed(1)+'px';b.style.height=(btm-t).toFixed(1)+'px';
+@@ -240,7 +350,7 @@ export default class Warehouse {
+   on('dragstart',e=>{if(this.lastPointer==='touch'||touchDragging()||this.ptrs.size>1||this.gesture?.moved){e.preventDefault();return;}const it=this.itemById(e.target.dataset?.id);if(it)this.cb.onDragStart?.(e,it.data,it.color);});
+   on('click',e=>{const b=e.target.closest?.('.knowledge-object');if(b)this.cb.onSelect?.(b.dataset.id);});
+   on('dblclick',e=>{const b=e.target.closest?.('.knowledge-object');if(b){const it=this.itemById(b.dataset.id);if(it)this.cb.onAdd?.(it.data);}});
+-  on('focusin',e=>{const it=this.itemById(e.target.dataset?.id);if(it&&e.target.matches(':focus-visible')){this.hover=it;this.render();}});
++  on('focusin',e=>{const it=this.itemByKey(e.target.dataset?.key);if(it&&e.target.matches(':focus-visible')){this.hover=it;this.render();}});
+   on('focusout',()=>{if(this.hover){this.hover=null;this.render();}});
+  }
+  down(e){
+@@ -252,7 +362,7 @@ export default class Warehouse {
+   if(this.ptrs.size===1){
+    this.gesture={kind:'pan',start:p,cam:{...this.cam},moved:false,last:performance.now(),vel:{x:0,y:0},n:0};
+    // Touch on a book: hold still to lift it and carry it to the tray; move first to pan as usual.
+-   const it=onItem&&e.pointerType==='touch'?this.itemById(onItem.dataset.id):null;
++   const it=onItem&&e.pointerType==='touch'?this.itemByKey(onItem.dataset.key):null;
+    if(it)this.press=pressToDrag(e,it.data,{color:it.color,source:onItem,onLift:()=>this.lift(it,e.pointerId),onEnd:()=>this.land()});
+   }else{this.press?.();this.beginPinch();}
+   if(!onItem||this.ptrs.size>1)for(const id of this.ptrs.keys()){try{this.viewport.setPointerCapture(id);}catch{}}
+@@ -262,7 +372,7 @@ export default class Warehouse {
+   if(!this.ptrs.size){
+    if(e.pointerType==='touch')return;
+    const b=e.target.closest?.('.knowledge-object'),zg=e.target.closest?.('[data-zone]');
+-   const hi=b?this.itemById(b.dataset.id):null,hz=zg?this.L.zones.find(z=>z.id===zg.dataset.zone):null;
++   const hi=b?this.itemByKey(b.dataset.key):null,hz=zg?this.L.zones.find(z=>z.id===zg.dataset.zone):null;
+    if(hi!==this.hover||hz!==this.hoverZone){this.hover=hi;this.hoverZone=hz;cancelAnimationFrame(this.raf);this.raf=requestAnimationFrame(()=>this.render());}
+    return;
+   }
+@@ -300,5 +410,5 @@ export default class Warehouse {
+  }
+  land(){this.press=null;if(this.lifted){this.lifted=null;this.render();}}
+  resetGesture(){this.ptrs.clear();this.gesture=null;}
+- destroy(){cancelAnimationFrame(this.anim);cancelAnimationFrame(this.inertia);cancelAnimationFrame(this.raf);(this.off||[]).forEach(f=>f());}
++ destroy(){this.ctrlEl?.replaceChildren();cancelAnimationFrame(this.fx);cancelAnimationFrame(this.anim);cancelAnimationFrame(this.inertia);cancelAnimationFrame(this.raf);(this.off||[]).forEach(f=>f());}
+ }

@@ -1,0 +1,784 @@
+{
+ "date": "2026-11-11",
+ "model": "claude-sonnet-5-5 (medium)",
+ "samples": {
+  "Tap2ETH": {
+   "overview": "Tap2ETH 把已有的非接触式 EMV 银行卡变成自托管智能合约钱包的一个签名者，另一个签名者是手机指纹密钥，用于稳定币支付和转账。",
+   "sections": [
+    {
+     "id": "problem",
+     "points": [
+      {
+       "text": "针对硬件钱包的供应链风险，以及助记词作为单点故障的问题。",
+       "source": 1,
+       "quote": "Seed phrases remain a single point of failure"
+      },
+      {
+       "text": "用户已有的银行卡中的芯片作为密钥，无需购买新设备、信任经销商或保管助记词。",
+       "source": 1,
+       "quote": "There is no new device to buy, no reseller to trust and no seed phrase to steal."
+      },
+      {
+       "text": "卡只作为密钥使用，不产生卡支付，也不会向银行账户扣款。",
+       "source": 1,
+       "quote": "The card is used only as a key: no card payment is processed and your bank account is never charged."
+      },
+      {
+       "text": "与 Gnosis Pay、HaLo、Tangem 等对比：使用用户已有的卡，无需新卡或新硬件。",
+       "source": 3,
+       "quote": "Tap2ETH uses the card you already have."
+      }
+     ]
+    },
+    {
+     "id": "usage",
+     "points": [
+      {
+       "text": "向商户付款：商户输入金额，用户刷卡，再用手机指纹确认。",
+       "source": 1,
+       "quote": "the merchant enters an amount, you tap your card on the terminal, and you approve on your phone with your fingerprint."
+      },
+      {
+       "text": "向任意地址转账：在 app 中输入地址和金额，卡贴手机，指纹确认。",
+       "source": 1,
+       "quote": "enter the address and amount in the app, tap your card on the phone, and confirm with your fingerprint."
+      },
+      {
+       "text": "注册：Android app 通过 NFC 读卡、校验证书链，并创建含卡密钥和手机 P-256 密钥的双签名者钱包。",
+       "source": 3,
+       "quote": "The Android app reads the card over NFC, checks that chain, and creates a wallet with two signers"
+      },
+      {
+       "text": "钱包支持多卡多手机的阈值签名、限额、手机即时冻结和延时恢复。",
+       "source": 1,
+       "quote": "per-payment and daily limits, instant freeze from the phone, and time-locked recovery."
+      }
+     ]
+    },
+    {
+     "id": "architecture",
+     "points": [
+      {
+       "text": "Android app 使用 React Native 和 Expo，通过 react-native-nfc-manager 读卡。",
+       "source": 1,
+       "quote": "It uses React Native and Expo, with react-native-nfc-manager for card reads."
+      },
+      {
+       "text": "自研 Kotlin 模块在 Android Keystore 生成 secp256r1 密钥，每次签名都要求强生物识别。",
+       "source": 1,
+       "quote": "requires a strong biometric for every signature"
+      },
+      {
+       "text": "Relayer 是 Node 和 Express 服务，连接终端与手机、收集签名、模拟并提交交易、代付 gas。",
+       "source": 1,
+       "quote": "collects signatures, simulates and submits transactions, and pays gas"
+      },
+      {
+       "text": "DIY POS 终端基于 Raspberry Pi，带 3.5 寸触屏，RFID 读卡器通过 I2C 直连。",
+       "source": 1,
+       "quote": "It’s a Raspberry Pi with a 3.5″ touchscreen"
+      },
+      {
+       "text": "终端会自行在链上检查支付，不只依赖后端。",
+       "source": 1,
+       "quote": "The terminal checks the payment on-chain itself and doesn’t rely only on the backend."
+      }
+     ]
+    },
+    {
+     "id": "details",
+     "points": [
+      {
+       "text": "卡的 EMV 流程包括 SELECT PPSE 到 INTERNAL AUTHENTICATE，不请求 PIN 或支付。",
+       "source": 1,
+       "quote": "SELECT PPSE, SELECT AID, GET PROCESSING OPTIONS with a zero amount, READ RECORD and INTERNAL AUTHENTICATE"
+      },
+      {
+       "text": "合约通过 modexp 预编译恢复卡的 ISO/IEC 9796-2 签名块，并在 Solidity 中重算 SHA-1。",
+       "source": 1,
+       "quote": "We recover the card’s ISO/IEC 9796-2 signature block through the modexp precompile"
+      },
+      {
+       "text": "SHA-1 是主要 gas 开销，每块约 38k gas。",
+       "source": 1,
+       "quote": "SHA-1 turned out to be the main gas cost, at about 38k gas per block"
+      },
+      {
+       "text": "手机端作为 WebAuthn P-256 断言验证；钱包为最小克隆，registry 映射卡公钥哈希到钱包。",
+       "source": 1,
+       "quote": "Wallets are minimal clones, and a registry maps a hash of the card’s public key to its wallet."
+      },
+      {
+       "text": "Sepolia 上钱包通过 Uniswap v3 的 exactOutputSingle 用 ETH 兑换，商户收到精确的 USDT 数额。",
+       "source": 3,
+       "quote": "so the merchant receives exactly the USDT amount, in one transaction"
+      },
+      {
+       "text": "Relayer 用 QuoterV2 查询所有费率档，选最便宜的，滑点上限 1%。",
+       "source": 3,
+       "quote": "cheapest wins, 1% slippage cap"
+      }
+     ]
+    },
+    {
+     "id": "evidence",
+     "points": [
+      {
+       "text": "项目页提供 Live Demo 与 Source Code 入口，并获得 Uniswap Foundation 第 4 名和 Whitechain 第 2 名。",
+       "source": 1,
+       "quote": "Whitechain - Operate · Stablecoin Payments for Business 2nd place"
+      },
+      {
+       "text": "README 列出 Whitechain 测试网、Sepolia 和以太坊主网的工厂合约地址。",
+       "source": 3,
+       "quote": "`Tap2EthFactoryV2` [`0xb413…557A`]"
+      },
+      {
+       "text": "第 1 天真实印度 Mastercard 签名通过 CA→银行→卡密钥的完整验证。",
+       "source": 3,
+       "quote": "a real Indian-issued Mastercard signed our challenge, and the signature verified end to end"
+      },
+      {
+       "text": "合约测试 127 个，Uniswap 相关测试在 Sepolia fork 上运行，离线会跳过。",
+       "source": 3,
+       "quote": "127 tests; the Uniswap ones fork Sepolia and are skipped offline"
+      },
+      {
+       "text": "主网合约为实验性且未审计，尚未跑过支付。",
+       "source": 3,
+       "quote": "It is **experimental and unaudited**, and we have not run payments through it yet."
+      },
+      {
+       "text": "更强的 v3 恢复已编写并测试，但未部署。",
+       "source": 3,
+       "quote": "it is written and tested, not deployed"
+      }
+     ]
+    }
+   ],
+   "unknowns": [
+    "Live Demo 的具体地址与当前是否可用，项目页未给出。",
+    "主网合约是否有真实资金或用户使用，资料未说明。",
+    "iOS 是否支持，资料只提到 Android app。",
+    "Sepolia 工厂合约源码何时完成验证，资料未说明。",
+    "新卡密钥是否来自真实银行，relayer 尚未校验。",
+    "哪些银行或卡组织的卡实际可用，资料只测试过一张卡。"
+   ],
+   "check": {
+    "kept": 25,
+    "moved": 0,
+    "dropped": 0,
+    "droppedPoints": []
+   },
+   "sources": [
+    {
+     "index": 1,
+     "kind": "page",
+     "url": "https://ethglobal.com/showcase/tap2eth-ck8gt",
+     "label": "项目页 · ethglobal.com",
+     "chars": 5614
+    },
+    {
+     "index": 2,
+     "kind": "repo",
+     "url": "https://github.com/team-somehow/tap2eth",
+     "label": "仓库信息 · team-somehow/tap2eth",
+     "chars": 143
+    },
+    {
+     "index": 3,
+     "kind": "readme",
+     "url": "https://github.com/team-somehow/tap2eth/blob/main/README.md",
+     "label": "README · team-somehow/tap2eth",
+     "chars": 14280
+    },
+    {
+     "index": 4,
+     "kind": "tree",
+     "url": "https://github.com/team-somehow/tap2eth/tree/main",
+     "label": "文件目录 · team-somehow/tap2eth（118 个文件）",
+     "chars": 3109
+    },
+    {
+     "index": 5,
+     "kind": "manifest",
+     "url": "https://github.com/team-somehow/tap2eth/blob/main/contracts/hardhat.config.js",
+     "label": "contracts/hardhat.config.js · team-somehow/tap2eth",
+     "chars": 3474
+    },
+    {
+     "index": 6,
+     "kind": "manifest",
+     "url": "https://github.com/team-somehow/tap2eth/blob/main/contracts/package.json",
+     "label": "contracts/package.json · team-somehow/tap2eth",
+     "chars": 388
+    },
+    {
+     "index": 7,
+     "kind": "manifest",
+     "url": "https://github.com/team-somehow/tap2eth/blob/main/landing/package.json",
+     "label": "landing/package.json · team-somehow/tap2eth",
+     "chars": 377
+    }
+   ],
+   "log": [
+    {
+     "url": "https://ethglobal.com/showcase/tap2eth-ck8gt",
+     "kind": "page",
+     "status": "read",
+     "chars": 5614
+    },
+    {
+     "url": "https://x.com/ETHGlobal/status/2119052029003980977",
+     "kind": "page",
+     "status": "skipped",
+     "reason": "需要登录，未读取"
+    },
+    {
+     "url": "https://github.com/team-somehow/tap2eth",
+     "kind": "repo",
+     "status": "read"
+    },
+    {
+     "url": "https://github.com/team-somehow/tap2eth/blob/main/README.md",
+     "kind": "readme",
+     "status": "read",
+     "chars": 14280
+    },
+    {
+     "url": "https://github.com/team-somehow/tap2eth/tree/main",
+     "kind": "tree",
+     "status": "read",
+     "chars": 118
+    },
+    {
+     "url": "https://github.com/team-somehow/tap2eth/blob/main/contracts/hardhat.config.js",
+     "kind": "manifest",
+     "status": "read"
+    },
+    {
+     "url": "https://github.com/team-somehow/tap2eth/blob/main/contracts/package.json",
+     "kind": "manifest",
+     "status": "read"
+    },
+    {
+     "url": "https://github.com/team-somehow/tap2eth/blob/main/landing/package.json",
+     "kind": "manifest",
+     "status": "read"
+    }
+   ],
+   "model": "claude-sonnet-5-5",
+   "took_ms": 20839,
+   "generated_at": "2026-11-10T17:43:24.322Z",
+   "steps": [
+    "正在读取 ethglobal.com 项目页",
+    "正在读取 GitHub team-somehow/tap2eth",
+    "Claude 正在阅读 7 份资料"
+   ]
+  },
+  "Smart Water Guardian AI": {
+   "overview": "Smart Water Guardian AI 是基于 Arduino UNO Q 的低成本水质监测设备，测量 pH、TDS、浑浊度和温度，用 WHO 阈值加 Edge Impulse K-means 异常检测在本地判断水质。",
+   "sections": [
+    {
+     "id": "problem",
+     "points": [
+      {
+       "text": "项目针对缓慢、不易察觉的水质恶化；全球有二十亿人饮用未经安全管理的水。",
+       "source": 1,
+       "quote": "Two billion people worldwide drink water that isn't safely managed."
+      },
+      {
+       "text": "现有手段不适合农村水井、村庄蓄水池或小型水务合作社：实验室检测耗时，工业探头昂贵。",
+       "source": 1,
+       "quote": "Lab testing takes 24 to 48 hours and a trip to a city."
+      },
+      {
+       "text": "目标是提供持续监测、学习特定水源正常状态的低成本设备，在偏离时报警；并非取代认证实验室。",
+       "source": 1,
+       "quote": "The goal isn't to replace a certified lab."
+      }
+     ]
+    },
+    {
+     "id": "usage",
+     "points": [
+      {
+       "text": "部署流程：按表接线，用 App Lab 烧录 MCU 草图，将 .eim 模型拷贝到 UNO Q，配置 Arduino Cloud 后启动应用。",
+       "source": 4,
+       "quote": "arduino-app-cli app start ~/ArduinoApps/water_guardian"
+      },
+      {
+       "text": "本地网页仪表盘可在局域网内通过端口 7000 访问。",
+       "source": 4,
+       "quote": "Dashboard available at: `http://<UNO_Q_IP>:7000`"
+      },
+      {
+       "text": "结果通过本地网页仪表盘、Android 应用和 Arduino Cloud 三种方式查看；设备上有 LED 和蜂鸣器本地报警。",
+       "source": 1,
+       "quote": "Local alerts (LED and buzzer) fire on the device itself."
+      },
+      {
+       "text": "水质进入危急状态时，手机应用会触发带声音和振动的原生通知。",
+       "source": 1,
+       "quote": "the phone fires a native notification with sound and vibration"
+      }
+     ]
+    },
+    {
+     "id": "architecture",
+     "points": [
+      {
+       "text": "UNO Q 双处理器分工：STM32 负责实时传感器读取和执行器控制，QRB2210 运行 Linux 端的 AI 推理、网页仪表盘、云同步和时序存储。",
+       "source": 1,
+       "quote": "an STM32 microcontroller for hard real-time sensor reading and actuator control"
+      },
+      {
+       "text": "MCU 草图通过 Bridge RPC 暴露读取传感器和 set_alert 函数，供 Python 端调用。",
+       "source": 4,
+       "quote": "`set_alert(level)` → LED + buzzer control (0=normal, 1=predictive, 2=critical)"
+      },
+      {
+       "text": "仓库包含固件、Python 后端、Flutter 应用、网页仪表盘和 Edge Impulse 模型。",
+       "source": 1,
+       "quote": "smart_water_garden_app : Android app (Flutter)"
+      },
+      {
+       "text": "网页仪表盘用原生 HTML 和 Chart.js 构建，后端使用本地时序数据库。",
+       "source": 1,
+       "quote": "It's built with vanilla HTML and Chart.js, backed by a local time-series database"
+      },
+      {
+       "text": "手机应用通过 Cloudflare Tunnel 访问设备的本地仪表盘，实现远程监控。",
+       "source": 1,
+       "quote": "the board exposes its local dashboard through a Cloudflare Tunnel"
+      }
+     ]
+    },
+    {
+     "id": "details",
+     "points": [
+      {
+       "text": "决策逻辑分两层：超出 WHO 阈值为 CRITICAL，否则 AI 异常分数超阈值为 PREDICTIVE ALERT，否则 NORMAL。",
+       "source": 1,
+       "quote": "ELSE IF the AI anomaly score exceeds its threshold, the status is PREDICTIVE ALERT"
+      },
+      {
+       "text": "K-means 模型只用正常水训练，无需标注污染数据，按与簇的距离给新测量打分。",
+       "source": 1,
+       "quote": "It's trained only on normal water, with no labeled contamination needed."
+      },
+      {
+       "text": "Impulse 设计采用 Flatten 加 K-means 异常检测，32 个簇，部署为 Linux AARCH64 的 .eim 文件。",
+       "source": 1,
+       "quote": "Learning: K-means anomaly detection, 32 clusters"
+      },
+      {
+       "text": "用模拟数据训练的首个模型在真实自来水上持续误报，改用真实数据重新训练。",
+       "source": 1,
+       "quote": "The first model was trained on simulated normal water. It failed."
+      },
+      {
+       "text": "模型要求输入当前 4 个测量值后补零至 48 个特征，Python 端原先错误地展平了整个窗口。",
+       "source": 1,
+       "quote": "the model expects the current measurement (4 values) followed by zero-padding to fill its 48-feature input"
+      },
+      {
+       "text": "pH 用 pH 4、7、10 三点校准并线性回归拟合；温度用于补偿 pH 和 TDS。",
+       "source": 1,
+       "quote": "three-point calibration (pH 4, 7, and 10), fitted with a linear regression"
+      }
+     ]
+    },
+    {
+     "id": "evidence",
+     "points": [
+      {
+       "text": "作者称结果来自真实设备测量：加盐、牛奶、柠檬汁测试均触发 CRITICAL，AI 分数随之上升。",
+       "source": 1,
+       "quote": "These are values measured on the actual device, not simulations."
+      },
+      {
+       "text": "TDS 对照标准液验证，读数 650.8 ppm，误差低于 1%。",
+       "source": 1,
+       "quote": "The probe read 650.8 ppm, an error under 1 percent."
+      },
+      {
+       "text": "项目获得 Invent the Future with Arduino UNO Q and App Lab 竞赛的 Best Social Impact 奖。",
+       "source": 2,
+       "quote": "The winner was awarded a Best Social Impact ($3,000 value)"
+      },
+      {
+       "text": "项目页提供了一个 trycloudflare.com 的演示地址，作者说明这是临时的免账号隧道。",
+       "source": 1,
+       "quote": "https://warranties-turtle-nice-mouse.trycloudflare.com/current"
+      },
+      {
+       "text": "仓库中有 water_log.csv 日志、InfluxDB 数据和已编译的 .eim 模型文件。",
+       "source": 5,
+       "quote": "water-guardian-linux-aarch64.eim"
+      },
+      {
+       "text": "项目页标注发布日期为 2026 年 9 月 5 日，MIT 许可。",
+       "source": 1,
+       "quote": "Published September 5, 2026"
+      }
+     ]
+    }
+   ],
+   "unknowns": [
+    "设备是否在真实水井或社区中实际部署并使用过。",
+    "Cloudflare Tunnel 演示地址目前是否仍可访问。",
+    "重新校准 pH 后，模型是否已按新校准重新训练。",
+    "README 写浑浊度阈值为 1 NTU，与项目页描述的实际阈值设置是否一致不清楚。",
+    "仓库是否包含自动化测试或安全方面的设计，资料中看不到。",
+    "模型在不同水源和季节下的表现如何，资料没有给出数据。"
+   ],
+   "check": {
+    "kept": 24,
+    "moved": 0,
+    "dropped": 0,
+    "droppedPoints": []
+   },
+   "sources": [
+    {
+     "index": 1,
+     "kind": "page",
+     "url": "https://www.hackster.io/david-kochoni/smart-water-guardian-ai-a194f1",
+     "label": "项目页 · hackster.io",
+     "chars": 19271
+    },
+    {
+     "index": 2,
+     "kind": "page",
+     "url": "https://www.hackster.io/contests/invent-the-future-with-arduino-uno-q-and-app-lab",
+     "label": "项目页 · hackster.io",
+     "chars": 15515
+    },
+    {
+     "index": 3,
+     "kind": "repo",
+     "url": "https://github.com/Bathoking/smart-water-guardian-ai",
+     "label": "仓库信息 · Bathoking/smart-water-guardian-ai",
+     "chars": 136
+    },
+    {
+     "index": 4,
+     "kind": "readme",
+     "url": "https://github.com/Bathoking/smart-water-guardian-ai/blob/master/README.md",
+     "label": "README · Bathoking/smart-water-guardian-ai",
+     "chars": 6297
+    },
+    {
+     "index": 5,
+     "kind": "tree",
+     "url": "https://github.com/Bathoking/smart-water-guardian-ai/tree/master",
+     "label": "文件目录 · Bathoking/smart-water-guardian-ai（167 个文件）",
+     "chars": 10428
+    },
+    {
+     "index": 6,
+     "kind": "manifest",
+     "url": "https://github.com/Bathoking/smart-water-guardian-ai/blob/master/python/requirements.txt",
+     "label": "python/requirements.txt · Bathoking/smart-water-guardian-ai",
+     "chars": 51
+    }
+   ],
+   "log": [
+    {
+     "url": "https://www.hackster.io/david-kochoni/smart-water-guardian-ai-a194f1",
+     "kind": "page",
+     "status": "read",
+     "chars": 19271
+    },
+    {
+     "url": "https://www.hackster.io/contests/invent-the-future-with-arduino-uno-q-and-app-lab",
+     "kind": "page",
+     "status": "read",
+     "chars": 15515
+    },
+    {
+     "url": "https://github.com/Bathoking/smart-water-guardian-ai",
+     "kind": "repo",
+     "status": "read"
+    },
+    {
+     "url": "https://github.com/Bathoking/smart-water-guardian-ai/blob/master/README.md",
+     "kind": "readme",
+     "status": "read",
+     "chars": 6297
+    },
+    {
+     "url": "https://github.com/Bathoking/smart-water-guardian-ai/tree/master",
+     "kind": "tree",
+     "status": "read",
+     "chars": 167
+    },
+    {
+     "url": "https://github.com/Bathoking/smart-water-guardian-ai/blob/master/python/requirements.txt",
+     "kind": "manifest",
+     "status": "read"
+    }
+   ],
+   "model": "claude-sonnet-5-5",
+   "took_ms": 21651,
+   "generated_at": "2026-11-10T17:43:45.977Z",
+   "steps": [
+    "正在读取 hackster.io 项目页",
+    "正在读取 hackster.io 项目页",
+    "正在读取 GitHub Bathoking/smart-water-guardian-ai",
+    "Claude 正在阅读 6 份资料"
+   ]
+  },
+  "Tokito": {
+   "overview": "Tokito 是用 Rust + egui 写的桌面 EDA 工作室，用户用对话描述电路板，Claude 起草可编辑的原理图；本次新做 DS-ViRe 与数据手册到符号的流水线。",
+   "sections": [
+    {
+     "id": "problem",
+     "points": [
+      {
+       "text": "绘制原理图是缓慢、依赖专家的 CAD 工作，工程师需花数天放置元件、连线、检查规则并做 BOM。",
+       "source": 1,
+       "quote": "Drawing one is slow, expert-only work in CAD tools"
+      },
+      {
+       "text": "AI 只能用有符号的元件，而符号库只覆盖约 22,700 个，现实中的厂商料号数以百万计。",
+       "source": 1,
+       "quote": "Symbol libraries are community-maintained and cover roughly 22,700 parts."
+      },
+      {
+       "text": "现有工具会静默替换成最接近的符号：16 脚 USB-C 插座被解析成 2 脚通用件，网表出错且用户得不到警告。",
+       "source": 1,
+       "quote": "a request for a 16-pin USB-C receptacle resolved to a 2-pin generic"
+      },
+      {
+       "text": "所需引脚信息都在厂商 PDF 数据手册的图片里，文本搜索找不到，把 400 页 PDF 喂给模型又无法扩展和审计。",
+       "source": 1,
+       "quote": "But it exists as pictures"
+      }
+     ]
+    },
+    {
+     "id": "usage",
+     "points": [
+      {
+       "text": "用户在聊天中描述电路板，Claude 先给出工程方案，再给出原理图和 BOM 修改提案，每项 AI 改动可逐条接受或拒绝。",
+       "source": 1,
+       "quote": "Every AI change is a diff you accept or reject per-operation."
+      },
+      {
+       "text": "桌面端按料号解析、放置符号，并把该版本嵌入文档；选中已放置元件可追问其来源并看到证据。",
+       "source": 1,
+       "quote": "You can select a placed part and ask where it came from"
+      },
+      {
+       "text": "DS-ViRe 可通过 CLI 对本地数据手册提取证据，需给出厂商、MPN 和封装。",
+       "source": 3,
+       "quote": "uv run --frozen --no-sync dsvire extract-evidence datasheet.pdf"
+      },
+      {
+       "text": "也可作为私有服务使用：向 POST /v1/evidence/symbol 发送 PDF 字节并带 bearer token。",
+       "source": 3,
+       "quote": "Send raw `application/pdf` bytes to `POST /v1/evidence/symbol`"
+      }
+     ]
+    },
+    {
+     "id": "architecture",
+     "points": [
+      {
+       "text": "Tokito 桌面端是 Rust + egui 原生应用，覆盖原理图绘制、ERC、BOM 和 KiCad 等输出。",
+       "source": 1,
+       "quote": "A native desktop studio (Rust + egui)"
+      },
+      {
+       "text": "DS-ViRe 负责检索与溯源，Tokito 的提取器读取审核过的裁剪图，确定性的 Rust 代码负责符号几何与序列化。",
+       "source": 3,
+       "quote": "DS-ViRe owns retrieval and provenance"
+      },
+      {
+       "text": "流水线分为 Extract、Compile、Publish、Resolve、Place 五步。",
+       "source": 1,
+       "quote": "Then the pipeline:"
+      },
+      {
+       "text": "自建 MCP 服务器作为元件库，桌面端是 MCP 客户端。",
+       "source": 1,
+       "quote": "The desktop is the MCP client."
+      },
+      {
+       "text": "DS-ViRe 服务端存储分工：Postgres 存工作流与目录状态，对象存储存文件，Qdrant 存检索索引。",
+       "source": 3,
+       "quote": "Qdrant owns rebuildable retrieval indexes"
+      }
+     ]
+    },
+    {
+     "id": "details",
+     "points": [
+      {
+       "text": "核心规则是模型解读证据、确定性代码构造符号，不让 LLM 直接输出 CAD 几何。",
+       "source": 1,
+       "quote": "models interpret evidence, deterministic code constructs symbols"
+      },
+      {
+       "text": "DS-ViRe 遵循失败即关闭：不猜厂商、MPN 或封装，除非能独立验证引脚图和引脚功能表，否则弃权。",
+       "source": 1,
+       "quote": "It fails closed"
+      },
+      {
+       "text": "claude-sonnet-4-6 对引脚图和引脚描述表各独立提取一次，再对账；温度为 0，schema 失败重试一次后弃权。",
+       "source": 1,
+       "quote": "Temperature 0, deny_unknown_fields , reprompt once on schema failure, then abstain"
+      },
+      {
+       "text": "同样的 SymbolSpec 输入会产生字节完全一致的符号文件，由 golden test 保证。",
+       "source": 1,
+       "quote": "produces a byte-identical symbol file out"
+      },
+      {
+       "text": "发布为不可变的版本化修订，按（源哈希、提取器版本、编译器版本）幂等。",
+       "source": 1,
+       "quote": "idempotent on (source hash, extractor version, compiler version)"
+      },
+      {
+       "text": "MCP 工具结果被包在 <untrusted> 信封中并限制大小，令牌保存在操作系统钥匙串。",
+       "source": 1,
+       "quote": "every tool result is wrapped in an <untrusted> envelope"
+      }
+     ]
+    },
+    {
+     "id": "evidence",
+     "points": [
+      {
+       "text": "在真实的 41 页 TI TPS5430 数据手册上验证，第 3 页的两类证据均通过，并作为可复现示例提交。",
+       "source": 1,
+       "quote": "We proved it on a real 41-page Texas Instruments TPS5430 datasheet"
+      },
+      {
+       "text": "项目页列出部署地址 https://mcp.tokito.dev/mcp，并标注获得 1st Place。",
+       "source": 1,
+       "quote": "https://mcp.tokito.dev/mcp"
+      },
+      {
+       "text": "README 称数据平面和带认证的 HTTP API 已在 dsvire.tokito.dev 上线。",
+       "source": 3,
+       "quote": "The data plane\nand authenticated HTTP API are live at `dsvire.tokito.dev`"
+      },
+      {
+       "text": "开发集 ColSmol nDCG@5 为 0.417，R@5 为 0.544；README 明确这不是生产精度声明。",
+       "source": 3,
+       "quote": "| ColSmol development nDCG@5 | 0.417 |"
+      },
+      {
+       "text": "留出集正例覆盖率 46.7%，未达 50% 下限，因此发布保持禁用。",
+       "source": 3,
+       "quote": "Missed the frozen 50% floor; publication stayed disabled"
+      },
+      {
+       "text": "仓库含 CI 工作流和测试配置，版本为 0.6.3。",
+       "source": 5,
+       "quote": "version = \"0.6.3\""
+      }
+     ]
+    }
+   ],
+   "unknowns": [
+    "Tokito 桌面端本体的代码仓库和下载方式在资料中没有给出。",
+    "桌面端到 api.tokito.dev 的网关实际有多少用户在用，资料未说明。",
+    "端到端从聊天到符号的成功率，除 TPS5430 外还有多少料号验证过，不清楚。",
+    "自动目录发布仍被禁用，目前 resolve_by_mpn 能解析多少真实料号不清楚。",
+    "五个仓库中除 tokito-dsvire 外的代码是否公开，资料里没有说明。",
+    "PCB 布局等后续功能的实现时间表未提供。"
+   ],
+   "check": {
+    "kept": 25,
+    "moved": 0,
+    "dropped": 0,
+    "droppedPoints": []
+   },
+   "sources": [
+    {
+     "index": 1,
+     "kind": "page",
+     "url": "https://devfolio.co/projects/tokito-2f44",
+     "label": "项目页 · devfolio.co",
+     "chars": 10718
+    },
+    {
+     "index": 2,
+     "kind": "repo",
+     "url": "https://github.com/TokitoAI/tokito-dsvire",
+     "label": "仓库信息 · TokitoAI/tokito-dsvire",
+     "chars": 228
+    },
+    {
+     "index": 3,
+     "kind": "readme",
+     "url": "https://github.com/TokitoAI/tokito-dsvire/blob/main/README.md",
+     "label": "README · TokitoAI/tokito-dsvire",
+     "chars": 7932
+    },
+    {
+     "index": 4,
+     "kind": "tree",
+     "url": "https://github.com/TokitoAI/tokito-dsvire/tree/main",
+     "label": "文件目录 · TokitoAI/tokito-dsvire（315 个文件，列出前 250 个）",
+     "chars": 10030
+    },
+    {
+     "index": 5,
+     "kind": "manifest",
+     "url": "https://github.com/TokitoAI/tokito-dsvire/blob/main/pyproject.toml",
+     "label": "pyproject.toml · TokitoAI/tokito-dsvire",
+     "chars": 2974
+    }
+   ],
+   "log": [
+    {
+     "url": "https://devfolio.co/projects/tokito-2f44",
+     "kind": "page",
+     "status": "read",
+     "chars": 10718
+    },
+    {
+     "url": "https://github.com/TokitoAI/tokito-dsvire",
+     "kind": "repo",
+     "status": "read"
+    },
+    {
+     "url": "https://github.com/TokitoAI/tokito-dsvire/blob/main/README.md",
+     "kind": "readme",
+     "status": "read",
+     "chars": 7932
+    },
+    {
+     "url": "https://github.com/TokitoAI/tokito-dsvire/tree/main",
+     "kind": "tree",
+     "status": "read",
+     "chars": 315
+    },
+    {
+     "url": "https://github.com/TokitoAI/tokito-dsvire/blob/main/pyproject.toml",
+     "kind": "manifest",
+     "status": "read"
+    },
+    {
+     "url": "https://github.com/TokitoAI/tokito",
+     "kind": "repo",
+     "status": "failed",
+     "reason": "仓库不存在或不公开"
+    }
+   ],
+   "model": "claude-sonnet-5-5",
+   "took_ms": 23160,
+   "generated_at": "2026-11-10T17:44:09.141Z",
+   "steps": [
+    "正在读取 devfolio.co 项目页",
+    "正在读取 GitHub TokitoAI/tokito-dsvire",
+    "正在读取 GitHub TokitoAI/tokito",
+    "Claude 正在阅读 5 份资料"
+   ]
+  }
+ }
+}

@@ -1,16 +1,36 @@
 import {z} from 'zod';
 import {randomUUID} from 'node:crypto';
-import {Store} from '../../data/database/store.ts';
+import {Store} from '../../data/data_preprocessing/database/store.ts';
 import {IdeaLab,constraintsSchema} from '../agents/idea-lab.ts';
 import {ObsidianBridge} from './obsidian.ts';
-import {assert} from '../shared/config.ts';
+import {assert,AppError} from '../shared/config.ts';
 import {KnowledgeNews} from './knowledge-news.ts';
+import {HackathonTracker} from './hackathon-tracker.ts';
+import {driveSyncStatus} from './drive-sync-status.ts';
+import {BriefWorker} from './project-brief.ts';
+import {DeepDiveWorker} from './project-deep-dive.ts';
+import {MatchWorker,MATCH_MODES} from './project-match.ts';
+import {searchLibrary} from './library-search.ts';
+import type {ClaudeCLI} from '../agents/providers/claude.ts';
+
+// New projects stay out of the library until their brief has been attempted (ready or
+// failed), at most 24 hours, so the brief is there when a project first appears.
+const BRIEF_GATE="NOT ($GATE::timestamptz IS NOT NULL AND crawl_projects.created_at>$GATE::timestamptz AND crawl_projects.created_at>now()-interval '24 hours' AND NOT EXISTS (SELECT 1 FROM project_briefs b WHERE b.project_id=crawl_projects.id AND b.status IN ('ready','failed')))";
+const gate=(n:number)=>BRIEF_GATE.replaceAll('$GATE','$'+n);
 
 export class KnowledgeAPI {
- store:Store;lab:IdeaLab;obsidian:ObsidianBridge;news:KnowledgeNews;
- constructor(store:Store,lab:IdeaLab,obsidian:ObsidianBridge){this.store=store;this.lab=lab;this.obsidian=obsidian;this.news=new KnowledgeNews(store);}
+ store:Store;lab:IdeaLab;obsidian:ObsidianBridge;news:KnowledgeNews;tracker:HackathonTracker;briefs:BriefWorker;deepDives:DeepDiveWorker;matches:MatchWorker;cli:Pick<ClaudeCLI,'run'>;
+ constructor(store:Store,lab:IdeaLab,obsidian:ObsidianBridge,briefs?:BriefWorker,deepDives?:DeepDiveWorker,cli?:Pick<ClaudeCLI,'run'>,matches?:MatchWorker){
+  const unavailable={run:async()=>{throw new AppError('CLI_NOT_FOUND','Claude 不可用',503);}};
+  this.store=store;this.lab=lab;this.obsidian=obsidian;this.news=new KnowledgeNews(store);this.tracker=new HackathonTracker(store);
+  this.cli=cli||unavailable;this.briefs=briefs||new BriefWorker(store,unavailable);this.deepDives=deepDives||new DeepDiveWorker(store,unavailable);this.matches=matches||new MatchWorker(store,unavailable);
+ }
  async handle(p:string,method:string,body:()=>Promise<any>,url=new URL('http://localhost')){
   if(!p.startsWith('/api/knowledge/'))return null;
+  if(p==='/api/knowledge/hackathons'&&method==='GET')return {data:{...await this.tracker.list(),drive_sync:await driveSyncStatus()}};
+  if(p==='/api/knowledge/hackathons/seen'&&method==='POST')return {data:await this.tracker.markSeen()};
+  const untrack=/^\/api\/knowledge\/hackathons\/([^/]+)\/untrack$/.exec(p);
+  if(untrack&&method==='POST')return {data:await this.tracker.untrack(untrack[1])};
   if(p==='/api/knowledge/news'&&method==='GET')return {data:await this.news.list(url)};
   if(p==='/api/knowledge/news'&&method==='POST'){const item=await this.news.create(await body());void this.obsidian.sync().catch(()=>{});return {data:item,status:201};}
   if(p==='/api/knowledge/news/importable'&&method==='GET'){
@@ -21,9 +41,35 @@ export class KnowledgeAPI {
   if(newsItem&&method==='GET')return {data:await this.news.get(z.string().uuid().parse(newsItem[1]))};
   if(p==='/api/knowledge/projects'&&method==='GET'){
    const b=z.object({query:z.string().max(200).default(''),source:z.string().max(80).default(''),offset:z.coerce.number().int().min(0).max(1000000).default(0)}).parse(Object.fromEntries(url.searchParams));
-   const params=[b.query?'%'+b.query+'%':null,b.source||null];
-   const where="meta->>'source_nature' IS DISTINCT FROM 'SOCIAL_POST' AND ($1::text IS NULL OR title ILIKE $1) AND ($2::text IS NULL OR source_id=$2)";
-   return {data:{items:await this.store.rows('SELECT * FROM crawl_projects WHERE '+where+' ORDER BY updated_at DESC,id LIMIT 48 OFFSET $3',[...params,b.offset]),total:Number((await this.store.one('SELECT count(*) AS n FROM crawl_projects WHERE '+where,params))!.n),sources:await this.store.rows("SELECT source_id,count(*)::integer AS count FROM crawl_projects WHERE meta->>'source_nature' IS DISTINCT FROM 'SOCIAL_POST' GROUP BY source_id ORDER BY source_id")}};
+   const since=(await this.store.setting('brief_intake_since'))?.at||null;
+   const params=[b.query?'%'+b.query+'%':null,b.source||null,since];
+   const where="meta->>'source_nature' IS DISTINCT FROM 'SOCIAL_POST' AND ($1::text IS NULL OR title ILIKE $1) AND ($2::text IS NULL OR source_id=$2) AND "+gate(3);
+   return {data:{items:await this.store.rows('SELECT * FROM crawl_projects WHERE '+where+' ORDER BY updated_at DESC,id LIMIT 48 OFFSET $4',[...params,b.offset]),total:Number((await this.store.one('SELECT count(*) AS n FROM crawl_projects WHERE '+where,params))!.n),sources:await this.store.rows("SELECT source_id,count(*)::integer AS count FROM crawl_projects WHERE meta->>'source_nature' IS DISTINCT FROM 'SOCIAL_POST' AND "+gate(1)+" GROUP BY source_id ORDER BY source_id",[since])}};
+  }
+  if(p==='/api/knowledge/briefs/status'&&method==='GET')return {data:await this.briefs.status()};
+  const brief=/^\/api\/knowledge\/projects\/([^/]+)\/brief$/.exec(p);
+  if(brief){
+   const id=z.string().min(1).max(200).parse(decodeURIComponent(brief[1]));
+   if(method==='GET')return {data:await this.briefs.get(id)};
+   if(method==='POST')return {data:await this.briefs.request(id),status:202};
+  }
+  const deep=/^\/api\/knowledge\/projects\/([^/]+)\/deep-dive$/.exec(p);
+  if(deep){
+   const id=z.string().min(1).max(200).parse(decodeURIComponent(deep[1]));
+   if(method==='GET')return {data:await this.deepDives.get(id)};
+   if(method==='POST')return {data:await this.deepDives.request(id),status:202};
+  }
+  // 「相似与搭档」: ?mode=project|news; POST queues one Claude comparison, GET reads the stored one.
+  const match=/^\/api\/knowledge\/projects\/([^/]+)\/match$/.exec(p);
+  if(match){
+   const id=z.string().min(1).max(200).parse(decodeURIComponent(match[1])),mode=z.enum(MATCH_MODES).parse(url.searchParams.get('mode')||'project');
+   if(method==='GET')return {data:await this.matches.get(id,mode)};
+   if(method==='POST')return {data:await this.matches.request(id,mode),status:202};
+  }
+  if(p==='/api/knowledge/search'&&method==='POST'){
+   // Same visibility as the library list: new projects whose brief is still pending stay hidden.
+   const since=(await this.store.setting('brief_intake_since'))?.at||null;
+   return {data:await searchLibrary(this.store,this.cli,await body(),undefined,{sql:gate(1),params:[since]})};
   }
   if(p==='/api/knowledge/obsidian'&&method==='GET')return {data:await this.obsidian.status()};
   if(p==='/api/knowledge/obsidian/sync'&&method==='POST')return {data:await this.obsidian.sync()};

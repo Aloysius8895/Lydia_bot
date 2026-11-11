@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-10",
+  "artifact": "DESIGN_ONLY",
+  "applicationModified": false,
+  "database": "copy of C:\\maven\\business_agent\\data\\data_storage\\backups\\database\\daily\\grok-import-2026-11-10T03-03-55-297Z-ea1580e4\\database",
+  "shots": [
+    "01-desktop-kalash-light.png",
+    "02-inspector-kalash-ready.png",
+    "03-inspector-takarabako-ready.png",
+    "04-inspector-bramble-none.png",
+    "05-inspector-yohaku-running.png",
+    "06-inspector-cosmicnova-failed.png",
+    "07-inspector-dark-smart-water.png",
+    "08-phone-kalash.png"
+  ],
+  "errors": []
+}

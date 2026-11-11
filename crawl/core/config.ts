@@ -1,4 +1,4 @@
-import {z} from '../../data/crawl/validation.ts';
+import {z} from '../../data/data_preprocessing/crawl/validation.ts';
 import {sources} from '../sources/registry.ts';
 import {twitterSeed,twitterURL} from '../sources/twitter.ts';
 

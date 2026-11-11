@@ -1,0 +1,85 @@
+{
+ "date": "2026-11-11T14:11:16.941Z",
+ "backup": "grok-import-2026-11-11T07-51-06-736Z-09336b99",
+ "claudeCalls": 2,
+ "checks": [
+  "PASS Tap2ETH × news: comparison finished (18 s)",
+  "PASS Tap2ETH × project: comparison finished (23 s)",
+  "PASS phone has no horizontal overflow",
+  "PASS news originals read and cached: [{\"status\":\"failed\",\"n\":4},{\"status\":\"read\",\"n\":38}]",
+  "PASS stored results are all ready: 2",
+  "PASS one Claude call per comparison; reopening is free: 2"
+ ],
+ "shots": [
+  {
+   "file": "03-tap2eth-news-reading.png",
+   "what": "Tap2ETH：先读新闻原文，显示进度"
+  },
+  {
+   "file": "03-tap2eth-news-result.png",
+   "what": "Tap2ETH × 新闻：真实结果"
+  },
+  {
+   "file": "04-tap2eth-project-result.png",
+   "what": "Tap2ETH × 作品：真实结果"
+  },
+  {
+   "file": "05-phone-news.png",
+   "what": "手机：结果直接打开，没有再调用 Claude"
+  }
+ ],
+ "runs": [
+  {
+   "title": "Tap2ETH",
+   "mode": "news",
+   "seconds": 18,
+   "failed": false
+  },
+  {
+   "title": "Tap2ETH",
+   "mode": "project",
+   "seconds": 23,
+   "failed": false
+  }
+ ],
+ "errors": [],
+ "news_sources": [
+  {
+   "status": "failed",
+   "n": 4
+  },
+  {
+   "status": "read",
+   "n": 38
+  }
+ ],
+ "matches": [
+  {
+   "project_id": "c149c267-1ba5-43c2-8844-af33b117e025",
+   "mode": "news",
+   "status": "ready",
+   "check": {
+    "kept": 2,
+    "dropped": 0,
+    "returned": 2
+   },
+   "news_read": {
+    "summary": 4,
+    "original": 38
+   },
+   "took": "15502"
+  },
+  {
+   "project_id": "c149c267-1ba5-43c2-8844-af33b117e025",
+   "mode": "project",
+   "status": "ready",
+   "check": {
+    "kept": 6,
+    "dropped": 0,
+    "returned": 6
+   },
+   "news_read": null,
+   "took": "21746"
+  }
+ ]
+}

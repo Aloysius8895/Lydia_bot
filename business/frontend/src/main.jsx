@@ -11,7 +11,13 @@ import './projects.css';
 import './call.css';
 import './soft-workspace.css';
 import './mobile-workspace.css';
+import './chat-text.css';
+import './warm-theme.css';
+import './composer-mode.css';
 import './knowledge.css';
+import './deep-dive.css';
+import './panel-resize.css';
+import './match.css';
 
 // Optional, local-only fonts (not distributed in the public repo). When src/assets/grok/ is empty the glob is
 // empty: no build error, no font request, and the system font stack in grok-design.css is used.

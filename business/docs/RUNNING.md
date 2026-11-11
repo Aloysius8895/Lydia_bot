@@ -13,7 +13,7 @@ npm.cmd start
 
 桌面点击侧栏 **Settings** → 外观，切换白天/黑夜；白天按钮显示太阳，黑夜显示月亮，会记住设备选择。手机首页右上角齿轮进入设置，聊天页可通过右上角详情 → 设置进入。
 
-电脑打开 `http://127.0.0.1:4318` 即可直接进入，无需密码。本机自动建立会话，已有资料保留。手机/局域网地址仍使用密码；需要恢复本机密码登录时设置 `LYDIA_LOCAL_AUTO_LOGIN=false` 并重启服务。
+电脑打开 `http://127.0.0.1:4318` 即可直接进入，无需密码。本机自动建立会话，已有资料保留。通过 Tailscale 远程地址同样免密码（见 `REMOTE_ACCESS.md`「免密码」）；手机局域网地址仍使用密码；需要恢复本机密码登录时设置 `LYDIA_LOCAL_AUTO_LOGIN=false` 并重启服务。
 
 如需配置，复制 `deployment/.env.example` 为 `deployment/.env`，然后：
 
@@ -32,7 +32,7 @@ node --env-file=deployment/.env --experimental-strip-types backend/server.ts
 - Ollama 和 `nomic-embed-text:latest`（本轮已有模型，不下载新模型）。当前小样本跨语言召回未达目标，见评估报告；更换 embedding 后需重新索引。
 - 应用依赖已锁定在 package-lock.json：PGlite 0.3.16（内含 vector 扩展）、Zod；开发验证使用 TypeScript 和 Playwright Core。没有启动独立 PostgreSQL 或 Docker。
 
-数据库是 PGlite 嵌入式 PostgreSQL WASM + pgvector，默认在 `.runtime/data` 持久化，单应用进程使用。不要同时启动两个实例读写相同目录。相对于 business，Schema 在 `../data/database/schema.sql`，存储接口在 `../data/database/store.ts`，采集/检索实现位于 `../data/RAG/`；数据模块的绝对路径为 `C:\maven\business_agent\data`。首次安装新环境时也需在该 data 目录执行 `npm.cmd ci`。使用标准参数化 PostgreSQL 查询，当前未实现远程数据库连接。备份前先停止应用，复制配置指定的完整数据库目录（默认 `.runtime/data`）；不要将其提交源码仓库。
+数据库是 PGlite 嵌入式 PostgreSQL WASM + pgvector，默认在 `../data/data_storage/database` 持久化，单应用进程使用。不要同时启动两个实例读写相同目录。相对于 business，Schema 在 `../data/data_preprocessing/database/schema.sql`，存储接口在 `../data/data_preprocessing/database/store.ts`，采集/检索实现位于 `../data/data_preprocessing/RAG/`；数据模块的绝对路径为 `C:\maven\business_agent\data`。首次安装新环境时也需在该 data 目录执行 `npm.cmd ci`。使用标准参数化 PostgreSQL 查询，当前未实现远程数据库连接。备份前先停止应用，复制配置指定的完整数据库目录（默认 `../data/data_storage/database`）；不要将其提交源码仓库。
 
 ## 恢复专家资料
 

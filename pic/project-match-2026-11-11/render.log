@@ -1,0 +1,27 @@
+PASS Tap2ETH project: map shows one dot per listed match (6)
+PASS Tap2ETH project: dots do not overlap (closest centres 25px apart)
+PASS Tap2ETH project: every dot is clickable at its centre (nothing covers it)
+PASS Tap2ETH project: every dot is drawn inside the zone its scores put it in (clear of the midlines)
+PASS Tap2ETH project: radar has one vertex per axis (6)
+PASS Tap2ETH project: no horizontal overflow
+PASS clicking dot 2 switches the radar to that pair
+PASS a run without a sample ends in the failed state with a retry button
+PASS npmguard news: map shows one dot per listed match (6)
+PASS npmguard news: dots do not overlap (closest centres 23px apart)
+PASS npmguard news: every dot is clickable at its centre (nothing covers it)
+PASS npmguard news: every dot is drawn inside the zone its scores put it in (clear of the midlines)
+PASS npmguard news: radar has one vertex per axis (5)
+PASS npmguard news: no horizontal overflow
+PASS router402 dark: map shows one dot per listed match (7)
+PASS router402 dark: dots do not overlap (closest centres 23px apart)
+PASS router402 dark: every dot is clickable at its centre (nothing covers it)
+PASS router402 dark: every dot is drawn inside the zone its scores put it in (clear of the midlines)
+PASS router402 dark: radar has one vertex per axis (6)
+PASS router402 dark: no horizontal overflow
+PASS phone: map shows one dot per listed match (6)
+PASS phone: dots do not overlap (closest centres 24px apart)
+PASS phone: every dot is clickable at its centre (nothing covers it)
+PASS phone: every dot is drawn inside the zone its scores put it in (clear of the midlines)
+PASS phone: radar has one vertex per axis (6)
+PASS phone: no horizontal overflow
+01-detail-button.png 02-tap2eth-duplicate.png 03-tap2eth-merge.png 04-evidence.png 05-list-and-footnote.png 06-start-news.png 07-running.png 08-npmguard-news.png 09-watermark-weak.png 10-router402-dark.png 11-smartwater-dark.png 12-phone-button.png 13-phone-top.png 14-phone-map.png 15-phone-detail.png

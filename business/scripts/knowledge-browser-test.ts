@@ -6,7 +6,7 @@ import {mkdir,mkdtemp,writeFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import {createApp} from '../backend/server.ts';
 import {seedKnowledge,knowledgeReply} from '../tests/knowledge-fixture.ts';
-const out=path.resolve('../pic/hackathon-idea-lab-2026-11-08/implemented');await mkdir(out,{recursive:true});
+const out=path.resolve('../pic/knowledge-iso-warehouse-2026-11-09/implemented/regression');await mkdir(out,{recursive:true});
 const temp=await mkdtemp(path.join(os.tmpdir(),'lydia-knowledge-browser-'));
 let app:Awaited<ReturnType<typeof createApp>>;
 const server=http.createServer((req,res)=>void app.handler(req,res));await new Promise<void>(r=>server.listen(0,'127.0.0.1',r));
@@ -36,15 +36,15 @@ try{
  await page.locator('.kw-detail h2').getByText(projects[0].title,{exact:true}).waitFor();
  for(const target of ['dark','light']){
   if(await page.locator('html').getAttribute('data-theme')!==target)await page.getByRole('button',{name:target==='dark'?'切换到黑夜模式':'切换到白天模式',exact:true}).click();
-  await page.waitForFunction(()=>Array.from(document.querySelectorAll('.knowledge-object img')).every((e:any)=>e.complete&&e.naturalWidth>0));await shot('library-'+target);
+  await page.waitForTimeout(500);await shot('library-'+target);
  }
- checks.push('Authenticated actual React workspace reads 30 TEST_ONLY projects and full details; both themes render real Blender sprites');
+ checks.push('Authenticated actual React workspace reads 30 TEST_ONLY projects and full details; both themes render the isometric warehouse');
  await page.getByRole('button',{name:'收起知识库侧栏',exact:true}).click();assert.ok(await page.locator('.kw-collapsed').count());await page.getByRole('button',{name:'展开知识库侧栏',exact:true}).click();
  await dragProject(0);await dragProject(1);await dragProject(2);await dragProject(0);assert.equal(await page.locator('.kw-tray__items>span').count(),3);
  checks.push('Native drag adds projects to tray and duplicate drops are idempotent');
  await page.locator('.kw-brand').click();await page.getByRole('textbox',{name:'Message Steve Blank',exact:true}).waitFor();assert.equal(await page.getByRole('textbox',{name:'Message Steve Blank',exact:true}).inputValue(),'TEST_ONLY 未发送的原始草稿');assert.ok(page.url().includes('/bot/april'));assert.ok(page.url().includes(caseRow.id));checks.push('Click Lydia returns to original expert route, case and unsent composer draft');
  await page.getByRole('button',{name:'知识库',exact:true}).click();await page.locator('.kw-tray__items>span').nth(2).waitFor();
- await page.getByRole('button',{name:'条件',exact:true}).click();await page.locator('.kw-constraints label').filter({hasText:'可用时间'}).locator('input').fill('48 hours');await page.getByRole('button',{name:'完成',exact:true}).click();
+ await page.getByRole('button',{name:'条件',exact:true}).click();await page.locator('.wb-fields label').filter({hasText:'可用时间'}).locator('input').fill('48 hours');await page.keyboard.press('Escape');await page.locator('.wb-dialog').waitFor({state:'detached'});
  await page.getByRole('button',{name:/^分析并生成/}).click();
  await page.locator('.knowledge-candidate').nth(2).waitFor();await shot('analysis-light');
  assert.equal(await page.getByText('这份结果基于上一组项目或条件。重新分析后才会更新。',{exact:true}).count(),0);
@@ -53,16 +53,16 @@ try{
  await page.locator('.knowledge-shelf__list button').first().waitFor();assert.equal((await app.store.rows('SELECT * FROM knowledge_ideas')).length,1);checks.push('Comparison job returns validated source-linked candidate ideas; native drag persists selected candidate');
  await page.getByRole('button',{name:'收起分析结果',exact:true}).click();
  await page.reload();await page.locator('.knowledge-shelf__list button').first().waitFor();assert.equal(await page.locator('.kw-tray__items>span').count(),3);
- await page.locator('.knowledge-shelf__list button').first().click();await page.getByRole('textbox',{name:'Idea 备注',exact:true}).fill('TEST_ONLY 优先验证服务台交接。');await page.getByRole('button',{name:'保存备注',exact:true}).click();
+ await page.locator('.knowledge-shelf__list button').first().click();await page.getByRole('textbox',{name:'Idea 备注',exact:true}).fill('TEST_ONLY 优先验证服务台交接。');await page.getByRole('button',{name:'保存备注',exact:true}).click();await page.getByText('备注已保存').waitFor();await page.getByRole('button',{name:'关闭工作台',exact:true}).click();
  await page.getByRole('button',{name:/立即同步/}).click();await page.getByText(/Obsidian：写入/).waitFor();assert.ok((await app.obsidian.sync()).connected);
  checks.push('Draft, constraints and saved shelf survive refresh; notes save and isolated Obsidian exports run');
- await page.getByRole('button',{name:/^交给 Lydia 研究/}).click();await page.getByRole('textbox',{name:'Message Steve Blank',exact:true}).waitFor();const ideas=await app.store.rows('SELECT * FROM knowledge_ideas');assert.ok(ideas[0].case_id);assert.equal((await app.store.getCase(ideas[0].case_id)).selected_gap_id,null);checks.push('Explicit research handoff creates PROJECT background without MARKET evidence or Gap selection');
+ await page.locator('.knowledge-shelf__list button').first().click();await page.getByRole('button',{name:/^交给 Lydia 研究/}).click();await page.getByRole('textbox',{name:'Message Steve Blank',exact:true}).waitFor();const ideas=await app.store.rows('SELECT * FROM knowledge_ideas');assert.ok(ideas[0].case_id);assert.equal((await app.store.getCase(ideas[0].case_id)).selected_gap_id,null);checks.push('Explicit research handoff creates PROJECT background without MARKET evidence or Gap selection');
  await page.setViewportSize({width:390,height:844});await page.goto(origin+'/#/');await page.getByRole('button',{name:'知识库',exact:true}).click();await page.locator('.knowledge-workspace').waitFor();
  for(const width of [320,390,430]){await page.setViewportSize({width,height:844});await page.getByRole('button',{name:'列表',exact:true}).click();assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.locator('.kw-project-list article').first().getByRole('button',{name:/加入/}).click();}
  await page.setViewportSize({width:390,height:844});await shot('mobile-light');await page.getByRole('button',{name:'切换到黑夜模式',exact:true}).click();await shot('mobile-dark');
  checks.push('Mobile 320/390/430px list and add-button alternatives fit without horizontal overflow');
- await page.getByRole('button',{name:'切换到白天模式',exact:true}).click();await page.setViewportSize({width:1586,height:992});await page.getByRole('button',{name:'◇ 空间',exact:true}).click();
- await page.getByRole('button',{name:'新建比较',exact:true}).click();
+ await page.getByRole('button',{name:'切换到白天模式',exact:true}).click();await page.setViewportSize({width:1586,height:992});await page.getByRole('button',{name:'等距',exact:true}).click();
+ await page.locator('.kw-sidebar nav button',{hasText:'Idea 实验台'}).click();await page.getByRole('button',{name:'新建比较',exact:true}).click();await page.getByRole('button',{name:'关闭工作台',exact:true}).click();
  await dragProject(0);
  await page.getByRole('button',{name:/添加新闻/}).click();
  await page.getByRole('textbox',{name:'新闻标题',exact:true}).fill('TEST_ONLY 校园服务容量变化');

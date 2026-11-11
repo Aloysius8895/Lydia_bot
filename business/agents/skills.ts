@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { readFile, realpath } from 'node:fs/promises';
-import { hash } from '../../data/database/store.ts';
+import { hash } from '../../data/data_preprocessing/database/store.ts';
 import { assert, AppError } from '../shared/config.ts';
 
 export const roles={steve:'steve-blank-discovery',teresa:'teresa-torres-opportunity',april:'april-dunford-positioning',bob:'bob-moesta-demand',ash:'ash-maurya-lean-model',controller:'hackathon-gap-research'};

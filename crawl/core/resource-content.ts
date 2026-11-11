@@ -1,4 +1,4 @@
-import type {Row} from '../../data/database/store.ts';
+import type {Row} from '../../data/data_preprocessing/database/store.ts';
 import type {FetchResult} from '../types.ts';
 import {plain} from '../sources/ethglobal.ts';
 

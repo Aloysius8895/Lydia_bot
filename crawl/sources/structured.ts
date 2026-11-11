@@ -1,4 +1,4 @@
-import {document,find,tag,attr,children,type HtmlNode} from '../../data/crawl/html.ts';
+import {document,find,tag,attr,children,type HtmlNode} from '../../data/data_preprocessing/crawl/html.ts';
 
 export function jsonObjects(html:string){
  const doc=document(html),values:unknown[]=[];

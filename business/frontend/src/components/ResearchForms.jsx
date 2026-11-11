@@ -46,10 +46,11 @@ export function ProjectPicker({ cases, active, onChange, compact = false }) {
   return <label className={`project-picker ${compact ? 'project-picker--compact' : ''}`}><span>Project</span><select aria-label="当前研究项目" value={active || ''} onChange={e => onChange(e.target.value)}><option value="" disabled>选择或创建项目</option>{cases.map(c => <option key={c.id} value={c.id}>{c.title}</option>)}</select></label>;
 }
 
+// Completed and cancelled tasks leave the chat; only work that still needs attention stays as a card.
 const statuses = { QUEUED: '排队中', RUNNING: '研究中', PAUSED: '已暂停', FAILED: '未通过', CANCELLED: '已取消', COMPLETED: '已完成' };
 export function TaskProgress({ tasks, busy, onTaskAction }) {
-  return <div className="research-tasks">{tasks.filter(t => t.status !== 'COMPLETED').map(t => <article className="research-card task-progress" key={t.id} data-task-status={t.status}>
-    <div className="research-card__head"><span className="status-dot" /><strong>{statuses[t.status]} · {t.kind === 'model' ? '商业模式' : t.kind === 'research' ? '需求研究' : '顾问问答'}</strong></div>
+  return <div className="research-tasks">{tasks.filter(t => t.status !== 'COMPLETED' && t.status !== 'CANCELLED').map(t => <article className="research-card task-progress" key={t.id} data-task-status={t.status}>
+    <div className="research-card__head"><span className="status-dot" /><strong>{statuses[t.status]} · {t.kind === 'model' ? '商业模式' : t.kind === 'research' ? '需求研究' : t.kind === 'chat' ? '对话' : '顾问问答'}</strong></div>
     {t.error && <p className="task-progress__reason" role="status">{t.error.message}</p>}
     {(t.checkpoint?.current || t.checkpoint?.collection) && <details className="task-progress__details"><summary>查看进度详情</summary>{t.checkpoint?.current && <p>当前步骤：{t.checkpoint.current}</p>}{t.checkpoint?.collection && <p>资料采集：{t.checkpoint.collection.status}</p>}</details>}
     <div className="research-actions">{t.status === 'PAUSED' && <button className="pill" disabled={busy} onClick={() => onTaskAction(t.id, 'resume')}>恢复此任务</button>}{['QUEUED', 'RUNNING', 'PAUSED'].includes(t.status) && <button className="pill" disabled={busy} onClick={() => onTaskAction(t.id, 'cancel')}>取消任务</button>}</div>

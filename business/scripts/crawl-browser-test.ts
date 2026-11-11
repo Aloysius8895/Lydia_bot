@@ -7,7 +7,7 @@ import assert from 'node:assert/strict';
 import {createApp} from '../backend/server.ts';
 import {parseETHGlobal} from '../../crawl/sources/ethglobal.ts';
 import {makeEvent,outcome} from '../../crawl/sources/discovery.ts';
-import {tickOperation} from '../../data/crawl/operations.ts';
+import {tickOperation} from '../../data/data_preprocessing/crawl/operations.ts';
 const tmp=await mkdtemp(path.join(os.tmpdir(),'crawl-native-settings-')),output=path.resolve(import.meta.dirname,'../../crawl/reports');await mkdir(output,{recursive:true});
 let app:Awaited<ReturnType<typeof createApp>>;const server=http.createServer((req,res)=>void app.handler(req,res));await new Promise<void>(r=>server.listen(0,'127.0.0.1',r));const origin=`http://127.0.0.1:${(server.address() as any).port}`;
 app=await createApp({dataDir:path.join(tmp,'pg'),crawlStorageDir:path.join(tmp,'crawl'),origin,startWorker:false,skillsDir:path.join(tmp,'missing')});

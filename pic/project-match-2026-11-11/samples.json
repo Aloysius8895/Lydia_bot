@@ -1,0 +1,1687 @@
+{
+ "date": "2026-11-11",
+ "backup": "grok-import-2026-11-11T07-51-06-736Z-09336b99",
+ "samples": {
+  "watermark · news": {
+   "mode": "news",
+   "target": {
+    "id": "0f60d58a-232d-46bc-bed9-d9683d7039e8",
+    "title": "watermark",
+    "source": "ethglobal"
+   },
+   "summary": "资料库中几乎没有直接触及 DAO 金库分批出售或做市的新闻；最值得先看 「DeepMind AlphaProof Code 形式化验证 Signal 协议实现」，它与链上定价程序的安全验证有间接关联，但整体相关度偏低。",
+   "axes": [
+    {
+     "key": "problem",
+     "label": "问题",
+     "desc": "新闻里的变化是否触及项目要解决的问题"
+    },
+    {
+     "key": "users",
+     "label": "人群",
+     "desc": "新闻影响的人群和项目的用户是否重合"
+    },
+    {
+     "key": "scene",
+     "label": "行业",
+     "desc": "是否发生在同一个行业或场景"
+    },
+    {
+     "key": "timing",
+     "label": "时机",
+     "desc": "这条新闻是否让这个项目更被需要或更可行"
+    },
+    {
+     "key": "fit",
+     "label": "接得住",
+     "desc": "项目现有的做法能否直接回应这条新闻"
+    }
+   ],
+   "matches": [
+    {
+     "id": "e3a135d8-9369-489c-b568-282ee3666e08",
+     "kind": "news",
+     "title": "DeepMind AlphaProof Code 形式化验证 Signal 协议实现",
+     "source": "DeepMind (official)",
+     "published_at": "2026-11-10",
+     "summary_only": true,
+     "axes": {
+      "problem": 1,
+      "users": 1,
+      "scene": 1,
+      "timing": 2,
+      "fit": 1
+     },
+     "reason": "形式化验证加密协议实现，可类比验证链上定价程序的安全属性；但摘要未涉及 DAO、金库或 DeFi，相似度很弱。",
+     "combo": "设想：对 DeskPrice/EnsGate 这类自定义指令的关键性质（价差边界、只允许持名者成交）做形式化验证，增强 DAO 采用信心。",
+     "x": 0.4,
+     "y": 0.2,
+     "zone": "loose",
+     "evidence": {
+      "target": [
+       {
+        "quote": "So only named counterparties can fill.",
+        "section": "solution",
+        "label": "watermark | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/watermark-68230"
+       }
+      ],
+      "match": [
+       {
+        "quote": "DeepMind 发布 AlphaProof Code：人类专家与 AI 共同写 Lean 规格，再由 Gemini Carbon 驱动的证明代理生成约 650 万行 Lean 证明，验证 libsignal 编译后 AArch64 机器码的 PQXDH 握手与 Triple Ratchet 安全属性（前向保密、认证、入侵后恢复等）。全程约四周；重新植入两个已修复的旧漏洞时，系统能证明有漏洞版本不安全。论文和 Lean 代码已公开。",
+        "section": "summary",
+        "label": "Grok 摘要（非原文）",
+        "url": "https://deepmind.google/blog/introducing-alphaproof-code/"
+       }
+      ]
+     }
+    },
+    {
+     "id": "4a3a8a07-1c75-4a09-832a-1f02232dd085",
+     "kind": "news",
+     "title": "Fireworks AI 披露第二起入侵，影响扩大",
+     "source": "The Register (media report)",
+     "published_at": null,
+     "summary_only": true,
+     "axes": {
+      "problem": 0,
+      "users": 1,
+      "scene": 1,
+      "timing": 2,
+      "fit": 1
+     },
+     "reason": "摘要讲 AI 基础设施供应商被入侵、数据与模型权重暴露，提醒自动化 agent 的运维与密钥安全；与金库出售问题无直接关系。",
+     "combo": "设想：强调风险 agent 只写点差、不持有资金权限，并把 keeper 的权限与密钥隔离作为卖点。",
+     "x": 0.4,
+     "y": 0.15,
+     "zone": "loose",
+     "evidence": {
+      "target": [
+       {
+        "quote": "After each fill, a risk agent looks at how that counterparty traded",
+        "section": "solution",
+        "label": "watermark | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/watermark-68230"
+       }
+      ],
+      "match": [
+       {
+        "quote": "据 The Register：Fireworks 称托管其研发机器的第三方云厂商 10月23日被攻破，攻击者次日进入开发系统；受影响数据包括资源元数据、账单信息，以及部分客户的数据集和不完整模型权重（不含卡号）。Notion 通知称不到 1% 的工作区可能有部分 Notion AI 对话被暴露。彭博称 Fireworks 正与 Cursor、Harvey 等客户评估影响。",
+        "section": "summary",
+        "label": "Grok 摘要（非原文）",
+        "url": "https://www.theregister.com/cyber-crime/2026/11/10/fireworks-ai-gets-burned-twice-as-customer-data-exposure-widens/5308722"
+       }
+      ]
+     }
+    },
+    {
+     "id": "aac28d9f-8917-4a6c-a8ab-27e8215dafde",
+     "kind": "news",
+     "title": "Co-Design Bench：编码代理完整完成率仅26.4%",
+     "source": "The Decoder (media report, Co-Design Bench)",
+     "published_at": null,
+     "summary_only": true,
+     "axes": {
+      "problem": 0,
+      "users": 0,
+      "scene": 1,
+      "timing": 2,
+      "fit": 1
+     },
+     "reason": "编码代理完整完成率仅 26.4%，说明让 agent 自主做关键决策仍不可靠；对 「watermark」 的风险 agent 设计有间接提醒，摘要未涉及金融或 DAO。",
+     "combo": "设想：把风险 agent 的权限限制在可审计、可回滚的点差调整范围内，用硬性边界兜底。",
+     "x": 0.4,
+     "y": 0.1,
+     "zone": "loose",
+     "evidence": {
+      "target": [
+       {
+        "quote": "After each fill, a risk agent looks at how that counterparty traded",
+        "section": "solution",
+        "label": "watermark | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/watermark-68230"
+       }
+      ],
+      "match": [
+       {
+        "quote": "据 Co-Design Bench 报道，表现最佳模型满足约 70% 的需求，但完整完成任务的比例为 26.4%；这是该基准结果，不代表所有编码场景。",
+        "section": "summary",
+        "label": "Grok 摘要（非原文）",
+        "url": "https://the-decoder.com/ai-coding-agents-still-need-human-cleanup-on-nearly-three-out-of-four-tasks-in-a-real-world-test/"
+       }
+      ]
+     }
+    }
+   ],
+   "check": {
+    "returned": 3,
+    "kept": 3,
+    "dropped": 0
+   },
+   "candidates": 42,
+   "model": "claude-sonnet-5-5 (medium)",
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 14423,
+    "cache_read_input_tokens": 12515,
+    "output_tokens": 1350,
+    "output_tokens_details": {
+     "thinking_tokens": 0
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 14423,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+     {
+      "input_tokens": 4,
+      "output_tokens": 695,
+      "cache_read_input_tokens": 12515,
+      "cache_creation_input_tokens": 1301,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 1301
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+   },
+   "took_ms": 13203,
+   "generated_at": "2026-11-11T13:19:14.698Z",
+   "summary_raw": "资料库中几乎没有直接触及 DAO 金库分批出售或做市的新闻；最值得先看 N4，它与链上定价程序的安全验证有间接关联，但整体相关度偏低。"
+  },
+  "npmguard · news": {
+   "mode": "news",
+   "target": {
+    "id": "7b981618-899e-4c3e-97df-edb42220d8e6",
+    "title": "npmguard",
+    "source": "ethglobal"
+   },
+   "summary": "最值得先看「Fireworks AI 披露第二起入侵，影响扩大」（Fireworks 供应链入侵）：直接说明开发/云基础设施被攻破的风险，最贴近 NpmGuard 的安全审计需求；其次是 「OpenAI 发布 GPT-6 Cyber」、「DeepMind AlphaProof Code 形式化验证 Signal 协议实现」。",
+   "axes": [
+    {
+     "key": "problem",
+     "label": "问题",
+     "desc": "新闻里的变化是否触及项目要解决的问题"
+    },
+    {
+     "key": "users",
+     "label": "人群",
+     "desc": "新闻影响的人群和项目的用户是否重合"
+    },
+    {
+     "key": "scene",
+     "label": "行业",
+     "desc": "是否发生在同一个行业或场景"
+    },
+    {
+     "key": "timing",
+     "label": "时机",
+     "desc": "这条新闻是否让这个项目更被需要或更可行"
+    },
+    {
+     "key": "fit",
+     "label": "接得住",
+     "desc": "项目现有的做法能否直接回应这条新闻"
+    }
+   ],
+   "matches": [
+    {
+     "id": "4a3a8a07-1c75-4a09-832a-1f02232dd085",
+     "kind": "news",
+     "title": "Fireworks AI 披露第二起入侵，影响扩大",
+     "source": "The Register (media report)",
+     "published_at": null,
+     "summary_only": true,
+     "axes": {
+      "problem": 3,
+      "users": 3,
+      "scene": 3,
+      "timing": 4,
+      "fit": 2
+     },
+     "reason": "第三方云厂商被攻破后进入开发系统，属于开发侧供应链安全事件，与恶意依赖风险相近；但摘要未提及 npm，攻击面是云主机而非包。",
+     "combo": "可把这类开发环境入侵事件作为需求案例，验证开发者是否愿意在安装依赖前做自动审计与链上查询。",
+     "x": 0.8,
+     "y": 0.55,
+     "zone": "timely",
+     "evidence": {
+      "target": [
+       {
+        "quote": "NpmGuard is an autonomous security platform that protects developers from malicious npm packages.",
+        "section": "problem",
+        "label": "npmguard | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/npmguard-aeihd"
+       }
+      ],
+      "match": [
+       {
+        "quote": "据 The Register：Fireworks 称托管其研发机器的第三方云厂商 10月23日被攻破，攻击者次日进入开发系统；受影响数据包括资源元数据、账单信息，以及部分客户的数据集和不完整模型权重（不含卡号）。Notion 通知称不到 1% 的工作区可能有部分 Notion AI 对话被暴露。彭博称 Fireworks 正与 Cursor、Harvey 等客户评估影响。",
+        "section": "summary",
+        "label": "Grok 摘要（非原文）",
+        "url": "https://www.theregister.com/cyber-crime/2026/11/10/fireworks-ai-gets-burned-twice-as-customer-data-exposure-widens/5308722"
+       }
+      ]
+     }
+    },
+    {
+     "id": "9319044d-7caa-42a7-89c9-1a52d292cced",
+     "kind": "news",
+     "title": "OpenAI 发布 GPT-6 Cyber",
+     "source": "OpenAI (official)",
+     "published_at": "2026-11-05",
+     "summary_only": true,
+     "axes": {
+      "problem": 3,
+      "users": 2,
+      "scene": 3,
+      "timing": 4,
+      "fit": 3
+     },
+     "reason": "GPT-6 Cyber 强化漏洞发现，说明 AI 做安全审计能力提升；但仅限获批客户，暂未全面开放，也未提 npm。",
+     "combo": "关注其开放后能否作为 NpmGuard 的更强风险评分模型，或对比 Gemini 2.5 Flash 评分效果。",
+     "x": 0.8,
+     "y": 0.55,
+     "zone": "timely",
+     "evidence": {
+      "target": [
+       {
+        "quote": "we actually generate Vitest exploit tests tailored to each package and run them inside Docker",
+        "section": "implementation",
+        "label": "npmguard | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/npmguard-aeihd"
+       }
+      ],
+      "match": [
+       {
+        "quote": "面向获批安全研究客户，强化漏洞发现与授权范围控制；官方称ExploitGym成绩较上代提升约51%，暂非全面开放。",
+        "section": "summary",
+        "label": "Grok 摘要（非原文）",
+        "url": "https://openai.com/index/introducing-gpt-6-cyber/"
+       }
+      ]
+     }
+    },
+    {
+     "id": "e5a072e5-07b0-4b9a-a078-2c824bdf66e6",
+     "kind": "news",
+     "title": "Google 正式开放 Gemini 4 Carbon",
+     "source": "Google (official)",
+     "published_at": "2026-11-10",
+     "summary_only": true,
+     "axes": {
+      "problem": 2,
+      "users": 3,
+      "scene": 2,
+      "timing": 4,
+      "fit": 4
+     },
+     "reason": "Gemini 4 Carbon 开放 API，价格明确；NpmGuard 正用 Gemini 做风险评分，可直接替换。摘要未提安全评分效果。",
+     "combo": "尝试用 Gemini 4 Carbon 替换 Flash 做风险评分与利用测试生成，对比准确率和成本。",
+     "x": 0.8,
+     "y": 0.55,
+     "zone": "timely",
+     "evidence": {
+      "target": [
+       {
+        "quote": "| Audit Pipeline | TypeScript + [Hono](https://hono.dev/) — inventory, LLM static analysis, Docker sandbox |",
+        "section": "implementation",
+        "label": "README · kryczkal/EthCannes2026",
+        "url": "https://github.com/kryczkal/EthCannes2026/blob/HEAD/README.md"
+       }
+      ],
+      "match": [
+       {
+        "quote": "Google DeepMind 11月10日宣布 Gemini 4 Carbon 向付费开发者和企业开放（AI Studio API、Gemini for business），并向 Google AI Ultra 订阅用户推送（Gemini app、Antigravity、搜索 AI Mode）。入门价与 Gemini 4 Argon 相同：每百万输入 token 2美元、输出 10美元。两周前曾先向网络安全防守方小范围开放。",
+        "section": "summary",
+        "label": "Grok 摘要（非原文）",
+        "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/"
+       }
+      ]
+     }
+    },
+    {
+     "id": "e3a135d8-9369-489c-b568-282ee3666e08",
+     "kind": "news",
+     "title": "DeepMind AlphaProof Code 形式化验证 Signal 协议实现",
+     "source": "DeepMind (official)",
+     "published_at": "2026-11-10",
+     "summary_only": true,
+     "axes": {
+      "problem": 3,
+      "users": 2,
+      "scene": 2,
+      "timing": 3,
+      "fit": 2
+     },
+     "reason": "AI 与形式化验证结合发现并证明漏洞，与 AI 自动审计安全思路相近；但对象是 Signal 协议实现，不是 npm 包。",
+     "combo": "探索在审计报告中为高风险包加入形式化验证或更强证明，增强结论可信度。",
+     "x": 0.6,
+     "y": 0.45,
+     "zone": "distant",
+     "evidence": {
+      "target": [
+       {
+        "quote": "we actually generate Vitest exploit tests tailored to each package and run them inside Docker",
+        "section": "implementation",
+        "label": "npmguard | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/npmguard-aeihd"
+       }
+      ],
+      "match": [
+       {
+        "quote": "DeepMind 发布 AlphaProof Code：人类专家与 AI 共同写 Lean 规格，再由 Gemini Carbon 驱动的证明代理生成约 650 万行 Lean 证明，验证 libsignal 编译后 AArch64 机器码的 PQXDH 握手与 Triple Ratchet 安全属性（前向保密、认证、入侵后恢复等）。全程约四周；重新植入两个已修复的旧漏洞时，系统能证明有漏洞版本不安全。论文和 Lean 代码已公开。",
+        "section": "summary",
+        "label": "Grok 摘要（非原文）",
+        "url": "https://deepmind.google/blog/introducing-alphaproof-code/"
+       }
+      ]
+     }
+    },
+    {
+     "id": "11965d33-1003-4c22-a3f9-ddf2967d50cc",
+     "kind": "news",
+     "title": "NVIDIA 捐 OpenShell 给 CNCF 并发布 NVKE/NVKR/Snapshot",
+     "source": "NVIDIA (official)",
+     "published_at": "2026-11-10",
+     "summary_only": true,
+     "axes": {
+      "problem": 2,
+      "users": 2,
+      "scene": 2,
+      "timing": 3,
+      "fit": 3
+     },
+     "reason": "OpenShell 是代理安全治理运行时，与 NpmGuard 在沙箱中运行不可信代码的做法相关；摘要未说明能用于包审计，且仍属早期。",
+     "combo": "评估把 Docker 沙箱迁移到或兼容 OpenShell，借标准化代理安全运行时增强可信度。",
+     "x": 0.6,
+     "y": 0.45,
+     "zone": "distant",
+     "evidence": {
+      "target": [
+       {
+        "quote": "we actually generate Vitest exploit tests tailored to each package and run them inside Docker",
+        "section": "implementation",
+        "label": "npmguard | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/npmguard-aeihd"
+       }
+      ],
+      "match": [
+       {
+        "quote": "NVIDIA 把代理安全治理运行时 OpenShell 捐给 CNCF（Sandbox 项目），参与 Google 主导的 Agent Substrate；同时发布 NVIDIA Kubernetes Engine、Kubernetes Recipes（公开预览，Apache 2.0，官方说明暂不建议生产使用）和 NVIDIA Snapshot（GPU 工作负载检查点/恢复）。",
+        "section": "summary",
+        "label": "Grok 摘要（非原文）",
+        "url": "https://blogs.nvidia.com/blog/open-source-openshell-infrastructure/"
+       }
+      ]
+     }
+    },
+    {
+     "id": "478ab3b9-e50a-46f3-9809-564794d22980",
+     "kind": "news",
+     "title": "OpenAI 与 Hacktron 合作安全测试",
+     "source": "OpenAI (official)",
+     "published_at": "2026-11-06 (US, official page)",
+     "summary_only": true,
+     "axes": {
+      "problem": 2,
+      "users": 2,
+      "scene": 2,
+      "timing": 3,
+      "fit": 2
+     },
+     "reason": "OpenAI 与 Hacktron 用前沿模型测试第三方集成边界漏洞，方向与 AI 安全测试相近；摘要未涉及包生态。",
+     "combo": "参考其边界测试思路，扩展审计对包与外部集成交互的检测。",
+     "x": 0.6,
+     "y": 0.4,
+     "zone": "distant",
+     "evidence": {
+      "target": [
+       {
+        "quote": "we actually generate Vitest exploit tests tailored to each package and run them inside Docker",
+        "section": "implementation",
+        "label": "npmguard | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/npmguard-aeihd"
+       }
+      ],
+      "match": [
+       {
+        "quote": "测试 OpenAI 自身服务与第三方集成边界的漏洞，通过 Daybreak Red 向 Hacktron 提供前沿模型访问。原早报将其关联到本周 GPT-6 Cyber（仅为早报叙述）。",
+        "section": "summary",
+        "label": "Grok 摘要（非原文）",
+        "url": "https://openai.com/index/partnering-with-hacktron"
+       }
+      ]
+     }
+    }
+   ],
+   "check": {
+    "returned": 6,
+    "kept": 6,
+    "dropped": 0
+   },
+   "candidates": 42,
+   "model": "claude-sonnet-5-5 (medium)",
+   "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 9967,
+    "cache_read_input_tokens": 3185,
+    "output_tokens": 1170,
+    "output_tokens_details": {
+     "thinking_tokens": 0
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 9967,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+     {
+      "input_tokens": 2,
+      "output_tokens": 1170,
+      "cache_read_input_tokens": 3185,
+      "cache_creation_input_tokens": 9967,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 9967
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+   },
+   "took_ms": 11815,
+   "generated_at": "2026-11-11T13:19:26.515Z",
+   "summary_raw": "最值得先看N36（Fireworks 供应链入侵）：直接说明开发/云基础设施被攻破的风险，最贴近 NpmGuard 的安全审计需求；其次是 N30、N4。"
+  },
+  "Tap2ETH · project": {
+   "mode": "project",
+   "target": {
+    "id": "c149c267-1ba5-43c2-8844-af33b117e025",
+    "title": "Tap2ETH",
+    "source": "ethglobal"
+   },
+   "summary": "最值得先看 Carte Bleue：同样读取 EMV 银行卡，并在链上验证 RSA 签名来控制智能合约钱包，与 Tap2ETH 的做法和技术几乎重合。",
+   "summary_raw": "最值得先看 Carte Bleue：同样读取 EMV 银行卡，并在链上验证 RSA 签名来控制智能合约钱包，与 Tap2ETH 的做法和技术几乎重合。",
+   "axes": [
+    {
+     "key": "problem",
+     "label": "问题",
+     "desc": "要解决的问题"
+    },
+    {
+     "key": "users",
+     "label": "用户",
+     "desc": "服务的人群"
+    },
+    {
+     "key": "scene",
+     "label": "场景",
+     "desc": "使用场景或行业"
+    },
+    {
+     "key": "approach",
+     "label": "做法",
+     "desc": "解决方式（产品机制）"
+    },
+    {
+     "key": "tech",
+     "label": "技术",
+     "desc": "关键技术"
+    },
+    {
+     "key": "form",
+     "label": "形态",
+     "desc": "产品形态：App、硬件、协议、agent 等"
+    }
+   ],
+   "matches": [
+    {
+     "id": "b36c3f78-cb79-481d-b3b0-5eea35c8a13f",
+     "kind": "hackathon",
+     "title": "Carte Bleue",
+     "source": "ethglobal",
+     "summary_only": false,
+     "axes": {
+      "problem": 4,
+      "users": 3,
+      "scene": 4,
+      "approach": 4,
+      "tech": 5,
+      "form": 3
+     },
+     "reason": "都用 EMV 银行卡签名、链上用 RSA 验证的智能合约钱包，读卡器流程也相似；Carte Bleue 用于钱包恢复，Tap2ETH 用于日常支付与签名。",
+     "combo": "",
+     "x": 0.09999999999999998,
+     "y": 0.7333333333333333,
+     "zone": "duplicate",
+     "evidence": {
+      "target": [
+       {
+        "quote": "We make that card one signer of a self-custodial smart-contract wallet.",
+        "section": "solution",
+        "label": "Tap2ETH | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/tap2eth-ck8gt"
+       },
+       {
+        "quote": "We started on day one with an M5StickS3, an M5Stack RFID 2 reader",
+        "section": "implementation",
+        "label": "Tap2ETH | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/tap2eth-ck8gt"
+       }
+      ],
+      "match": [
+       {
+        "quote": "A smart contract on Base verifies that signature and changes the wallet owner to a new address.",
+        "section": "solution",
+        "label": "Carte Bleue | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/carte-bleue-ftuuc"
+       },
+       {
+        "quote": "reconstructs its 1408-bit RSA public key from the EMV certificate chain",
+        "section": "implementation",
+        "label": "Carte Bleue | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/carte-bleue-ftuuc"
+       },
+       {
+        "quote": "implementing custom on-chain RSA verification with the EVM modexp precompile",
+        "section": "implementation",
+        "label": "Carte Bleue | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/carte-bleue-ftuuc"
+       }
+      ]
+     }
+    },
+    {
+     "id": "afab8d87-4134-40c0-81df-72bd1e3c12e9",
+     "kind": "hackathon",
+     "title": "LeekDIYHardwareWallet",
+     "source": "ethglobal",
+     "summary_only": false,
+     "axes": {
+      "problem": 4,
+      "users": 3,
+      "scene": 3,
+      "approach": 2,
+      "tech": 2,
+      "form": 4
+     },
+     "reason": "都针对硬件钱包与私钥不可信的问题，用独立硬件做签名。LeekWallet 是自制 ESP32 硬件钱包，Tap2ETH 则用现有银行卡当签名者。",
+     "combo": "把 LeekWallet 的设备端屏幕核对交易内容，加到刷卡签名流程里，让用户付款前能看清金额。",
+     "x": 0.6,
+     "y": 0.6666666666666667,
+     "zone": "merge",
+     "evidence": {
+      "target": [
+       {
+        "quote": "tampered Ledger devices sold through one reseller led to an estimated $86M+ in losses",
+        "section": "problem",
+        "label": "Tap2ETH | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/tap2eth-ck8gt"
+       },
+       {
+        "quote": "We started on day one with an M5StickS3, an M5Stack RFID 2 reader",
+        "section": "implementation",
+        "label": "Tap2ETH | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/tap2eth-ck8gt"
+       }
+      ],
+      "match": [
+       {
+        "quote": "it makes every\nuse of them visible on a screen that the computer it is plugged into cannot\nchange.",
+        "section": "problem",
+        "label": "README · 0xOucan/LeekWallet",
+        "url": "https://github.com/0xOucan/LeekWallet/blob/HEAD/README.md"
+       },
+       {
+        "quote": "the device decides, the host asks, and anything the device cannot display clearly is refused.",
+        "section": "solution",
+        "label": "LeekDIYHardwareWallet | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/leekdiyhardwarewallet-5qssg"
+       },
+       {
+        "quote": "LeekWallet is primarily C firmware running on an ESP32-S3 with a 128×64 SSD1306 OLED and four physical buttons.",
+        "section": "implementation",
+        "label": "LeekDIYHardwareWallet | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/leekdiyhardwarewallet-5qssg"
+       }
+      ]
+     }
+    },
+    {
+     "id": "bff31e52-30ee-4e40-b241-89ccd0244abf",
+     "kind": "hackathon",
+     "title": "Enconomy",
+     "source": "ethglobal",
+     "summary_only": false,
+     "axes": {
+      "problem": 1,
+      "users": 2,
+      "scene": 2,
+      "approach": 2,
+      "tech": 3,
+      "form": 3
+     },
+     "reason": "都用手机硬件密钥（Keystore）签名，并结合 NFC 或近距离硬件交互；但 Enconomy 解决的是证明真人线下相遇，不是钱包签名。",
+     "combo": "在刷卡付款中加入近距离校验，防止卡被远程中继读取。",
+     "x": 0.5,
+     "y": 0.33333333333333337,
+     "zone": "loose",
+     "evidence": {
+      "target": [
+       {
+        "quote": "The second signer is a fingerprint-locked key in your phone’s secure hardware.",
+        "section": "solution",
+        "label": "Tap2ETH | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/tap2eth-ck8gt"
+       }
+      ],
+      "match": [
+       {
+        "quote": "Under 60 cm reads NEAR.",
+        "section": "solution",
+        "label": "Enconomy | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/enconomy-9m8x8"
+       },
+       {
+        "quote": "Each phone signs its half with a hardware key (Android Keystore or iOS Secure Enclave).",
+        "section": "solution",
+        "label": "Enconomy | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/enconomy-9m8x8"
+       }
+      ]
+     }
+    },
+    {
+     "id": "fedaaa79-c276-4c90-8b8a-0fae8a8f1de6",
+     "kind": "hackathon",
+     "title": "maki",
+     "source": "ethglobal",
+     "summary_only": false,
+     "axes": {
+      "problem": 2,
+      "users": 2,
+      "scene": 2,
+      "approach": 2,
+      "tech": 2,
+      "form": 3
+     },
+     "reason": "都强调硬件签名与人工批准，避免私钥落入不可信环境；Maki 是终端里的 AI agent，用 Secure Enclave 或 Ledger 签名。",
+     "combo": "Maki 的硬件批准边界可换成 Tap2ETH 的银行卡加指纹双签，作为 agent 交易的批准方式。",
+     "x": 0.6,
+     "y": 0.4,
+     "zone": "loose",
+     "evidence": {
+      "target": [
+       {
+        "quote": "The second signer is a fingerprint-locked key in your phone’s secure hardware.",
+        "section": "solution",
+        "label": "Tap2ETH | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/tap2eth-ck8gt"
+       },
+       {
+        "quote": "Seed phrases remain a single point of failure",
+        "section": "problem",
+        "label": "Tap2ETH | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/tap2eth-ck8gt"
+       }
+      ],
+      "match": [
+       {
+        "quote": "The model interprets intent but never moves funds.",
+        "section": "solution",
+        "label": "maki | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/maki-564eg"
+       },
+       {
+        "quote": "The main path uses a native Swift daemon with Apple Secure Enclave",
+        "section": "implementation",
+        "label": "maki | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/maki-564eg"
+       }
+      ]
+     }
+    },
+    {
+     "id": "49f435a4-0a72-442d-8275-f17cd3c4cdaa",
+     "kind": "hackathon",
+     "title": "PaintGlobal",
+     "source": "ethglobal",
+     "summary_only": false,
+     "axes": {
+      "problem": 0,
+      "users": 1,
+      "scene": 1,
+      "approach": 2,
+      "tech": 3,
+      "form": 3
+     },
+     "reason": "都用实体 NFC 芯片（手环或银行卡）做链上签名，并用 relayer 代付 gas；但 PaintGlobal 是画作投票与拍卖，问题完全不同。",
+     "combo": "把 NFC 手环签名换成银行卡签名，让线下活动的链上投票或付款不必另发手环。",
+     "x": 0.5,
+     "y": 0.13333333333333333,
+     "zone": "loose",
+     "evidence": {
+      "target": [
+       {
+        "quote": "Pay a merchant: the merchant enters an amount, you tap your card on the terminal",
+        "section": "solution",
+        "label": "Tap2ETH | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/tap2eth-ck8gt"
+       },
+       {
+        "quote": "We started on day one with an M5StickS3, an M5Stack RFID 2 reader",
+        "section": "implementation",
+        "label": "Tap2ETH | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/tap2eth-ck8gt"
+       }
+      ],
+      "match": [
+       {
+        "quote": "ensuring one real participant = one voting identity",
+        "section": "problem",
+        "label": "PaintGlobal | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/paintglobal-v4pwo"
+       },
+       {
+        "quote": "turn the **painting workshop** into an on chain contest and auction room using **wristband chips**",
+        "section": "problem",
+        "label": "README · Lasssssa/PaintGlobal",
+        "url": "https://github.com/Lasssssa/PaintGlobal/blob/HEAD/README.md"
+       }
+      ]
+     }
+    },
+    {
+     "id": "d970b4f4-7705-4a52-85fc-cceb044aa152",
+     "kind": "hackathon",
+     "title": "Takarabako",
+     "source": "ethglobal",
+     "summary_only": false,
+     "axes": {
+      "problem": 0,
+      "users": 1,
+      "scene": 2,
+      "approach": 1,
+      "tech": 2,
+      "form": 4
+     },
+     "reason": "都是树莓派加外设（验钞机或读卡器）的线下实体终端，对接以太坊；但 Takarabako 做现金换汇，问题不同。",
+     "combo": "让 Takarabako 柜机支持刷银行卡，作为另一种入金或取现方式。",
+     "x": 0.7,
+     "y": 0.2,
+     "zone": "loose",
+     "evidence": {
+      "target": [
+       {
+        "quote": "We started on day one with an M5StickS3, an M5Stack RFID 2 reader",
+        "section": "implementation",
+        "label": "Tap2ETH | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/tap2eth-ck8gt"
+       },
+       {
+        "quote": "Pay a merchant: the merchant enters an amount, you tap your card on the terminal",
+        "section": "solution",
+        "label": "Tap2ETH | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/tap2eth-ck8gt"
+       }
+      ],
+      "match": [
+       {
+        "quote": "A Raspberry Pi 4 with a touchscreen drives a TB74 bill acceptor on its serial port",
+        "section": "implementation",
+        "label": "Takarabako | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/takarabako-qmgg5"
+       },
+       {
+        "quote": "signs it with a key generated on the Pi itself",
+        "section": "implementation",
+        "label": "Takarabako | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/takarabako-qmgg5"
+       }
+      ]
+     }
+    }
+   ],
+   "check": {
+    "returned": 6,
+    "kept": 6,
+    "dropped": 0
+   },
+   "candidates": 106,
+   "model": "claude-sonnet-5-5 (medium)",
+   "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 56536,
+    "cache_read_input_tokens": 3217,
+    "output_tokens": 1254,
+    "output_tokens_details": {
+     "thinking_tokens": 0
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 56536,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+     {
+      "input_tokens": 2,
+      "output_tokens": 1254,
+      "cache_read_input_tokens": 3217,
+      "cache_creation_input_tokens": 56536,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 56536
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+   },
+   "took_ms": 12581,
+   "generated_at": "2026-11-11T13:22:54.254Z"
+  },
+  "router402 · project": {
+   "mode": "project",
+   "target": {
+    "id": "2ee87d84-3f2d-444a-bd85-128a2b71aae0",
+    "title": "router402",
+    "source": "ethglobal"
+   },
+   "summary": "最值得先看 Payload Exchange：它和 router402 都用 x402 USDC 微支付解决订阅与签名不便，且面向用户和 AI agent。",
+   "summary_raw": "最值得先看 Payload Exchange：它和 router402 都用 x402 USDC 微支付解决订阅与签名不便，且面向用户和 AI agent。",
+   "axes": [
+    {
+     "key": "problem",
+     "label": "问题",
+     "desc": "要解决的问题"
+    },
+    {
+     "key": "users",
+     "label": "用户",
+     "desc": "服务的人群"
+    },
+    {
+     "key": "scene",
+     "label": "场景",
+     "desc": "使用场景或行业"
+    },
+    {
+     "key": "approach",
+     "label": "做法",
+     "desc": "解决方式（产品机制）"
+    },
+    {
+     "key": "tech",
+     "label": "技术",
+     "desc": "关键技术"
+    },
+    {
+     "key": "form",
+     "label": "形态",
+     "desc": "产品形态：App、硬件、协议、agent 等"
+    }
+   ],
+   "matches": [
+    {
+     "id": "246151d4-6319-4c5c-b10b-a8aeb60fc0d6",
+     "kind": "hackathon",
+     "title": "payload.exchange",
+     "source": "ethglobal",
+     "summary_only": false,
+     "axes": {
+      "problem": 3,
+      "users": 3,
+      "scene": 3,
+      "approach": 3,
+      "tech": 4,
+      "form": 3
+     },
+     "reason": "都用 x402 做 USDC 按次付费，面向用户和 AI agent 的付费访问；但 Payload Exchange 是付费墙代理加赞助，router402 是 LLM 网关。",
+     "combo": "把 router402 的 LLM 网关和 Payload Exchange 的赞助付费结合，让赞助方替用户承担模型调用费用。",
+     "x": 0.30000000000000004,
+     "y": 0.6,
+     "zone": "duplicate",
+     "evidence": {
+      "target": [
+       {
+        "quote": "Every API call settles the exact cost of your previous request as a USDC micropayment",
+        "section": "solution",
+        "label": "router402 | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/router402-b717q"
+       }
+      ],
+      "match": [
+       {
+        "quote": "the users will have to fully subscribe to each tool",
+        "section": "problem",
+        "label": "payload.exchange | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/payload-exchange-x07pi"
+       },
+       {
+        "quote": "pre-funded USDC balance pays the x402 fee",
+        "section": "solution",
+        "label": "payload.exchange | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/payload-exchange-x07pi"
+       }
+      ]
+     }
+    },
+    {
+     "id": "b6ca3cb7-c760-42aa-bc49-5f90b0ec5226",
+     "kind": "hackathon",
+     "title": "OnchainRouter",
+     "source": "ethglobal",
+     "summary_only": false,
+     "axes": {
+      "problem": 3,
+      "users": 3,
+      "scene": 3,
+      "approach": 4,
+      "tech": 4,
+      "form": 3
+     },
+     "reason": "都让 agent 免订阅、免注册 key，用 x402 按次付费并支持 MCP；OnchainRouter 做链上工具目录，router402 做 LLM 网关。",
+     "combo": "在 OnchainRouter 工具目录里上架 router402，让 agent 发现并按次付费调用各家大模型。",
+     "x": 0.19999999999999996,
+     "y": 0.6,
+     "zone": "duplicate",
+     "evidence": {
+      "target": [
+       {
+        "quote": "Every API call settles the exact cost of your previous request as a USDC micropayment",
+        "section": "solution",
+        "label": "router402 | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/router402-b717q"
+       }
+      ],
+      "match": [
+       {
+        "quote": "No account, no API key, no subscription.",
+        "section": "problem",
+        "label": "OnchainRouter | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/onchainrouter-8r4jm"
+       },
+       {
+        "quote": "An agent connects once, over MCP or HTTP, sees every tool and its price for free, and pays per call with x402 from its own wallet",
+        "section": "solution",
+        "label": "OnchainRouter | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/onchainrouter-8r4jm"
+       }
+      ]
+     }
+    },
+    {
+     "id": "a4313fde-fe21-4495-b737-59f1d4e25c11",
+     "kind": "hackathon",
+     "title": "Glassbox402",
+     "source": "ethglobal",
+     "summary_only": false,
+     "axes": {
+      "problem": 2,
+      "users": 2,
+      "scene": 3,
+      "approach": 3,
+      "tech": 4,
+      "form": 3
+     },
+     "reason": "都用 x402 和 Hono 之类服务端把 API 变成可按次付费；GlassBox402 是把任意 API 包装成 x402，router402 专注 LLM 代理。",
+     "combo": "用 x402ify 把 router402 的模型接口快速包装出多链结算和收入仪表盘。",
+     "x": 0.30000000000000004,
+     "y": 0.4666666666666667,
+     "zone": "transfer",
+     "evidence": {
+      "target": [
+       {
+        "quote": "Router402 is an OpenRouter-compatible AI gateway that brings true pay-per-use billing to LLMs through x402 micropayments on Base.",
+        "section": "solution",
+        "label": "router402 | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/router402-b717q"
+       }
+      ],
+      "match": [
+       {
+        "quote": "turns any existing\n   API into an x402 API in minutes.",
+        "section": "solution",
+        "label": "README · dhernz/Glassbox402",
+        "url": "https://github.com/dhernz/Glassbox402/blob/HEAD/README.md"
+       },
+       {
+        "quote": "A Node CLI that builds a Hono app around x402ResourceServer and HTTPFacilitatorClient",
+        "section": "implementation",
+        "label": "Glassbox402 | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/glassbox402-qyepd"
+       }
+      ]
+     }
+    },
+    {
+     "id": "3ad83c89-f413-4702-9736-cd6cec7ead5d",
+     "kind": "hackathon",
+     "title": "Xpack",
+     "source": "ethglobal",
+     "summary_only": false,
+     "axes": {
+      "problem": 2,
+      "users": 1,
+      "scene": 1,
+      "approach": 3,
+      "tech": 4,
+      "form": 2
+     },
+     "reason": "都用 x402/HTTP 402 在使用时收 USDC，但 Xpack 用于 npm 包安装收费，场景完全不同。",
+     "combo": "把 router402 的按用量结算机制搬到 npm 包等开发者工具的按次计费。",
+     "x": 0.30000000000000004,
+     "y": 0.26666666666666666,
+     "zone": "transfer",
+     "evidence": {
+      "target": [
+       {
+        "quote": "Every API call settles the exact cost of your previous request as a USDC micropayment",
+        "section": "solution",
+        "label": "router402 | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/router402-b717q"
+       }
+      ],
+      "match": [
+       {
+        "quote": "We follow the x402 model. When payment is required, the install API returns HTTP 402",
+        "section": "implementation",
+        "label": "Xpack | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/xpack-myrx1"
+       }
+      ]
+     }
+    },
+    {
+     "id": "24c60565-c9b2-473e-926f-5d1a7dbcd2a5",
+     "kind": "hackathon",
+     "title": "Paybot",
+     "source": "ethglobal",
+     "summary_only": false,
+     "axes": {
+      "problem": 2,
+      "users": 1,
+      "scene": 1,
+      "approach": 3,
+      "tech": 4,
+      "form": 2
+     },
+     "reason": "都用 x402 加 facilitator 代付 gas 解决小额支付门槛，但 Paybot 用于租用机器人，router402 用于 LLM 调用。",
+     "combo": "把 router402 的 0.2 秒结算和代付 gas 用到机器人等实体设备的按时租用。",
+     "x": 0.30000000000000004,
+     "y": 0.26666666666666666,
+     "zone": "transfer",
+     "evidence": {
+      "target": [
+       {
+        "quote": "Every API call settles the exact cost of your previous request as a USDC micropayment",
+        "section": "solution",
+        "label": "router402 | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/router402-b717q"
+       }
+      ],
+      "match": [
+       {
+        "quote": "without requiring users to hold ETH for gas fees",
+        "section": "problem",
+        "label": "Paybot | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/paybot-q7grd"
+       },
+       {
+        "quote": "Payment Facilitator (TypeScript + Hono)",
+        "section": "implementation",
+        "label": "Paybot | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/paybot-q7grd"
+       }
+      ]
+     }
+    },
+    {
+     "id": "0ecaa37c-cb1c-4bd2-a84f-f3cac172313e",
+     "kind": "hackathon",
+     "title": "Cordon",
+     "source": "ethglobal",
+     "summary_only": false,
+     "axes": {
+      "problem": 2,
+      "users": 2,
+      "scene": 2,
+      "approach": 2,
+      "tech": 3,
+      "form": 2
+     },
+     "reason": "都涉及 agent 经 x402 付费并控制成本，Cordon 管 agent 树的共享预算，router402 管 LLM 调用结算。",
+     "combo": "给 router402 的调用加上 Cordon 式预算 mandate，限制 agent 树总支出。",
+     "x": 0.5,
+     "y": 0.4,
+     "zone": "loose",
+     "evidence": {
+      "target": [
+       {
+        "quote": "your money leaves your control the moment you top up",
+        "section": "problem",
+        "label": "router402 | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/router402-b717q"
+       }
+      ],
+      "match": [
+       {
+        "quote": "their combined purchases can exceed the owner’s intended task budget",
+        "section": "problem",
+        "label": "Cordon | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/cordon-vw3kh"
+       },
+       {
+        "quote": "An agent asks for a **URL**, which is the only thing it can ask for.",
+        "section": "solution",
+        "label": "README · youvandra/cordon",
+        "url": "https://github.com/youvandra/cordon/blob/HEAD/README.md"
+       }
+      ]
+     }
+    },
+    {
+     "id": "3f9a18a6-0b32-401e-a9b3-50542831c983",
+     "kind": "hackathon",
+     "title": "VEIL VPN",
+     "source": "ethglobal",
+     "summary_only": false,
+     "axes": {
+      "problem": 2,
+      "users": 2,
+      "scene": 2,
+      "approach": 3,
+      "tech": 3,
+      "form": 2
+     },
+     "reason": "都主打无订阅、无账户的按用量 x402 付费，但 VEIL 做 VPN 节点，router402 做 LLM 网关。",
+     "combo": "借鉴 VEIL 的 TEE 证明，让 router402 能证明网关不记录请求内容。",
+     "x": 0.4,
+     "y": 0.4,
+     "zone": "transfer",
+     "evidence": {
+      "target": [
+       {
+        "quote": "subscription plans lock flagship models behind expensive tiers with hourly rate limits",
+        "section": "problem",
+        "label": "router402 | ETHGlobal",
+        "url": "https://ethglobal.com/showcase/router402-b717q"
+       }
+      ],
+      "match": [
+       {
+        "quote": "No subscriptions. No accounts. No identity required:",
+        "section": "solution",
+        "label": "README · itublockchain/veil-vpn",
+        "url": "https://github.com/itublockchain/veil-vpn/blob/HEAD/README.md"
+       }
+      ]
+     }
+    }
+   ],
+   "check": {
+    "returned": 7,
+    "kept": 7,
+    "dropped": 0
+   },
+   "candidates": 106,
+   "model": "claude-sonnet-5-5 (medium)",
+   "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 56539,
+    "cache_read_input_tokens": 3217,
+    "output_tokens": 1342,
+    "output_tokens_details": {
+     "thinking_tokens": 0
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 56539,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+     {
+      "input_tokens": 2,
+      "output_tokens": 1342,
+      "cache_read_input_tokens": 3217,
+      "cache_creation_input_tokens": 56539,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 56539
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+   },
+   "took_ms": 13111,
+   "generated_at": "2026-11-11T13:23:31.286Z"
+  },
+  "Smart Water Guardian AI · project": {
+   "mode": "project",
+   "target": {
+    "id": "f024b02c-d6a3-4f52-a1ea-4419dde54a8f",
+    "title": "Smart Water Guardian AI",
+    "source": "hackster"
+   },
+   "summary": "最值得先看 Edge-AI Spectrophotometer：同样基于 Arduino UNO Q，本地学习基线并检测偏离，只是检测对象从水质换成样品光谱；其次是 SpoilSafe 和 CloudMap / AirWatch Pro。",
+   "summary_raw": "最值得先看 Edge-AI Spectrophotometer：同样基于 Arduino UNO Q，本地学习基线并检测偏离，只是检测对象从水质换成样品光谱；其次是 SpoilSafe 和 CloudMap / AirWatch Pro。",
+   "axes": [
+    {
+     "key": "problem",
+     "label": "问题",
+     "desc": "要解决的问题"
+    },
+    {
+     "key": "users",
+     "label": "用户",
+     "desc": "服务的人群"
+    },
+    {
+     "key": "scene",
+     "label": "场景",
+     "desc": "使用场景或行业"
+    },
+    {
+     "key": "approach",
+     "label": "做法",
+     "desc": "解决方式（产品机制）"
+    },
+    {
+     "key": "tech",
+     "label": "技术",
+     "desc": "关键技术"
+    },
+    {
+     "key": "form",
+     "label": "形态",
+     "desc": "产品形态：App、硬件、协议、agent 等"
+    }
+   ],
+   "matches": [
+    {
+     "id": "4654bc17-bb46-429b-9236-963f41397122",
+     "kind": "hackathon",
+     "title": "Edge-AI Spectrophotometer",
+     "source": "hackster",
+     "summary_only": false,
+     "axes": {
+      "problem": 2,
+      "users": 1,
+      "scene": 1,
+      "approach": 4,
+      "tech": 5,
+      "form": 5
+     },
+     "reason": "同为 Arduino UNO Q：STM32 采集传感器，经 Bridge 交给 Linux 端做本地机器学习，检测偏离基线，无需云端。区别是它检测样品光谱，面向质检，而不是水质。",
+     "combo": "把光谱传感器加入水质设备，除 pH、TDS、浊度外再检测水中特定污染物，并共用同一套边缘基线与预警流程。",
+     "x": 0.09999999999999998,
+     "y": 0.26666666666666666,
+     "zone": "transfer",
+     "evidence": {
+      "target": [
+       {
+        "quote": "The device continuously measures four parameters (pH, total dissolved solids, turbidity, and temperature)",
+        "section": "solution",
+        "label": "Smart Water Guardian AI - Hackster.io",
+        "url": "https://www.hackster.io/david-kochoni/smart-water-guardian-ai-a194f1"
+       },
+       {
+        "quote": "Local alerts (LED and buzzer) fire on the device itself.",
+        "section": "solution",
+        "label": "Smart Water Guardian AI - Hackster.io",
+        "url": "https://www.hackster.io/david-kochoni/smart-water-guardian-ai-a194f1"
+       }
+      ],
+      "match": [
+       {
+        "quote": "It then runs a machine learning inference model on the edge, which detects deviations from known baselines.",
+        "section": "solution",
+        "label": "Inside the winning Arduino® UNO™ Q projects from Hackster’s Invent the Future competition | Arduino Blog",
+        "url": "https://blog.arduino.cc/2026/10/29/inside-the-winning-arduino-uno-q-projects-from-hacksters-invent-the-future-competition/"
+       },
+       {
+        "quote": "**No cloud connection is required for measurement or inference.**",
+        "section": "solution",
+        "label": "README · jorgeeldis/edgeaispectrophotometer",
+        "url": "https://github.com/jorgeeldis/edgeaispectrophotometer/blob/HEAD/README.md"
+       },
+       {
+        "quote": "The STM32U585 handles deterministic sensor acquisition and hardware control",
+        "section": "implementation",
+        "label": "README · jorgeeldis/edgeaispectrophotometer",
+        "url": "https://github.com/jorgeeldis/edgeaispectrophotometer/blob/HEAD/README.md"
+       }
+      ]
+     }
+    },
+    {
+     "id": "59eda488-a19a-45cc-a248-8665627e4f36",
+     "kind": "hackathon",
+     "title": "SpoilSafe",
+     "source": "imaginecup",
+     "summary_only": false,
+     "axes": {
+      "problem": 2,
+      "users": 1,
+      "scene": 1,
+      "approach": 4,
+      "tech": 3,
+      "form": 2
+     },
+     "reason": "同样用低成本传感器持续监测，再用机器学习判断状态、提前预警。不同在于它面向冷链食品，检测乙烯和氨等气体，资料没提硬件形态。",
+     "combo": "把水质监测的基线漂移检测，用到冷库或仓库的食品变质预警上。",
+     "x": 0.30000000000000004,
+     "y": 0.26666666666666666,
+     "zone": "transfer",
+     "evidence": {
+      "target": [
+       {
+        "quote": "The device continuously measures four parameters (pH, total dissolved solids, turbidity, and temperature)",
+        "section": "solution",
+        "label": "Smart Water Guardian AI - Hackster.io",
+        "url": "https://www.hackster.io/david-kochoni/smart-water-guardian-ai-a194f1"
+       },
+       {
+        "quote": "Two billion people worldwide drink water that isn't safely managed.",
+        "section": "problem",
+        "label": "Smart Water Guardian AI - Hackster.io",
+        "url": "https://www.hackster.io/david-kochoni/smart-water-guardian-ai-a194f1"
+       }
+      ],
+      "match": [
+       {
+        "quote": "uses low-cost sensors to detect gases emitted as food begins to spoil, such as ethylene and ammonia",
+        "section": "implementation",
+        "label": "Introducing the 2026 Imagine Cup World Finalists | Microsoft Community Hub",
+        "url": "https://techcommunity.microsoft.com/blog/studentdeveloperblog/introducing-the-2026-imagine-cup-world-finalists/4509670"
+       },
+       {
+        "quote": "combines that data with machine learning models",
+        "section": "implementation",
+        "label": "Introducing the 2026 Imagine Cup World Finalists | Microsoft Community Hub",
+        "url": "https://techcommunity.microsoft.com/blog/studentdeveloperblog/introducing-the-2026-imagine-cup-world-finalists/4509670"
+       },
+       {
+        "quote": "generate real-time freshness scores and time-to-spoilage predictions",
+        "section": "solution",
+        "label": "Introducing the 2026 Imagine Cup World Finalists | Microsoft Community Hub",
+        "url": "https://techcommunity.microsoft.com/blog/studentdeveloperblog/introducing-the-2026-imagine-cup-world-finalists/4509670"
+       }
+      ]
+     }
+    },
+    {
+     "id": "caa2c2fa-5e51-48f6-853e-fab25f3a919c",
+     "kind": "hackathon",
+     "title": "CloudMap / AirWatch Pro",
+     "source": "nasa",
+     "summary_only": false,
+     "axes": {
+      "problem": 2,
+      "users": 2,
+      "scene": 2,
+      "approach": 3,
+      "tech": 2,
+      "form": 1
+     },
+     "reason": "同属环境质量监测，都面向社区层面的健康风险。它监测空气并做72小时预测，用多源数据融合和模型集成；资料没提硬件，也没有边缘设备。",
+     "combo": "在水质设备之外加上空气质量预测，做成社区环境监测，合并展示水和空气的风险。",
+     "x": 0.5,
+     "y": 0.4,
+     "zone": "loose",
+     "evidence": {
+      "target": [
+       {
+        "quote": "Two billion people worldwide drink water that isn't safely managed.",
+        "section": "problem",
+        "label": "Smart Water Guardian AI - Hackster.io",
+        "url": "https://www.hackster.io/david-kochoni/smart-water-guardian-ai-a194f1"
+       },
+       {
+        "quote": "The device continuously measures four parameters (pH, total dissolved solids, turbidity, and temperature)",
+        "section": "solution",
+        "label": "Smart Water Guardian AI - Hackster.io",
+        "url": "https://www.hackster.io/david-kochoni/smart-water-guardian-ai-a194f1"
+       }
+      ],
+      "match": [
+       {
+        "quote": "社区空气质量监测与72小时预测",
+        "section": "solution",
+        "label": "资料包摘要（第三方整理，可能不准确）",
+        "url": ""
+       },
+       {
+        "quote": "OpenAQ/WAQI/PurpleAir融合、6模型集成、CNN卫星影像",
+        "section": "implementation",
+        "label": "资料包摘要（第三方整理，可能不准确）",
+        "url": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "b7af06c1-7996-4d84-b7cf-25eb3df2ffa1",
+     "kind": "hackathon",
+     "title": "RCT IRL",
+     "source": "hackster",
+     "summary_only": false,
+     "axes": {
+      "problem": 0,
+      "users": 0,
+      "scene": 0,
+      "approach": 3,
+      "tech": 5,
+      "form": 5
+     },
+     "reason": "同样基于 Arduino UNO Q：STM32 读传感器，经 Bridge 交给 Linux 端，Edge Impulse 模型做本地推理，并由 WebUI 展示。但它用 IMU 给过山车打分，要解决的问题完全不同。",
+     "combo": "借用它的 Bridge 数据管线和 Edge Impulse 回归评分思路，把水质指标做成连续的水质评分。",
+     "x": 0.19999999999999996,
+     "y": 0,
+     "zone": "transfer",
+     "evidence": {
+      "target": [
+       {
+        "quote": "The device continuously measures four parameters (pH, total dissolved solids, turbidity, and temperature)",
+        "section": "solution",
+        "label": "Smart Water Guardian AI - Hackster.io",
+        "url": "https://www.hackster.io/david-kochoni/smart-water-guardian-ai-a194f1"
+       },
+       {
+        "quote": "a local web dashboard, a companion Android app, and a sync to Arduino Cloud for remote viewing",
+        "section": "solution",
+        "label": "Smart Water Guardian AI - Hackster.io",
+        "url": "https://www.hackster.io/david-kochoni/smart-water-guardian-ai-a194f1"
+       }
+      ],
+      "match": [
+       {
+        "quote": "The SparkFun ICM-20948 IMU starts sampling acceleration and rotation at 200Hz",
+        "section": "implementation",
+        "label": "RCT IRL: Roller Coaster Tycoon Ratings in Real Life - Hackster.io",
+        "url": "https://www.hackster.io/kevin-loeffler/rct-irl-roller-coaster-tycoon-ratings-in-real-life-3545f0"
+       },
+       {
+        "quote": "Strap an Arduino UNO Q and an IMU into a fanny pack, ride a real coaster",
+        "section": "solution",
+        "label": "RCT IRL: Roller Coaster Tycoon Ratings in Real Life - Hackster.io",
+        "url": "https://www.hackster.io/kevin-loeffler/rct-irl-roller-coaster-tycoon-ratings-in-real-life-3545f0"
+       }
+      ]
+     }
+    },
+    {
+     "id": "7fdd43d6-7683-46af-b6cc-db0340428342",
+     "kind": "hackathon",
+     "title": "Smart Coop 2.0",
+     "source": "hackster",
+     "summary_only": false,
+     "axes": {
+      "problem": 1,
+      "users": 1,
+      "scene": 1,
+      "approach": 2,
+      "tech": 4,
+      "form": 4
+     },
+     "reason": "同样以 Arduino UNO Q 为主控，接入 Arduino IoT Cloud，并有本地告警。区别是它面向鸡舍，用摄像头和 YOLOv8 检测，并用 Twilio 发短信告警。",
+     "combo": "把短信告警接入水质设备，让没有手机应用的农村用户也能收到水质异常通知。",
+     "x": 0.4,
+     "y": 0.2,
+     "zone": "transfer",
+     "evidence": {
+      "target": [
+       {
+        "quote": "a local web dashboard, a companion Android app, and a sync to Arduino Cloud for remote viewing",
+        "section": "solution",
+        "label": "Smart Water Guardian AI - Hackster.io",
+        "url": "https://www.hackster.io/david-kochoni/smart-water-guardian-ai-a194f1"
+       },
+       {
+        "quote": "Local alerts (LED and buzzer) fire on the device itself.",
+        "section": "solution",
+        "label": "Smart Water Guardian AI - Hackster.io",
+        "url": "https://www.hackster.io/david-kochoni/smart-water-guardian-ai-a194f1"
+       }
+      ],
+      "match": [
+       {
+        "quote": "Integration with Arduino IoT Cloud for easier monitoring and control",
+        "section": "solution",
+        "label": "Smart Coop 2.0 - Hackster.io",
+        "url": "https://www.hackster.io/coderscafetech/smart-coop-2-0-440874"
+       },
+       {
+        "quote": "The Arduino UNO Q serves as the main controller of Smart Coop 2.0",
+        "section": "implementation",
+        "label": "Smart Coop 2.0 - Hackster.io",
+        "url": "https://www.hackster.io/coderscafetech/smart-coop-2-0-440874"
+       }
+      ]
+     }
+    },
+    {
+     "id": "748a15d1-fa15-4d32-8470-76376857a692",
+     "kind": "hackathon",
+     "title": "HaloSense V1",
+     "source": "hackster",
+     "summary_only": false,
+     "axes": {
+      "problem": 0,
+      "users": 0,
+      "scene": 0,
+      "approach": 2,
+      "tech": 4,
+      "form": 4
+     },
+     "reason": "同样用 Arduino UNO Q，STM32 做确定性的传感器与执行器控制，Linux 端处理更复杂的计算。区别是它做触觉头带，用于方向感知。",
+     "combo": "借用它的触觉输出，给视障用户提供水质异常的振动提醒。",
+     "x": 0.4,
+     "y": 0,
+     "zone": "transfer",
+     "evidence": {
+      "target": [
+       {
+        "quote": "The device continuously measures four parameters (pH, total dissolved solids, turbidity, and temperature)",
+        "section": "solution",
+        "label": "Smart Water Guardian AI - Hackster.io",
+        "url": "https://www.hackster.io/david-kochoni/smart-water-guardian-ai-a194f1"
+       },
+       {
+        "quote": "Local alerts (LED and buzzer) fire on the device itself.",
+        "section": "solution",
+        "label": "Smart Water Guardian AI - Hackster.io",
+        "url": "https://www.hackster.io/david-kochoni/smart-water-guardian-ai-a194f1"
+       }
+      ],
+      "match": [
+       {
+        "quote": "fast, deterministic motor and sensor control on the STM32 side",
+        "section": "implementation",
+        "label": "HaloSense V1: A Wearable Sixth Sense for Spatial Awareness - Hackster.io",
+        "url": "https://www.hackster.io/pasquale887/halosense-v1-a-wearable-sixth-sense-for-spatial-awareness-f37d4c"
+       },
+       {
+        "quote": "A ring of 13 vibration motors is worn against the forehead",
+        "section": "solution",
+        "label": "HaloSense V1: A Wearable Sixth Sense for Spatial Awareness - Hackster.io",
+        "url": "https://www.hackster.io/pasquale887/halosense-v1-a-wearable-sixth-sense-for-spatial-awareness-f37d4c"
+       }
+      ]
+     }
+    }
+   ],
+   "check": {
+    "returned": 6,
+    "kept": 6,
+    "dropped": 0
+   },
+   "candidates": 106,
+   "model": "claude-sonnet-5-5 (medium)",
+   "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 58630,
+    "cache_read_input_tokens": 62367,
+    "output_tokens": 2815,
+    "output_tokens_details": {
+     "thinking_tokens": 0
+    },
+    "server_tool_use": {
+     "web_search_requests": 0,
+     "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+     "ephemeral_1h_input_tokens": 58630,
+     "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+     {
+      "input_tokens": 4,
+      "output_tokens": 1365,
+      "cache_read_input_tokens": 59150,
+      "cache_creation_input_tokens": 2093,
+      "cache_creation": {
+       "ephemeral_5m_input_tokens": 0,
+       "ephemeral_1h_input_tokens": 2093
+      },
+      "type": "message"
+     }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+   },
+   "took_ms": 21494,
+   "generated_at": "2026-11-11T13:23:52.782Z"
+  }
+ }
+}

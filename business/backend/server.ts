@@ -6,30 +6,35 @@ import {createReadStream} from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { z } from 'zod';
 import { config, frontendRoot, assert, AppError } from '../shared/config.ts';
-import { Store } from '../../data/database/store.ts';
+import {assertNoLegacyDatabase,assertDataStoragePath,retentionReportsRoot} from '../shared/data-paths.ts';
+import { Store } from '../../data/data_preprocessing/database/store.ts';
+import {RetentionWorker} from '../../data/data_preprocessing/database/retention.ts';
 import { Auth } from './auth.ts';
 import { Skills } from '../agents/skills.ts';
-import { Embedding } from '../../data/RAG/providers/embedding.ts';
+import { Embedding } from '../../data/data_preprocessing/RAG/providers/embedding.ts';
 import { ClaudeCLI } from '../agents/providers/claude.ts';
 import { Worker } from '../agents/worker.ts';
-import { ingest, retrieve } from '../../data/RAG/retrieval.ts';
-import { ingestURL } from '../../data/RAG/sources.ts';
-import { Search } from '../../data/RAG/search.ts';
+import { ingest, retrieve } from '../../data/data_preprocessing/RAG/retrieval.ts';
+import { ingestURL } from '../../data/data_preprocessing/RAG/sources.ts';
+import { Search } from '../../data/data_preprocessing/RAG/search.ts';
 import { exportCase } from './export.ts';
-import { expandQueries } from '../../data/RAG/query-expansion.ts';
-import { rerank } from '../../data/RAG/rerank.ts';
-import {CrawlStore} from '../../data/crawl/store.ts';
-import {Snapshots} from '../../data/crawl/snapshots.ts';
+import { expandQueries } from '../../data/data_preprocessing/RAG/query-expansion.ts';
+import { rerank } from '../../data/data_preprocessing/RAG/rerank.ts';
+import {CrawlStore} from '../../data/data_preprocessing/crawl/store.ts';
+import {Snapshots,crawlStorageRoot} from '../../data/data_preprocessing/crawl/snapshots.ts';
 import {CrawlWorker} from '../../crawl/core/worker.ts';
 import {CrawlAPI} from './crawl.ts';
-import {CallStore} from '../../data/database/calls.ts';
+import {CallStore} from '../../data/data_preprocessing/database/calls.ts';
 import {Dialogue} from '../agents/dialogue.ts';
 import {CallAPI} from './calls.ts';
 import {VoiceTTS} from './voice-tts.ts';
-import {phoneInfo,publicCA,selfLANConnection} from './phone.ts';
+import {phoneInfo,publicCA,selfLANConnection,tailnetConnection} from './phone.ts';
 import {IdeaLab} from '../agents/idea-lab.ts';
 import {KnowledgeAPI} from './knowledge.ts';
 import {ObsidianBridge} from './obsidian.ts';
+import {BriefWorker} from './project-brief.ts';
+import {DeepDiveWorker} from './project-deep-dive.ts';
+import {MatchWorker} from './project-match.ts';
 
 const id=z.string().uuid(),text=z.string().trim().min(1).max(150000);
 const publicFiles=['index.html','manifest.webmanifest','sw.js','icons/icon.svg','icons/icon-192.png','icons/icon-512.png','icons/apple-touch-icon.png','fonts/dm-sans-latin.woff2','fonts/bricolage-grotesque-latin.woff2','fonts/OFL-dmsans.txt','fonts/OFL-bricolagegrotesque.txt'];
@@ -43,7 +48,7 @@ async function buildFiles(){
   }
   return files;
 }
-export async function createApp(options:{dataDir?:string;origin?:string;secure?:boolean;localAutoLogin?:boolean;skillsDir?:string;startWorker?:boolean;casesDir?:string;crawlStorageDir?:string;voiceFetch?:typeof fetch;voiceAPIKey?:string}={}){
+export async function createApp(options:{dataDir?:string;origin?:string;secure?:boolean;localAutoLogin?:boolean;tailnetAutoLogin?:boolean;skillsDir?:string;startWorker?:boolean;casesDir?:string;crawlStorageDir?:string;voiceFetch?:typeof fetch;voiceAPIKey?:string}={}){
   const staticFiles=await buildFiles();
   const store=await Store.open(options.dataDir||config.dataDir),origin=options.origin||config.origin,secure=options.secure||false;
   const auth=new Auth(store,secure),skills=new Skills(options.skillsDir||config.skillsDir),embedding=new Embedding(config.ollamaUrl,config.embeddingModel);
@@ -55,7 +60,13 @@ export async function createApp(options:{dataDir?:string;origin?:string;secure?:
   const worker=new Worker(store,skills,cli,embedding),search=new Search(store);if(options.startWorker!==false)await worker.start();
   const ideaLab=new IdeaLab(store,crawlStore,cli);await ideaLab.recover();
   const obsidian=new ObsidianBridge(store);await obsidian.init(options.startWorker!==false&&!options.dataDir);
-  const knowledgeAPI=new KnowledgeAPI(store,ideaLab,obsidian);
+  const briefWorker=new BriefWorker(store,cli);if(options.startWorker!==false)await briefWorker.start();
+  const deepDiveWorker=new DeepDiveWorker(store,cli);if(options.startWorker!==false)await deepDiveWorker.start();
+  const matchWorker=new MatchWorker(store,cli);if(options.startWorker!==false)await matchWorker.start();
+  // Collected projects, news and events expire 365 days after they entered the database (see retention.ts).
+  const retention=new RetentionWorker(store,{reportDir:options.dataDir?path.join(path.dirname(path.resolve(options.dataDir)),'reports','retention'):retentionReportsRoot,blobPath:relative=>crawlSnapshots.resolve(relative)});
+  if(options.startWorker!==false)retention.start();
+  const knowledgeAPI=new KnowledgeAPI(store,ideaLab,obsidian,briefWorker,deepDiveWorker,cli,matchWorker);
   // Calls interrupted by a restart are marked, never re-run automatically (no duplicate subscription use).
   const callStore=new CallStore(store);await callStore.recover();
   const dialogue=new Dialogue(store,callStore,skills,cli,embedding),callAPI=new CallAPI(callStore,dialogue);
@@ -81,7 +92,8 @@ export async function createApp(options:{dataDir?:string;origin?:string;secure?:
       if(mutation)assert(req.headers.origin===origin,'ORIGIN_INVALID','仅接受本应用同源请求',403);
       let session=await auth.session(req);
       const local=['127.0.0.1','::1','::ffff:127.0.0.1'].includes(req.socket.remoteAddress||'')||selfLANConnection(secure,req.socket.remoteAddress,req.socket.localAddress,new URL(origin).hostname);
-      const passwordless=!!options.localAutoLogin&&local&&['127.0.0.1','localhost','[::1]'].includes(new URL(origin).hostname);
+      // Owner-only app: no password on this computer (localhost) or from the owner's own Tailscale devices (2026-11-11).
+      const passwordless=(!!options.localAutoLogin&&local&&['127.0.0.1','localhost','[::1]'].includes(new URL(origin).hostname))||(!!options.tailnetAutoLogin&&tailnetConnection(secure,req.socket.remoteAddress,req.socket.localAddress,new URL(origin).hostname));
       if(p==='/api/auth/status'&&method==='GET'){
         if(passwordless&&!session){
           assert(!req.headers['sec-fetch-site']||req.headers['sec-fetch-site']==='same-origin'||req.headers['sec-fetch-site']==='none','ORIGIN_INVALID','仅接受本应用请求',403);
@@ -136,8 +148,8 @@ export async function createApp(options:{dataDir?:string;origin?:string;secure?:
         if(action==='search'&&method==='POST'){const b=z.object({query:z.string().min(2).max(500)}).parse(await body(req));json({results:await search.search(caseId,b.query),notice:'摘要用于发现，不计市场证据；需读取来源正文'});return;}
         if(action==='retrieve'&&method==='POST'){const b=z.object({query:z.string().min(1).max(500),collection:z.enum(['MARKET','PROJECT','METHOD']).default('MARKET')}).parse(await body(req));const expansion=await expandQueries(store,cli,caseId,b.query),base=await retrieve(store,embedding,caseId,b.query,b.collection,20,null,expansion.variants),ranking=await rerank(store,cli,caseId,b.query,base.matches,8);json({...base,matches:ranking.matches,reason:`${base.reason}；${ranking.reason}`,expansion,ranking:{status:ranking.status,reason:ranking.reason}});return;}
         if(action==='tasks'&&method==='POST'){
-          const b=z.object({kind:z.enum(['research','question','model']),message:z.string().min(1).max(8000),request_key:z.string().min(8).max(100)}).parse(await body(req));
-          json(await store.enqueue(caseId,b.kind,{message:b.message},b.request_key),202);void worker.tick().catch(()=>{});return;
+          const b=z.object({kind:z.enum(['chat','research','question','model']),message:z.string().min(1).max(8000),request_key:z.string().min(8).max(100),model:z.object({id:z.enum(['opus','sonnet','haiku']),effort:z.enum(['low','medium','high'])}).optional()}).parse(await body(req));
+          json(await store.enqueue(caseId,b.kind,{message:b.message,...(b.model?{model:b.model}:{})},b.request_key),202);void worker.tick().catch(()=>{});return;
         }
         if(action==='selection'&&method==='POST'){const b=z.object({gap_id:z.string().regex(/^G\d+$/),confirmed:z.literal(true),user_message:z.string().min(1).max(1000)}).parse(await body(req));json(await store.selectGap(caseId,b.gap_id,b.confirmed,b.user_message));return;}
         if(action==='export'&&method==='POST'){json(await exportCase(store,caseId,options.casesDir||config.casesDir));return;}
@@ -150,9 +162,11 @@ export async function createApp(options:{dataDir?:string;origin?:string;secure?:
       throw new AppError('NOT_FOUND','接口不存在',404);
     }catch(e){if(res.headersSent){res.destroy();return;}const err=e as any;json({error:{code:err instanceof z.ZodError?'INPUT_INVALID':err.code||'INTERNAL_ERROR',message:err instanceof z.ZodError?'输入格式或长度不符合要求':err instanceof AppError?err.message:'服务操作未成功，请查看状态并重试'}},err instanceof z.ZodError?400:err.status||500);}
   };
-  return {store,auth,skills,embedding,cli,worker,callStore,dialogue,voiceTTS,crawlStore,crawlWorker,crawlSnapshots,ideaLab,obsidian,handler,close:async()=>{await ideaLab.stop();await obsidian.stop();voiceTTS.abortAll();await crawlWorker.stop();await worker.stop();await dialogue.stop();while(worker.active||worker.checking)await new Promise(r=>setTimeout(r,20));for(let i=0;dialogue.active.size&&i<100;i++)await new Promise(r=>setTimeout(r,20));await store.close();}};
+  return {store,auth,skills,embedding,cli,worker,callStore,dialogue,voiceTTS,crawlStore,crawlWorker,crawlSnapshots,ideaLab,obsidian,briefWorker,deepDiveWorker,matchWorker,retention,handler,close:async()=>{await retention.stop();await briefWorker.stop();await deepDiveWorker.stop();await matchWorker.stop();await ideaLab.stop();await obsidian.stop();voiceTTS.abortAll();await crawlWorker.stop();await worker.stop();await dialogue.stop();while(worker.active||worker.checking)await new Promise(r=>setTimeout(r,20));for(let i=0;dialogue.active.size&&i<100;i++)await new Promise(r=>setTimeout(r,20));await store.close();}};
 }
 export async function main(){
+  assertNoLegacyDatabase();
+  assertDataStoragePath(config.dataDir);assertDataStoragePath(crawlStorageRoot);
   assert(Number.isInteger(config.port)&&config.port>0&&config.port<65536,'PORT_INVALID','端口无效');
   const secure=!!(config.httpsKey&&config.httpsCert);
   assert(secure||['127.0.0.1','localhost','::1'].includes(config.host),'HTTPS_REQUIRED','对手机/局域网开放前请配置可信 HTTPS');
@@ -163,7 +177,7 @@ export async function main(){
   server.requestTimeout=30000;
   // Claim the port before touching the persistent database, preventing ordinary double-starts.
   await new Promise<void>((resolve,reject)=>{server.once('error',reject);server.listen(config.port,config.host,()=>{server.removeListener('error',reject);resolve();});});
-  try{app=await createApp({secure,localAutoLogin:process.env.LYDIA_LOCAL_AUTO_LOGIN!=='false'});}catch(e){server.close();throw e;}
+  try{app=await createApp({secure,localAutoLogin:process.env.LYDIA_LOCAL_AUTO_LOGIN!=='false',tailnetAutoLogin:process.env.LYDIA_TAILNET_AUTO_LOGIN==='true'});}catch(e){server.close();throw e;}
   console.log(`Lydia listening at ${config.origin}; paid inference API disabled; inference=claude_cli`);
   let closing=false;const stop=async()=>{if(closing)return;closing=true;server.close();await app!.close();process.exit(0);};process.on('SIGINT',()=>void stop());process.on('SIGTERM',()=>void stop());
   if(process.send){process.on('message',message=>{

@@ -1,6 +1,6 @@
 import type {ParseContext,ParsedPage} from '../types.ts';
 import {blank,makeEvent,outcome,listing,pagination,officialEvidence} from './discovery.ts';
-import {document,find,tag,cleanText,anchors,children,locator,attr} from '../../data/crawl/html.ts';
+import {document,find,tag,cleanText,anchors,children,locator,attr} from '../../data/data_preprocessing/crawl/html.ts';
 import {knownYear} from './structured.ts';
 
 export function parseNASA(url:string,html:string,context:ParseContext):ParsedPage{

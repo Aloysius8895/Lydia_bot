@@ -3,13 +3,13 @@ import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, writeFile, symlink, readFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { Store } from '../../data/database/store.ts';
-import { ingest, retrieve, canonicalUrl, splitText, tokenize } from '../../data/RAG/retrieval.ts';
-import { Embedding } from '../../data/RAG/providers/embedding.ts';
+import { Store } from '../../data/data_preprocessing/database/store.ts';
+import { ingest, retrieve, canonicalUrl, splitText, tokenize } from '../../data/data_preprocessing/RAG/retrieval.ts';
+import { Embedding } from '../../data/data_preprocessing/RAG/providers/embedding.ts';
 import { Skills, roles } from '../agents/skills.ts';
 import { ClaudeCLI, subscriptionEnv, cliArgs, parseResult } from '../agents/providers/claude.ts';
-import { Search } from '../../data/RAG/search.ts';
-import { publicIP, validatePublicURL } from '../../data/RAG/sources.ts';
+import { Search } from '../../data/data_preprocessing/RAG/search.ts';
+import { publicIP, validatePublicURL } from '../../data/data_preprocessing/RAG/sources.ts';
 import { exportCase } from '../backend/export.ts';
 import { plan } from '../agents/research.ts';
 import { Worker } from '../agents/worker.ts';
@@ -117,12 +117,29 @@ test('CLI arguments and environment do not bypass permissions or inherit API rou
   assert.equal(voice[voice.indexOf('--allowedTools')+1],'StructuredOutput');
   assert.equal(voice[voice.indexOf('--effort')+1],'low');assert.ok(voice.includes('--system-prompt'));
   for(const flag of ['--bare','--model','--fallback-model','--dangerously-skip-permissions'])assert.equal(voice.includes(flag),false,flag);
+  // Approved per-step allocation: experts Sonnet 5.5 low, final review Sonnet 5.5 medium, helpers / small talk Haiku 5.5 low, voice Sonnet 5.5 low.
+  const pick=(a:string[])=>({model:a[a.indexOf('--model')+1],effort:a[a.indexOf('--effort')+1],efforts:a.filter(x=>x==='--effort').length});
+  assert.deepEqual(pick(cliArgs({type:'object'},'default','expert')),{model:'claude-sonnet-5-5',effort:'low',efforts:1});
+  assert.deepEqual(pick(cliArgs({type:'object'},'default','review')),{model:'claude-sonnet-5-5',effort:'medium',efforts:1});
+  assert.deepEqual(pick(cliArgs({type:'object'},'default','helper')),{model:'claude-haiku-5-5',effort:'low',efforts:1});
+  assert.deepEqual(pick(cliArgs({type:'object'},'dialogue','voice')),{model:'claude-sonnet-5-5',effort:'low',efforts:1});
+  assert.deepEqual(pick(cliArgs({type:'object'},'default','idea')),{model:'claude-sonnet-5-5',effort:'low',efforts:1});
+  const chat=cliArgs({type:'object'},'chat','chat');assert.deepEqual(pick(chat),{model:'claude-sonnet-5-5',effort:'low',efforts:1});
+  assert.deepEqual(pick(cliArgs({type:'object'},'default','expert',{model:'claude-opus-5-5',effort:'high'})),{model:'claude-opus-5-5',effort:'high',efforts:1},'the model chosen in the message box replaces the tier default');
+  assert.equal(chat[chat.indexOf('--tools')+1],'StructuredOutput');assert.ok(chat.includes('--system-prompt'));
   const schema={$schema:'https://json-schema.org/draft/2020-12/schema',type:'object',properties:{text:{type:'string',maxLength:100}},required:['text']};
   const compatible=cliArgs(schema,'dialogue'),sent=JSON.parse(compatible[compatible.indexOf('--json-schema')+1]);
   assert.equal(sent.$schema,undefined);assert.deepEqual(sent.properties,schema.properties);assert.deepEqual(sent.required,schema.required);assert.ok(schema.$schema,'caller schema not mutated');
+  // Research steps, query expansion and reranking use the default profile: CLI 2.1.322 exits 1 on the $schema URI.
+  for(const [profile,tier] of [['default','helper'],['default','expert'],['default',undefined]] as const){
+   const a=cliArgs(schema,profile,tier),wire=JSON.parse(a[a.indexOf('--json-schema')+1]);
+   assert.equal(wire.$schema,undefined,`no $schema for ${profile}/${tier}`);assert.deepEqual(wire.properties,schema.properties);
+  }
+  assert.ok(schema.$schema,'caller schema still not mutated');
 });
 test('CLI process JSON errors and malformed results are not success',()=>{
   assert.throws(()=>parseResult('{"type":"result","subtype":"success","result":"{}"}',1));
+  assert.throws(()=>parseResult('{"type":"result","subtype":"success","is_error":true,"result":"API Error: 400 Claude Code 2.1.143 does not support this model; version 2.1.280 or newer is required. Run claude update"}',1),(e:any)=>e.code==='CLI_UPDATE_REQUIRED');
   assert.throws(()=>parseResult('{"type":"result","subtype":"error_max_turns","result":"error"}',0));
   assert.throws(()=>parseResult('not json',0));assert.throws(()=>parseResult('{"type":"result","subtype":"success","result":"hello"}',0));
   assert.deepEqual(parseResult('{"type":"result","subtype":"success","structured_output":{"ok":true}}',0).data,{ok:true});

@@ -50,7 +50,7 @@ async function attempt() {
     child=spawn(process.execPath,['--env-file-if-exists=deployment/.env','--experimental-strip-types','backend/server.ts'],{
       cwd:businessRoot,windowsHide:true,stdio:['ignore','pipe','pipe','ipc'],
       env:{...process.env,HOST:address.host,PORT:'4318',APP_ORIGIN:address.origin,
-        HTTPS_KEY_FILE:path.join(dir,'server.key'),HTTPS_CERT_FILE:path.join(dir,'server.crt'),LYDIA_LOCAL_AUTO_LOGIN:'false'},
+        HTTPS_KEY_FILE:path.join(dir,'server.key'),HTTPS_CERT_FILE:path.join(dir,'server.crt'),LYDIA_LOCAL_AUTO_LOGIN:'false',LYDIA_TAILNET_AUTO_LOGIN:'true'},
     });
     child.stdout!.pipe(output,{end:false});child.stderr!.pipe(output,{end:false});
     let renewing=false;

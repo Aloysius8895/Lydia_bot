@@ -1,7 +1,7 @@
 import type {ParseContext,ParsedPage} from '../types.ts';
 import {readJSON,objects,eventYear} from './structured.ts';
 import {blank,makeEvent,pagination,outcome,listing} from './discovery.ts';
-import {document,parentOf,anchors,find,tag,cleanText,locator} from '../../data/crawl/html.ts';
+import {document,parentOf,anchors,find,tag,cleanText,locator} from '../../data/data_preprocessing/crawl/html.ts';
 
 export function parseHQDiscovery(url:string,html:string,context:ParseContext):ParsedPage|null{
  const u=new URL(url);if(!(u.pathname.startsWith('/hackathons')||u.pathname==='/projects'&&u.searchParams.get('view')==='hackathons'||u.pathname==='/projects/prize-leaderboard'))return null;

@@ -1,6 +1,6 @@
-import {document,anchors,attr,tag,find,cleanText,locator,type HtmlNode} from '../../data/crawl/html.ts';
+import {document,anchors,attr,tag,find,cleanText,locator,type HtmlNode} from '../../data/data_preprocessing/crawl/html.ts';
 import type {ParsedPage,ParsedEvent,ParsedProject,Evidence,Outcome} from '../types.ts';
-import {canonicalUrl} from '../../data/RAG/retrieval.ts';
+import {canonicalUrl} from '../../data/data_preprocessing/RAG/retrieval.ts';
 import {knownYear} from './structured.ts';
 
 export function blank(parserVersion:string,reason='Unknown template'):ParsedPage{return {projects:[],events:[],outcomes:[],links:[],next:null,complete:false,reason,parserVersion,pageType:'unknown'};}

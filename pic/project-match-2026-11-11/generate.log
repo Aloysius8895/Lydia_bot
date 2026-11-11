@@ -1,0 +1,21 @@
+database copy from backup grok-import-2026-11-11T07-51-06-736Z-09336b99
+router402 · project done 16s returned 8 kept 8 dropped 0
+Smart Water Guardian AI · project done 13s returned 6 kept 6 dropped 0
+watermark · news done 13s returned 3 kept 3 dropped 0
+npmguard · news done 12s returned 6 kept 6 dropped 0
+database copy from backup grok-import-2026-11-11T07-51-06-736Z-09336b99
+router402 · project titles: 最值得先看 「Xpack」：同样用 x402/HTTP 402 实现按次 USDC 付费，做法和技术最接近，但对象是 npm 安装，适合搬运；「OnchainRouter」、「Glassbox402」可作为合体对象。
+Smart Water Guardian AI · project titles: 最值得先看 「Edge-AI Spectrophotometer」：它同样是 Arduino UNO Q 上的本地边缘 AI，学习基线并报告偏离，可与水质监测互补；资料库里没有水质监测方向的撞车作品。
+watermark · news titles: 资料库中几乎没有直接触及 DAO 金库分批出售或做市的新闻；最值得先看 「DeepMind AlphaProof Code 形式化验证 Signal 协议实现」，它与链上定价程序的安全验证有间接关联，但整体相关度偏低。
+npmguard · news titles: 最值得先看「Fireworks AI 披露第二起入侵，影响扩大」（Fireworks 供应链入侵）：直接说明开发/云基础设施被攻破的风险，最贴近 NpmGuard 的安全审计需求；其次是 「OpenAI 发布 GPT-6 Cyber」、「DeepMind AlphaProof Code 形式化验证 Signal 协议实现」。
+router402 · project already generated, skipped
+Smart Water Guardian AI · project already generated, skipped
+watermark · news already generated, skipped
+npmguard · news already generated, skipped
+Tap2ETH · project done 13s returned 6 kept 6 dropped 0
+database copy from backup grok-import-2026-11-11T07-51-06-736Z-09336b99
+router402 · project done 13s returned 7 kept 7 dropped 0
+Smart Water Guardian AI · project done 21s returned 6 kept 6 dropped 0
+watermark · news already generated, skipped
+npmguard · news already generated, skipped
+Tap2ETH · project already generated, skipped

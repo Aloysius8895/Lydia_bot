@@ -1,0 +1,56 @@
+{
+  "status": "TEST_PASSED",
+  "timestamp": "2026-11-10T18:17:19.403Z",
+  "checks": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "spreading": true,
+      "pinching": true,
+      "anchorStable": true,
+      "range": "50–400%",
+      "singleFingerPan": true,
+      "pinchToPanStable": true,
+      "noAccidentalSelection": true,
+      "cancelRecovery": true,
+      "tapSelection": true,
+      "pageZoomUnchanged": true,
+      "longPressDragToTray": "scene + list",
+      "palette": {
+        "background": "#080808",
+        "floor": "#0f1215",
+        "zone": "#121519",
+        "active": "#292929"
+      },
+      "screenshot": "phone-black-pinch.png"
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 900
+      },
+      "spreading": true,
+      "pinching": true,
+      "anchorStable": true,
+      "range": "50–400%",
+      "singleFingerPan": true,
+      "pinchToPanStable": true,
+      "noAccidentalSelection": true,
+      "cancelRecovery": true,
+      "tapSelection": true,
+      "pageZoomUnchanged": true,
+      "longPressDragToTray": "scene + list",
+      "palette": {
+        "background": "#080808",
+        "floor": "#0f1215",
+        "zone": "#121519",
+        "active": "#292929"
+      },
+      "screenshot": "tablet-black-pinch.png"
+    }
+  ],
+  "pageErrors": [],
+  "fixture": "Native Chromium pinch/pan via CDP; partial-contact release uses a dispatched PointerEvent because CDP touchEnd releases all contacts. Temporary database and TEST_ONLY projects. Not actual iPhone/iPad hardware."
+}

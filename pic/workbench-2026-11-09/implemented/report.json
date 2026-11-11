@@ -1,0 +1,24 @@
+{
+  "status": "TEST_PASSED",
+  "timestamp": "2026-11-10T18:16:54.581Z",
+  "checks": [
+    "Sidebar fits the viewport (no hidden overflow); 新闻与资讯 joins the main list; recent list shows readable rows; 商业逻辑 sits left of 项目库 and is clickable",
+    "light: workbench opens from sidebar/header/tray; sections switch; Esc and × close; shelf opens the chosen idea; note and status save",
+    "dark: workbench opens from sidebar/header/tray; sections switch; Esc and × close; shelf opens the chosen idea",
+    "Phone: 商业逻辑 stays in the header; the bar button opens the page full screen without overflow"
+  ],
+  "shots": [
+    "01-sidebar-header-light.png",
+    "02-lab-empty-light.png",
+    "03-lab-tray-light.png",
+    "04-ideas-light.png",
+    "05-research-light.png",
+    "02-lab-empty-dark.png",
+    "03-lab-tray-dark.png",
+    "04-ideas-dark.png",
+    "05-research-dark.png",
+    "06-phone-ideas-dark.png"
+  ],
+  "errors": [],
+  "fixture": "Temporary database; TEST_ONLY projects and ideas. Headless Chrome, not real devices."
+}

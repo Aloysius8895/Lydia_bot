@@ -1,6 +1,6 @@
 import {readFile,readdir,writeFile,mkdir} from 'node:fs/promises';
 import path from 'node:path';
-import {crawlStorageRoot} from '../../data/crawl/snapshots.ts';
+import {crawlStorageRoot} from '../../data/data_preprocessing/crawl/snapshots.ts';
 const reportRoot=path.join(crawlStorageRoot,'reports'),names=await readdir(reportRoot);
 const latest=(prefix:string)=>names.filter(n=>n.startsWith(prefix)).sort().at(-1);
 const pilotName=latest('pilot-'),auditName=latest('source-audit-');

@@ -1,6 +1,6 @@
 import path from 'node:path';
 import {readFile,writeFile,mkdir,rename,realpath} from 'node:fs/promises';
-import {Store,hash,type Row} from '../../data/database/store.ts';
+import {Store,hash,type Row} from '../../data/data_preprocessing/database/store.ts';
 import {assert} from '../shared/config.ts';
 
 type Entry={managed:string;notes:string};
@@ -56,6 +56,10 @@ export class ObsidianBridge {
   for(const p of projects)files[`Projects/${p.id}.md`]=`---\nlydia_kind: hackathon_project\nlydia_id: "${p.id}"\nrevision: ${p.revision}\n---\n# ${title(p.title)}\n\n来源：${clean(p.url)}\n\n平台：${p.source_id} · 深度：${p.depth} · 质量：${p.quality}\n\n项目自述不代表市场需求已验证。\n\n${clean(p.content)||'正文尚未采集。'}\n`;
   files['Index.md']+='\n## 新闻与资讯\n\n'+news.map(n=>`- [[News/${n.id}|${title(n.title)}]]`).join('\n')+'\n';
   for(const n of news)files[`News/${n.id}.md`]=`---\nlydia_kind: news_report\nlydia_id: "${n.id}"\nrevision: ${n.revision}\n---\n# ${title(n.title)}\n\n来源：${clean(n.url)||'用户粘贴正文'}\n\n发布者：${clean(n.publisher)||'未知'}\n\n报道日期：${clean(n.published_at)||'未知，待核验'}\n\n新闻报道不等于独立核实或市场需求验证。\n\n${clean(n.content)}\n`;
+  for(const item of [...projects,...news])if(item.meta?.content_kind==='summary_only'){
+   const folder=projects.includes(item)?'Projects':'News';
+   files[`${folder}/${item.id}.md`]+=`\n## 外部资料摘要（非原文）\n\n${clean(item.meta.imported_summary)}\n\n未独立核实；原文未采集，不可作为原文证据。\n\n资料包原始日期：${clean(item.meta.original_date)||'未提供'}\n\n采集日期：${clean(item.meta.collected_date)||'未提供'}\n\n分类：${(item.meta.tags||[]).map(clean).join('、')}\n\n核实说明：${clean(item.meta.verification_notes)||'资料包未提供'}\n`;
+  }
   for(const idea of ideas){
    const s=idea.snapshot,c=s.candidate;
    files[`Ideas/${idea.id}.md`]=`---\nlydia_kind: candidate_idea\nlydia_id: "${idea.id}"\nstatus: ${idea.status}\n---\n# ${title(idea.title)}\n\n待验证的候选 idea。\n\n${c.summary}\n\n## 用户与场景\n${c.users}\n\n## 借鉴项目\n${s.sources.map((p:Row)=>`- [[../${p.kind==='news'?'News':'Projects'}/${p.id}|${title(p.title)}]] · 输入版本 ${p.revision}`).join('\n')}\n\n## 差异与适配\n${c.difference}\n\n${c.fit}\n\n## 最小演示\n${c.mvp}\n\n## 待验证假设\n${c.assumptions.map((a:string)=>'- '+a).join('\n')}\n\n## 第一步验证\n${c.first_test}\n\n## Lydia 备注\n${clean(idea.note)}\n`;

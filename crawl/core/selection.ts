@@ -1,4 +1,4 @@
-import {hash,type Row} from '../../data/database/store.ts';
+import {hash,type Row} from '../../data/data_preprocessing/database/store.ts';
 export type Candidate={id:string;winner:boolean;events:{id:string;source:string;year:number;track?:string}[]};
 export function selectProjects(candidates:Candidate[],config:{finalistLimitPerEvent:number;finalistLimitTotal:number;selectionSeed:string}){
   const result:{projectId:string;selected:boolean;reason:string;eventId:string|null}[]=[],counts=new Map<string,number>();

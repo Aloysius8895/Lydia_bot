@@ -9,6 +9,13 @@ export function selfLANConnection(secure:boolean,remote:string|undefined,local:s
   const normalize=(address:string|undefined)=>(address||'').replace(/^::ffff:/,'');
   return secure&&!!remote&&privateIPv4(normalize(local))&&normalize(remote)===normalize(local)&&normalize(local)===hostname;
 }
+// Tailscale hands out 100.64.0.0/10; the firewall only admits those peers on the Tailscale address.
+export const tailscaleIPv4 = (address:string) => { const m = /^100\.(\d{1,3})\.\d{1,3}\.\d{1,3}$/.exec(address); return !!m && +m[1] >= 64 && +m[1] <= 127; };
+/** A request from one of the owner's own Tailscale devices to the private MagicDNS HTTPS address. */
+export function tailnetConnection(secure:boolean,remote:string|undefined,local:string|undefined,hostname:string) {
+  const normalize=(address:string|undefined)=>(address||'').replace(/^::ffff:/,'');
+  return secure&&tailscaleIPv4(normalize(remote))&&tailscaleIPv4(normalize(local))&&/^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?\.ts\.net$/i.test(hostname);
+}
 export function lanAddresses() {
   return [...new Set(Object.values(networkInterfaces()).flatMap(items => (items || []).filter(item => item.family === 'IPv4' && !item.internal && privateIPv4(item.address)).map(item => item.address)))];
 }

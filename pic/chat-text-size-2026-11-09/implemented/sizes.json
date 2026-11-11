@@ -1,0 +1,10 @@
+{
+  "desktop": {
+    "before": "16px",
+    "after": "16px"
+  },
+  "phone": {
+    "before": "15px",
+    "after": "15px"
+  }
+}

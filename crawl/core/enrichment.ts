@@ -1,5 +1,5 @@
-import {hash,type Row} from '../../data/database/store.ts';
-import {CrawlStore} from '../../data/crawl/store.ts';
+import {hash,type Row} from '../../data/data_preprocessing/database/store.ts';
+import {CrawlStore} from '../../data/data_preprocessing/crawl/store.ts';
 import {randomUUID} from 'node:crypto';
 
 export function resourceTarget(resource:Row){

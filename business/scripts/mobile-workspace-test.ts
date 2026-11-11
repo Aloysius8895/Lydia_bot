@@ -49,7 +49,7 @@ try{
    if(theme==='light'){await page.goto(origin);await page.getByRole('button',{name:'Switch to light theme',exact:true}).click();await page.locator('.mobile-home-scroll a[href="#/bot/steve"]').click();await page.locator('.grok-message').first().waitFor();}
    await save('chat-'+theme);await page.getByRole('button',{name:'研究工作区',exact:true}).click();await page.getByRole('complementary',{name:'研究工作区'}).waitFor();await save('research-'+theme);await page.getByRole('button',{name:'Close panel',exact:true}).click();
  }
- await page.getByRole('button',{name:'取消任务',exact:true}).click();await page.getByText('已取消 · 需求研究',{exact:true}).waitFor();checks.push('Research drawer/tabs available in both themes; paused task cancellation persists');
+ await page.getByRole('button',{name:'取消任务',exact:true}).click();await page.locator('.task-progress').waitFor({state:'detached'});checks.push('Research drawer/tabs available in both themes; paused task cancellation persists');
  for(const [width,height]of [[320,600],[390,500],[430,932]]){
    await page.setViewportSize({width,height});const input=await page.locator('.grok-composer').boundingBox();assert.ok(input&&input.y+input.height<=height);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
  }

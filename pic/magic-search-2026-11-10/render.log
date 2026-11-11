@@ -1,0 +1,72 @@
+﻿{
+  "date": "2026-11-10",
+  "artifact": "DESIGN_ONLY",
+  "applicationModified": false,
+  "database": "copy of C:\\maven\\business_agent\\data\\data_storage\\backups\\database\\daily\\grok-import-2026-11-10T03-03-55-297Z-ea1580e4\\database",
+  "query": "把现金或硬件设备和链上支付连起来的项目",
+  "search": {
+    "mode": "claude",
+    "took_ms": 10927,
+    "note": "已按与“现金/硬件设备与链上支付连接”的相关度排序；LeekDIY 等仅涉及硬件钱包而无支付连接，未纳入。",
+    "matches": [
+      {
+        "title": "Takarabako",
+        "source": "ethglobal",
+        "reason": "旅行剩余外币现金经树莓派柜机签名后存成链上美元"
+      },
+      {
+        "title": "kalash",
+        "source": "ethglobal",
+        "reason": "用现金和USDC捐款，并配有专用ATM连接线下与链上"
+      },
+      {
+        "title": "Tap2ETH",
+        "source": "ethglobal",
+        "reason": "银行卡EMV变成以太坊多签签名者，并可在POS直接付款"
+      },
+      {
+        "title": "Paybot",
+        "source": "ethglobal",
+        "reason": "x402无gas支付给机器人租赁等实体设备"
+      },
+      {
+        "title": "Magnee",
+        "source": "ethglobal",
+        "reason": "跨链支付拦截路由，覆盖付款入口的链上结算"
+      },
+      {
+        "title": "RupeeRail",
+        "source": "ethglobal",
+        "reason": "稳定币扫印度UPI二维码付款，商户实际收到卢比"
+      },
+      {
+        "title": "Carte Bleue",
+        "source": "ethglobal",
+        "reason": "用普通银行刷卡读卡器恢复链上智能钱包"
+      },
+      {
+        "title": "Hands Unchained",
+        "source": "ethglobal",
+        "reason": "链上预订机械臂并付费，硬件执行任务后结算"
+      },
+      {
+        "title": "PaintGlobal",
+        "source": "ethglobal",
+        "reason": "NFC手环在现场接入链上投票、NFT与拍卖"
+      }
+    ]
+  },
+  "shots": [
+    "01-typing-query.png",
+    "02-casting-band-appears.png",
+    "03-books-flying-a.png",
+    "04-books-flying-b.png",
+    "05-landed-zone-focus.png",
+    "06-open-found-book.png",
+    "07-overview-ghost-slots.png",
+    "08-dark-flying.png",
+    "09-phone-landed.png"
+  ],
+  "video": "magic-search-demo.webm",
+  "errors": []
+}

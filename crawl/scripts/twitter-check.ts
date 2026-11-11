@@ -2,7 +2,7 @@ import {mkdir,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {TwitterBrowser} from '../fetch/twitter.ts';
 import {twitterURL,parseTwitter} from '../sources/twitter.ts';
-import {Snapshots,crawlStorageRoot} from '../../data/crawl/snapshots.ts';
+import {Snapshots,crawlStorageRoot} from '../../data/data_preprocessing/crawl/snapshots.ts';
 
 const input=process.argv[2]||'https://x.com/search?q=hackathon&f=live';
 const session=new TwitterBrowser(crawlStorageRoot),snapshots=new Snapshots(),out=path.join(crawlStorageRoot,'twitter-live-check');

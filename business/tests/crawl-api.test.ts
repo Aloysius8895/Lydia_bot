@@ -8,7 +8,7 @@ import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 import {createApp} from '../backend/server.ts';
 import {sources} from '../../crawl/sources/registry.ts';
-import {tickOperation} from '../../data/crawl/operations.ts';
+import {tickOperation} from '../../data/data_preprocessing/crawl/operations.ts';
 let app:Awaited<ReturnType<typeof createApp>>,server:http.Server,origin:string,cookie='',csrf='';
 before(async()=>{const tmp=await mkdtemp(path.join(os.tmpdir(),'lydia-crawl-api-'));server=http.createServer((req,res)=>void app.handler(req,res));await new Promise<void>(r=>server.listen(0,'127.0.0.1',r));origin=`http://127.0.0.1:${(server.address() as any).port}`;app=await createApp({dataDir:path.join(tmp,'pg'),crawlStorageDir:path.join(tmp,'crawl'),origin,startWorker:false});});
 after(async()=>{await new Promise<void>(r=>server.close(()=>r()));await app.close();});

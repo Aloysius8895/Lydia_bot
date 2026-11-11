@@ -4,10 +4,10 @@ import os from 'node:os';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { config,businessRoot } from '../shared/config.ts';
-import { Store } from '../../data/database/store.ts';
+import { Store } from '../../data/data_preprocessing/database/store.ts';
 import { ClaudeCLI } from '../agents/providers/claude.ts';
 import { Skills } from '../agents/skills.ts';
-import { Embedding } from '../../data/RAG/providers/embedding.ts';
+import { Embedding } from '../../data/data_preprocessing/RAG/providers/embedding.ts';
 const exec=promisify(execFile);
 const store=await Store.open(config.dataDir);
 try{

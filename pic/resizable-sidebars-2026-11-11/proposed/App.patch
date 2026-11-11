@@ -1,0 +1,28 @@
+diff --git a/business/frontend/src/App.jsx b/pic/resizable-sidebars-2026-11-11/proposed/App.jsx
+index 4e74be5..d3a2c03 100644
+--- a/business/frontend/src/App.jsx
++++ b/pic/resizable-sidebars-2026-11-11/proposed/App.jsx
+@@ -14,6 +14,7 @@ import CallCard from './components/CallCard.jsx';
+ import Icon from './components/Icon.jsx';
+ import { BotAvatar } from './components/Avatars.jsx';
+ import KnowledgeWorkspace from './components/KnowledgeWorkspace.jsx';
++import { ResizeHandle, usePanelWidth } from './panel-resize.jsx';
+ 
+ const phases = { SCOPED: '范围已建立', RESEARCHING: '研究中', AWAITING_SELECTION: '等待选择缺口', MODELING: '商业模式阶段' };
+ export default function App() {
+@@ -23,6 +24,8 @@ export default function App() {
+   if (!inKnowledge) { lastRoute.current = requestedRoute; }
+   const route = inKnowledge ? lastRoute.current : requestedRoute;
+   const [theme, toggleTheme] = useTheme();
++  // Side panel widths chosen by dragging the dividers; null keeps the layout default.
++  const [leftWidth, setLeftWidth] = usePanelWidth('main-left'), [rightWidth, setRightWidth] = usePanelWidth('main-right');
+   const [auth, setAuth] = useState(null), [cases, setCases] = useState([]), [active, setActive] = useState('');
+   const [snapshot, setSnapshot] = useState(null), [health, setHealth] = useState(null), [notice, setNotice] = useState('');
+   const [busy, setBusy] = useState(false), [query, setQuery] = useState('');
+@@ -186,5 +189,5 @@ export default function App() {
+     overlay={callOpen && callBot && active ? <CallCard key={`${active}:${callBot.id}`} bot={callBot} caseId={active} caseTitle={cases.find(c => c.id === active)?.title || ''} isMobile={isMobile} controlRef={callControl} onClose={() => setCallOpen(false)} /> : null}
+     progress={<TaskProgress tasks={snapshot?.tasks || []} busy={busy} onTaskAction={taskAction} />} />;
+   else main = <MobileHome bots={bots} rooms={rooms} botsById={botsById} query={query} onQuery={setQuery} projectPicker={picker} theme={theme} onToggleTheme={toggleTheme} onOpenProjects={openProjects} onSettings={mobileSettings} onOpenWorkspace={openWorkspace} onOpenCrawl={() => setSettings('crawl')} onOpenKnowledge={openKnowledge} />;
+-  return <><div hidden={inKnowledge} className={`app${isMobile ? ' app--mobile' : ''}`}>{!isMobile && <Sidebar bots={bots} rooms={rooms} botsById={botsById} route={route} query={query} onQuery={setQuery} theme={theme} onToggleTheme={toggleTheme} onOpenProjects={openProjects} onSettings={(section = 'account') => setSettings(section)} onOpenWorkspace={openWorkspace} onOpenCrawl={() => setSettings('crawl')} onOpenKnowledge={openKnowledge} />}{main}{globalPanel && !hasConversation && renderPanel(() => setGlobalPanel(false))}</div>{!inKnowledge && isMobile && !hasConversation && route.kind !== 'new' && !settings && mobileNavigation(route.kind === 'projects' ? '项目' : '会话')}{inKnowledge && <KnowledgeWorkspace activeCase={active} theme={theme} onToggleTheme={toggleTheme} onReturn={returnFromKnowledge} onOpenCrawl={() => setSettings('crawl')} onResearch={researchIdea} />}{settingsModal}{notification}</>;
++  return <><div hidden={inKnowledge} className={`app${isMobile ? ' app--mobile' : ''}${leftWidth ? ' app--left-sized' : ''}${rightWidth ? ' app--right-sized' : ''}`} style={{ '--lydia-left': leftWidth ? leftWidth + 'px' : undefined, '--lydia-right': rightWidth ? rightWidth + 'px' : undefined }}>{!isMobile && <Sidebar bots={bots} rooms={rooms} botsById={botsById} route={route} query={query} onQuery={setQuery} theme={theme} onToggleTheme={toggleTheme} onOpenProjects={openProjects} onSettings={(section = 'account') => setSettings(section)} onOpenWorkspace={openWorkspace} onOpenCrawl={() => setSettings('crawl')} onOpenKnowledge={openKnowledge} />}{main}{globalPanel && !hasConversation && renderPanel(() => setGlobalPanel(false))}{!isMobile && <><ResizeHandle side="start" target=".sidebar" middle=".main" min={220} max={440} width={leftWidth} onResize={setLeftWidth} label="调整左侧栏宽度" /><ResizeHandle side="end" target=".research-panel" middle=".main" min={300} max={640} width={rightWidth} onResize={setRightWidth} label="调整右侧栏宽度" /></>}</div>{!inKnowledge && isMobile && !hasConversation && route.kind !== 'new' && !settings && mobileNavigation(route.kind === 'projects' ? '项目' : '会话')}{inKnowledge && <KnowledgeWorkspace activeCase={active} theme={theme} onToggleTheme={toggleTheme} onReturn={returnFromKnowledge} onOpenCrawl={() => setSettings('crawl')} onResearch={researchIdea} />}{settingsModal}{notification}</>;
+ }

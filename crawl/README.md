@@ -1,4 +1,4 @@
-﻿# Lydia Hackathon 爬虫
+# Lydia Hackathon 爬虫
 
 已实现本地可运行的采集核心，接入现有 Lydia 后端和 data 模块。**十站已接入解析入口，逐站验证程度不同；十站全量采集尚未完成。** 最新进度见 [扩展交付记录](reports/EXPANSION_REPORT.md)。
 
@@ -52,8 +52,8 @@ node --experimental-strip-types crawl/cli.ts export --format json
 | 内容 | 位置 |
 | --- | --- |
 | 爬虫源码、配置、文档与界面 | 本目录 |
-| 数据层代码与接口 | [../data/crawl](../data/crawl/README.md) |
-| 原有业务数据库，包括新增 crawl_ 表 | `../business/.runtime/data`，由原 `LYDIA_DATA_DIR` 控制 |
+| 数据层代码与接口 | [../data/data_preprocessing/crawl](../data/data_preprocessing/crawl/README.md) |
+| 原有业务数据库，包括新增 crawl_ 表 | `../data/data_storage/database`，由原 `LYDIA_DATA_DIR` 控制 |
 | 原始快照和导出 | `../data/.runtime/crawl`，可用绝对路径环境变量 `LYDIA_CRAWL_STORAGE_DIR` 覆盖 |
 | 本次真实样本、审核与导出索引 | [reports/LATEST_LIVE_REPORT.md](reports/LATEST_LIVE_REPORT.md) |
 
@@ -81,7 +81,7 @@ Dockerfile 与运维说明见 [deployment](deployment/README.md)。本机 Docker
 
 ## 设计与状态
 
-- [架构](docs/ARCHITECTURE.md)、[数据契约](../data/crawl/DATA_CONTRACT.md)
+- [架构](docs/ARCHITECTURE.md)、[数据契约](../data/data_preprocessing/crawl/DATA_CONTRACT.md)
 - [实施状态](docs/IMPLEMENTATION_STATUS.md)、[实现计划](docs/IMPLEMENTATION_PLAN.md)
 - [修订 Prompt](docs/IMPLEMENTATION_PROMPT.md)、[原始备份](docs/PROMPT_ORIGINAL.md)
 - [工具评估](docs/CAPABILITY_ASSESSMENT.md)

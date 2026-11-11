@@ -1,0 +1,82 @@
+{
+ "topic": "match-entry",
+ "date": "2026-11-11",
+ "artifact": "DESIGN_ONLY",
+ "applicationModified": false,
+ "database": "copy of grok-import-2026-11-11T14-12-47-409Z-4940138e",
+ "claudeCalls": 0,
+ "checks": [
+  "PASS A 1440 light: pill sits beside the title without overlapping it, inside the panel (pill 40×40px, title 218px wide, 1 line(s))",
+  "PASS A 1440 light: pill is visible without scrolling",
+  "PASS A 1440 light: pill lines up with the first line of the title (off by 1px)",
+  "PASS A: the logo-only button has a name and a hover explanation",
+  "PASS B 1440 light: pill sits beside the title without overlapping it, inside the panel (pill 112×32px, title 147px wide, 1 line(s))",
+  "PASS B 1440 light: pill is visible without scrolling",
+  "PASS B 1440 light: pill lines up with the first line of the title (off by 0px)",
+  "PASS A 1440 long title: pill sits beside the title without overlapping it, inside the panel (pill 40×40px, title 218px wide, 2 line(s))",
+  "PASS A 1440 long title: pill is visible without scrolling",
+  "PASS A 1440 long title: pill lines up with the first line of the title (off by 1px)",
+  "PASS clicking the logo opens 相似与搭档 for this project",
+  "PASS A 1440 dark: pill sits beside the title without overlapping it, inside the panel (pill 40×40px, title 218px wide, 1 line(s))",
+  "PASS A 1440 dark: pill is visible without scrolling",
+  "PASS A 1440 dark: pill lines up with the first line of the title (off by 1px)",
+  "PASS B 1440 dark: pill sits beside the title without overlapping it, inside the panel (pill 112×32px, title 147px wide, 1 line(s))",
+  "PASS B 1440 dark: pill is visible without scrolling",
+  "PASS B 1440 dark: pill lines up with the first line of the title (off by 0px)",
+  "PASS A 1180 narrow panel: pill sits beside the title without overlapping it, inside the panel (pill 40×40px, title 177px wide, 1 line(s))",
+  "PASS A 1180 narrow panel: pill is visible without scrolling",
+  "PASS A 1180 narrow panel: pill lines up with the first line of the title (off by 1px)",
+  "PASS A 1180: the name stays on one line",
+  "PASS B 1180 narrow panel: pill sits beside the title without overlapping it, inside the panel (pill 40×40px, title 177px wide, 1 line(s))",
+  "PASS B 1180 narrow panel: pill is visible without scrolling",
+  "PASS B 1180 narrow panel: pill lines up with the first line of the title (off by 1px)",
+  "PASS B 1180: the words drop and the name stays on one line",
+  "PASS A phone: pill sits beside the title without overlapping it, inside the panel (pill 40×40px, title 274px wide, 1 line(s))",
+  "PASS A phone: pill is visible without scrolling",
+  "PASS A phone: pill lines up with the first line of the title (off by 1px)",
+  "PASS phone has no horizontal overflow"
+ ],
+ "shots": [
+  {
+   "file": "00-logo.png",
+   "what": "侦探 logo 本身：160 / 40 / 24 / 16 像素，白天和黑夜"
+  },
+  {
+   "file": "01-a-logo-light.png",
+   "what": "A：只有侦探 logo 的圆按钮（白天）"
+  },
+  {
+   "file": "07-b-logo-words-light.png",
+   "what": "B：侦探 logo + 文字（白天）"
+  },
+  {
+   "file": "03-a-long-title.png",
+   "what": "A：长名字"
+  },
+  {
+   "file": "06-click-opens.png",
+   "what": "点 logo：和原来一样打开工作台的「相似与搭档」"
+  },
+  {
+   "file": "02-a-logo-dark.png",
+   "what": "A：黑夜（和你截图同一个项目）"
+  },
+  {
+   "file": "08-b-logo-words-dark.png",
+   "what": "B：黑夜"
+  },
+  {
+   "file": "04-a-narrow-panel.png",
+   "what": "A：右栏最窄 255px"
+  },
+  {
+   "file": "09-b-narrow-panel.png",
+   "what": "B：右栏窄时自动只剩 logo"
+  },
+  {
+   "file": "05-a-phone.png",
+   "what": "A：手机"
+  }
+ ],
+ "errors": []
+}

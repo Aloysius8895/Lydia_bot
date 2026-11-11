@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-09",
+  "artifact": "DESIGN_REFERENCE_ONLY",
+  "applicationModified": false,
+  "viewport": "1280x890 (iPad landscape, as in user screenshot) @2x; phone 390x844 @3x",
+  "shots": [
+    "01-projects-overview-dark",
+    "02-projects-zone-dark",
+    "03-news-overview-dark",
+    "04-news-zone-dark",
+    "05-topdown-dark",
+    "06-projects-overview-light",
+    "07-news-zone-light",
+    "08-alt-color-by-topic-dark",
+    "09-phone-projects-dark",
+    "10-phone-news-zone-dark"
+  ],
+  "errors": [],
+  "panProbe": {
+    "frames": 178,
+    "medianMs": 6.1,
+    "p95Ms": 6.2
+  },
+  "svgNodes": 837
+}

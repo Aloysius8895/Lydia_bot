@@ -1,0 +1,60 @@
+{
+ "date": "2026-11-11",
+ "artifact": "DESIGN_ONLY",
+ "applicationModified": false,
+ "database": "copy of C:\\maven\\business_agent\\data\\data_storage\\backups\\database\\grok-import-2026-11-10T08-37-03-279Z-a2496fbd\\database",
+ "checks": [
+  "PASS main page shows both dividers",
+  "PASS main drag changes widths (367->277, 422->532)",
+  "PASS main widths are remembered after reload",
+  "PASS right panel never grows past 640px",
+  "PASS conversation keeps at least 380px (443)",
+  "PASS double-click restores the right panel default",
+  "PASS arrow keys move the focused divider 16px a step",
+  "PASS knowledge page shows both dividers",
+  "PASS knowledge drag changes widths (225->295, 306->436)",
+  "PASS collapse button stays clickable; left divider hides while collapsed",
+  "PASS expanding again returns to the dragged width",
+  "PASS knowledge widths are remembered after reload",
+  "PASS phone layout has no dividers"
+ ],
+ "shots": [
+  {
+   "file": "01-main-default.png",
+   "what": "主页面默认宽度：左 367px，右 422px"
+  },
+  {
+   "file": "02-main-hover-divider.png",
+   "what": "鼠标移到左侧栏和对话之间：出现一条细线，鼠标变成左右箭头"
+  },
+  {
+   "file": "03-main-dragging.png",
+   "what": "拖动中：左侧栏收窄到 277px，右侧栏拉宽到 532px，对话区自动变宽/变窄"
+  },
+  {
+   "file": "04-main-dark-resized.png",
+   "what": "黑夜模式，宽度已记住（右侧分隔线处于悬停状态）"
+  },
+  {
+   "file": "05-knowledge-default.png",
+   "what": "知识库默认宽度：左 225px，右 306px"
+  },
+  {
+   "file": "06-knowledge-hover-divider.png",
+   "what": "鼠标移到书库和右侧栏之间"
+  },
+  {
+   "file": "07-knowledge-dragging.png",
+   "what": "拖动中：左侧栏拉宽到 295px，右侧栏拉宽到 436px，书库跟着缩放"
+  },
+  {
+   "file": "08-knowledge-dark-resized.png",
+   "what": "黑夜模式，宽度已记住"
+  }
+ ],
+ "video": [
+  "demo-main.webm",
+  "demo-knowledge.webm"
+ ],
+ "errors": []
+}

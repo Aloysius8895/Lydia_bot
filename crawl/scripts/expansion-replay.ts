@@ -2,10 +2,10 @@ import {readFile,writeFile,mkdtemp,mkdir} from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import assert from 'node:assert/strict';
-import {Store} from '../../data/database/store.ts';
-import {CrawlStore} from '../../data/crawl/store.ts';
-import {Snapshots,crawlStorageRoot} from '../../data/crawl/snapshots.ts';
-import {exportCrawl} from '../../data/crawl/export.ts';
+import {Store} from '../../data/data_preprocessing/database/store.ts';
+import {CrawlStore} from '../../data/data_preprocessing/crawl/store.ts';
+import {Snapshots,crawlStorageRoot} from '../../data/data_preprocessing/crawl/snapshots.ts';
+import {exportCrawl} from '../../data/data_preprocessing/crawl/export.ts';
 import {runSchema} from '../core/config.ts';
 import {parseSource} from '../sources/index.ts';
 

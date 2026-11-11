@@ -1,0 +1,124 @@
+{
+  "generated": "2026-11-10T08:03:14.909Z",
+  "artifact": "DESIGN_SAMPLES",
+  "samples": {
+    "kalash": {
+      "problem": "印度有数十万座寺庙,宗教旅游每年约 14.4 亿人次游客,他们参观寺庙、捐款。资料称寺庙捐赠体验可以更有趣、更值得纪念,并让现金与 USDC 捐赠整合在一起。",
+      "solution": "kalash 把寺庙参拜变成数字印章集章活动。访客在 app 中找寺庙,向寺庙的专用捐赠 ATM 投入现金,或用自己的钱包发送 USDC;捐赠确认后获得该寺庙的数字印章,app 保存印章、捐赠记录和照片。另有排行榜,线下捐赠积分是线上的 10 倍。寺庙可通过管理后台查看 ATM 内现金总额和 USDC 捐赠。",
+      "implementation": "ATM 使用 NV200 纸币验证器,通过 USB 连接 Windows PC,由厂商专有的 REST API Server 控制,负责清点并记录纸币。每笔现金捐赠生成唯一交易 ID 并关联数字印章。USDC 捐赠则在区块链上核对交易 ID 和支付确认,防止同一笔交易重复发放印章。app 使用 MetaMask 的 deeplink 和内置浏览器,通过二维码启动,让用户直接用自己的主钱包。",
+      "missing": [],
+      "status": "ready",
+      "basis": "source_pages",
+      "sources": [
+        {
+          "url": "https://ethglobal.com/showcase/kalash-ipw8r",
+          "status": "read",
+          "chars": 4567
+        },
+        {
+          "url": "https://x.com/ETHGlobal/status/2119052112932053303",
+          "status": "skipped",
+          "reason": "需要登录，未读取"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "generated_at": "2026-11-10T08:02:23.513Z",
+      "ms": 8811
+    },
+    "Takarabako": {
+      "problem": "旅行结束后,旅客手里常剩下少量外币现金:兑换不划算、丢掉可惜、回国后又用不上。Takarabako 想给这些剩余现金一个去处。",
+      "solution": "旅客用邮箱注册,获得无需 seed phrase 的钱包和个人 ENS 名称。在 Tokyo 的 Takarabako 柜机扫码投入纸币,按实时汇率变成以太坊上的美元余额并赚取基础收益。之后可用 1inch Aqua 流动性增值、按 ENS 名称转账,或在柜机取现或提为 USDC。运营方可通过储备证明面板和 AI 财务代理监控柜机。",
+      "implementation": "硬件是 Raspberry Pi 4 加触摸屏,驱动 TB74 验钞机;Pi 上生成的密钥用 EIP-712 对每笔纸币签名,ENS 名称发布该公钥供验证。链上是 Ethereum Sepolia 上的五个 Solidity 合约,包括 ERC-4626 风格的 vault 和 tkCASH 储备凭证。后端用 Node/TypeScript、Postgres、Redis/BullMQ,前端用 Next.js 16。另用 Curvegrid MultiBaas、ENS v2、1inch Aqua、World ID、Privy 和 Claude(Haiku 4.5 解释收益档位,Opus 运行受限的财务代理)。",
+      "missing": [],
+      "status": "ready",
+      "basis": "source_pages",
+      "sources": [
+        {
+          "url": "https://ethglobal.com/showcase/takarabako-qmgg5",
+          "status": "read",
+          "chars": 11341
+        },
+        {
+          "url": "https://x.com/ETHGlobal/status/2104115871883162007",
+          "status": "skipped",
+          "reason": "需要登录，未读取"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "generated_at": "2026-11-10T08:02:32.504Z",
+      "ms": 8990
+    },
+    "Smart Water Guardian AI": {
+      "problem": "全球有20亿人饮用的水未得到安全管理，水质往往是缓慢、不易察觉地变差（溶解固体上升、pH 轻微漂移、浑浊度增加）。实验室检测需24–48小时，工业探头价格高昂且数据被专有仪表盘锁定，农村水井、村庄水窖和小型供水合作社难以负担。",
+      "solution": "Smart Water Guardian AI 是一个低成本设备，持续监测水质，学习特定水源的“正常”状态，一旦偏离就报警，且智能部分无需持续联网。它测量 pH、总溶解固体、浊度和温度，结合 WHO 固定阈值（超限即 CRITICAL）与 AI 异常检测（提前给出 PREDICTIVE ALERT）。结果通过本地网页仪表盘、Android 应用和 Arduino Cloud 查看，设备上还有 LED 和蜂鸣器本地报警。",
+      "implementation": "基于 Arduino UNO Q 双核架构：STM32 微控制器实时读取 pH、浊度、TDS 和 DS18B20 温度传感器并驱动 LED、蜂鸣器；QRB2210 (Linux) 负责校准、中值滤波、特征提取，并运行 Edge Impulse K-means 异常检测模型（32 个聚类，.eim 文件，仅用 pH、TDS、温度特征，浊度用直接阈值）。模型用真实自来水隔夜数据训练，模拟数据效果不佳。开发使用 Arduino App Lab，Android 应用用 Flutter，数据同步到 Arduino IoT Cloud。pH 用 pH 4/7/10 三点校准，温度用于补偿 pH 和 TDS。",
+      "missing": [],
+      "status": "ready",
+      "basis": "source_pages",
+      "sources": [
+        {
+          "url": "https://www.hackster.io/david-kochoni/smart-water-guardian-ai-a194f1",
+          "status": "read",
+          "chars": 19271
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "generated_at": "2026-11-10T08:02:41.371Z",
+      "ms": 8867
+    },
+    "Tokito": {
+      "problem": "硬件设计师绘制电路板原理图(schematic)在 CAD 工具中缓慢且依赖专家,一块板子需数天。AI 只能使用有符号的零件(符号库约 22,700 个),遇到没有符号的零件时,现有工具会静默替换成最接近的,例如 16 针 USB-C 被替换成 2 针通用件,导致网表出错。",
+      "solution": "Tokito 是 AI 原生桌面 EDA 工作室:用户在聊天中描述电路板,Claude 生成可编辑的原理图,每项 AI 改动都以 diff 形式由用户逐项接受或拒绝。黑客松期间新增 DS-ViRe 与\"数据手册到符号\"流水线,可为库中没有的零件生成符号,且每个引脚都能追溯到制造商 PDF 的具体页面区域。",
+      "implementation": "桌面端用 Rust + egui 构建。claude-opus-5 经自有网关担任设计 agent(planner/editor 分工);claude-sonnet-4-6 从 DS-ViRe 验证过的裁剪图中独立两次提取引脚并对账。确定性的 Rust 编译器生成符号几何,结果发布到自有 MCP 服务器,新增 resolve_by_mpn 与 get_symbol_provenance 工具。DS-ViRe 为 Apache-2.0 开源。技术还包括 Python、FastAPI、PostgreSQL、SQLite、KiCad;开发使用了 Claude Code。",
+      "missing": [],
+      "status": "ready",
+      "basis": "source_pages",
+      "sources": [
+        {
+          "url": "https://devfolio.co/projects/tokito-2f44",
+          "status": "read",
+          "chars": 10718
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "generated_at": "2026-11-10T08:02:51.681Z",
+      "ms": 10310
+    },
+    "SpoilSafe": {
+      "problem": "冷链中对食品新鲜度的可见性有限，导致浪费、库存被拒收和收入损失。传统只靠温度和湿度追踪，属于被动监控。受影响的是仓库、分销商和零售商等冷链运营方。",
+      "solution": "SpoilSafe 是一个食品新鲜度智能平台，生成实时新鲜度评分和腐败时间预测，让运营者清楚知道哪些库存有风险、该采取什么行动，从被动监控转向主动决策、提前干预。资料未详细说明具体的用户操作界面。",
+      "implementation": "使用低成本传感器检测食品开始腐败时释放的气体，如 ethylene 和 ammonia，再结合 machine learning 模型生成新鲜度评分与腐败时间预测。项目仍在开发 MVP 并扩大试点，以验证不同品类的表现。其他具体技术栈来源未说明。",
+      "missing": [],
+      "status": "ready",
+      "basis": "source_pages",
+      "sources": [
+        {
+          "url": "https://techcommunity.microsoft.com/blog/studentdeveloperblog/introducing-the-2026-imagine-cup-world-finalists/4509670",
+          "status": "read",
+          "chars": 9879
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "generated_at": "2026-11-10T08:03:03.660Z",
+      "ms": 11979
+    },
+    "True Deal": {
+      "problem": "人们常常立下目标却难以坚持。来源指出，这些承诺缺乏真实的经济后果，目标受众是有目标且有数字痕迹可证明的人，如运动员、内容创作者和健身社群。",
+      "solution": "True Deal 是 Solana 上的目标质押协议。用户设定可衡量的规则，与朋友一起质押 USDC。截止时按结果自动验证并即时结算：完成者拿回本金并分得未完成者的奖池，未完成者需缴 3% Slacker Tax。品牌和加密项目也可用它做自定义互动 deal。",
+      "implementation": "验证通过与 Strava、X (Twitter)、Instagram 以及 Wellhub、TotalPass 等健身网络的原生 API 集成自动完成。DealGuard 是自研的双预言机共识引擎，由 Sentinel AI 支持，在截止时校验结果，并在 Solana 上触发即时结算，奖励以 USDC 计价。",
+      "missing": [],
+      "status": "ready",
+      "basis": "source_pages",
+      "sources": [
+        {
+          "url": "https://taikai.network/en/TokenNation/hackathons/Hackanation2026/projects/cmpve82kh02xkashyfzh6ko4c/idea",
+          "status": "read",
+          "chars": 2282
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "generated_at": "2026-11-10T08:03:14.909Z",
+      "ms": 11249
+    }
+  }
+}

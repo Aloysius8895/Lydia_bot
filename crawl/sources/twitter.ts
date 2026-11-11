@@ -1,4 +1,4 @@
-import {document,find,attr,tag,cleanText,parentOf,locator,children,type HtmlNode} from '../../data/crawl/html.ts';
+import {document,find,attr,tag,cleanText,parentOf,locator,children,type HtmlNode} from '../../data/data_preprocessing/crawl/html.ts';
 import type {ParsedPage,ParsedProject,Evidence} from '../types.ts';
 
 const hosts=new Set(['x.com','www.x.com','twitter.com','www.twitter.com']);

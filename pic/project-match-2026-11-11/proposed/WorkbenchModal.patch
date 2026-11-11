@@ -1,0 +1,35 @@
+diff --git a/../../business/frontend/src/components/WorkbenchModal.jsx b/proposed/WorkbenchModal.jsx
+index 95d1493..ce0261b 100644
+--- a/../../business/frontend/src/components/WorkbenchModal.jsx
++++ b/proposed/WorkbenchModal.jsx
+@@ -1,11 +1,13 @@
+ import {useEffect,useMemo,useRef,useState} from 'react';
+ import Icon from './Icon.jsx';
+ import KnowledgeResults from './KnowledgeResults.jsx';
++import ProjectMatch from './ProjectMatch.jsx';
+ 
+ // Idea 实验台 / 我的 Idea / Lydia 研究 as one small page, laid out like Settings:
+ // a left list of sections and one scrollable content column.
+ export const WORKBENCH=[
+  {id:'lab',label:'Idea 实验台',icon:'panel',eyebrow:'IDEA 实验台',desc:'把新闻变化和项目机制放在一起，生成待验证的新 idea。'},
++ {id:'match',label:'相似与搭档',icon:'target',eyebrow:'相似与搭档',desc:'选一个比赛项目，看库里谁和它撞车、谁能和它合体，哪条新闻给了它时机。'},
+  {id:'ideas',label:'我的 Idea',icon:'star',eyebrow:'我的 IDEA',desc:'收藏的候选 idea：写备注、标状态，挑出值得深入的方向。'},
+  {id:'research',label:'Lydia 研究',icon:'chat',eyebrow:'LYDIA 研究',desc:'把值得深入的 idea 交给 Lydia，在「商业逻辑」里做完整的商业研究。'},
+ ];
+@@ -98,7 +100,7 @@ export default function WorkbenchModal({section,onSection,onClose,...props}){
+   const key=e=>{if(e.key==='Escape')onClose();};addEventListener('keydown',key);
+   return()=>{removeEventListener('keydown',key);previous?.focus?.();};
+  },[]);
+- const counts={lab:props.tray.length||'',ideas:props.saved.length||'',research:props.saved.filter(i=>!i.case_id&&i.status==='shortlist').length||''};
++ const counts={lab:props.tray.length||'',match:'',ideas:props.saved.length||'',research:props.saved.filter(i=>!i.case_id&&i.status==='shortlist').length||''};
+  return <div className="wb-overlay" onMouseDown={e=>{if(e.target===e.currentTarget)onClose();}}>
+   <div className="wb-dialog" role="dialog" aria-modal="true" aria-labelledby="wb-title" tabIndex={-1} ref={dialog}>
+    <header className="wb-dialog__header"><h2 id="wb-title">Hackathon 工作区</h2><button type="button" className="wb-icon" aria-label="关闭工作台" onClick={onClose}><Icon name="close"/></button></header>
+@@ -108,6 +110,7 @@ export default function WorkbenchModal({section,onSection,onClose,...props}){
+     <div className="wb-content" key={current.id}>
+      <div className="wb-heading"><span className="wb-eyebrow">HACKATHON 工作区 / {current.eyebrow}</span><h3>{current.label}</h3><p>{current.desc}</p></div>
+      {current.id==='lab'&&<Lab {...props}/>}
++     {current.id==='match'&&<ProjectMatch target={props.matchTarget} candidates={props.matchCandidates||[]} onTarget={props.onMatchTarget} onPair={props.onPair} trayIds={props.tray.map(p=>p.id)}/>}
+      {current.id==='ideas'&&<Ideas {...props}/>}
+      {current.id==='research'&&<Research {...props} onSection={onSection}/>}
+     </div>

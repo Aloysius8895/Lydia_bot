@@ -60,7 +60,7 @@ export default function SettingsModal({ isMobile = false, mobileNavigation, pass
         <button type="button" className="set-avatar-btn" aria-label="编辑头像" onClick={() => onSection('avatar')}><BotAvatar color="ink" size={44} /></button>
       </Row>
       <Row label="工作区名称"><span className="set-field">{me.name}</span></Row>
-      <Row label="登录方式"><span className="set-value">{passwordless ? '本机直接进入，无需密码' : '本机个人密码'}</span></Row>
+      <Row label="登录方式"><span className="set-value">{passwordless ? '直接进入，无需密码（只有本机和你的 Tailscale 设备能打开）' : '本机个人密码'}</span></Row>
     </section>
     <section className="set-section">
       <h3 className="set-section__title">会话</h3>

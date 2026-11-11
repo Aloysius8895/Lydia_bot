@@ -1,0 +1,124 @@
+{
+  "generated": "2026-11-10T08:04:37.605Z",
+  "artifact": "DESIGN_SAMPLES",
+  "samples": {
+    "kalash": {
+      "problem": "印度有数十万座寺庙，每年约 14.4 亿人次宗教旅游。游客捐款方式单调，寺庙也缺少便捷的现金捐款与记录手段。",
+      "solution": "kalash 把现金和 USDC 捐款结合数字印章集章游戏。游客用 app 找寺庙，向专用 ATM 投现金或用钱包转 USDC，确认后获得印章；寺庙用后台查看捐款。",
+      "implementation": "用 NV200 验钞机通过 USB 连接 Windows PC，由厂商 REST API 控制，负责点钞与记录。app 借助 MetaMask deeplink 和内置浏览器，经二维码调用用户主钱包，并在链上核验 USDC 交易以防重复发印章。",
+      "missing": [],
+      "status": "ready",
+      "basis": "source_pages",
+      "sources": [
+        {
+          "url": "https://ethglobal.com/showcase/kalash-ipw8r",
+          "status": "read",
+          "chars": 4567
+        },
+        {
+          "url": "https://x.com/ETHGlobal/status/2119052112932053303",
+          "status": "skipped",
+          "reason": "需要登录，未读取"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "generated_at": "2026-11-10T08:03:52.979Z",
+      "ms": 16506
+    },
+    "Takarabako": {
+      "problem": "旅行结束后，旅客手里常剩下少量外币现金：换汇不划算，扔掉可惜，回国后也没法用。",
+      "solution": "旅客用邮箱注册，在 Takarabako 柜机扫码投入纸币，按实时汇率变成链上美元余额并赚取基础收益，还可参与流动性、用 ENS 名转账，或取现。",
+      "implementation": "Raspberry Pi 4 柜机驱动 TB74 验钞机，并用设备生成的密钥签名；Solidity 合约含 ERC-4626 风格金库和 tkCASH；ENS v2 验证柜机；1inch Aqua 提供流动性；World ID 验证身份；Claude 担任财库智能体。",
+      "missing": [],
+      "status": "ready",
+      "basis": "source_pages",
+      "sources": [
+        {
+          "url": "https://ethglobal.com/showcase/takarabako-qmgg5",
+          "status": "read",
+          "chars": 11341
+        },
+        {
+          "url": "https://x.com/ETHGlobal/status/2104115871883162007",
+          "status": "skipped",
+          "reason": "需要登录，未读取"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "generated_at": "2026-11-10T08:04:00.307Z",
+      "ms": 7326
+    },
+    "Smart Water Guardian AI": {
+      "problem": "全球有二十亿人喝的水没有得到安全管理，污染常是缓慢漂移。实验室检测要 24 至 48 小时，工业探头昂贵，农村水井和小型水务合作社用不起。",
+      "solution": "一款低成本设备持续监测水质，学习特定水源的正常状态，偏离时预警。结合 WHO 阈值与 AI 异常检测，通过本地网页、Android 应用、Arduino Cloud 查看，设备上有 LED 和蜂鸣器报警。",
+      "implementation": "基于 Arduino UNO Q：STM32 读取 pH、TDS、浊度、温度传感器并驱动报警，QRB2210 运行 Edge Impulse K-means 异常检测模型。用真实自来水数据训练，并做了 pH 与 TDS 校准。",
+      "missing": [],
+      "status": "ready",
+      "basis": "source_pages",
+      "sources": [
+        {
+          "url": "https://www.hackster.io/david-kochoni/smart-water-guardian-ai-a194f1",
+          "status": "read",
+          "chars": 19271
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "generated_at": "2026-11-10T08:04:11.187Z",
+      "ms": 10880
+    },
+    "Tokito": {
+      "problem": "硬件设计者画原理图慢且依赖专家。AI 只能用库里有符号的部分（约 22,700 个），遇到无符号的元件会被悄悄替换成错误符号，导致网表出错、板子报废。",
+      "solution": "Tokito 是 AI 原生桌面 EDA 工具：用户用对话描述电路板，Claude 给出可逐项接受或拒绝的原理图和 BOM 修改。它还能从数据手册生成符号，并可追溯到 PDF 原页。",
+      "implementation": "用 Rust + egui 做桌面端；Claude Opus 5 负责规划和编辑，Sonnet 4.6 读取 DS-ViRe 验证过的数据手册图表；确定性的 Rust 编译器生成符号；自建 MCP 服务提供元件目录和溯源。",
+      "missing": [],
+      "status": "ready",
+      "basis": "source_pages",
+      "sources": [
+        {
+          "url": "https://devfolio.co/projects/tokito-2f44",
+          "status": "read",
+          "chars": 10718
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "generated_at": "2026-11-10T08:04:19.086Z",
+      "ms": 7899
+    },
+    "SpoilSafe": {
+      "problem": "冷链中对食物新鲜度缺乏可见性，导致浪费、库存被拒收和收入损失；仓库、分销商和零售商都会遇到。",
+      "solution": "食物新鲜度智能平台：生成实时新鲜度评分和腐败时间预测，让运营者提前知道哪些库存有风险、该采取什么行动，从被动监控转为主动决策。",
+      "implementation": "用低成本传感器检测食物开始变质时释放的气体，如 ethylene 和 ammonia，再结合机器学习模型生成评分与预测。来源未说明更多技术细节。",
+      "missing": [],
+      "status": "ready",
+      "basis": "source_pages",
+      "sources": [
+        {
+          "url": "https://techcommunity.microsoft.com/blog/studentdeveloperblog/introducing-the-2026-imagine-cup-world-finalists/4509670",
+          "status": "read",
+          "chars": 9879
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "generated_at": "2026-11-10T08:04:29.619Z",
+      "ms": 10533
+    },
+    "True Deal": {
+      "problem": "人们常设定目标却难以坚持，缺乏真实的后果约束。目标人群是有目标且留有数字痕迹的运动员、内容创作者和健身社群。",
+      "solution": "TrueDeal 是目标质押协议：用户设定可衡量的规则，与朋友一起质押 USDC。到期后自动验证并即时结算，完成者拿回本金并分得失败者的奖池。",
+      "implementation": "基于 Solana 即时结算，通过 Strava、X、Instagram、Wellhub、TotalPass 的原生 API 自动验证。DealGuard 双预言机共识引擎由 Sentinel AI 支持，负责校验结果。未完成者需交 3% Slacker Tax。",
+      "missing": [],
+      "status": "ready",
+      "basis": "source_pages",
+      "sources": [
+        {
+          "url": "https://taikai.network/en/TokenNation/hackathons/Hackanation2026/projects/cmpve82kh02xkashyfzh6ko4c/idea",
+          "status": "read",
+          "chars": 2282
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "generated_at": "2026-11-10T08:04:37.605Z",
+      "ms": 7986
+    }
+  }
+}

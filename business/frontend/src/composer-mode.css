@@ -1,0 +1,46 @@
+/* Message box: 完整研究 / 商业模式 toggles and a model picker under the text (Claude Code style).
+   Approved design: pic/composer-mode-2026-11-09. Loaded after warm-theme.css. */
+.grok-composer,.app--mobile .grok-composer{display:flex;flex-direction:column;align-items:stretch;gap:4px;height:auto;min-height:0;padding:9px 10px 7px 14px;border-radius:20px}
+.grok-composer textarea{min-height:26px;padding:2px 2px 0}
+.grok-composer__toolbar,.app--mobile .grok-composer__toolbar{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.grok-composer__tools,.grok-composer__right{display:flex;align-items:center;gap:6px;min-width:0}
+.grok-composer .composer__add{width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:var(--muted)}
+.grok-composer .composer__add:hover{background:var(--hover-bg)}
+.grok-composer .composer__send{width:32px;height:32px}
+.composer-chip{min-height:0;display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 10px;border:1px solid var(--soft-stroke);border-radius:999px;background:transparent;color:var(--muted);font:500 12px/1 var(--font-body);white-space:nowrap;cursor:pointer}
+.composer-chip:hover{background:var(--hover-bg);color:var(--text)}
+.composer-chip svg{width:14px;height:14px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.composer-chip.is-on{background:var(--inverse);border-color:var(--inverse);color:var(--inverse-text)}
+.composer-chip.is-on:hover{background:var(--inverse);color:var(--inverse-text);opacity:.92}
+.composer-model{border-color:transparent;background:var(--soft-wash)}
+.composer-model b{color:var(--text);font-weight:600}
+.composer-model i{font-style:normal;color:var(--muted)}
+.composer-sep{width:1px;height:16px;background:var(--soft-stroke);margin:0 2px}
+.composer-note{font-size:11px;color:var(--muted);padding:0 2px}
+.composer-note b{color:var(--text);font-weight:600}
+/* Model menu (opens upward from the model chip). */
+.composer-menu-anchor{position:relative}
+.composer-menu{position:absolute;left:0;bottom:calc(100% + 8px);z-index:30;width:268px;padding:6px;border:1px solid var(--soft-stroke);border-radius:14px;background:var(--surface);box-shadow:0 12px 32px #00000024;color:var(--text)}
+.composer-menu h6{margin:6px 8px 4px;font:600 11px/1.3 var(--font-body);color:var(--muted)}
+.composer-menu button.row{min-height:0;height:auto;display:grid;grid-template-columns:1fr auto;align-items:center;width:100%;padding:8px 9px;border:0;border-radius:9px;background:transparent;color:var(--text);text-align:left;font:13px/1.35 var(--font-body)}
+.composer-menu button.row:hover,.composer-menu button.row.is-on{background:var(--hover-bg)}
+.composer-menu button.row small{display:block;color:var(--muted);font-size:11px;margin-top:1px}
+.composer-menu button.row em{font-style:normal;font-size:13px}
+.composer-menu .effort{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:2px 4px 4px;padding:3px;border-radius:10px;background:var(--soft-wash)}
+.composer-menu .effort button{min-height:0;height:28px;border:0;border-radius:8px;background:transparent;color:var(--muted);font:500 12px/1 var(--font-body)}
+.composer-menu .effort button.is-on{background:var(--surface);color:var(--text);box-shadow:0 1px 3px #0000001a}
+.composer-menu p{margin:6px 8px 4px;font-size:11px;line-height:1.45;color:var(--muted)}
+@media(max-width:760px){
+ .grok-composer,.app--mobile .grok-composer{padding:10px 10px 8px 14px;border-radius:20px}
+ .grok-composer,.app--mobile .grok-composer{position:relative}
+ .composer-menu-anchor{position:static}
+ .composer-menu{left:6px;right:6px;width:auto}
+ .composer-chip{height:34px;padding:0 12px;font-size:13px}
+ .app--mobile .grok-composer button{min-width:0;min-height:0}
+ .app--mobile .grok-composer .composer__add{width:36px;height:36px}
+ .app--mobile .grok-composer .composer__send{width:40px;height:40px;flex:none}
+ .composer-menu button.row{padding:10px 10px}
+ .composer-menu .effort button{height:34px}
+ .composer-note,.composer-sep,.composer-model i{display:none}
+ .composer-chip{padding:0 11px}
+}

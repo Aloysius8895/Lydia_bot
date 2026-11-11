@@ -1,7 +1,7 @@
 import { randomBytes, scrypt as scryptCallback, timingSafeEqual } from 'node:crypto';
 import { promisify } from 'node:util';
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { Store, hash } from '../../data/database/store.ts';
+import { Store, hash } from '../../data/data_preprocessing/database/store.ts';
 import { assert } from '../shared/config.ts';
 const scrypt=promisify(scryptCallback);
 export class Auth {

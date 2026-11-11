@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "import:preview": "node --experimental-strip-types data_preprocessing/cli/import-files.ts",
+    "backup:database": "node --experimental-strip-types data_preprocessing/cli/backup-for-import.ts",
+    "export:library": "node --experimental-strip-types data_preprocessing/cli/export-data-library.ts",
+    "drive:manual": "node --experimental-strip-types data_preprocessing/cli/drive-manual.ts"
+  },
   "engines": {
     "node": ">=24"
   },

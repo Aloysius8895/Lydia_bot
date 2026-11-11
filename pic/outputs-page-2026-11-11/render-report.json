@@ -1,0 +1,41 @@
+{
+ "date": "2026-11-11",
+ "artifact": "DESIGN_ONLY",
+ "applicationModified": false,
+ "database": "copy of the live database after a real Sonnet research run (run-pipeline.ts)",
+ "shots": [
+  {
+   "file": "01-sidebar-entry.png",
+   "what": "左侧栏多了「成果」入口（在「知识库」下面）"
+  },
+  {
+   "file": "02-research-report.png",
+   "what": "成果页：左边是进度和成果列表，中间是研究报告，右边是目录和引用的资料"
+  },
+  {
+   "file": "03-findings-and-sources.png",
+   "what": "主要发现：按专家分组，每条标明依据类型和资料编号；点编号，右边对应的资料会高亮"
+  },
+  {
+   "file": "04-no-gaps-why.png",
+   "what": "这次研究没有缺口：写明原因（只有 1 份自己上传的资料），以及怎么补"
+  },
+  {
+   "file": "05-model-locked.png",
+   "what": "商业模式：还没选缺口时的提示"
+  },
+  {
+   "file": "06-plan-locked.png",
+   "what": "企业计划书：完成前面三步后才能生成，说明会写成什么样"
+  },
+  {
+   "file": "07-dark-report.png",
+   "what": "黑夜模式"
+  },
+  {
+   "file": "08-phone.png",
+   "what": "手机：成果列表变成顶部横向标签"
+  }
+ ],
+ "errors": []
+}

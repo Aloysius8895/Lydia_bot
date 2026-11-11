@@ -1,0 +1,99 @@
+{
+  "date": "2026-11-10",
+  "artifact": "DESIGN_ONLY",
+  "applicationModified": false,
+  "database": "copy of C:\\maven\\business_agent\\data\\data_storage\\backups\\database\\daily\\grok-import-2026-11-09T16-55-40-624Z-b3ea1b6d\\database",
+  "shots": [
+    "01-current-page1-light.png",
+    "05-current-page2-light.png",
+    "02-proposed-page1-light.png",
+    "03-proposed-ethglobal-focus-light.png",
+    "04-proposed-small-zone-focus-light.png",
+    "06-proposed-page2-light.png",
+    "07-proposed-page1-dark.png",
+    "08-phone-proposed-light.png"
+  ],
+  "pages": {
+    "current-page1": [
+      {
+        "zone": "ethglobal",
+        "count": "48 个项目"
+      }
+    ],
+    "current-page2": [
+      {
+        "zone": "ethglobal",
+        "count": "27 个项目"
+      },
+      {
+        "zone": "hackster",
+        "count": "6 个项目"
+      },
+      {
+        "zone": "nasa",
+        "count": "5 个项目"
+      },
+      {
+        "zone": "taikai",
+        "count": "5 个项目"
+      },
+      {
+        "zone": "devfolio",
+        "count": "2 个项目"
+      },
+      {
+        "zone": "google",
+        "count": "1 个项目"
+      },
+      {
+        "zone": "hackquest",
+        "count": "1 个项目"
+      },
+      {
+        "zone": "junction",
+        "count": "1 个项目"
+      }
+    ],
+    "proposed-page1": [
+      {
+        "zone": "ethglobal",
+        "count": "48 个项目"
+      }
+    ],
+    "proposed-page2": [
+      {
+        "zone": "ethglobal",
+        "count": "27 个项目"
+      },
+      {
+        "zone": "hackster",
+        "count": "6 个项目"
+      },
+      {
+        "zone": "nasa",
+        "count": "5 个项目"
+      },
+      {
+        "zone": "taikai",
+        "count": "5 个项目"
+      },
+      {
+        "zone": "devfolio",
+        "count": "2 个项目"
+      },
+      {
+        "zone": "google",
+        "count": "1 个项目"
+      },
+      {
+        "zone": "hackquest",
+        "count": "1 个项目"
+      },
+      {
+        "zone": "junction",
+        "count": "1 个项目"
+      }
+    ]
+  },
+  "errors": []
+}

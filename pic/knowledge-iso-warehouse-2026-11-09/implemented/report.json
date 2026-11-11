@@ -1,0 +1,35 @@
+{
+  "status": "TEST_PASSED",
+  "timestamp": "2026-11-10T18:16:37.539Z",
+  "checks": [
+    "37 real Grok projects render as 9 platform zones; no book covers a zone label",
+    "Newest open tracked event is announced once beside the sidebar button with deadline and days left",
+    "Clicking a zone flies to it and the breadcrumb follows; titles are readable without overlap; click selects, native drag and double-click add to the tray with numbered badges",
+    "Isometric/top-down morph keeps geometry unclipped; back button returns to the overview",
+    "15 real news items are zoned by category (安全, 商业与融资, …) as flat stacks without label collisions",
+    "Tracker: 3 yellow cards (open, ≤3 days, judging) and green tracked + grouped results; opening clears the new-result badge; 在项目库查看 switches floor, focuses the platform zone and selects a finalist; 不再追踪 removes a card",
+    "Drag pan frame interval median 6.1ms / p95 6.2ms in headless Chrome (indicative only)",
+    "Phone 390px: no overflow; the bar wraps; the tracker opens as a bottom sheet from the bar button"
+  ],
+  "perf": {
+    "dragMedianMs": 6.1,
+    "dragP95Ms": 6.2,
+    "svgNodes": 839
+  },
+  "errors": [],
+  "shots": [
+    "01-projects-overview-dark.png",
+    "02-zone-focus-dark.png",
+    "03-topdown-dark.png",
+    "04-news-overview-dark.png",
+    "05-news-zone-dark.png",
+    "06-tracker-dark.png",
+    "07-tracker-results-dark.png",
+    "08-tracker-jump-dark.png",
+    "09-projects-overview-light.png",
+    "10-tracker-light.png",
+    "11-phone-dark.png",
+    "12-phone-tracker-dark.png"
+  ],
+  "fixture": "Temporary database. Real local Grok packages (37 projects, 15 news) imported read-only; 4 TEST_ONLY tracked events added. Headless Chrome; not real iPad/iPhone hardware."
+}

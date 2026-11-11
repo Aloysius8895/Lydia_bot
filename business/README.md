@@ -9,18 +9,19 @@ Hackathon 爬虫管理入口为 `/crawl/`，与本应用共用账号、后端和
 | 目录 | 内容与入口 |
 | --- | --- |
 | [../data](../data/README.md) | 与 business 同级的数据处理模块与[数据问题/解决方案](../data/DATA_AUDIT_AND_SOLUTIONS.md) |
-| [../data/RAG](../data/RAG/README.md) | 资料抓取、分块入库、混合检索、多语查询扩展、重排、搜索与本地 embedding |
+| [../data/data_preprocessing/RAG](../data/data_preprocessing/RAG/README.md) | 资料抓取、分块入库、混合检索、多语查询扩展、重排、搜索与本地 embedding |
 | [agents](agents/README.md) | 专家任务编排、Claude CLI、方法加载和引用复核 |
 | [backend](backend/README.md) | HTTP API、登录会话和导出；入口 backend/server.ts |
-| [../data/database](../data/database/README.md) | PGlite PostgreSQL/pgvector schema 与存储接口 |
+| [../data/data_preprocessing/database](../data/data_preprocessing/database/README.md) | PGlite PostgreSQL/pgvector schema 与存储接口 |
 | [shared](shared/README.md) | 公用路径、配置与错误类型 |
 | [frontend](frontend/README.md) | 用户原有 Crew React 设计；src 为源码，public 为 PWA/字体资源，dist 为实际服务的构建结果 |
 | skills | 六份权威专家/主控技能，供 agents 加载 |
 | expert-team | 原有蒸馏、来源与验证材料 |
 | [scripts](scripts/README.md)、[tests](tests/README.md)、test-results | 运行工具、自动化测试及实际报告 |
 | [deployment](deployment/README.md) | 环境配置示例、本机 HTTPS 证书 |
-| .runtime | 本机数据库/日志和 Claude 工作目录；不提交、不分享 |
-| docs、cases | 设计/进度/运行说明；研究导出在首次导出时创建 cases |
+| .runtime | 仅应用运行日志、Claude 工作目录及验证临时产物；正式数据库已迁出 |
+| docs | 设计、进度、运行与验收说明 |
+| [../data/data_storage](../data/README.md) | 真实数据库、分类资料、备份、导入结果、采集快照和研究导出 |
 
 在本目录运行：
 

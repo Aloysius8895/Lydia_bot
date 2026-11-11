@@ -1,0 +1,115 @@
+{
+  "date": "2026-11-10",
+  "version": 2,
+  "artifact": "DESIGN_ONLY",
+  "applicationModified": false,
+  "database": "copy of C:\\maven\\business_agent\\data\\data_storage\\backups\\database\\daily\\grok-import-2026-11-10T03-03-55-297Z-ea1580e4\\database",
+  "searches": {
+    "把现金或硬件设备和链上支付连起来的项目": {
+      "mode": "claude",
+      "took_ms": 12348,
+      "note": "已从目录中挑出 8 条与现金/硬件设备和链上支付相关的条目，按相关度排序。",
+      "matches": [
+        {
+          "title": "Takarabako",
+          "source": "ethglobal",
+          "reason": "外币现金存入树莓派柜机，签名后换成链上美元储蓄"
+        },
+        {
+          "title": "kalash",
+          "source": "ethglobal",
+          "reason": "现金和USDC捐款，专用ATM连接链上数字集章活动"
+        },
+        {
+          "title": "Tap2ETH",
+          "source": "ethglobal",
+          "reason": "EMV银行卡作为以太坊签名者，M5Stick POS机刷卡付款"
+        },
+        {
+          "title": "Paybot",
+          "source": "ethglobal",
+          "reason": "x402为机器人租赁等实体设备提供免gas链上支付"
+        },
+        {
+          "title": "Hands Unchained",
+          "source": "ethglobal",
+          "reason": "链上预约机械臂，完成任务后链上付款给用户"
+        },
+        {
+          "title": "RupeeRail",
+          "source": "ethglobal",
+          "reason": "稳定币扫印度UPI二维码付款，线下商户收卢比"
+        },
+        {
+          "title": "Carte Bleue",
+          "source": "ethglobal",
+          "reason": "用实体信用卡和廉价读卡器恢复链上智能钱包"
+        },
+        {
+          "title": "LeekDIYHardwareWallet",
+          "source": "ethglobal",
+          "reason": "ESP32硬件钱包在设备上验证并拒绝默认签名"
+        }
+      ]
+    },
+    "用传感器或硬件解决环境、健康问题的项目": {
+      "mode": "claude",
+      "took_ms": 16781,
+      "note": "已按相关度排序。Edge-AI光谱仪、HaloSense等硬件项目与环境或健康无直接关系，未收录。",
+      "matches": [
+        {
+          "title": "Smart Water Guardian AI",
+          "source": "hackster",
+          "reason": "pH/TDS/浊度传感器监测农村水源，直接对应饮水环境"
+        },
+        {
+          "title": "CloudMap / AirWatch Pro",
+          "source": "nasa",
+          "reason": "社区空气质量监测，融合传感器数据做72小时预测"
+        },
+        {
+          "title": "Echo (TeamCookie())",
+          "source": "google",
+          "reason": "跌倒检测传感器加蓝牙离线SOS，面向紧急健康救援"
+        },
+        {
+          "title": "SpoilSafe",
+          "source": "imaginecup",
+          "reason": "气体传感器检测乙烯/氨气，预测食品变质风险"
+        },
+        {
+          "title": "Smart Coop 2.0",
+          "source": "hackster",
+          "reason": "传感器与摄像头监测鸡舍，关注动物环境与健康"
+        },
+        {
+          "title": "Curie",
+          "source": "hackster",
+          "reason": "硬件桌面机器人陪伴ADHD人群，非医疗设备"
+        },
+        {
+          "title": "Revora Health",
+          "source": "imaginecup",
+          "reason": "康复健康场景，但以视觉分析为主，并非传感器"
+        },
+        {
+          "title": "Muralis",
+          "source": "taikai",
+          "reason": "光催化净化空气的环境项目，但偏艺术与代币化"
+        }
+      ]
+    }
+  },
+  "shots": [
+    "01-typing-query.png",
+    "02-searching-band-appears.png",
+    "03-books-flying.png",
+    "04-two-search-zones-with-delete.png",
+    "05-open-found-book.png",
+    "06-after-deleting-first-zone.png",
+    "07-dark-two-zones.png",
+    "08-phone-landed.png"
+  ],
+  "video": "magic-search-demo.webm",
+  "errors": []
+}

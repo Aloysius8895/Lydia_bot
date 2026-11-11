@@ -1,7 +1,7 @@
 import type {ParsedPage,ParseContext,ParsedEvent} from '../types.ts';
 import {readJSON,objects,eventYear} from './structured.ts';
 import {blank,makeEvent,officialEvidence,pagination,outcome} from './discovery.ts';
-import {document,parentOf,anchors,find,tag,cleanText,locator,attr} from '../../data/crawl/html.ts';
+import {document,parentOf,anchors,find,tag,cleanText,locator,attr} from '../../data/data_preprocessing/crawl/html.ts';
 
 export function parseETHDiscovery(url:string,html:string,context:ParseContext):ParsedPage|null{
  const path=new URL(url).pathname;if(!path.startsWith('/events'))return null;

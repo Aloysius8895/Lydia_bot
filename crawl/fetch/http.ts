@@ -1,6 +1,6 @@
 import http from 'node:http';
 import https from 'node:https';
-import {validatePublicURL} from '../../data/RAG/sources.ts';
+import {validatePublicURL} from '../../data/data_preprocessing/RAG/sources.ts';
 import {AppError} from '../../business/shared/config.ts';
 import type {FetchResult} from '../types.ts';
 import {gunzipSync,brotliDecompressSync,inflateSync} from 'node:zlib';

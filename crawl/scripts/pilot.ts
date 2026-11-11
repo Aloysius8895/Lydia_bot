@@ -1,15 +1,15 @@
 import {mkdtemp,mkdir,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
-import {Store} from '../../data/database/store.ts';
-import {CrawlStore} from '../../data/crawl/store.ts';
-import {Snapshots,crawlStorageRoot} from '../../data/crawl/snapshots.ts';
+import {Store} from '../../data/data_preprocessing/database/store.ts';
+import {CrawlStore} from '../../data/data_preprocessing/crawl/store.ts';
+import {Snapshots,crawlStorageRoot} from '../../data/data_preprocessing/crawl/snapshots.ts';
 import {CrawlWorker} from '../core/worker.ts';
 import {runSchema} from '../core/config.ts';
-import {exportCrawl} from '../../data/crawl/export.ts';
-import {attachProject} from '../../data/RAG/crawl-bridge.ts';
-import {retrieve} from '../../data/RAG/retrieval.ts';
-import {enqueueOperation} from '../../data/crawl/operations.ts';
+import {exportCrawl} from '../../data/data_preprocessing/crawl/export.ts';
+import {attachProject} from '../../data/data_preprocessing/RAG/crawl-bridge.ts';
+import {retrieve} from '../../data/data_preprocessing/RAG/retrieval.ts';
+import {enqueueOperation} from '../../data/data_preprocessing/crawl/operations.ts';
 
 const temp=await mkdtemp(path.join(os.tmpdir(),'lydia-live-pilot-')),reportDir=path.join(crawlStorageRoot,'reports',`pilot-${Date.now()}`);await mkdir(reportDir,{recursive:true});
 const store=await Store.open(path.join(temp,'pg')),repo=new CrawlStore(store),snapshots=new Snapshots(path.join(reportDir,'storage')),worker=new CrawlWorker(repo,snapshots);await repo.init();

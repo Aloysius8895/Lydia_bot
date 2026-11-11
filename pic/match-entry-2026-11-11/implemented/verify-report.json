@@ -1,0 +1,37 @@
+{
+ "date": "2026-11-11T15:55:56.242Z",
+ "backup": "grok-import-2026-11-11T14-12-47-409Z-4940138e",
+ "claudeCalls": 0,
+ "checks": [
+  "PASS light: the logo button sits in the title bar",
+  "PASS logo only, no words (variant A)",
+  "PASS light: the workbench section shows the same logo",
+  "PASS dark: the logo button sits in the title bar",
+  "PASS logo only, no words (variant A)",
+  "PASS dark: the workbench section shows the same logo",
+  "PASS phone has no horizontal overflow"
+ ],
+ "shots": [
+  {
+   "file": "01-detail-light.png",
+   "what": "项目名字右边的侦探 logo（白天）"
+  },
+  {
+   "file": "03-workbench-light.png",
+   "what": "工作台左侧「相似与搭档」也换成侦探 logo"
+  },
+  {
+   "file": "02-detail-dark.png",
+   "what": "项目名字右边的侦探 logo（黑夜）"
+  },
+  {
+   "file": "04-workbench-dark.png",
+   "what": "工作台左侧「相似与搭档」也换成侦探 logo"
+  },
+  {
+   "file": "05-phone.png",
+   "what": "手机"
+  }
+ ],
+ "errors": []
+}

@@ -1,0 +1,35 @@
+{
+ "date": "2026-11-11T14:09:08.044Z",
+ "backup": "grok-import-2026-11-11T07-51-06-736Z-09336b99",
+ "claudeCalls": 2,
+ "checks": [
+  "PASS npmguard × news: comparison finished (28 s)",
+  "PASS footnote says how many news originals were read: 新闻依据原文：39 条读到原文，3 条读不到、只用 Grok 摘要",
+  "PASS news evidence is labelled original or summary: 新闻原文 · openai.com ↗ | 新闻原文 · openai.com ↗"
+ ],
+ "shots": [
+  {
+   "file": "01-npmguard-news-reading.png",
+   "what": "npmguard：先读新闻原文，显示进度"
+  },
+  {
+   "file": "01-npmguard-news-result.png",
+   "what": "npmguard × 新闻：真实结果"
+  },
+  {
+   "file": "02-npmguard-news-evidence.png",
+   "what": "依据：新闻那一侧引用的是原文句子，下面写着「新闻原文 · 网站」"
+  }
+ ],
+ "runs": [
+  {
+   "title": "npmguard",
+   "mode": "news",
+   "seconds": 28,
+   "failed": false
+  }
+ ],
+ "errors": [
+  "page.waitForFunction: Timeout 60000ms exceeded.\n    at compare (C:\\maven\\business_agent\\pic\\project-match-2026-11-11\\verify-real.mjs:67:31)\n    at async file:///C:/maven/business_agent/pic/project-match-2026-11-11/verify-real.mjs:87:3"
+ ]
+}

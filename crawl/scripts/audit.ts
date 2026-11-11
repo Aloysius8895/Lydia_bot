@@ -2,7 +2,7 @@ import {mkdir,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {fetchPage,robotsAllowed} from '../fetch/http.ts';
 import {sources} from '../sources/registry.ts';
-import {Snapshots,crawlStorageRoot} from '../../data/crawl/snapshots.ts';
+import {Snapshots,crawlStorageRoot} from '../../data/data_preprocessing/crawl/snapshots.ts';
 import {links,plain} from '../sources/ethglobal.ts';
 const directory=path.join(crawlStorageRoot,'reports',`source-audit-${Date.now()}`),snapshots=new Snapshots(directory);await mkdir(directory,{recursive:true});
 const results:unknown[]=[];

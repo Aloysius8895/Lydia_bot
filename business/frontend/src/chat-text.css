@@ -1,0 +1,26 @@
+/* Chat message text size (approved 2026-11-09, pic/chat-text-size-2026-11-09).
+   Loaded after grok-pages / soft-workspace / mobile-workspace so it wins over their earlier sizes.
+   Only the conversation bubbles change; the composer, sidebar and project panel keep their sizes. */
+.grok-message .bubble{font-size:15px;line-height:1.7}
+@media(min-width:1400px){.grok-message .bubble{font-size:16px}}
+.grok-message--me .bubble{padding:9px 14px;border-radius:14px 14px 4px 14px}
+.grok-message__heading{font-size:12px}
+@media(max-width:760px){.grok-message .bubble{font-size:15px;line-height:1.7}}
+
+/* Compact voice strip and message box under the chat (desktop). */
+@media(min-width:761px){
+ .voice-dock{gap:9px;margin-top:6px;padding:7px 10px 7px 12px;border-radius:16px}
+ .voice-dock>.crew-avatar{width:26px;height:26px}
+ .voice-dock__text{gap:1px}
+ .voice-dock__text strong{font-size:13px}
+ .voice-dock__text span{font-size:11px}
+ .voice-dock__decoration{width:26px;height:26px}
+ .voice-dock__decoration svg{width:16px;height:16px}
+ .voice-dock__start{gap:6px;padding:6px 10px;border-radius:11px;font-size:12px}
+ .grok-composer{grid-template-columns:28px minmax(0,1fr) 32px;gap:6px;height:auto;min-height:48px;padding:7px 9px;border-radius:22px}
+ .grok-composer textarea{min-height:24px;font-size:15px;line-height:24px}
+ .grok-composer .composer__add{width:28px;height:28px}
+ .grok-composer .composer__send{width:32px;height:32px}
+ .grok-composer .composer__add svg,.grok-composer .composer__send svg{width:16px;height:16px}
+ .grok-composer-wrap{padding-top:7px;padding-bottom:10px}
+}

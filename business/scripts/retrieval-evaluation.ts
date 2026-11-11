@@ -1,8 +1,8 @@
 import { writeFile,mkdir } from 'node:fs/promises';
 import path from 'node:path';
-import { Store } from '../../data/database/store.ts';
-import { Embedding } from '../../data/RAG/providers/embedding.ts';
-import { ingest,retrieve } from '../../data/RAG/retrieval.ts';
+import { Store } from '../../data/data_preprocessing/database/store.ts';
+import { Embedding } from '../../data/data_preprocessing/RAG/providers/embedding.ts';
+import { ingest,retrieve } from '../../data/data_preprocessing/RAG/retrieval.ts';
 import { config,businessRoot } from '../shared/config.ts';
 const fixtures=[
   ['hiring','TEST_ONLY Hiring','Synthetic fixture: Human resource staff spend hours screening job applications and matching candidate experience to job requirements.'],

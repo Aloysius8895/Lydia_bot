@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lydia · 追踪 Hackathon</title>
+<!-- 设计参考稿。不修改正式应用。绿色卡片取自本地 grok 导入（2026-11-07_08）；黄色卡片为标明“示例”的占位赛事。 -->
+<style>
+:root{
+ --bg:#f3f2ef;--panel:#fffefa;--line:#d8d6d0;--text:#22211f;--muted:#716e68;--btn:#242321;--btn-text:#fffdf9;--active:#e9e7e1;--raised:#f7f6f2;
+ --amber:#b98512;--amber-soft:rgba(214,160,36,.09);--amber-line:rgba(196,140,20,.75);
+ --green:#2c8f47;--green-soft:rgba(44,143,71,.08);--green-line:rgba(44,143,71,.7);
+ --scrim:rgba(243,242,239,.55);--shadow:rgba(40,30,10,.18);
+}
+:root[data-theme=dark]{
+ --bg:#080808;--panel:#101010;--line:#2a2a2a;--text:#ecebe8;--muted:#9c9a95;--btn:#eeece6;--btn-text:#161616;--active:#232323;--raised:#151515;
+ --amber:#e8bf52;--amber-soft:rgba(232,191,82,.07);--amber-line:rgba(232,191,82,.72);
+ --green:#62cc7e;--green-soft:rgba(98,204,126,.07);--green-line:rgba(98,204,126,.68);
+ --scrim:rgba(0,0,0,.5);--shadow:rgba(0,0,0,.55);
+ color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:14px "Segoe UI","Microsoft YaHei UI","PingFang SC",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+#base{position:absolute;left:0;top:0;width:1280px;height:890px}
+.scrim{position:absolute;left:230px;top:92px;right:0;bottom:0;background:var(--scrim);backdrop-filter:blur(1.5px);transition:opacity .25s}
+/* sidebar (redrawn over the v5 screenshot, same geometry) */
+.side{position:absolute;left:14px;top:92px;width:205px;bottom:14px;background:var(--panel);border:1px solid var(--line);border-radius:26px;padding:18px 14px;display:flex;flex-direction:column;gap:4px;z-index:3}
+.side .ws{font-size:9px;letter-spacing:1.4px;color:var(--muted);display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.side .ws i{width:26px;height:24px;border-radius:7px;background:var(--text)}
+.side .proj{font-weight:600;padding:6px 2px 14px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.side small{color:var(--muted);font-size:11px;margin:6px 6px}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:10px;font-size:14px;border:1px solid transparent;background:transparent;width:100%;text-align:left}
+.nav.on{background:var(--active)}
+.side .sub{padding:4px 12px 4px 26px;color:var(--muted);font-size:13px}
+.side .sel{margin:2px 0 8px 26px;border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:12px;display:flex;justify-content:space-between}
+/* the new button */
+.track{position:relative}
+.track.open{background:var(--active);border-color:var(--line)}
+.track .lab{display:flex;align-items:center;gap:7px;white-space:nowrap;font-size:13.5px}
+.track .ico{width:14px;height:14px;border-radius:50%;border:1.5px solid currentColor;position:relative;flex:none}
+.track .ico:after{content:"";position:absolute;inset:3.5px;border-radius:50%;background:currentColor}
+.cnts{display:flex;gap:3px;margin-left:6px}
+.cnt{min-width:17px;height:17px;border-radius:9px;font-size:9.5px;font-weight:700;display:grid;place-items:center;padding:0 4px;font-variant-numeric:tabular-nums}
+.cnt.y{border:1px solid var(--amber-line);color:var(--amber)}
+.cnt.g{background:var(--green);color:#071a0d}
+.pulse{position:absolute;left:23px;top:9px;width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 3px color-mix(in srgb,var(--amber) 30%,transparent)}
+/* toast: new hackathon captured */
+.toast{position:absolute;left:230px;z-index:4;width:300px;background:var(--panel);border:1.5px solid var(--amber-line);border-radius:14px;padding:12px 14px;box-shadow:0 14px 34px var(--shadow)}
+.toast:before{content:"";position:absolute;left:-7px;top:18px;width:12px;height:12px;background:var(--panel);border-left:1.5px solid var(--amber-line);border-bottom:1.5px solid var(--amber-line);transform:rotate(45deg)}
+.toast .k{font-size:10px;letter-spacing:1.2px;color:var(--amber);display:flex;justify-content:space-between}
+.toast h4{margin:6px 0 4px;font-size:15px}
+.toast p{margin:0;color:var(--muted);font-size:12px}
+.toast .row{display:flex;gap:8px;margin-top:10px}
+.toast .row button{border:1px solid var(--line);background:transparent;border-radius:9px;padding:6px 10px;font-size:12px}
+.toast .row button.pri{background:var(--btn);color:var(--btn-text);border-color:transparent}
+/* flyout */
+.fly{position:absolute;left:230px;top:92px;bottom:14px;width:384px;z-index:4;background:var(--panel);border:1px solid var(--line);border-radius:22px;box-shadow:0 20px 50px var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+.pn header{padding:18px 18px 12px}
+.pn header .t{display:flex;align-items:center;justify-content:space-between}
+.pn h3{margin:0;font-size:19px}
+.pn .x{width:30px;height:30px;border-radius:9px;border:1px solid var(--line);background:transparent}
+.pn .meta{margin-top:5px;font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.pn .meta i{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px;margin-top:12px}
+.seg button{flex:1;border:0;background:transparent;padding:6px 8px;border-radius:7px;font-size:12px;color:var(--muted)}
+.seg button.on{background:var(--active);color:var(--text)}
+.seg em{font-style:normal;margin-left:4px;font-size:11px;opacity:.75}
+.key{display:flex;gap:14px;font-size:11px;color:var(--muted);margin-top:10px}
+.key span{display:flex;gap:6px;align-items:center}
+.key b{width:12px;height:9px;border-radius:3px;border:1.5px solid}
+.list{flex:1;overflow-y:auto;scrollbar-width:thin;padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px}
+.grp{font-size:10.5px;letter-spacing:1.3px;color:var(--muted);margin:6px 4px 0;display:flex;justify-content:space-between}
+/* cards */
+.card{position:relative;border-radius:14px;padding:12px 13px;background:var(--raised);border:1.5px solid}
+.card.y{border-color:var(--amber-line);background:linear-gradient(var(--amber-soft),var(--amber-soft)),var(--raised)}
+.card.g{border-color:var(--green-line);background:linear-gradient(var(--green-soft),var(--green-soft)),var(--raised)}
+.card .top{display:flex;align-items:center;gap:7px;font-size:10px;letter-spacing:1px;color:var(--muted)}
+.plat{border:1px solid var(--line);border-radius:6px;padding:2px 6px}
+.st{margin-left:auto;font-size:11px;letter-spacing:0;font-weight:600;display:flex;align-items:center;gap:5px}
+.y .st{color:var(--amber)}.g .st{color:var(--green)}
+.st i{width:6px;height:6px;border-radius:50%;background:currentColor}
+.demo{font-size:10px;border:1px dashed var(--line);border-radius:5px;padding:1px 5px;color:var(--muted);letter-spacing:0}
+.card h4{margin:7px 0 8px;font-size:15px;line-height:1.3}
+.date{display:flex;align-items:baseline;gap:8px;font-size:12px}.date span:first-child{flex:none}.date strong{flex:1;min-width:0}
+.date span{color:var(--muted)}
+.date strong{font-weight:600}
+.date .left{font-weight:700;white-space:nowrap}
+.y .date .left{color:var(--amber)}
+.date .left.urgent{background:var(--amber);color:#1a1300;border-radius:6px;padding:1px 7px}
+.date.unk strong{color:var(--muted);font-weight:500;border-bottom:1px dashed var(--muted)}
+.tl{display:flex;align-items:center;margin:11px 2px 4px}
+.tl i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--muted);flex:none;background:var(--raised)}
+.tl i.d{background:currentColor;border-color:currentColor}
+.tl i.n{border-color:currentColor;box-shadow:0 0 0 3px color-mix(in srgb,currentColor 22%,transparent)}
+.tl b{flex:1;height:1.5px;background:var(--line)}
+.tl b.d{background:currentColor}
+.y .tl{color:var(--amber)}.g .tl{color:var(--green)}
+.tll{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin:0 -4px}
+.res{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.res span{font-size:11px;border:1px solid var(--line);border-radius:7px;padding:3px 7px;background:var(--panel)}
+.res span em{font-style:normal;color:var(--green);margin-right:4px}
+.foot{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:11px;color:var(--muted)}
+.foot .sp{flex:1}
+.foot button{border:1px solid var(--line);background:transparent;border-radius:8px;padding:5px 9px;font-size:11.5px}
+.foot button.pri{background:var(--btn);color:var(--btn-text);border-color:transparent}
+.new{position:absolute;right:-1px;top:-8px;background:var(--green);color:#071a0d;font-size:9.5px;font-weight:800;border-radius:6px;padding:1px 6px;letter-spacing:.5px}
+/* anatomy board */
+body.board{overflow:auto;background:var(--bg)}
+.bd{padding:34px 40px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px 30px;align-items:start}
+.bd h1{grid-column:1/-1;margin:0;font-size:24px}
+.bd h1 small{display:block;color:var(--muted);font-weight:400;font-size:13px;margin-top:6px}
+.cell .cap{font-size:12px;color:var(--muted);margin:0 0 10px;line-height:1.5}
+.cell .cap b{color:var(--text);display:block;font-size:13px;margin-bottom:2px}
+.flow{grid-column:1/-1;display:flex;align-items:center;gap:14px;font-size:12.5px;color:var(--muted);border:1px dashed var(--line);border-radius:14px;padding:14px 18px}
+.flow .s{display:flex;align-items:center;gap:8px;color:var(--text)}
+.flow .sw{width:14px;height:10px;border-radius:3px;border:1.5px solid}
+/* phone */
+body.phone #base{width:390px;height:844px}
+body.phone .sheet{position:absolute;left:0;right:0;bottom:0;height:640px;background:var(--panel);border-radius:22px 22px 0 0;border-top:1px solid var(--line);box-shadow:0 -14px 40px var(--shadow);display:flex;flex-direction:column;z-index:4}
+body.phone .sheet .grab{width:40px;height:5px;border-radius:3px;background:var(--line);margin:8px auto 0}
+body.phone .scrim{left:0;top:0}
+.hd-ico{position:absolute;z-index:5;width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--panel);display:grid;place-items:center}
+</style>
+</head>
+<body>
+<script>
+const Q=new URLSearchParams(location.search),theme=Q.get('theme')||'dark',state=Q.get('state')||'open',phone=Q.get('device')==='phone';
+document.documentElement.dataset.theme=theme;
+const base=`../knowledge-iso-warehouse-2026-11-09/${phone?'09-phone-projects-dark':theme==='light'?'06-projects-overview-light':'01-projects-overview-dark'}.png`;
+
+/* ---------- cards ---------- */
+const CARDS={
+ urgent:{c:'y',plat:'DEVFOLIO',demo:1,title:'示例：AI Agents Build Week',st:'提交中',date:'11月12日 周四 23:59',left:'还剩 3 天',urgent:1,tl:[1,1],found:'grok 发现于 11-06 · 2 小时前检查'},
+ open:{c:'y',plat:'ETHGLOBAL',demo:1,title:'示例：ETHGlobal 冬季线上黑客松',st:'提交中',date:'11月23日 周一 23:59',left:'还剩 14 天',tl:[1,1],found:'grok 发现于 11-08 · 新',newcap:1},
+ wait:{c:'y',plat:'TAIKAI',demo:1,title:'示例：Solana 城市黑客松',st:'等待结果',lbl:'已截止',date:'11月2日 周一 23:59',left:'评审中',tl:[2,1],found:'尚未抓到 finalist / 获奖 · 2 小时前检查'},
+ mumbai:{c:'g',plat:'ETHGLOBAL',title:'ETHGlobal Mumbai 2026',st:'已抓到 finalist',lbl:'提交',date:'11月7日（活动 5–7日）',left:'finalist 11-07',tl:[4,0],res:['CopeyBara','Tap2ETH','RupeeRail','Bramble','Aven'],resLabel:'Finalist 5 · 获奖待公布',newRes:1,go:'在项目库查看 5 个'},
+ hackster:{c:'g',plat:'HACKSTER',title:'Invent the Future with Arduino UNO Q',st:'已抓到获奖作品',date:'9月13日',left:'结果 2026-10',tl:[4,0],res:['Best in Show · Edge-AI Spectrophotometer','Best Social Impact · Smart Water Guardian AI','+4'],resLabel:'获奖 6',go:'在项目库查看 6 个'},
+ tokyo:{c:'g',plat:'ETHGLOBAL',title:'ETHGlobal Tokyo 2026',st:'已抓到 finalist',lbl:'提交',date:'9月27日（活动 25–27日）',left:'',tl:[4,0],res:['Takarabako','yohaku','Enconomy'],resLabel:'Finalist 3',go:'在项目库查看 3 个'},
+ gsc:{c:'g',plat:'GOOGLE',title:'Google Solution Challenge 2026 · India',st:'已抓到 finalist',date:'提交日期',unk:1,left:'',tl:[4,0],res:['Echo (TeamCookie())'],resLabel:'Top 14 中已收录 1',go:'在项目库查看 1 个'}
+};
+const STEPS=['发现','提交','评审','结果'];
+function tl(done,now){let h='<div class="tl">';STEPS.forEach((s,i)=>{const cls=i<done?'d':i===done&&now?'n':'';h+=`<i class="${cls}"></i>`;if(i<3)h+=`<b class="${i+1<done||(i+1===done&&now)?'d':''}"></b>`;});return h+`</div><div class="tll">${STEPS.map(s=>`<span>${s}</span>`).join('')}</div>`;}
+function card(k){const d=CARDS[k];return `<div class="card ${d.c}">${d.newRes?'<span class="new">新结果</span>':''}${d.newcap?'<span class="new" style="background:var(--amber);color:#1a1300">新发现</span>':''}
+ <div class="top"><span class="plat">${d.plat}</span>${d.demo?'<span class="demo">示例</span>':''}<span class="st"><i></i>${d.st}</span></div>
+ <h4>${d.title}</h4>
+ <div class="date${d.unk?' unk':''}"><span>${d.unk?'提交日期':d.lbl||'提交截止'}</span>${d.unk?'<strong>官方未写明 · 待确认</strong>':`<strong>${d.date}</strong>`}${d.left?`<span class="left${d.urgent?' urgent':''}">${d.left}</span>`:''}</div>
+ ${tl(d.tl[0],d.tl[1])}
+ ${d.res?`<div class="res">${d.res.map(r=>`<span>${r.startsWith('+')?r:`<em>★</em>${r}`}</span>`).join('')}</div>`:''}
+ <div class="foot">${d.res?`<span>${d.resLabel}</span><span class="sp"></span><button class="pri">${d.go} →</button>`:`<span>${d.found}</span><span class="sp"></span><button>原始页面 ↗</button>`}</div></div>`;}
+
+function sidebar(open){return `<aside class="side">
+ <div class="ws"><i></i>LYDIA WORKSPACE</div><div class="proj">◉ 我的 Hackathon 项目</div><small>工作区</small>
+ <div class="nav on"><span>▭ 项目库</span><span style="color:var(--muted)">37</span></div>
+ <div class="sub">全部比赛项目</div><div class="sub">采集平台</div><div class="sel"><span>全部平台</span><span>⌄</span></div>
+ <div class="nav">◫ Idea 实验台</div><div class="nav">◌ Lydia 研究</div><div class="nav">☆ 我的 Idea</div><div class="nav">✱ 采集项目</div>
+ <button class="nav track${open?' open':''}" id="trackBtn"><span class="lab"><span class="ico"></span>追踪 Hackathon</span><span class="cnts"><span class="cnt y" title="追踪中">3</span><span class="cnt g" title="新结果">1</span></span>${open?'':'<span class="pulse"></span>'}</button>
+ <div class="nav">❐ 新闻与资讯</div></aside>`;}
+
+function panel(){return `<header><div class="t"><h3>追踪 Hackathon</h3><button class="x" aria-label="关闭">×</button></div>
+ <div class="meta"><i></i>grok bot 每 6 小时检查一次 · 上次 02:40 · 时间为 GMT+8</div>
+ <div class="seg"><button class="on">全部<em>6</em></button><button>追踪中<em>3</em></button><button>已有结果<em>3</em></button></div>
+ <div class="key"><span><b style="border-color:var(--amber-line);background:var(--amber-soft)"></b>追踪中，还没有结果</span><span><b style="border-color:var(--green-line);background:var(--green-soft)"></b>已抓到 finalist / 获奖</span></div></header>
+ <div class="list"><div class="grp"><span>追踪中 · 按截止时间</span><span>3</span></div>${card('urgent')}${card('open')}${card('wait')}
+ <div class="grp"><span>已有结果 · 最新在前</span><span>3</span></div>${card('mumbai')}${card('hackster')}${card('tokyo')}</div>`;}
+
+let html='';
+if(state==='board'){
+ document.body.classList.add('board');
+ html=`<div class="bd"><h1>追踪 Hackathon · 卡片状态<small>黄色 = grok 发现、正在追踪、还没抓到结果；绿色 = 已抓到至少一个 finalist 或获奖作品。带“示例”的为占位赛事。</small></h1>
+ <div class="flow"><span class="s"><span class="sw" style="border-color:var(--amber-line);background:var(--amber-soft)"></span>grok 发现新赛事</span>→<span>侧栏按钮出现黄点 + 提示卡</span>→<span class="s">提交中 · 倒计时</span>→<span class="s">截止 · 等待结果</span>→<span class="s"><span class="sw" style="border-color:var(--green-line);background:var(--green-soft)"></span>抓到 finalist / 获奖 → 变绿</span>→<span>作品自动进入项目库对应平台区</span></div>
+ <div class="cell"><p class="cap"><b>① 新发现 · 提交中</b>右上“新发现”在打开面板后消失。显示提交截止日期、星期、时间和剩余天数。</p>${card('open')}</div>
+ <div class="cell"><p class="cap"><b>② 临近截止（≤ 3 天）</b>剩余天数改为实心黄色标签，排在列表最前。</p>${card('urgent')}</div>
+ <div class="cell"><p class="cap"><b>③ 已截止 · 等待结果</b>仍为黄色，时间线停在“评审”，说明尚未抓到结果。</p>${card('wait')}</div>
+ <div class="cell"><p class="cap"><b>④ 抓到 finalist → 绿色</b>列出已收录作品，点击进入项目库并聚焦该平台区。获奖未公布时如实显示。</p>${card('mumbai')}</div>
+ <div class="cell"><p class="cap"><b>⑤ 抓到获奖作品</b>显示奖项名称，多于两项时折叠为 +N。</p>${card('hackster')}</div>
+ <div class="cell"><p class="cap"><b>⑥ 提交日期不明确</b>官方没有写明时显示“待确认”，不推算日期。</p>${card('gsc')}</div></div>`;
+}else if(phone){
+ document.body.classList.add('phone');
+ html=`<img id="base" src="${base}" alt=""><div class="scrim"></div><div class="sheet pn"><div class="grab"></div>${panel()}</div>`;
+}else{
+ html=`<img id="base" src="${base}" alt="">${state==='open'?'<div class="scrim"></div>':''}${sidebar(state==='open')}`;
+ if(state==='open')html+=`<section class="fly pn">${panel()}</section>`;
+ if(state==='closed')html+=`<div class="toast" id="toast"><div class="k"><span>GROK BOT · 刚刚</span><span>×</span></div><h4>发现新的 Hackathon</h4><p>示例：ETHGlobal 冬季线上黑客松</p><p style="margin-top:3px">提交截止 <b style="color:var(--amber)">11月23日 23:59</b> · 还剩 14 天</p><div class="row"><button class="pri">查看追踪</button><button>稍后</button></div></div>`;
+}
+document.body.insertAdjacentHTML('beforeend',html);
+const btn=document.getElementById('trackBtn'),toast=document.getElementById('toast');
+if(btn&&toast){const r=btn.getBoundingClientRect();toast.style.top=(r.top-6)+'px';}
+window.__ready=true;
+</script>
+</body>
+</html>

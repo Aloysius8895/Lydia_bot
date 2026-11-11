@@ -1,0 +1,33 @@
+diff --git a/business/frontend/src/components/KnowledgeWorkspace.jsx b/pic/project-deep-dive-2026-11-11/proposed/KnowledgeWorkspace.jsx
+index ca1a3e1..834b6ac 100644
+--- a/business/frontend/src/components/KnowledgeWorkspace.jsx
++++ b/pic/project-deep-dive-2026-11-11/proposed/KnowledgeWorkspace.jsx
+@@ -9,6 +9,7 @@ import {titleColor,zoneKey,zoneLabel} from '../knowledge-warehouse.js';
+ import KnowledgeResults from './KnowledgeResults.jsx';
+ import KnowledgeNewsForm from './KnowledgeNewsForm.jsx';
+ import KnowledgeMaterialDetails from './KnowledgeMaterialDetails.jsx';
++import ProjectDeepDive from './ProjectDeepDive.jsx';
+ 
+ const defaults={audience:'',region:'',skills:'',time:'',budget:'',theme:''};
+ export default function KnowledgeWorkspace({theme,onToggleTheme,onReturn,onOpenCrawl,onResearch,activeCase}){
+@@ -115,6 +116,7 @@ export default function KnowledgeWorkspace({theme,onToggleTheme,onReturn,onOpenC
+  async function sync(){await act(async()=>{const r=await api('/api/knowledge/obsidian/sync','POST',{});setObsidian(await api('/api/knowledge/obsidian'));setMessage(r.connected?`Obsidian：写入 ${r.written} 篇，${r.conflicts.length} 篇需复核`:r.message);});}
+  const active=detail;
+  const filteredMessage=useMemo(()=>source?library.sources.find(s=>s.source_id===source)?.source_id:materialType==='news'?'全部媒体':'全部平台',[source,library.sources,materialType]);
++ const [deepFor,setDeepFor]=useState(null);
+  return <main className={'knowledge-workspace'+(collapsed?' kw-collapsed':'')} aria-label="知识库工作区">
+   <header className="kw-header"><button className="kw-brand" type="button" onClick={onReturn} title="返回原来的 Lydia 页面"><img src="/icons/icon.svg" alt="" width="27" height="27"/><strong>Lydia</strong></button><span className="kw-header__divider"/><span className="kw-header__name">Hackathon 工作区</span><nav aria-label="知识库视图"><button type="button" className="kw-logic" title="返回 Lydia 商业逻辑研究" onClick={onReturn}>商业逻辑</button><button type="button" aria-current={bench?undefined:'page'} onClick={()=>{setBench(null);switchMaterial('hackathon');setResults(false);}}>项目库</button><button type="button" aria-current={bench==='lab'?'page':undefined} onClick={()=>openBench('lab')}>Idea 实验台</button></nav><label className="kw-global-search"><Icon name="search" size={17}/><input aria-label="搜索比赛项目" placeholder="搜索项目、探索下一个方向…" value={query} onChange={e=>{setQuery(e.target.value);setOffset(0);}}/></label><button className="kw-theme" type="button" aria-label={theme==='dark'?'切换到白天模式':'切换到黑夜模式'} onClick={onToggleTheme}><Icon name={theme==='dark'?'moon':'sun'} size={19}/></button><button type="button" className="kw-return" onClick={onReturn}>商业逻辑 <span>↗</span></button></header>
+   <div className="kw-layout">
+@@ -140,10 +142,11 @@ export default function KnowledgeWorkspace({theme,onToggleTheme,onReturn,onOpenC
+      <div className="kw-tray__heading"><span className="kw-tray__icon">▱</span><div><strong>分析托盘 <small>{projectIds.length} 项目 · {newsIds.length} 新闻 / 共 {tray.length} 条</small></strong><p>新闻变化 × 项目机制 → 新的 idea</p></div></div><div className="kw-tray__items">{tray.map((p,n)=><span key={p.id} data-kind={p.kind||'hackathon'}><b className="kw-tray__num" style={{'--book':colorOf(p)}}>{n+1}</b><i>{p.kind==='news'?'新闻':'项目'}</i><span className="kw-tray-label">{p.title}</span><button type="button" aria-label={'移除 '+p.title} onClick={()=>setTray(list=>list.filter(i=>i.id!==p.id))}>×</button></span>)}</div><div className="kw-tray__actions"><button type="button" title="设置团队、时间与预算" onClick={()=>openBench('lab')}><Icon name="settings" size={17}/><span>条件</span></button><button className="kw-primary" type="button" disabled={busy||!!pending||tray.length<2||!ready} onClick={analyze}>{pending?'分析中…':'分析并生成'}<span>↗</span></button>{run&&<button type="button" className="kw-result-toggle" onClick={()=>setResults(v=>!v)}><Icon name="chevronUp" size={17}/>结果</button>}</div>
+     </div>
+     {results&&<KnowledgeResults run={run} stale={stale} busy={busy} onClose={()=>setResults(false)} onCancel={()=>act(async()=>setRun(await api('/api/knowledge/runs/'+run.id+'/cancel','POST',{})))} onSave={save} saved={saved}/>}
++    {deepFor&&deepFor.id===active?.id&&<ProjectDeepDive key={deepFor.id} project={deepFor} onClose={()=>setDeepFor(null)}/>}
+    </section>
+    <aside className="kw-inspector" aria-label="项目详情与我的 Idea 书架">
+     <section className="kw-detail">
+-    {<KnowledgeMaterialDetails active={active} selected={selected} materialType={materialType} onAdd={add} onGenerateBrief={generateBrief} briefStatus={briefStatus}/>}
++    {<KnowledgeMaterialDetails active={active} selected={selected} materialType={materialType} onAdd={add} onGenerateBrief={generateBrief} onDeepDive={setDeepFor} briefStatus={briefStatus}/>}
+     </section>
+     <section className="kw-saved"><h2>我的 Idea 书架 <small>{saved.length}</small></h2><IdeaShelf ideas={saved} selected={bench==='ideas'?benchIdea:null} onSelect={i=>openBench('ideas',i.id)} onDrop={value=>{if(value!=='')void save(value);}}/></section>
+     <footer className="kw-obsidian"><div><span className={'kw-connection-dot'+(obsidian?.connected?' is-connected':'')}/><strong>Obsidian</strong><small>{obsidian?.connected?'已连接 · 每分钟同步':'未连接'}</small></div><p>{obsidian?.connected?'项目、Idea 与研究摘要 → Vault / Lydia':'未发现可用 Vault，请先在本机 Obsidian 打开资料库。'}</p>{obsidian?.last?.at&&<small>最近同步 {new Date(obsidian.last.at).toLocaleTimeString()}{obsidian.last.conflicts?.length?' · 有笔记待复核':''}</small>}<button type="button" onClick={sync} disabled={busy||!obsidian?.connected}>立即同步 <Icon name="share" size={14}/></button></footer>

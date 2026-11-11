@@ -1,8 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {Store} from '../../data/database/store.ts';
+import {Store} from '../../data/data_preprocessing/database/store.ts';
 import {ClaudeCLI} from '../agents/providers/claude.ts';
-import {rerank} from '../../data/RAG/rerank.ts';
+import {rerank} from '../../data/data_preprocessing/RAG/rerank.ts';
 test('reranker validates IDs, permits empty abstention, and caches by case and content version',async()=>{
   const store=await Store.open();let calls=0;const matches=[{id:'TEST_ONLY-A',version:1,title:'test',content:'招聘需求',source_id:'E001'},{id:'TEST_ONLY-B',version:1,title:'other',content:'库存需求',source_id:'E002'}];
   const cli={options:{noOverageConfirmed:true},run:async()=>{calls++;return {data:{rankings:[{index:0,items:[{id:'TEST_ONLY-A',relevance:'HIGH',reason:'招聘相关'}]}]}};}} as unknown as ClaudeCLI;

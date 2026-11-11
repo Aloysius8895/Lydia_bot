@@ -3,7 +3,7 @@ import http from 'node:http';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {renderPage} from '../../crawl/fetch/browser.ts';
 import {denyProxy} from '../../crawl/fetch/deny-proxy.ts';
-import {validatePublicURL} from '../../data/RAG/sources.ts';
+import {validatePublicURL} from '../../data/data_preprocessing/RAG/sources.ts';
 import type {FetchResult} from '../../crawl/types.ts';
 const requested:string[]=[];let privateHits=0;
 const trap=http.createServer((req,res)=>{privateHits++;res.end('PRIVATE_SENTINEL');});await new Promise<void>(r=>trap.listen(0,'127.0.0.1',r));const port=(trap.address() as any).port;

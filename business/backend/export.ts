@@ -1,6 +1,6 @@
 import { mkdir, writeFile, realpath } from 'node:fs/promises';
 import path from 'node:path';
-import { Store, type Row } from '../../data/database/store.ts';
+import { Store, type Row } from '../../data/data_preprocessing/database/store.ts';
 import { assert } from '../shared/config.ts';
 
 export async function exportCase(store:Store,caseId:string,root:string){

@@ -1,0 +1,25 @@
+/* Draggable dividers for the side panels (panel-resize.jsx). Desktop only. */
+.panel-resize{position:absolute;z-index:30;width:16px;margin-left:-8px;cursor:col-resize;touch-action:none;outline:none}
+.panel-resize[hidden]{display:none}
+.panel-resize::after{content:"";position:absolute;left:7px;top:26px;bottom:26px;width:2px;border-radius:2px;background:var(--panel-resize-line,#7b8089);opacity:0;transition:opacity .12s ease}
+.panel-resize:hover::after,.panel-resize:focus-visible::after{opacity:.45}
+.panel-resize.is-dragging::after{opacity:.85}
+:root[data-theme=dark]{--panel-resize-line:#a8adb6}
+:root.is-panel-resizing,:root.is-panel-resizing *{cursor:col-resize!important;user-select:none!important}
+@media(max-width:760px){.panel-resize{display:none}}
+/* Stay under the knowledge sidebar's collapse button (z-index 4), which sits in the same gap. */
+.kw-layout>.panel-resize{z-index:3}
+
+/* Main Lydia page: left sidebar | conversation | research panel. */
+.app:not(.app--mobile){position:relative}
+.app.app--left-sized:not(.app--mobile)>.sidebar{flex:0 0 var(--lydia-left)}
+.app.app--right-sized:not(.app--mobile)>.research-panel{flex:0 0 var(--lydia-right);width:min(var(--lydia-right),calc(100vw - 28px))}
+
+/* Knowledge workspace: same three columns, the chosen widths replace the defaults. */
+@media(min-width:761px){
+ .kw-layout{position:relative;--kw-left-d:225px;--kw-right-d:306px;--kw-mini:66px;grid-template-columns:var(--kw-left,var(--kw-left-d)) minmax(0,1fr) var(--kw-right,var(--kw-right-d))}
+ .kw-collapsed .kw-layout{grid-template-columns:var(--kw-mini) minmax(0,1fr) var(--kw-right,var(--kw-right-d))}
+}
+@media(min-width:1700px){.kw-layout{--kw-left-d:255px;--kw-right-d:350px;--kw-mini:72px}}
+@media(min-width:761px) and (max-width:1180px){.kw-layout{--kw-left-d:190px;--kw-right-d:255px;--kw-mini:60px}}
+@media(min-width:761px) and (max-width:850px){.knowledge-workspace .kw-layout{grid-template-columns:58px minmax(0,1fr) var(--kw-right,240px)}}

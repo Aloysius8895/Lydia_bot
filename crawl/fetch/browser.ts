@@ -2,11 +2,11 @@ import {access} from 'node:fs/promises';
 import {chromium,type Browser} from '../../business/shared/browser.ts';
 import {denyProxy} from './deny-proxy.ts';
 import {fetchPage,decodedBytes,robotsAllowed,userAgent,classify} from './http.ts';
-import {validatePublicURL} from '../../data/RAG/sources.ts';
-import {document as parseDocument,find,attr,tag} from '../../data/crawl/html.ts';
+import {validatePublicURL} from '../../data/data_preprocessing/RAG/sources.ts';
+import {document as parseDocument,find,attr,tag} from '../../data/data_preprocessing/crawl/html.ts';
 import {AppError} from '../../business/shared/config.ts';
 import type {FetchResult} from '../types.ts';
-import {readOnlyGraphQL} from '../../data/crawl/graphql.ts';
+import {readOnlyGraphQL} from '../../data/data_preprocessing/crawl/graphql.ts';
 
 const staticCache=new Map<string,{response:FetchResult;expires:number}>();let staticCacheBytes=0;
 export function browserReadySelector(source:string,url:string){

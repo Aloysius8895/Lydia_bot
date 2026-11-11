@@ -1,0 +1,14 @@
+{
+ "started": "2026-11-10T18:39:28.868Z",
+ "steps": [
+  {
+   "label": "research",
+   "status": "COMPLETED",
+   "error": null,
+   "seconds": 183
+  }
+ ],
+ "case": "0990d196-6081-4ac5-9531-48330e5dd979",
+ "gaps": [],
+ "error": "Error: research produced no gap candidates\n    at file:///C:/maven/business_agent/pic/outputs-page-2026-11-11/run-pipeline.ts:39:24"
+}

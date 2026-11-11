@@ -1,10 +1,10 @@
 import {z} from 'zod';
-import {Store,type Row} from '../../data/database/store.ts';
-import {CallStore,type CallRole} from '../../data/database/calls.ts';
+import {Store,type Row} from '../../data/data_preprocessing/database/store.ts';
+import {CallStore,type CallRole} from '../../data/data_preprocessing/database/calls.ts';
 import {Skills} from './skills.ts';
 import {ClaudeCLI} from './providers/claude.ts';
-import {Embedding} from '../../data/RAG/providers/embedding.ts';
-import {retrieve} from '../../data/RAG/retrieval.ts';
+import {Embedding} from '../../data/data_preprocessing/RAG/providers/embedding.ts';
+import {retrieve} from '../../data/data_preprocessing/RAG/retrieval.ts';
 import {buildProjectContext} from './research.ts';
 import {reviewCitations} from './citations.ts';
 import {AppError,assert} from '../shared/config.ts';
@@ -101,7 +101,7 @@ export class Dialogue {
       const call=await this.calls.call(turn.case_id,turn.call_id);
       const ctx=await this.context(turn,call);const contextMs=Date.now()-t0;
       let startedAt=0;
-      const result=await this.cli.run(ctx.prompt,dialogueJSON,abort.signal,{profile:'dialogue',onStart:async()=>{startedAt=Date.now();assert(await this.calls.markThinking(turnId,{started_at:new Date().toISOString(),context_ms:contextMs,queue_wait_ms:startedAt-t0-contextMs}),'CANCELLED','已取消',409);}});
+      const result=await this.cli.run(ctx.prompt,dialogueJSON,abort.signal,{profile:'dialogue',tier:'voice',onStart:async()=>{startedAt=Date.now();assert(await this.calls.markThinking(turnId,{started_at:new Date().toISOString(),context_ms:contextMs,queue_wait_ms:startedAt-t0-contextMs}),'CANCELLED','已取消',409);}});
       const modelReturned=Date.now();
       const parsed=dialogueSchema.parse(result.data),reply={...parsed,display_text:parsed.display_text||parsed.spoken_text};
       const available=new Set(ctx.evidence.map(e=>e.id));

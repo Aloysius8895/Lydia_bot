@@ -1,0 +1,5 @@
+.knowledge-workspace .kw-detail button.kw-match{width:auto;height:auto;margin-top:13px;padding:5px 13px 5px 8px;border-radius:999px}
+.kw-match svg{width:20px;height:20px}
+.kw-match>span{display:inline;font-size:12.5px;font-weight:600;white-space:nowrap}
+.kw-detail{container-type:inline-size}
+@container (max-width:240px){.kw-match>span{display:none}.knowledge-workspace .kw-detail button.kw-match{width:40px;height:40px;margin-top:10px;padding:0;border-radius:50%}}

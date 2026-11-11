@@ -5,10 +5,10 @@ import {mkdtemp} from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import {createApp} from '../backend/server.ts';
-import {ingest} from '../../data/RAG/retrieval.ts';
+import {ingest} from '../../data/data_preprocessing/RAG/retrieval.ts';
 import {speakable,overallLabel} from '../agents/dialogue.ts';
-import {Store} from '../../data/database/store.ts';
-import {CallStore} from '../../data/database/calls.ts';
+import {Store} from '../../data/data_preprocessing/database/store.ts';
+import {CallStore} from '../../data/data_preprocessing/database/calls.ts';
 
 // TEST_ONLY: CLI auth/process are replaced. Nothing here is real speech, real recognition or real model inference.
 let app:Awaited<ReturnType<typeof createApp>>,server:http.Server,origin:string,cookie='',csrf='';

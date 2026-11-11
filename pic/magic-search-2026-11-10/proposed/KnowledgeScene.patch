@@ -1,0 +1,42 @@
+﻿diff --git a/business/frontend/src/components/KnowledgeScene.jsx b/pic/magic-search-2026-11-10/proposed/KnowledgeScene.jsx
+index a83d9a3..c2ba9b1 100644
+--- a/business/frontend/src/components/KnowledgeScene.jsx
++++ b/pic/magic-search-2026-11-10/proposed/KnowledgeScene.jsx
+@@ -13,13 +13,14 @@ export function dragProject(event,project){
+ }
+ 
+ /* The warehouse engine owns the SVG, labels and camera; React only feeds it data. */
+-const KnowledgeScene=forwardRef(function KnowledgeScene({projects,selected,onSelect,onAdd,materialType='hackathon',tray=[],view='iso',onFocusChange,onColors},ref){
+- const host=useRef(null),viewport=useRef(null),cam=useRef(null),world=useRef(null),labels=useRef(null),hits=useRef(null),zoom=useRef(null),engine=useRef(null);
+- const handlers=useRef({});handlers.current={onSelect,onAdd,onFocusChange,onColors};
++const KnowledgeScene=forwardRef(function KnowledgeScene({projects,selected,onSelect,onAdd,materialType='hackathon',tray=[],view='iso',onFocusChange,onColors,searches=[],onRemoveSearch},ref){
++ const host=useRef(null),viewport=useRef(null),cam=useRef(null),world=useRef(null),flight=useRef(null),labels=useRef(null),ctrls=useRef(null),hits=useRef(null),zoom=useRef(null),engine=useRef(null);
++ const handlers=useRef({});handlers.current={onSelect,onAdd,onFocusChange,onColors,onRemoveSearch};
+  const [touch,setTouch]=useState(false);
+  useLayoutEffect(()=>{
+-  const w=new Warehouse({viewport:viewport.current,cam:cam.current,world:world.current,labels:labels.current,hits:hits.current,zoomLabel:zoom.current},{
++  const w=new Warehouse({viewport:viewport.current,cam:cam.current,world:world.current,flight:flight.current,labels:labels.current,ctrls:ctrls.current,hits:hits.current,zoomLabel:zoom.current},{
+    onSelect:id=>handlers.current.onSelect?.(id),onAdd:p=>handlers.current.onAdd?.(p),onFocus:z=>handlers.current.onFocusChange?.(z),
++   onRemoveSearch:id=>handlers.current.onRemoveSearch?.(id),
+    onColors:m=>handlers.current.onColors?.(m),onDragStart:(e,p,color)=>{dragProject(e,p);setDragGhost(e,p,color);}
+   });
+   engine.current=w;
+@@ -31,14 +32,17 @@ const KnowledgeScene=forwardRef(function KnowledgeScene({projects,selected,onSel
+  useEffect(()=>{engine.current?.setSelected(selected||null);},[selected,projects]);
+  useEffect(()=>{engine.current?.setTray(tray);},[tray.join(','),projects]);
+  useEffect(()=>{engine.current?.setView(view);},[view]);
++ // Matches are passed in full (items) so books from other pages can fly in from above.
++ useEffect(()=>{engine.current?.setSearches(searches.map(s=>({...s,items:(s.items||[]).map(p=>({...p,kind:p.kind||materialType}))})));},[searches.map(s=>s.id+s.status+(s.ids||[]).join(',')).join(';')]);
+  useImperativeHandle(ref,()=>({overview:()=>engine.current?.overview(),focus:id=>engine.current?.focus(id)}),[]);
+  const news=materialType==='news';
+  return <div className="knowledge-scene" ref={host} aria-label={news?'新闻空间资料库':'Hackathon 空间项目库'}>
+   <div className="knowledge-scene__viewport" ref={viewport}>
+-   <div className="knowledge-scene__world" ref={cam}><svg className="knowledge-scene__svg" width="1" height="1" aria-hidden="true"><g ref={world}/></svg></div>
++   <div className="knowledge-scene__world" ref={cam}><svg className="knowledge-scene__svg" width="1" height="1" aria-hidden="true"><g ref={world}/><g ref={flight} className="ks-flight"/></svg></div>
+    <div className="ks-hits" ref={hits}/>
+   </div>
+   <div className="ks-labels" ref={labels} aria-hidden="true"/>
++  <div className="ks-zone-ctrls" ref={ctrls}/>
+   {!!projects.length&&<div className="knowledge-scene__legend" aria-label="图例"><span><i className="ks-sw-multi"/>每个标题一种颜色</span><span><i className="ks-sw-sel"/>已选中</span><span><i className="ks-sw-empty"/>空位</span><span><i className="ks-sw-tray">1</i>在托盘</span><span className="ks-legend-hint">{touch?'单指移动 · 双指缩放 · 轻点区域聚焦':'拖动移动 · 滚轮缩放 · 点区域聚焦'}</span></div>}
+   {!projects.length&&<div className="knowledge-scene__empty"><span className="knowledge-empty-mark">◇</span><h2>{news?'新闻库，等待新的线索':'项目书库，等待你的第一批案例'}</h2><p>{news?'添加公开链接、粘贴新闻正文，或从现有研究资料选择新闻。':'从 Crawl 收集 Hackathon 项目后，它们会出现在这里。'}<br/>清除筛选可以查看其他资料。</p></div>}
+   <button type="button" className="ks-overview" onClick={()=>engine.current?.overview()}><span aria-hidden="true">⛶</span>查看整个书库</button>

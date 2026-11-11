@@ -1,12 +1,12 @@
 import {z} from 'zod';
 import {randomUUID} from 'node:crypto';
-import {CrawlStore} from '../../data/crawl/store.ts';
-import {Snapshots} from '../../data/crawl/snapshots.ts';
+import {CrawlStore} from '../../data/data_preprocessing/crawl/store.ts';
+import {Snapshots} from '../../data/data_preprocessing/crawl/snapshots.ts';
 import {CrawlWorker} from '../../crawl/core/worker.ts';
 import {runSchema} from '../../crawl/core/config.ts';
-import {enqueueOperation} from '../../data/crawl/operations.ts';
+import {enqueueOperation} from '../../data/data_preprocessing/crawl/operations.ts';
 import {assert} from '../shared/config.ts';
-import {relations} from '../../data/crawl/relations.ts';
+import {relations} from '../../data/data_preprocessing/crawl/relations.ts';
 import {browserExecutable} from '../../crawl/fetch/browser.ts';
 
 export class CrawlAPI {
